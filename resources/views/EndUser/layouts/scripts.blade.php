@@ -26,3 +26,17 @@
 
     <!--main/custom js-->
     <script src="{{ asset('assets/EndUser') }}/js/main.js"></script>
+
+    <script src="{{ asset('assets/EndUser') }}/js/toastr.min.js"></script>
+
+    <script>
+        // toastr.options.closeButton = true;
+        toastr.options.progressBar = true;
+        @if ($errors->any())
+            @foreach ($errors->all() as $error )
+                toastr.error("{{ $error }}");
+
+            @endforeach
+
+        @endif
+    </script>

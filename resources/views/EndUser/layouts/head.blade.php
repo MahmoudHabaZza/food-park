@@ -18,6 +18,7 @@
 
     <link rel="stylesheet" href="{{ asset('assets/EndUser') }}/css/style.css">
     <link rel="stylesheet" href="{{ asset('assets/EndUser') }}/css/responsive.css">
+    <link rel="stylesheet" href="{{ asset('assets/EndUser') }}/css/toastr.min.css">
     <!-- <link rel="stylesheet" href="{{ asset('assets/EndUser') }}/css/rtl.css"> -->
     @yield('css')
 </head>

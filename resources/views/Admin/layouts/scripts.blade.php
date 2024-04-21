@@ -21,3 +21,8 @@
 <!-- Template JS File -->
 <script src="{{ asset('assets/Admin') }}/js/scripts.js"></script>
 <script src="{{ asset('assets/Admin') }}/js/custom.js"></script>
+
+
+{{-- Toastr --}}
+<script src="{{ asset('assets/EndUser') }}/js/toastr.min.js"></script>
+

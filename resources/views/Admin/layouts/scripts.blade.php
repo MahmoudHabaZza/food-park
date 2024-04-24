@@ -26,3 +26,12 @@
 {{-- Toastr --}}
 <script src="{{ asset('assets/EndUser') }}/js/toastr.min.js"></script>
 
+<script>
+    @if($errors->any())
+        @foreach ($errors->all() as $error )
+            toastr.error("{{ $error }}")
+        @endforeach
+
+    @endif
+</script>
+

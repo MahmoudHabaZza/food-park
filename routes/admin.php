@@ -23,6 +23,7 @@ Route::group([
 
         // Profile Routes
         Route::get('profile',[ProfileController::class,'index'])->name('profile');
+        Route::put('profile/update',[ProfileController::class,'profileUpdate'])->name('profile.update');
 
 
     });

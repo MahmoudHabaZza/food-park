@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ProfileUpdatePasswordRequest;
 use App\Http\Requests\Admin\ProfileUpdateRequest;
 use App\Interfaces\Admin\ProfileRepositoryInterface;
 use App\Models\User;
@@ -26,6 +27,10 @@ class ProfileController extends Controller
 
     public function updateProfile(ProfileUpdateRequest $request) {
         return $this->profileRepository->updateProfile($request);
+    }
+
+    public function updatePassword(ProfileUpdatePasswordRequest $request) {
+        return $this->profileRepository->updatePassword($request);
     }
 
 

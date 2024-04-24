@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Admin;
 
+use App\Http\Requests\Admin\ProfileUpdatePasswordRequest;
 use App\Http\Requests\Admin\ProfileUpdateRequest;
 use App\Interfaces\Admin\ProfileRepositoryInterface;
 use Illuminate\Contracts\View\View;
@@ -25,5 +26,16 @@ class ProfileRepository implements ProfileRepositoryInterface {
 
         toastr()->success('Data Updated Successfully');
         return redirect()->back();
+    }
+
+    public function updatePassword(ProfileUpdatePasswordRequest $request) : RedirectResponse
+    {
+        $user = Auth::user();
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        toastr()->success('Password Updated Successfully');
+        return redirect()->back();
+
     }
 }

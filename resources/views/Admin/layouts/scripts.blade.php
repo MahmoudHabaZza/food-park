@@ -22,16 +22,32 @@
 <script src="{{ asset('assets/Admin') }}/js/scripts.js"></script>
 <script src="{{ asset('assets/Admin') }}/js/custom.js"></script>
 
+@yield('js')
 
 {{-- Toastr --}}
 <script src="{{ asset('assets/EndUser') }}/js/toastr.min.js"></script>
+{{-- Upload Image Preview --}}
+<script src="{{ asset('assets/Admin') }}/modules/upload-preview/assets/js/jquery.uploadPreview.min.js"></script>
 
 <script>
-    @if($errors->any())
-        @foreach ($errors->all() as $error )
-            toastr.error("{{ $error }}")
-        @endforeach
-
-    @endif
+    $.uploadPreview({
+        input_field: "#image-upload", // Default: .image-upload
+        preview_box: "#image-preview", // Default: .image-preview
+        label_field: "#image-label", // Default: .image-label
+        label_default: "Choose File", // Default: Choose File
+        label_selected: "Change File", // Default: Change File
+        no_label: false, // Default: false
+        success_callback: null // Default: null
+    });
 </script>
 
+
+
+
+<script>
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            toastr.error("{{ $error }}")
+        @endforeach
+    @endif
+</script>

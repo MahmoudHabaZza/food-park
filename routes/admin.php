@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::group([
@@ -19,7 +20,11 @@ Route::group([
     Route::middleware(['auth','role:admin'])->group(function(){
         Route::post('logout',[AdminAuthController::class,'destroy'])->name('logout');
         Route::get('dashboard',[DashboardController::class,'index'])->name('dashboard');
-        Route::post('logout',[AdminAuthController::class,'destroy'])->name('logout');
+
+        // Profile Routes
+        Route::get('profile',[ProfileController::class,'index'])->name('profile');
+
+
     });
 
 

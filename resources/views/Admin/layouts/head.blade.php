@@ -23,6 +23,10 @@
   {{-- Toastr --}}
   <link rel="stylesheet" href="{{ asset('assets/EndUser') }}/css/toastr.min.css">
 
+  {{-- Yajra Datatable  --}}
+  <link rel="stylesheet" href="{{ asset('assets/Admin') }}/css/datatables.min.css">
+
+
   @yield('css')
 <!-- Start GA -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>

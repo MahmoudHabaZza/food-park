@@ -25,6 +25,8 @@
 
 {{-- Toastr --}}
 <script src="{{ asset('assets/EndUser') }}/js/toastr.min.js"></script>
+{{-- Yajra Datatable --}}
+<script src="{{ asset('assets/EndUser') }}/js/datatables.min.js"></script>
 {{-- Upload Image Preview --}}
 <script src="{{ asset('assets/Admin') }}/modules/upload-preview/assets/js/jquery.uploadPreview.min.js"></script>
 
@@ -45,9 +47,9 @@
 
 <script>
     @if ($errors->any())
-    @foreach ($errors->all() as $error)
-    toastr.error("{{ $error }}")
-    @endforeach
+        @foreach ($errors->all() as $error)
+            toastr.error("{{ $error }}")
+        @endforeach
     @endif
 </script>
 

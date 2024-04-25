@@ -73,9 +73,12 @@
                                     data-bs-target="#v-pills-settings" type="button" role="tab"
                                     aria-controls="v-pills-settings" aria-selected="false"><span><i
                                             class="fas fa-user-lock"></i></span> Change Password </button>
-
-                                <button class="nav-link" type="button"><span> <i class="fas fa-sign-out-alt"></i>
+                                        <form action="{{ route('logout') }}" method="POST" >
+                                            @csrf
+                                            
+                                <button class="nav-link" onclick="event.preventDefault();this.closest('form').submit();" type="button"><span> <i class="fas fa-sign-out-alt"></i>
                                     </span> Logout</button>
+                                </form>
                             </div>
                         </div>
                     </div>

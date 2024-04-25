@@ -40,3 +40,5 @@
 
         @endif
     </script>
+
+    @yield('js')

@@ -30,8 +30,8 @@ Route::group(['middleware' => 'auth'],function () {
     Route::group(['prefix' => 'profile', 'as' => 'profile.', 'controller' => EndUserProfileController::class]
     ,function () {
         // update personal info
-        Route::put('update_info','updateProfile')->name('update');
-        Route::put('update_password','updatePassword')->name('update.password');
+        Route::put('profile','updateProfile')->name('update');
+        Route::put('password','updatePassword')->name('update.password');
 
     });
 });

@@ -26,4 +26,8 @@ class ProfileController extends Controller
     public function updatePassword(ProfileUpdatePasswordRequest $request) {
         return $this->profileRepository->updatePassword($request);
     }
+
+    public function updateAvatar(Request $request) {
+        return $this->profileRepository->updateAvatar($request);
+    }
 }

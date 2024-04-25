@@ -1,8 +1,8 @@
 @extends('EndUser.layouts.master')
 @section('content')
     <!--=============================
-                                BREADCRUMB START
-                            ==============================-->
+                                                    BREADCRUMB START
+                                                ==============================-->
     <section class="fp__breadcrumb" style="background: url(images/counter_bg.jpg);">
         <div class="fp__breadcrumb_overlay">
             <div class="container">
@@ -17,13 +17,13 @@
         </div>
     </section>
     <!--=============================
-                                BREADCRUMB END
-                            ==============================-->
+                                                    BREADCRUMB END
+                                                ==============================-->
 
 
     <!--=========================
-                                DASHBOARD START
-                            ==========================-->
+                                                    DASHBOARD START
+                                                ==========================-->
     <section class="fp__dashboard mt_120 xs_mt_90 mb_100 xs_mb_70">
         <div class="container">
             <div class="fp__dashboard_area">
@@ -34,8 +34,10 @@
                                 <div class="dasboard_header_img">
                                     <img src="{{ auth()->user()->avatar }}" alt="user" class="img-fluid w-100">
                                     <label for="upload"><i class="far fa-camera"></i></label>
-                                    <form id="avatar_form" enctype="multipart/form-data">
-                                        <input type="file" id="upload" hidden>
+                                    <form id="avatar_form" enctype="multipart/form-data" method="PUT">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="file" name="avatar" id="upload" hidden>
                                     </form>
                                 </div>
                                 <h2>{{ auth()->user()->name }}</h2>
@@ -1272,14 +1274,33 @@
     </div>
     <!-- CART POPUT END -->
     <!--=========================
-                                DASHBOARD END
-                            ==========================-->
+                                                    DASHBOARD END
+                                                ==========================-->
 @endsection
 @section('js')
     <script>
         $(document).ready(function() {
             $('#upload').on('change', function() {
-                alert('its working');
+                let form = $('#avatar_form')[0];
+                let formData = new FormData(form);
+
+                $.ajax({
+                    method: 'POST',
+                    url: '{{ route('profile.update.avatar') }}',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.status === 'success') {
+
+                            window.location.reload();
+                        }
+
+                    },
+                    error: function(error) {
+                        console.log(error)
+                    }
+                });
             })
         });
     </script>

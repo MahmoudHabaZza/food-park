@@ -32,6 +32,7 @@ Route::group(['middleware' => 'auth'],function () {
         // update personal info
         Route::put('profile','updateProfile')->name('update');
         Route::put('password','updatePassword')->name('update.password');
+        Route::put('avatar','updateAvatar')->name('update.avatar');
 
     });
 });

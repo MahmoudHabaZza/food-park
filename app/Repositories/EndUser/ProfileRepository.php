@@ -5,10 +5,14 @@ namespace App\Repositories\EndUser;
 use App\Http\Requests\Admin\ProfileUpdatePasswordRequest;
 use App\Http\Requests\EndUser\ProfileUpdateRequest;
 use App\Interfaces\EndUser\ProfileRepositoryInterface;
+use App\Traits\UploadFileTrait;
 use Auth;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class ProfileRepository implements ProfileRepositoryInterface {
+
+    use UploadFileTrait;
 
 public function updateProfile(ProfileUpdateRequest $request) : RedirectResponse
 {
@@ -30,6 +34,17 @@ public function updatePassword(ProfileUpdatePasswordRequest $request) : Redirect
     return redirect()->back();
 
 
+}
+
+public function updateAvatar(Request $request)
+{
+    $image_path =   $this->uploadImage($request , 'avatar' , 'uploads/EndUser/ProfileImages');
+    $user = Auth::user();
+    $user->update([
+        'avatar' => $image_path,
+    ]);
+
+    return response(['status' => 'success' , 'message' => 'Avatar Updated Successfully']);
 }
 
 }

@@ -56,7 +56,7 @@ class SliderController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return $this->sliderRepository->edit($id);
     }
 
     /**

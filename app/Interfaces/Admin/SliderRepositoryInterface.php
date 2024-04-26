@@ -9,4 +9,5 @@ interface SliderRepositoryInterface {
     public function index(SliderDataTable $dataTable);
     public function create();
     public function store(SliderCreateRequest $request);
+    public function edit(string $id);
 }

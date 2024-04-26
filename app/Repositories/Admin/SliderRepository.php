@@ -38,4 +38,9 @@ class SliderRepository implements SliderRepositoryInterface {
         return to_route('admin.Slider.index');
 
     }
+    public function edit(string $id) : View
+    {
+        $slider = Slider::findOrFail($id);
+        return view('Admin.Slider.edit',compact('slider'));
+    }
 }

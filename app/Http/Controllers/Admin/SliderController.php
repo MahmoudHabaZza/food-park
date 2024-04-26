@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\SliderDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SliderCreateRequest;
+use App\Http\Requests\Admin\SliderUpdateRequest;
 use App\Interfaces\Admin\SliderRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -62,9 +63,10 @@ class SliderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(SliderUpdateRequest $request, string $id)
     {
         //
+        return $this->sliderRepository->update($request,$id);
     }
 
     /**

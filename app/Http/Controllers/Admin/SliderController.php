@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTables\SliderDataTable;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\SliderCreateRequest;
 use App\Interfaces\Admin\SliderRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -37,9 +38,9 @@ class SliderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SliderCreateRequest $request)
     {
-        //
+        return $this->sliderRepository->store($request);
     }
 
     /**

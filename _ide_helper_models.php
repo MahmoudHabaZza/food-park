@@ -16,6 +16,38 @@ namespace App\Models{
  * 
  *
  * @property int $id
+ * @property string $image
+ * @property string|null $offer
+ * @property string $title
+ * @property string $sub_title
+ * @property string $description
+ * @property string|null $btn_link
+ * @property int $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Database\Factories\SliderFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Slider newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Slider newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Slider query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Slider whereBtnLink($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Slider whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Slider whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Slider whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Slider whereImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Slider whereOffer($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Slider whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Slider whereSubTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Slider whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Slider whereUpdatedAt($value)
+ */
+	class Slider extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
  * @property string $role
  * @property string $avatar
  * @property string $name

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('title');
             $table->string('sub_title');
             $table->string('description');
-            $table->string('btn_link');
-            $table->enum('status',['0','1'])->default('1');
+            $table->string('btn_link')->nullable();
+            $table->boolean('status')->default('1');
             $table->timestamps();
         });
     }

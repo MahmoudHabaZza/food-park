@@ -11,8 +11,8 @@
             <div class="card-header">
                 <h4>Card Header</h4>
                 <div class="card-header-action">
-                    <a href="#" class="btn btn-primary">
-                        View All
+                    <a href="{{ route('admin.Slider.create') }}" class="btn btn-primary">
+                        Create New
                     </a>
                 </div>
             </div>

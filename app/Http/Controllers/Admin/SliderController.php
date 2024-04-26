@@ -31,6 +31,7 @@ class SliderController extends Controller
     public function create()
     {
         //
+        return $this->sliderRepository->create();
     }
 
     /**

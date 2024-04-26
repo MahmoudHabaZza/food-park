@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\SliderDataTable;
 use App\Http\Controllers\Controller;
 use App\Interfaces\Admin\SliderRepositoryInterface;
 use Illuminate\Http\Request;
@@ -19,9 +20,9 @@ class SliderController extends Controller
         $this->sliderRepository = $sliderRepository;
     }
 
-    public function index()
+    public function index(SliderDataTable $dataTable)
     {
-        return $this->sliderRepository->index();
+        return $this->sliderRepository->index($dataTable);
     }
 
     /**

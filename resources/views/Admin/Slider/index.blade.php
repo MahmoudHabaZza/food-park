@@ -17,8 +17,11 @@
                 </div>
             </div>
             <div class="card-body">
-                <p>Write something here</p>
+                {{ $dataTable->table() }}
             </div>
         </div>
     </div>
+@endsection
+@section('js')
+    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
 @endsection

@@ -2,12 +2,12 @@
 
 namespace App\Repositories\Admin;
 
+use App\DataTables\SliderDataTable;
 use App\Interfaces\Admin\SliderRepositoryInterface;
-use Illuminate\Contracts\View\View;
 
 class SliderRepository implements SliderRepositoryInterface {
-    public function index() : View
+    public function index(SliderDataTable $dataTable)
     {
-        return view('Admin.Slider.index');
+        return $dataTable->render('Admin.slider.index');
     }
 }

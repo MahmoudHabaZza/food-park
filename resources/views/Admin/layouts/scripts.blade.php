@@ -26,7 +26,7 @@
 {{-- Toastr --}}
 <script src="{{ asset('assets/EndUser') }}/js/toastr.min.js"></script>
 {{-- Yajra Datatable --}}
-<script src="{{ asset('assets/EndUser') }}/js/datatables.min.js"></script>
+<script src="{{ asset('assets/Admin') }}/js/datatables.min.js"></script>
 {{-- Upload Image Preview --}}
 <script src="{{ asset('assets/Admin') }}/modules/upload-preview/assets/js/jquery.uploadPreview.min.js"></script>
 

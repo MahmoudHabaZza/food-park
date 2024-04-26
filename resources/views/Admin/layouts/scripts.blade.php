@@ -18,10 +18,6 @@
 <!-- Page Specific JS File -->
 <script src="{{ asset('assets/Admin') }}/js/page/index-0.js"></script>
 
-<!-- Template JS File -->
-<script src="{{ asset('assets/Admin') }}/js/scripts.js"></script>
-<script src="{{ asset('assets/Admin') }}/js/custom.js"></script>
-
 
 {{-- Toastr --}}
 <script src="{{ asset('assets/EndUser') }}/js/toastr.min.js"></script>
@@ -32,6 +28,12 @@
 {{-- Sweet Alert --}}
 <script src="{{ asset('assets/Admin') }}/js/sweetalert2.min.js"></script>
 
+<!-- Template JS File -->
+<script src="{{ asset('assets/Admin') }}/js/scripts.js"></script>
+<script src="{{ asset('assets/Admin') }}/js/custom.js"></script>
+
+
+{{-- Image Preview --}}
 <script>
     $.uploadPreview({
         input_field: "#image-upload", // Default: .image-upload
@@ -49,7 +51,6 @@
         $('body').on('click', '.delete-item', function(e) {
             e.preventDefault();
             let url = $(this).attr('href')
-            console.log(url)
             swal.fire({
                 title: "Are you sure?",
                 text: "You won't be able to revert this!",
@@ -79,25 +80,20 @@
             });
         })
     })
-</script>
 
-
-
-
-<script>
     @if ($errors->any())
         @foreach ($errors->all() as $error)
             toastr.error("{{ $error }}")
         @endforeach
     @endif
-</script>
 
-<script>
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     })
+
 </script>
+
 
 @yield('js')

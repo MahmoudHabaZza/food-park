@@ -25,6 +25,8 @@
 
   {{-- Yajra Datatable  --}}
   <link rel="stylesheet" href="{{ asset('assets/Admin') }}/css/datatables.min.css">
+  {{-- Sweet Alert --}}
+  <link rel="stylesheet" href="{{ asset('assets/Admin') }}/css/sweetalert2.min.css">
 
 
   @yield('css')

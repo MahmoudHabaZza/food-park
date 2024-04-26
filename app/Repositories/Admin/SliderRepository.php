@@ -11,6 +11,7 @@ use App\Traits\UploadFileTrait;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class SliderRepository implements SliderRepositoryInterface {
     use UploadFileTrait;
@@ -64,5 +65,13 @@ class SliderRepository implements SliderRepositoryInterface {
         toastr()->success('Slider Updated Successfully');
         return to_route('admin.Slider.index');
 
+    }
+    public function destroy(string $id) : RedirectResponse
+    {
+        $slider = Slider::findOrFail($id);
+        // File::delete(public_path($slider->image));
+        $slider->destroy();
+        toastr()->success('Slider Deleted Successfully');
+        return to_route('admin.Slider.index');
     }
 }

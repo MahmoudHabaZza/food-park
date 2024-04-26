@@ -74,6 +74,6 @@ class SliderController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return $this->sliderRepository->destroy($id);
     }
 }

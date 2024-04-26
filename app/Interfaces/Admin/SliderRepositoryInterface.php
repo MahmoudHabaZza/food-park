@@ -12,4 +12,5 @@ interface SliderRepositoryInterface {
     public function store(SliderCreateRequest $request);
     public function edit(string $id);
     public function update(SliderUpdateRequest $request , string $id);
+    public function destroy(string $id);
 }

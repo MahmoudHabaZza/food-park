@@ -29,6 +29,8 @@
 <script src="{{ asset('assets/Admin') }}/js/datatables.min.js"></script>
 {{-- Upload Image Preview --}}
 <script src="{{ asset('assets/Admin') }}/modules/upload-preview/assets/js/jquery.uploadPreview.min.js"></script>
+{{-- Sweet Alert --}}
+<script src="{{ asset('assets/Admin') }}/js/sweetalert2.min.js"></script>
 
 <script>
     $.uploadPreview({
@@ -40,6 +42,31 @@
         no_label: false, // Default: false
         success_callback: null // Default: null
     });
+
+
+    $(document).ready(function() {
+
+        $('body').on('click', '.delete-item', function(e) {
+            e.preventDefault();
+            swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                    });
+                }
+            });
+        })
+    })
 </script>
 
 

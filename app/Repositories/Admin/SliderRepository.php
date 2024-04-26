@@ -13,19 +13,20 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
-class SliderRepository implements SliderRepositoryInterface {
+class SliderRepository implements SliderRepositoryInterface
+{
     use UploadFileTrait;
     public function index(SliderDataTable $dataTable)
     {
         return $dataTable->render('Admin.slider.index');
     }
-    public function create() : View
+    public function create(): View
     {
         return view('Admin.Slider.create');
     }
-    public function store(SliderCreateRequest $request) : RedirectResponse
+    public function store(SliderCreateRequest $request): RedirectResponse
     {
-        $image_path = $this->uploadImage($request,'image','uploads/Admin/Sliders');
+        $image_path = $this->uploadImage($request, 'image', 'uploads/Admin/Sliders');
 
         Slider::create([
             'image' => $image_path,
@@ -39,18 +40,17 @@ class SliderRepository implements SliderRepositoryInterface {
 
         toastr()->success('Slider Created Successfully');
         return to_route('admin.Slider.index');
-
     }
-    public function edit(string $id) : View
+    public function edit(string $id): View
     {
         $slider = Slider::findOrFail($id);
-        return view('Admin.Slider.edit',compact('slider'));
+        return view('Admin.Slider.edit', compact('slider'));
     }
-    public function update(SliderUpdateRequest $request, string $id) : RedirectResponse
+    public function update(SliderUpdateRequest $request, string $id): RedirectResponse
     {
         $slider = Slider::findOrFail($id);
 
-        $image_path = $this->uploadImage($request,'image','uploads/Admin/Sliders',$slider->image);
+        $image_path = $this->uploadImage($request, 'image', 'uploads/Admin/Sliders', $slider->image);
 
         $slider->update([
             'image' => !empty($image_path) ? $image_path : $slider->image,
@@ -64,14 +64,17 @@ class SliderRepository implements SliderRepositoryInterface {
 
         toastr()->success('Slider Updated Successfully');
         return to_route('admin.Slider.index');
-
     }
-    public function destroy(string $id) : RedirectResponse
+    public function destroy(string $id)
     {
-        $slider = Slider::findOrFail($id);
-        // File::delete(public_path($slider->image));
-        $slider->destroy();
-        toastr()->success('Slider Deleted Successfully');
-        return to_route('admin.Slider.index');
+
+        try {
+            $slider = Slider::findOrFail($id);
+            File::delete(public_path($slider->image));
+            $slider->delete();
+            return response(['status' => 'success','message' => 'Deleted Successfully']);
+        } catch (\Exception $e) {
+            return response(['status' => 'error','message' => 'There is An Error']);
+        }
     }
 }

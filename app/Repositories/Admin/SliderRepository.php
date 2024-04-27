@@ -70,11 +70,11 @@ class SliderRepository implements SliderRepositoryInterface
 
         try {
             $slider = Slider::findOrFail($id);
-            File::delete(public_path($slider->image));
+            $this->removeImage($slider->image);
             $slider->delete();
-            return response(['status' => 'success','message' => 'Deleted Successfully']);
+            return response(['status' => 'success', 'message' => 'Deleted Successfully']);
         } catch (\Exception $e) {
-            return response(['status' => 'error','message' => 'There is An Error']);
+            return response(['status' => 'error', 'message' => 'There is An Error']);
         }
     }
 }

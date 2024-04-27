@@ -64,10 +64,12 @@
                     $.ajax({
                         method: "DELETE",
                         url: url,
+                        data: {_token:"{{ csrf_token() }}"},
                         success: function(response) {
                             if (response.status === 'success') {
                                 toastr.success('Deleted Successfully')
                                 $('table').DataTable().draw()
+                                // window.location.reload()
                             } else if (response.status === 'error') {
                                 console.error(response.message)
                             }
@@ -87,11 +89,11 @@
         @endforeach
     @endif
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    })
+    // $.ajaxSetup({
+    //     headers: {
+    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //     }
+    // })
 
 </script>
 

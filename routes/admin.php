@@ -31,6 +31,8 @@ Route::group([
         // Slider Routes
         Route::resource('Slider', SliderController::class);
         // Why Choose Us Routes
+        // if you have another method belongs to your resource controller , you must implement it before the resource controller
+        Route::put('why-choose-title-update', [WhyChooseUsController::class, 'updateTitle'])->name('why-choose.title');
         Route::resource('why-choose-us', WhyChooseUsController::class);
     });
 });

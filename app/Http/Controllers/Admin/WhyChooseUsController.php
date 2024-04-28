@@ -63,6 +63,10 @@ class WhyChooseUsController extends Controller
     {
         //
     }
+    public function updateTitle(Request $request)
+    {
+        return $this->why_choose_us->updateTitle($request);
+    }
 
     /**
      * Remove the specified resource from storage.

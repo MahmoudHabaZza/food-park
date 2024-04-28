@@ -22,14 +22,16 @@ class WhyChooseUsDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'whychooseus.action')
-            ->addColumn('icon',function($query) {
-                $icon = '<div class="icon icon_3">
-                <i class="far fa-hat-chef">s</i>
-            </div>';
+            ->addColumn('action', function ($query) {
+                $edit = '<a href="' . route('admin.why-choose-us.edit', $query->id) . '" class="btn btn-warning fas fa-edit mr-2"></a>';
+                $delete = '<a href="' . route('admin.why-choose-us.destroy', $query->id) . '" class="btn btn-danger delete-item fas fa-trash "></a>';
+                return $edit . $delete;
+            })
+            ->addColumn('icon', function ($query) {
+                $icon = '<i  style="font-size:50px" class="fas' . $query->icon . '" ></i>';
                 return $icon;
             })
-            ->rawColumns(['icon','action'])
+            ->rawColumns(['icon', 'action'])
             ->setRowId('id');
     }
 
@@ -47,20 +49,20 @@ class WhyChooseUsDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('whychooseus-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    ]);
+            ->setTableId('whychooseus-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            //->dom('Bfrtip')
+            ->orderBy(1)
+            ->selectStyleSingle()
+            ->buttons([
+                Button::make('excel'),
+                Button::make('csv'),
+                Button::make('pdf'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload')
+            ]);
     }
 
     /**
@@ -69,16 +71,15 @@ class WhyChooseUsDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
             Column::make('id'),
             Column::make('icon'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('title'),
+            Column::make('description'),
+            Column::computed('action')
+                ->exportable(false)
+                ->printable(false)
+                ->width(150)
+                ->addClass('text-center'),
         ];
     }
 

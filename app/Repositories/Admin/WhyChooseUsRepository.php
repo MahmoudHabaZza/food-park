@@ -41,7 +41,7 @@ class WhyChooseUsRepository implements WhyChooseUsRepositoryInterface
         $section = WhyChooseUs::findOrFail($id);
         return view('Admin.WhyChooseUs.edit', compact('section'));
     }
-    public function update(WhyChooseUsCreateRequest $request, string $id) : RedirectResponse
+    public function update(WhyChooseUsCreateRequest $request, string $id): RedirectResponse
     {
         $section = WhyChooseUs::findOrFail($id);
         $section->update([
@@ -78,5 +78,15 @@ class WhyChooseUsRepository implements WhyChooseUsRepositoryInterface
         );
         toastr()->success('Updated Successfully');
         return redirect()->back();
+    }
+    public function destroy(string $id)
+    {
+        try {
+            $section = WhyChooseUs::findOrFail($id);
+            $section->delete();
+            return response(['status' => 'success', 'message' => 'Deleted Successfully']);
+        } catch (\Exception $e) {
+            return response(['status' => 'error', 'message' => 'Something Went Wrong!']);
+        }
     }
 }

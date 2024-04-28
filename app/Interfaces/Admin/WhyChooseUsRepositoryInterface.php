@@ -12,6 +12,7 @@ interface WhyChooseUsRepositoryInterface
     public function create();
     public function store(WhyChooseUsCreateRequest $request);
     public function edit(string $id);
-    public function update(WhyChooseUsCreateRequest $request,string $id);
+    public function update(WhyChooseUsCreateRequest $request, string $id);
     public function updateTitle(Request $request);
+    public function destroy(string $id);
 }

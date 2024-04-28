@@ -74,6 +74,6 @@ class WhyChooseUsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return $this->why_choose_us->destroy($id);
     }
 }

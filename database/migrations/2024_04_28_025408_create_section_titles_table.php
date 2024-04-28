@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('section_titles', function (Blueprint $table) {
             $table->id();
+            $table->string('key')->unique()->nullable();
+            $table->string('value')->nullable();
             $table->timestamps();
         });
     }

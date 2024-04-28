@@ -23,15 +23,15 @@
                                 @csrf
                                 <div class="form-group">
                                     <label>Top Title</label>
-                                    <input type="text" class="form-control" />
+                                    <input type="text" class="form-control" name="why_choose_top_title" value="{{ $titles['why_choose_top_title'] }}" />
                                 </div>
                                 <div class="form-group">
                                     <label>Main Title</label>
-                                    <input type="text" class="form-control" />
+                                    <input type="text" class="form-control" name="why_choose_main_title" value="{{ $titles['why_choose_main_title'] }}" />
                                 </div>
                                 <div class="form-group">
                                     <label>Subtitle</label>
-                                    <input type="text" class="form-control" />
+                                    <input type="text" class="form-control" name="why_choose_sub_title" value="{{ $titles['why_choose_sub_title'] }}" />
                                 </div>
                                 <button class="btn btn-primary" type="submit" >Save</button>
 

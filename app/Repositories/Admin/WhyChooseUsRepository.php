@@ -3,10 +3,12 @@
 namespace App\Repositories\Admin;
 
 use App\DataTables\WhyChooseUsDataTable;
+use App\Http\Requests\WhyChooseUsCreateRequest;
 use App\Interfaces\Admin\WhyChooseUsRepositoryInterface;
 use App\Models\SectionTitle;
 use App\Models\WhyChooseUs;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class WhyChooseUsRepository implements WhyChooseUsRepositoryInterface
@@ -20,6 +22,18 @@ class WhyChooseUsRepository implements WhyChooseUsRepositoryInterface
     public function create(): View
     {
         return view('Admin.WhyChooseUs.create');
+    }
+    public function store(WhyChooseUsCreateRequest $request): RedirectResponse
+    {
+        WhyChooseUs::create([
+            'icon' => $request->icon,
+            'title' => $request->title,
+            'description' => $request->description,
+            'status' => $request->status,
+        ]);
+
+        toastr()->success('Section Created Successfully');
+        return to_route('admin.why-choose-us.index');
     }
     public function updateTitle(Request $request)
     {

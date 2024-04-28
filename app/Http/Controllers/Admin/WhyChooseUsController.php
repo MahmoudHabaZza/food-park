@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTables\WhyChooseUsDataTable;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\WhyChooseUsCreateRequest;
 use App\Interfaces\Admin\WhyChooseUsRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -35,9 +36,9 @@ class WhyChooseUsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(WhyChooseUsCreateRequest $request)
     {
-        //
+        return $this->why_choose_us->store($request);
     }
 
     /**

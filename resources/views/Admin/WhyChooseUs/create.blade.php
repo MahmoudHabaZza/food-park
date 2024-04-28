@@ -5,19 +5,18 @@
 @section('content')
     <div class="section">
         <div class="section-header">
-            <h1>Why Choose Us</h1>
+            <h1>Why Choose Us Section</h1>
         </div>
         <div class="card card-primary">
             <div class="card-header">
-                Create New
+                Why Choose Us Section
             </div>
             <div class="card-body">
-                <form action="{{ route('admin.Slider.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('admin.why-choose-us.store') }}" method="POST">
                     @csrf
-
                     <div class="form-group">
                         <label>Icon</label>
-                        <button role="iconpicker" class="btn btn-secondary" style="display: block"></button>
+                        <button name="icon" role="iconpicker" class="btn btn-secondary" style="display: block"></button>
                     </div>
                     <div class="form-group">
                         <label>Title</label>

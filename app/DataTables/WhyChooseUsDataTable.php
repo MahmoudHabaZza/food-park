@@ -31,7 +31,14 @@ class WhyChooseUsDataTable extends DataTable
                 $icon = '<i  style="font-size:50px" class="fas' . $query->icon . '" ></i>';
                 return $icon;
             })
-            ->rawColumns(['icon', 'action'])
+            ->addColumn('status',function ($query){
+                if($query->status === 1) {
+                    return '<div class="badge badge-success">Active</div>';
+                } else {
+                    return '<div class="badge badge-danger">Inactive</div>';
+                }
+            })
+            ->rawColumns(['icon', 'action','status'])
             ->setRowId('id');
     }
 
@@ -75,6 +82,7 @@ class WhyChooseUsDataTable extends DataTable
             Column::make('icon'),
             Column::make('title'),
             Column::make('description'),
+            Column::make('status'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

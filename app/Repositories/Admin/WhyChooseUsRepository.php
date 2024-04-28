@@ -35,6 +35,25 @@ class WhyChooseUsRepository implements WhyChooseUsRepositoryInterface
         toastr()->success('Section Created Successfully');
         return to_route('admin.why-choose-us.index');
     }
+
+    public function edit(string $id): View
+    {
+        $section = WhyChooseUs::findOrFail($id);
+        return view('Admin.WhyChooseUs.edit', compact('section'));
+    }
+    public function update(WhyChooseUsCreateRequest $request, string $id) : RedirectResponse
+    {
+        $section = WhyChooseUs::findOrFail($id);
+        $section->update([
+            'icon' => $request->icon,
+            'title' => $request->title,
+            'description' => $request->description,
+            'status' => $request->status,
+        ]);
+
+        toastr()->success('Section Updated Successfully');
+        return to_route('admin.why-choose-us.index');
+    }
     public function updateTitle(Request $request)
     {
         $request->validate([

@@ -54,15 +54,15 @@ class WhyChooseUsController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return $this->why_choose_us->edit($id);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(WhyChooseUsCreateRequest $request, string $id)
     {
-        //
+        return $this->why_choose_us->update($request, $id);
     }
     public function updateTitle(Request $request)
     {

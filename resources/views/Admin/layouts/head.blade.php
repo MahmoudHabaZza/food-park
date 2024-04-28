@@ -29,6 +29,8 @@
     <link rel="stylesheet" href="{{ asset('assets/Admin') }}/css/datatables.min.css">
     {{-- Sweet Alert --}}
     <link rel="stylesheet" href="{{ asset('assets/Admin') }}/css/sweetalert2.min.css">
+    {{-- Icon Picker --}}
+    <link rel="stylesheet" href="{{ asset('assets/Admin') }}/css/bootstrap-iconpicker.min.css">
 
 
     @yield('css')

@@ -23,6 +23,13 @@ class WhyChooseUsDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', 'whychooseus.action')
+            ->addColumn('icon',function($query) {
+                $icon = '<div class="icon icon_3">
+                <i class="far fa-hat-chef">s</i>
+            </div>';
+                return $icon;
+            })
+            ->rawColumns(['icon','action'])
             ->setRowId('id');
     }
 
@@ -68,6 +75,7 @@ class WhyChooseUsDataTable extends DataTable
                   ->width(60)
                   ->addClass('text-center'),
             Column::make('id'),
+            Column::make('icon'),
             Column::make('add your columns'),
             Column::make('created_at'),
             Column::make('updated_at'),

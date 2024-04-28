@@ -27,6 +27,8 @@
 <script src="{{ asset('assets/Admin') }}/modules/upload-preview/assets/js/jquery.uploadPreview.min.js"></script>
 {{-- Sweet Alert --}}
 <script src="{{ asset('assets/Admin') }}/js/sweetalert2.min.js"></script>
+{{-- Bootstrap Icon Picker --}}
+<script src="{{ asset('assets/Admin') }}/js/bootstrap-iconpicker.bundle.min.js"></script>
 
 <!-- Template JS File -->
 <script src="{{ asset('assets/Admin') }}/js/scripts.js"></script>
@@ -64,7 +66,9 @@
                     $.ajax({
                         method: "DELETE",
                         url: url,
-                        data: {_token:"{{ csrf_token() }}"},
+                        data: {
+                            _token: "{{ csrf_token() }}"
+                        },
                         success: function(response) {
                             if (response.status === 'success') {
                                 toastr.success('Deleted Successfully')
@@ -94,7 +98,6 @@
     //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     //     }
     // })
-
 </script>
 
 

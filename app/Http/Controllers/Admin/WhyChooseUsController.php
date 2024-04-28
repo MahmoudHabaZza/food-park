@@ -29,7 +29,7 @@ class WhyChooseUsController extends Controller
      */
     public function create()
     {
-        //
+        return $this->why_choose_us->create();
     }
 
     /**

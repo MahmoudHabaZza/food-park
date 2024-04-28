@@ -6,6 +6,7 @@ use App\DataTables\WhyChooseUsDataTable;
 use App\Interfaces\Admin\WhyChooseUsRepositoryInterface;
 use App\Models\SectionTitle;
 use App\Models\WhyChooseUs;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class WhyChooseUsRepository implements WhyChooseUsRepositoryInterface
@@ -15,6 +16,10 @@ class WhyChooseUsRepository implements WhyChooseUsRepositoryInterface
         $keys = ['why_choose_top_title', 'why_choose_main_title', 'why_choose_sub_title'];
         $titles = SectionTitle::whereIn('key', $keys)->pluck('value', 'key');
         return $datatable->render('admin.WhyChooseUs.index', compact('titles'));
+    }
+    public function create(): View
+    {
+        return view('Admin.WhyChooseUs.create');
     }
     public function updateTitle(Request $request)
     {

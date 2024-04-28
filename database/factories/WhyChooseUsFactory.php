@@ -18,6 +18,10 @@ class WhyChooseUsFactory extends Factory
     {
         return [
             //
+            'icon' => 'fa-solid fa-paperclip',
+            'title' => fake()->sentence(3),
+            'description' => fake()->paragraph(2),
+            'status' => fake()->boolean()
         ];
     }
 }

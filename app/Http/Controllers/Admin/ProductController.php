@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\ProductDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductCreateRequest;
+use App\Http\Requests\Admin\ProductUpdateRequest;
 use App\Interfaces\Admin\ProductRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -62,9 +63,10 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProductUpdateRequest $request, string $id)
     {
         //
+        return $this->productRepository->update($request, $id);
     }
 
     /**
@@ -72,6 +74,6 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return $this->productRepository->destroy($id);
     }
 }

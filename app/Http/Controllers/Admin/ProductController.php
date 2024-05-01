@@ -56,7 +56,7 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return $this->productRepository->edit($id);
     }
 
     /**

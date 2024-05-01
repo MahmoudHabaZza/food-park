@@ -47,4 +47,10 @@ class ProductRepository implements ProductRepositoryInterface
         toastr()->success('Product Created Successfully');
         return to_route('admin.product.index');
     }
+    public function edit(string $id): View
+    {
+        $product = Product::findOrFail($id);
+        $categories = Category::get();
+        return view('admin.Product.edit', compact('product','categories'));
+    }
 }

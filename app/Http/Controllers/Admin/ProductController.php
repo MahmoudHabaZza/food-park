@@ -2,17 +2,26 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\ProductDataTable;
 use App\Http\Controllers\Controller;
+use App\Interfaces\Admin\ProductRepositoryInterface;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+
+    private $productRepository;
+
+    public function __construct(ProductRepositoryInterface $productRepository)
+    {
+        $this->productRepository = $productRepository;
+    }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(ProductDataTable $dataTable)
     {
-        //
+        return $this->productRepository->index($dataTable);
     }
 
     /**
@@ -20,6 +29,7 @@ class ProductController extends Controller
      */
     public function create()
     {
+        return $this->productRepository->create();
         //
     }
 

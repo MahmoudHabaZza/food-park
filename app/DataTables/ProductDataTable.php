@@ -22,7 +22,42 @@ class ProductDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'product.action')
+            ->addColumn('action', function ($query) {
+                $edit = '<a href="' . route('admin.product.edit', $query->id) . '" class="btn btn-warning fas fa-edit "></a>';
+                $delete = '<a href="' . route('admin.product.destroy', $query->id) . '" class="btn btn-danger mx-2 delete-item fas fa-trash "></a>';
+                $more = '<div class="btn-group dropbottom">
+            <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog"></i></button>
+            <div class="dropdown-menu dropbottom" x-placement="left-start" style="position: absolute; transform: translate3d(-2px, 0px, 0px); top: 0px; left: 0px; will-change: transform;">
+              <a class="dropdown-item" href="#">Action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Separated link</a>
+            </div>
+          </div>';
+                return $edit . $delete . $more;
+            })->addColumn('thumb_image', function ($query) {
+                return "<img src='" . asset($query->thumb_image) . "'  style='width:80px;height:80px;' />";
+            })
+            ->addColumn('price', function ($query) {
+                return '$' . round($query->price, 2);
+            })
+            ->addColumn('offer_price', function ($query) {
+                return '$' . round($query->offer_price, 2);
+            })
+            ->addColumn('status', function ($query) {
+                if ($query->status === 1) {
+                    return '<div class="badge badge-success">Active</div>';
+                } else {
+                    return '<div class="badge badge-danger">Inactive</div>';
+                }
+            })
+            ->addColumn('show_at_home', function ($query) {
+                if ($query->show_at_home === 1) {
+                    return '<div class="badge badge-primary">Yes</div>';
+                } else {
+                    return '<div class="badge badge-danger">No</div>';
+                }
+            })
+            ->rawColumns(['thumb_image', 'action', 'status', 'show_at_home', 'price'])
             ->setRowId('id');
     }
 
@@ -40,20 +75,20 @@ class ProductDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('product-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    ]);
+            ->setTableId('product-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            //->dom('Bfrtip')
+            ->orderBy(1)
+            ->selectStyleSingle()
+            ->buttons([
+                Button::make('excel'),
+                Button::make('csv'),
+                Button::make('pdf'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload')
+            ]);
     }
 
     /**
@@ -62,15 +97,19 @@ class ProductDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
+
             Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('thumb_image'),
+            Column::make('name'),
+            Column::make('price'),
+            Column::make('offer_price'),
+            Column::make('status'),
+            Column::make('show_at_home'),
+            Column::computed('action')
+                ->exportable(false)
+                ->printable(false)
+                ->width(200)
+                ->addClass('text-center'),
         ];
     }
 

@@ -23,29 +23,45 @@
                     </div>
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" class="form-control" name="name" />
+                        <input type="text" class="form-control" name="name" value="{{ old('name') }} " />
                     </div>
 
                     <div class="form-group">
                         <label>Category</label>
                         <select class="form-control select2" name="category">
                             <option disabled selected value="">Choose Category</option>
-                            @foreach ($categories as $category )
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
                         <label>Price</label>
-                        <input type="text" class="form-control" name="price" />
+                        <input type="text" class="form-control" name="price" value="{{ old('price') }} " />
                     </div>
                     <div class="form-group">
                         <label>Offer Price</label>
-                        <input type="text" class="form-control" name="offer_price" />
+                        <input type="text" class="form-control" name="offer_price" value="{{ old('offer_price') }} " />
                     </div>
                     <div class="form-group">
                         <label>Short Description</label>
-                        <textarea name="short_description" id="" cols="30" rows="10" class="form-control"></textarea>
+                        <textarea name="short_description" id="" cols="30" rows="10" class="form-control">{{ old('short_description') }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Long Description</label>
+                        <textarea name="long_description" class="form-control summernote">{{ old('long_description') }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Sku</label>
+                        <input type="text" class="form-control" name="sku" value="{{ old('sku') }} " />
+                    </div>
+                    <div class="form-group">
+                        <label>Seo Title</label>
+                        <input type="text" class="form-control" name="seo_title" value="{{ old('seo_title') }} " />
+                    </div>
+                    <div class="form-group">
+                        <label>Seo Description</label>
+                        <textarea name="seo_description" class="form-control">{{ old('seo_description') }}</textarea>
                     </div>
                     <div class="form-group">
                         <label>Status</label>
@@ -58,7 +74,7 @@
                     <div class="form-group">
                         <label>Show At Home</label>
                         <select class="form-control" name="show_at_home">
-                            <option disabled selected >Choose</option>
+                            <option disabled selected>Choose</option>
                             <option value="1">Yes</option>
                             <option value="0">No</option>
                         </select>

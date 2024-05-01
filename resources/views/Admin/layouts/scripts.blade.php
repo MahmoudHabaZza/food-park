@@ -15,6 +15,8 @@
 <script src="{{ asset('assets/Admin') }}/modules/summernote/summernote-bs4.js"></script>
 <script src="{{ asset('assets/Admin') }}/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
 <script src="{{ asset('assets/Admin') }}/modules/select2/dist/js/select2.full.min.js"></script>
+<script src="{{ asset('assets/Admin') }}/modules/summernote/summernote-bs4.js"></script>
+
 
 
 <!-- Page Specific JS File -->

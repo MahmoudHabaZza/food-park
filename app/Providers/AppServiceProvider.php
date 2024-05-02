@@ -3,12 +3,14 @@
 namespace App\Providers;
 
 use App\Interfaces\Admin\CategoryRepositoryInterface;
+use App\Interfaces\Admin\ProductGalleryRepositoryInterface;
 use App\Interfaces\Admin\ProductRepositoryInterface;
 use App\Interfaces\Admin\ProfileRepositoryInterface;
 use App\Interfaces\Admin\SliderRepositoryInterface;
 use App\Interfaces\Admin\WhyChooseUsRepositoryInterface;
 use App\Interfaces\EndUser\ProfileRepositoryInterface as EndUserProfileRepositoryInterface;
 use App\Repositories\Admin\CategoryRepository;
+use App\Repositories\Admin\ProductGalleryRepository;
 use App\Repositories\Admin\ProductRepository;
 use App\Repositories\Admin\ProfileRepository;
 use App\Repositories\Admin\SliderRepository;
@@ -30,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(WhyChooseUsRepositoryInterface::class, WhyChooseUsRepository::class);
         $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
         $this->app->bind(ProductRepositoryInterface::class, ProductRepository::class);
+        $this->app->bind(ProductGalleryRepositoryInterface::class, ProductGalleryRepository::class);
     }
 
     /**

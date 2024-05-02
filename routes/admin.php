@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductGalleryController;
+use App\Http\Controllers\Admin\ProductOptionController;
+use App\Http\Controllers\Admin\ProductSizeController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\WhyChooseUsController;
@@ -50,6 +52,31 @@ Route::group([
             ],
             function () {
                 Route::get('/{product}', 'index')->name('index');
+                Route::post('/', 'store')->name('store');
+                Route::delete('/{product}', 'destroy')->name('destroy');
+            }
+        );
+        // Product Size
+        Route::group(
+            [
+                'prefix' => 'product-size',
+                'as' => 'product.size.',
+                'controller' => ProductSizeController::class,
+            ],
+            function () {
+                Route::get('/{product}', 'index')->name('index');
+                Route::post('/', 'store')->name('store');
+                Route::delete('/{product}', 'destroy')->name('destroy');
+            }
+        );
+        //Product Variants
+        Route::group(
+            [
+                'prefix' => 'product-option',
+                'as' => 'product.option.',
+                'controller' => ProductOptionController::class,
+            ],
+            function () {
                 Route::post('/', 'store')->name('store');
                 Route::delete('/{product}', 'destroy')->name('destroy');
             }

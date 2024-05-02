@@ -28,7 +28,7 @@ class ProductDataTable extends DataTable
                 $more = '<div class="btn-group dropbottom">
             <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog"></i></button>
             <div class="dropdown-menu dropbottom" x-placement="left-start" style="position: absolute; transform: translate3d(-2px, 0px, 0px); top: 0px; left: 0px; will-change: transform;">
-              <a class="dropdown-item" href="'.route('admin.product-gallery.show.index',$query->id).'">Gallery</a>
+              <a class="dropdown-item" href="' . route('admin.product.gallery.index', $query->id) . '">Gallery</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#">Separated link</a>
             </div>

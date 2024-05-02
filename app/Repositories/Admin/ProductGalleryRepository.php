@@ -13,24 +13,20 @@ use Illuminate\View\View;
 class ProductGalleryRepository implements ProductGalleryRepositoryInterface
 {
     use UploadFileTrait;
-    public function index(string $id)
+    public function index(string $product_id): View
     {
-        $product = Product::findOrFail($id);
-        return view('Admin.Product.Gallery.index',compact('id'));
-
+        $product = Product::findOrFail($product_id);
+        $images = ProductGallery::where('product_id', $product_id)->get();
+        return view('Admin.Product.Gallery.index', compact('product', 'images'));
     }
-    public function create() : View
-    {
-        return view('Admin.Product.Gallery.create');
-    }
-    public function store(Request $request) : RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'image' => ['required','image','max:3000'],
-            'product_id' => ['required','integer']
+            'image' => ['required', 'image', 'max:3000'],
+            'product_id' => ['required', 'integer']
         ]);
 
-        $image_path =  $this->uploadImage($request,'image','uploads/Admin/ProductImages');
+        $image_path =  $this->uploadImage($request, 'image', 'uploads/Admin/ProductImages');
         ProductGallery::create([
             'image' => $image_path,
             'product_id' => $request->product_id
@@ -38,5 +34,17 @@ class ProductGalleryRepository implements ProductGalleryRepositoryInterface
 
         toastr()->success('Created Successfully');
         return redirect()->back();
+    }
+    public function destroy(string $id)
+    {
+
+        try {
+            $image = ProductGallery::findOrFail($id);
+            $this->removeImage($image->image);
+            $image->delete();
+            return response(['status' => 'success', 'message' => 'Deleted Successfully']);
+        } catch (\Exception $e) {
+            return response(['status' => 'error', 'message' => 'There is An Error']);
+        }
     }
 }

@@ -17,18 +17,9 @@ class ProductGalleryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(string $id)
+    public function index(string $product_id)
     {
-        return $this->productGalleryRepository->index($id);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-        return $this->productGalleryRepository->create();
+        return $this->productGalleryRepository->index($product_id);
     }
 
     /**
@@ -38,36 +29,11 @@ class ProductGalleryController extends Controller
     {
         return $this->productGalleryRepository->store($request);
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        return $this->productGalleryRepository->destroy($id);
     }
 }

@@ -85,6 +85,27 @@ namespace App\Models{
  * 
  *
  * @property int $id
+ * @property int $product_id
+ * @property string $image
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductGallery newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductGallery newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductGallery query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductGallery whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductGallery whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductGallery whereImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductGallery whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductGallery whereUpdatedAt($value)
+ */
+	class ProductGallery extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
  * @property string|null $key
  * @property string|null $value
  * @property \Illuminate\Support\Carbon|null $created_at

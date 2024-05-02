@@ -42,8 +42,17 @@ Route::group([
         // Product Routes
         Route::resource('product', ProductController::class);
         // Product Gallery
-        Route::get('product-gallery/{product}',[ProductGalleryController::class,'index'])->name('product-gallery.show.index');
-        Route::resource('product-gallery', ProductGalleryController::class);
-
+        Route::group(
+            [
+                'prefix' => 'product-gallery',
+                'as' => 'product.gallery.',
+                'controller' => ProductGalleryController::class,
+            ],
+            function () {
+                Route::get('/{product}', 'index')->name('index');
+                Route::post('/', 'store')->name('store');
+                Route::delete('/{product}', 'destroy')->name('destroy');
+            }
+        );
     });
 });

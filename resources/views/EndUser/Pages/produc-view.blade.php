@@ -2,29 +2,29 @@
 
 @section('content')
     <!--=============================
-        BREADCRUMB START
-    ==============================-->
-    <section class="fp__breadcrumb" style="background: url(images/counter_bg.jpg);">
+            BREADCRUMB START
+        ==============================-->
+    <section class="fp__breadcrumb" style="background: url('{{ asset('assets/EndUser/images/counter_bg.jpg') }}')">
         <div class="fp__breadcrumb_overlay">
             <div class="container">
                 <div class="fp__breadcrumb_text">
                     <h1>menu Details</h1>
                     <ul>
-                        <li><a href="index.html">home</a></li>
-                        <li><a href="#">menu Details</a></li>
+                        <li><a href="{{ url('/') }}">home</a></li>
+                        <li><a href="javascript:;">menu Details</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
     <!--=============================
-        BREADCRUMB END
-    ==============================-->
+            BREADCRUMB END
+        ==============================-->
 
 
     <!--=============================
-        MENU DETAILS START
-    ==============================-->
+            MENU DETAILS START
+        ==============================-->
     <section class="fp__menu_details mt_115 xs_mt_85 mb_95 xs_mb_65">
         <div class="container">
             <div class="row">
@@ -32,16 +32,12 @@
                     <div class="exzoom hidden" id="exzoom">
                         <div class="exzoom_img_box fp__menu_details_images">
                             <ul class='exzoom_img_ul'>
-                                <li><img class="zoom ing-fluid w-100" src="images/menu1.png" alt="product"></li>
-                                <li><img class="zoom ing-fluid w-100" src="images/menu2.png" alt="product"></li>
-                                <li><img class="zoom ing-fluid w-100" src="images/menu3.png" alt="product"></li>
-                                <li><img class="zoom ing-fluid w-100" src="images/menu4.png" alt="product"></li>
-                                <li><img class="zoom ing-fluid w-100" src="images/menu5.png" alt="product"></li>
-                                <li><img class="zoom ing-fluid w-100" src="images/menu6.png" alt="product"></li>
-                                <li><img class="zoom ing-fluid w-100" src="images/menu7.png" alt="product"></li>
-                                <li><img class="zoom ing-fluid w-100" src="images/menu8.png" alt="product"></li>
-                                <li><img class="zoom ing-fluid w-100" src="images/menu1.png" alt="product"></li>
-                                <li><img class="zoom ing-fluid w-100" src="images/menu2.png" alt="product"></li>
+                                <li><img class="zoom ing-fluid w-100" src="{{ asset($product->thumb_image) }}" alt="product">
+                                </li>
+                                @foreach ($product->images as $image)
+                                    <li><img class="zoom ing-fluid w-100" src="{{ asset($image->image) }}" alt="product">
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
                         <div class="exzoom_nav"></div>
@@ -55,7 +51,7 @@
                 </div>
                 <div class="col-lg-7 wow fadeInUp" data-wow-duration="1s">
                     <div class="fp__menu_details_text">
-                        <h2>Maxican Pizza Test Better</h2>
+                        <h2>{{ $product->name }}</h2>
                         <p class="rating">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -64,50 +60,45 @@
                             <i class="far fa-star"></i>
                             <span>(201)</span>
                         </p>
-                        <h3 class="price">$320.00 <del>$350.00</del> </h3>
-                        <p class="short_description">Pizza is a savory dish of Italian origin consisting of a usually
-                            round, flattened base of leavened wheat-based dough topped with tomatoes, cheese, and often
-                            various other ingredients, which is then baked at a high temperature, traditionally in a
-                            wood-fired oven. A small pizza is sometimes called a pizzetta.</p>
+                        <h3 class="price">
+                            @if($product->offer_price > 0)
+                            ${{ $product->offer_price }} <del>${{ $product->price }}</del>
+                            @else
+                            ${{ $product->price }}
+                            @endif
+                        </h3>
+                        <p class="short_description">{{ $product->short_description }}</p>
+
+                        @if ($product->sizes()->exists())
 
                         <div class="details_size">
                             <h5>select size</h5>
+                            @foreach ($product->sizes as $size )
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="large" checked>
-                                <label class="form-check-label" for="large">
-                                    large <span>+ $350</span>
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="{{ $size->name }}"
+                                    checked>
+                                <label class="form-check-label" for="{{ $size->name }}">
+                                    {{ $size->name }} <span>+ ${{ $size->price }}</span>
                                 </label>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="medium">
-                                <label class="form-check-label" for="medium">
-                                    medium <span>+ $250</span>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="small">
-                                <label class="form-check-label" for="small">
-                                    small <span>+ $150</span>
-                                </label>
-                            </div>
-                        </div>
+                            @endforeach
 
+                        </div>
+                        @endif
+                        @if($product->options()->exists())
                         <div class="details_extra_item">
                             <h5>select option <span>(optional)</span></h5>
+                            @foreach ($product->options as $option )
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="coca-cola">
-                                <label class="form-check-label" for="coca-cola">
-                                    coca-cola <span>+ $10</span>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="7up">
-                                <label class="form-check-label" for="7up">
-                                    7up <span>+ $15</span>
-                                </label>
-                            </div>
-                        </div>
+                                <input class="form-check-input" type="checkbox" value="" id="{{ $option->name }}">
+                                <label class="form-check-label" for="{{ $option->name }}">
 
+                                {{ $option->name }}    <span>+ ${{ $option->price }}</span>
+                                </label>
+                            </div>
+                            @endforeach
+                        </div>
+                        @endif
                         <div class="details_quentity">
                             <h5>select quentity</h5>
                             <div class="quentity_btn_area d-flex flex-wrapa align-items-center">
@@ -130,8 +121,8 @@
                         <ul class="nav nav-pills" id="pills-tab" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
-                                    data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
-                                    aria-selected="true">Description</button>
+                                    data-bs-target="#pills-home" type="button" role="tab"
+                                    aria-controls="pills-home" aria-selected="true">Description</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill"
@@ -143,58 +134,7 @@
                             <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                                 aria-labelledby="pills-home-tab" tabindex="0">
                                 <div class="menu_det_description">
-                                    <p>Ipsum dolor, sit amet consectetur adipisicing elit. Doloribus consectetur
-                                        ullam in? Beatae, dolorum ad ea deleniti ratione voluptatum similique omnis
-                                        voluptas tempora optio soluta vero veritatis reiciendis blanditiis architecto.
-                                        Debitis nesciunt inventore voluptate tempora ea incidunt iste, corporis, quo
-                                        cumque facere doloribus possimus nostrum sed magni quasi, assumenda autem!
-                                        Repudiandae nihil magnam provident illo alias vero odit repellendus, ipsa nemo
-                                        itaque. Aperiam fuga, magnam quia illum minima blanditiis tempore. vero
-                                        veritatis reiciendis blanditiis architecto. Debitis nesciunt inventore voluptate
-                                        tempora ea incidunt iste, corporis, quo cumque facere doloribus possimus nostrum
-                                        sed magni quasi</p>
-                                    <ul>
-                                        <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus
-                                            consectetur ullam in</li>
-                                        <li>Dolor sit amet consectetur adipisicing elit. Earum itaque nesciunt.</li>
-                                        <li>Corporis, quo cumque facere doloribus possimus nostrum sed magni quasi.</li>
-                                        <li>Reiciendis blanditiis architecto. Debitis nesciunt inventore voluptate
-                                            tempora ea.</li>
-                                        <li>Incidunt iste, corporis, quo cumque facere doloribus possimus
-                                            nostrum sed magni quasi</li>
-                                        <li>Architecto. Debitis nesciunt inventore voluptate tempora ea incidunt iste
-                                            corporis.</li>
-                                        <li>Earum itaque nesciunt dolor laudantium placeat sed velit aspernatur.</li>
-                                        <li>Laudantium placeat sed velit aspernatur, nobis quos quibusdam distinctio
-                                            voluptatum.</li>
-                                    </ul>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum itaque nesciunt
-                                        dolor laudantium placeat sed velit aspernatur, nobis quos quibusdam distinctio
-                                        voluptatum officia vel sapiente enim, reprehenderit impedit beatae molestias
-                                        dolorum. A laborum consectetur sed quis exercitationem optio consequatur, unde
-                                        neque est odit, pariatur quae incidunt quasi dolorem nihil aliquid ut veritatis
-                                        porro eaque cupiditate voluptatem vel ad! Asperiores, praesentium. sit amet
-                                        consectetur adipisicing elit. Doloribus consectetur ullam in? Beatae, dolorum ad
-                                        ea deleniti ratione voluptatum similique omnis voluptas tempora optio soluta</p>
-
-                                    <ul>
-                                        <li>Reiciendis blanditiis architecto. Debitis nesciunt inventore voluptate
-                                            tempora ea.</li>
-                                        <li>Incidunt iste, corporis, quo cumque facere doloribus possimus
-                                            nostrum sed magni quasi</li>
-                                        <li>Architecto. Debitis nesciunt inventore voluptate tempora ea incidunt iste
-                                            corporis.</li>
-                                        <li>Earum itaque nesciunt dolor laudantium placeat sed velit aspernatur.</li>
-                                        <li>Laudantium placeat sed velit aspernatur, nobis quos quibusdam distinctio
-                                            voluptatum.</li>
-                                    </ul>
-                                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus consectetur
-                                        ullam in? Beatae, dolorum ad ea deleniti ratione voluptatum similique omnis
-                                        voluptas tempora optio soluta vero veritatis reiciendis blanditiis architecto.
-                                        Debitis nesciunt inventore voluptate tempora ea incidunt iste, corporis, quo
-                                        cumque facere doloribus possimus nostrum sed magni quasi, assumenda autem!
-                                        Repudiandae nihil magnam provident illo alias vero odit repellendus, ipsa nemo
-                                        itaque. Aperiam fuga, magnam quia illum minima blanditiis tempore.</p>
+                                    {!! $product->long_description !!}
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="pills-contact" role="tabpanel"
@@ -296,8 +236,7 @@
                                                             <input type="email" placeholder="Email">
                                                         </div>
                                                         <div class="col-xl-12">
-                                                            <textarea rows="3"
-                                                                placeholder="Write your review"></textarea>
+                                                            <textarea rows="3" placeholder="Write your review"></textarea>
                                                         </div>
                                                         <div class="col-12">
                                                             <button class="common_btn" type="submit">submit
@@ -478,20 +417,22 @@
                             <div class="details_size">
                                 <h5>select size</h5>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="large01"
-                                        checked>
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        id="large01" checked>
                                     <label class="form-check-label" for="large01">
                                         large <span>+ $350</span>
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="medium01">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        id="medium01">
                                     <label class="form-check-label" for="medium01">
                                         medium <span>+ $250</span>
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="small01">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        id="small01">
                                     <label class="form-check-label" for="small01">
                                         small <span>+ $150</span>
                                     </label>
@@ -535,5 +476,4 @@
         </div>
     </div>
     <!-- CART POPUT END -->
-
 @endsection

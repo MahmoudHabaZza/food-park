@@ -35,6 +35,8 @@ class HomeRepository implements HomeRepositoryInterface
 
     public function showProduct(string $slug): View
     {
-        return view('EndUser.Pages.produc-view');
+        $product = Product::with(['images', 'sizes', 'options'])->where(['slug' => $slug, 'status' => 1])->firstOrFail();
+
+        return view('EndUser.Pages.produc-view', compact('product'));
     }
 }

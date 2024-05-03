@@ -8,6 +8,7 @@ use App\Interfaces\Admin\ProductOptionRepositoryInterface;
 use App\Interfaces\Admin\ProductRepositoryInterface;
 use App\Interfaces\Admin\ProductSizeRepositoryInterface;
 use App\Interfaces\Admin\ProfileRepositoryInterface;
+use App\Interfaces\Admin\SettingRepositoryInterface;
 use App\Interfaces\Admin\SliderRepositoryInterface;
 use App\Interfaces\Admin\WhyChooseUsRepositoryInterface;
 use App\Interfaces\EndUser\HomeRepositoryInterface;
@@ -18,6 +19,7 @@ use App\Repositories\Admin\ProductOptionRepository;
 use App\Repositories\Admin\ProductRepository;
 use App\Repositories\Admin\ProductSizeRepository;
 use App\Repositories\Admin\ProfileRepository;
+use App\Repositories\Admin\SettingRepository;
 use App\Repositories\Admin\SliderRepository;
 use App\Repositories\Admin\WhyChooseUsRepository;
 use App\Repositories\EndUser\HomeRepository;
@@ -42,6 +44,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ProductSizeRepositoryInterface::class, ProductSizeRepository::class);
         $this->app->bind(ProductOptionRepositoryInterface::class, ProductOptionRepository::class);
         $this->app->bind(HomeRepositoryInterface::class, HomeRepository::class);
+        $this->app->bind(SettingRepositoryInterface::class, SettingRepository::class);
     }
 
     /**

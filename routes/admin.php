@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ProductGalleryController;
 use App\Http\Controllers\Admin\ProductOptionController;
 use App\Http\Controllers\Admin\ProductSizeController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\WhyChooseUsController;
 use Illuminate\Support\Facades\Route;
@@ -81,5 +82,14 @@ Route::group([
                 Route::delete('/{product}', 'destroy')->name('destroy');
             }
         );
+
+        // Settings Routes
+        Route::group([
+            'prefix' => 'setting',
+            'as' => 'setting.',
+            'controller' => SettingController::class
+        ], function () {
+            Route::get('/', 'index')->name('index');
+        });
     });
 });

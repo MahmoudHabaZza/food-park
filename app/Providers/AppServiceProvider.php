@@ -10,6 +10,7 @@ use App\Interfaces\Admin\ProductSizeRepositoryInterface;
 use App\Interfaces\Admin\ProfileRepositoryInterface;
 use App\Interfaces\Admin\SliderRepositoryInterface;
 use App\Interfaces\Admin\WhyChooseUsRepositoryInterface;
+use App\Interfaces\EndUser\HomeRepositoryInterface;
 use App\Interfaces\EndUser\ProfileRepositoryInterface as EndUserProfileRepositoryInterface;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\ProductGalleryRepository;
@@ -19,6 +20,7 @@ use App\Repositories\Admin\ProductSizeRepository;
 use App\Repositories\Admin\ProfileRepository;
 use App\Repositories\Admin\SliderRepository;
 use App\Repositories\Admin\WhyChooseUsRepository;
+use App\Repositories\EndUser\HomeRepository;
 use App\Repositories\EndUser\ProfileRepository as EndUserProfileRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -39,6 +41,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ProductGalleryRepositoryInterface::class, ProductGalleryRepository::class);
         $this->app->bind(ProductSizeRepositoryInterface::class, ProductSizeRepository::class);
         $this->app->bind(ProductOptionRepositoryInterface::class, ProductOptionRepository::class);
+        $this->app->bind(HomeRepositoryInterface::class, HomeRepository::class);
     }
 
     /**

@@ -3,32 +3,21 @@
 namespace App\Http\Controllers\EndUser;
 
 use App\Http\Controllers\Controller;
-use App\Models\SectionTitle;
-use App\Models\Slider;
-use App\Models\WhyChooseUs;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
+use App\Interfaces\EndUser\HomeRepositoryInterface;
 
 class HomeController extends Controller
 {
     //
-    public function index(): View
+
+
+    private $homeRepository;
+    public function __construct(HomeRepositoryInterface $homeRepository)
     {
-        $sliders = Slider::where('status', 1)->get();
-        $why_choose_us = WhyChooseUs::where('status', 1)->get();
-        $sectionTitles = $this->getSectionTitles();
-        $sections = WhyChooseUs::where('status', 1)->get();
-        return view('EndUser.Home.index', compact('sliders', 'why_choose_us', 'sectionTitles', 'sections'));
+        $this->homeRepository = $homeRepository;
     }
 
-    public function getSectionTitles(): Collection
+    public function index()
     {
-        $keys = [
-            'why_choose_top_title',
-            'why_choose_main_title',
-            'why_choose_sub_title'
-        ];
-        return SectionTitle::whereIn('key', $keys)->pluck('value', 'key');
+        return $this->homeRepository->index();
     }
 }

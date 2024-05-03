@@ -90,6 +90,7 @@ Route::group([
             'controller' => SettingController::class
         ], function () {
             Route::get('/', 'index')->name('index');
+            Route::put('/general-settings', 'updateGeneralSettings')->name('general-settings.update');
         });
     });
 });

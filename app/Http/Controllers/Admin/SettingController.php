@@ -18,4 +18,7 @@ class SettingController extends Controller
     {
         return $this->settingRepository->index();
     }
+    public function updateGeneralSettings(Request $request) {
+        return $this->settingRepository->updateGeneralSettings($request);
+    }
 }

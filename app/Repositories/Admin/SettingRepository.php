@@ -3,6 +3,7 @@
 namespace App\Repositories\Admin;
 
 use App\Interfaces\Admin\SettingRepositoryInterface;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class SettingRepository implements SettingRepositoryInterface
@@ -11,4 +12,8 @@ class SettingRepository implements SettingRepositoryInterface
     {
         return view('Admin.Setting.index');
     }
+    public function updateGeneralSettings(Request $request) {
+        dd($request->all());
+    }
+
 }

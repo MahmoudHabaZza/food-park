@@ -32,4 +32,9 @@ class HomeRepository implements HomeRepositoryInterface
         ];
         return SectionTitle::whereIn('key', $keys)->pluck('value', 'key');
     }
+
+    public function showProduct(string $slug): View
+    {
+        return view('EndUser.Pages.produc-view');
+    }
 }

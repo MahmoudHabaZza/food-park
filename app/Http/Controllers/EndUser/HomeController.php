@@ -20,4 +20,9 @@ class HomeController extends Controller
     {
         return $this->homeRepository->index();
     }
+
+    public function showProduct(string $slug)
+    {
+        return $this->homeRepository->showProduct($slug);
+    }
 }

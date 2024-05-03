@@ -19,22 +19,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[HomeController::class,'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('product/{slug}', [HomeController::class, 'showProduct'])->name('product.show');
 
 
 
-Route::group(['middleware' => 'auth'],function () {
-    Route::get('/dashboard',[EndUserDashboardController::class,'index'])->name('dashboard');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/dashboard', [EndUserDashboardController::class, 'index'])->name('dashboard');
 
     // Profile Routes
-    Route::group(['prefix' => 'profile', 'as' => 'profile.', 'controller' => EndUserProfileController::class]
-    ,function () {
-        // update personal info
-        Route::put('profile','updateProfile')->name('update');
-        Route::put('password','updatePassword')->name('update.password');
-        Route::put('avatar','updateAvatar')->name('update.avatar');
-
-    });
+    Route::group(
+        ['prefix' => 'profile', 'as' => 'profile.', 'controller' => EndUserProfileController::class],
+        function () {
+            // update personal info
+            Route::put('profile', 'updateProfile')->name('update');
+            Route::put('password', 'updatePassword')->name('update.password');
+            Route::put('avatar', 'updateAvatar')->name('update.avatar');
+        }
+    );
 });
 
 
@@ -43,5 +45,4 @@ Route::group(['middleware' => 'auth'],function () {
 
 
 
-require __DIR__.'/auth.php';
-
+require __DIR__ . '/auth.php';

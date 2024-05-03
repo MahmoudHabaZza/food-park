@@ -18,7 +18,7 @@ class ProductRepository implements ProductRepositoryInterface
 {
 
     use UploadFileTrait;
-    public function index(ProductDataTable $dataTable) : View|JsonResponse
+    public function index(ProductDataTable $dataTable): View|JsonResponse
     {
         return $dataTable->render('admin.Product.index');
     }
@@ -65,7 +65,6 @@ class ProductRepository implements ProductRepositoryInterface
         $product->update([
             'thumb_image' => !(empty($image_path)) ? $image_path : $product->thumb_image,
             'name' => $request->name,
-            'slug' => generateUniqueSlug('Product', $request->name),
             'category_id' => $request->category_id,
             'price' => $request->price,
             'offer_price' => $request->offer_price,
@@ -80,7 +79,7 @@ class ProductRepository implements ProductRepositoryInterface
         toastr()->success('Product Updated  Successfully');
         return to_route('admin.product.index');
     }
-    public function destroy(string $id) : Response
+    public function destroy(string $id): Response
     {
         $product = Product::findOrFail($id);
 

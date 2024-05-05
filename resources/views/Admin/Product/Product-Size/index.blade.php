@@ -94,7 +94,7 @@
                                 <tr>
                                     <th>{{ $loop->iteration }}</th>
                                     <th>{{ $size->name }}</th>
-                                    <th>${{ $size->price }}</th>
+                                    <th>{{ currencyPosition($size->price) }}</th>
                                     <th><a href="{{ route('admin.product.size.destroy',$size->id) }}" class="btn btn-danger fas fa-trash delete-item"></a></th>
                                 </tr>
                             @endforeach
@@ -128,7 +128,7 @@
                                 <tr>
                                     <th>{{ $loop->iteration }}</th>
                                     <th>{{ $option->name }}</th>
-                                    <th>${{ $option->price }}</th>
+                                    <th>{{ currencyPosition($option->price) }}</th>
                                     <th><a href="{{ route('admin.product.option.destroy',$option->id) }}" class="btn btn-danger fas fa-trash delete-item"></a></th>
                                 </tr>
                             @endforeach

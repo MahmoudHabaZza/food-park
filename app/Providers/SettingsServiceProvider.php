@@ -25,5 +25,6 @@ class SettingsServiceProvider extends ServiceProvider
         //
         $settingsService = $this->app->make(SettingsService::class);
         $settingsService->setGlobalSettings();
+        
     }
 }

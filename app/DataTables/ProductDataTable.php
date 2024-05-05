@@ -38,10 +38,10 @@ class ProductDataTable extends DataTable
                 return "<img src='" . asset($query->thumb_image) . "'  style='width:80px;height:80px;' />";
             })
             ->addColumn('price', function ($query) {
-                return '$' . round($query->price, 2);
+                return currencyPosition(round($query->price, 2));
             })
             ->addColumn('offer_price', function ($query) {
-                return '$' . round($query->offer_price, 2);
+                return currencyPosition(round($query->offer_price, 2));
             })
             ->addColumn('status', function ($query) {
                 if ($query->status === 1) {

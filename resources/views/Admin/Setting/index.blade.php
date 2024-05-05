@@ -45,7 +45,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Site Name</label>
-                                                        <input type="text" name="site_name" class="form-control" />
+                                                        <input type="text" name="site_name" class="form-control"  value="{{ config('settings.site_name'), }}" />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -62,7 +62,7 @@
                                                     <div class="form-group">
                                                         <label>Currency Icon</label>
                                                         <input type="text" name="site_currency_icon"
-                                                            class="form-control" />
+                                                            class="form-control" value="{{ config('settings.site_currency_icon') }}" />
                                                     </div>
 
                                                 </div>
@@ -71,8 +71,8 @@
                                                         <label>Currency Posision</label>
                                                         <select name="site_default_currency_position"
                                                             class="form-control select2">
-                                                            <option value="1">Right</option>
-                                                            <option value="0">Left</option>
+                                                            <option @selected(config('settings.site_default_currency_position' === 'right')) value="right">Right</option>
+                                                            <option @selected(config('settings.site_default_currency_position' === 'left')) value="left">Left</option>
                                                         </select>
                                                     </div>
                                                 </div>

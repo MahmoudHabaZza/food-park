@@ -17,7 +17,7 @@ class SettingsService
     public function setGlobalSettings()
     {
         $settings = $this->getSettings();
-        config('settings', $settings); // we store our settings globally with config()
+        config()->set('settings', $settings); // we store our settings globally with config()
     }
 
     public function clearCachedSettings()

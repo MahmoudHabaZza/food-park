@@ -45,7 +45,7 @@ class HomeRepository implements HomeRepositoryInterface
     public function loadProductModal($productId)
     {
         $product = Product::with(['sizes', 'options'])->findOrFail($productId);
-        return view('EndUser.Pages.ajax-files.product-load-modal')->render();
+        return view('EndUser.Pages.ajax-files.product-load-modal',compact('product'))->render();
         // render() => to ensure that we have html response
     }
 }

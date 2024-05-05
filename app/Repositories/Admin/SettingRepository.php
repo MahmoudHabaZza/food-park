@@ -4,6 +4,7 @@ namespace App\Repositories\Admin;
 
 use App\Interfaces\Admin\SettingRepositoryInterface;
 use App\Models\Setting;
+use App\Services\SettingsService;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -28,6 +29,9 @@ class SettingRepository implements SettingRepositoryInterface
                 ['value' => $value],
             );
         }
+
+        $settingsService = app(SettingsService::class);
+        $settingsService->clearCachedSettings();
 
         toastr()->success('Settings Uptaded Successfully');
         return redirect()->back();

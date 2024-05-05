@@ -71,8 +71,8 @@
                                                         <label>Currency Posision</label>
                                                         <select name="site_default_currency_position"
                                                             class="form-control select2">
-                                                            <option @selected(config('settings.site_default_currency_position' === 'right')) value="right">Right</option>
-                                                            <option @selected(config('settings.site_default_currency_position' === 'left')) value="left">Left</option>
+                                                            <option @selected( config('settings.site_default_currency_position') === 'right' ) value="right">Right</option>
+                                                            <option @selected( config('settings.site_default_currency_position') === 'left' ) value="left">Left</option>
                                                         </select>
                                                     </div>
                                                 </div>

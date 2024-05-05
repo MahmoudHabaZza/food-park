@@ -44,6 +44,23 @@
                 "X-CSRF-TOKEN": $('meta["name=csrf-token"]').attr('content')
             }
         });
+
+
+        function loadProductModal(productId) {
+            $.ajax({
+                method: 'GET',
+                url: '{{ route("product.load-modal", ":productIdPlaceholder") }}'.replace(":productIdPlaceholder",
+                    productId),
+                // :productIdPlaceholder is not the variable it is a placeholder and it is replaced by function replace()
+                success: function(response) {
+                    $('.product-load-modal-body').html(response)
+                    $('#cartModal').modal('show')
+                },
+                error: function(xhr, status, error) {
+                    console.error(error)
+                }
+            })
+        }
     </script>
 
     @yield('js')

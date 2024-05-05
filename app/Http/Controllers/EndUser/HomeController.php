@@ -25,4 +25,9 @@ class HomeController extends Controller
     {
         return $this->homeRepository->showProduct($slug);
     }
+
+    public function loadProductModal($productId)
+    {
+        return $this->homeRepository->loadProductModal($productId);
+    }
 }

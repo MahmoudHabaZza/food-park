@@ -36,10 +36,16 @@ class HomeRepository implements HomeRepositoryInterface
     public function showProduct(string $slug): View
     {
         $product = Product::with(['images', 'sizes', 'options'])->where(['slug' => $slug, 'status' => 1])->firstOrFail();
-        $relatedProducts = Product::where('category_id',$product->category_id)
-            ->where('id', '!=' , $product->id)->take(8)->latest()->get();
+        $relatedProducts = Product::where('category_id', $product->category_id)
+            ->where('id', '!=', $product->id)->take(8)->latest()->get();
 
 
-    return view('EndUser.Pages.produc-view', compact('product','relatedProducts'));
+        return view('EndUser.Pages.produc-view', compact('product', 'relatedProducts'));
+    }
+    public function loadProductModal($productId)
+    {
+        $product = Product::with(['sizes', 'options'])->findOrFail($productId);
+        return view('EndUser.Pages.ajax-files.product-load-modal')->render();
+        // render() => to ensure that we have html response
     }
 }

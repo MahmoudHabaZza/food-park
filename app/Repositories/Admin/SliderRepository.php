@@ -9,14 +9,16 @@ use App\Interfaces\Admin\SliderRepositoryInterface;
 use App\Models\Slider;
 use App\Traits\UploadFileTrait;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\File;
 
 class SliderRepository implements SliderRepositoryInterface
 {
     use UploadFileTrait;
-    public function index(SliderDataTable $dataTable)
+    public function index(SliderDataTable $dataTable): View | JsonResponse
     {
         return $dataTable->render('Admin.slider.index');
     }
@@ -65,7 +67,7 @@ class SliderRepository implements SliderRepositoryInterface
         toastr()->success('Slider Updated Successfully');
         return to_route('admin.Slider.index');
     }
-    public function destroy(string $id)
+    public function destroy(string $id): Response
     {
 
         try {

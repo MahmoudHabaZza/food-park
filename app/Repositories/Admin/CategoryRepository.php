@@ -8,12 +8,14 @@ use App\Http\Requests\Admin\CategoryUpdatedRequest;
 use App\Interfaces\Admin\CategoryRepositoryInterface;
 use App\Models\Category;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 use Str;
 
 class CategoryRepository implements CategoryRepositoryInterface
 {
-    public function index(CategoryDataTable $dataTable)
+    public function index(CategoryDataTable $dataTable): View | JsonResponse
     {
         return $dataTable->render('admin.Product.Category.index');
     }
@@ -53,7 +55,7 @@ class CategoryRepository implements CategoryRepositoryInterface
         toastr()->success('Category Updated Successfully');
         return to_route('admin.category.index');
     }
-    public function destroy(string $id)
+    public function destroy(string $id): Response
     {
         try {
             $category = Category::findOrFail($id);

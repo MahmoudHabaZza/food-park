@@ -5,6 +5,7 @@ namespace App\Repositories\Admin;
 use App\Interfaces\Admin\SettingRepositoryInterface;
 use App\Models\Setting;
 use App\Services\SettingsService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -14,7 +15,7 @@ class SettingRepository implements SettingRepositoryInterface
     {
         return view('Admin.Setting.index');
     }
-    public function updateGeneralSettings(Request $request)
+    public function updateGeneralSettings(Request $request) : RedirectResponse
     {
         $validatedData = $request->validate([
             'site_name' => ['required', 'max:255'],

@@ -31,7 +31,8 @@
                 @foreach ($product->sizes as $size)
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="product_size"
-                            data-price="{{ $size->price }}" value="{{ $size->id }}" id="size-{{ $size->id }}">
+                            data-price="{{ $size->price }}" value="{{ $size->id }}"
+                            id="size-{{ $size->id }}">
                         <label class="form-check-label" for="size-{{ $size->id }}">
                             {{ $size->name }} <span>+{{ currencyPosition($size->price) }}</span>
                         </label>
@@ -45,8 +46,7 @@
                 @foreach ($product->options as $option)
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="{{ $option->id }}"
-                            name="product_options[]" data-price="{{ $option->price }}"
-                            id="option-{{ $option->id }}">
+                            name="product_option[]" data-price="{{ $option->price }}" id="option-{{ $option->id }}">
                         <label class="form-check-label" for="option-{{ $option->id }}">
                             {{ $option->name }}<span>+ {{ currencyPosition($option->price) }}</span>
                         </label>
@@ -63,7 +63,11 @@
                     <input type="text" placeholder="1">
                     <button class="btn btn-success"><i class="fal fa-plus"></i></button>
                 </div>
-                <h3>$320.00</h3>
+                @if($product->offer_price > 0)
+                <h3 id="totalPrice">{{ currencyPosition($product->offer_price) }}</h3>
+                @else
+                <h3 id="totalPrice">{{ currencyPosition($product->price) }}</h3>
+                @endif
             </div>
         </div>
         <ul class="details_button_area d-flex flex-wrap">
@@ -77,15 +81,26 @@
         $('input[name="product_size"]').on('change', function() {
             updateTotalPrice()
         })
+        $('input[name="product_option[]"]').on('change', function() {
+            updateTotalPrice()
+        })
 
         function updateTotalPrice() {
-            let basePrice = $('input[name="base_price"]').val();
+            let basePrice = parseFloat($('input[name="base_price"]').val());
             let selectedSizePrice = 0;
             let selectedOptionsPrice = 0;
             let selectedSize = $('input[name="product_size"]:checked');
             if (selectedSize.length > 0) {
                 selectedSizePrice = parseFloat(selectedSize.data("price"));
             }
+            let SelectedOptions = $('input[name="product_option[]"]:checked');
+            SelectedOptions.each(function() {
+                selectedOptionsPrice += parseFloat($(this).data("price"));
+            })
+
+            let totalPrice = basePrice + selectedSizePrice + selectedOptionsPrice;
+            $('#totalPrice').text(('{{ currencyPosition(":totalPrice") }}').replace(":totalPrice",totalPrice))
+            // the placeholder is typed between "" and :
         }
     })
 </script>

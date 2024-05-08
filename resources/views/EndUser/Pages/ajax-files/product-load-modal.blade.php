@@ -59,9 +59,9 @@
             <h5>select quentity</h5>
             <div class="quentity_btn_area d-flex flex-wrapa align-items-center">
                 <div class="quentity_btn">
-                    <button class="btn btn-danger"><i class="fal fa-minus"></i></button>
-                    <input type="text" placeholder="1">
-                    <button class="btn btn-success"><i class="fal fa-plus"></i></button>
+                    <button class="btn btn-danger decrement"><i class="fal fa-minus"></i></button>
+                    <input type="text" id="quantity" value="1" readonly placeholder="1">
+                    <button class="btn btn-success increment"><i class="fal fa-plus"></i></button>
                 </div>
                 @if($product->offer_price > 0)
                 <h3 id="totalPrice">{{ currencyPosition($product->offer_price) }}</h3>
@@ -85,6 +85,28 @@
             updateTotalPrice()
         })
 
+        // handling increment button to increase the totalprice
+        $('.increment').on('click',function(e){
+            e.preventDefault();
+            let quantity = $('#quantity');
+            let currentQuantity = parseFloat(quantity.val());
+            quantity.val(currentQuantity + 1)
+            updateTotalPrice()
+        })
+        // handling decrement button to increase the totalprice
+        $('.decrement').on('click',function(e){
+            e.preventDefault();
+            let quantity = $('#quantity');
+            let currentQuantity = parseFloat(quantity.val());
+            if(currentQuantity > 1) {
+                quantity.val(currentQuantity - 1)
+                updateTotalPrice()
+            }
+        })
+
+
+
+        // function to update the total price base on the selected sizes and options and quantity
         function updateTotalPrice() {
             let basePrice = parseFloat($('input[name="base_price"]').val());
             let selectedSizePrice = 0;
@@ -98,7 +120,8 @@
                 selectedOptionsPrice += parseFloat($(this).data("price"));
             })
 
-            let totalPrice = basePrice + selectedSizePrice + selectedOptionsPrice;
+            let quantity = parseFloat($('#quantity').val())
+            let totalPrice = (basePrice + selectedSizePrice + selectedOptionsPrice) * quantity;
             $('#totalPrice').text(('{{ currencyPosition(":totalPrice") }}').replace(":totalPrice",totalPrice))
             // the placeholder is typed between "" and :
         }

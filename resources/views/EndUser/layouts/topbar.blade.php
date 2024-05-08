@@ -1,3 +1,8 @@
+<div class="overlay-container">
+    <div class="overlay">
+        <span class="loader"></span>
+    </div>
+</div>
 <section class="fp__topbar">
     <div class="container">
         <div class="row">

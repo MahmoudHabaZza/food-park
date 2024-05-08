@@ -51,6 +51,9 @@
                 method: 'GET',
                 url: '{{ route("product.load-modal", ":productIdPlaceholder") }}'.replace(":productIdPlaceholder",
                     productId),
+                beforeSend: function(){
+                    $('.overlay').addClass('active')
+                },
                 // :productIdPlaceholder is not the variable it is a placeholder and it is replaced by function replace()
                 success: function(response) {
                     $('.product-load-modal-body').html(response)
@@ -58,6 +61,9 @@
                 },
                 error: function(xhr, status, error) {
                     console.error(error)
+                },
+                complete:function(){
+                    $('.overlay').removeClass('active')
                 }
             })
         }

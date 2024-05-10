@@ -11,7 +11,10 @@ class CartRepository implements CartRepositoryInterface
 {
     public function addToCart(Request $request)
     {
-        $product = Product::with(['sizes', 'options'])->findOrFail($request->product_id);
+
+
+        try{
+            $product = Product::with(['sizes', 'options'])->findOrFail($request->product_id);
         $product_size = $product->sizes->where('id', $request->product_size)->first();
         $product_options = $product->options->whereIn('id', $request->product_option);
 
@@ -50,6 +53,12 @@ class CartRepository implements CartRepositoryInterface
             'options' => $options,
         ]);
 
-        return response(['status' => 'success', 'message' => 'Add To Card Successfully']);
+            return response(['status' => 'success', 'message' => 'Add To Card Successfully'],200);
+        }
+        catch(\Exception $e){
+            return response(['status' => 'error', 'message' => 'Something Went Wrong!'],500);
+        }
+
+
     }
 }

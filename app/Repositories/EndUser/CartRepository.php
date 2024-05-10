@@ -13,52 +13,51 @@ class CartRepository implements CartRepositoryInterface
     {
 
 
-        try{
+        try {
             $product = Product::with(['sizes', 'options'])->findOrFail($request->product_id);
-        $product_size = $product->sizes->where('id', $request->product_size)->first();
-        $product_options = $product->options->whereIn('id', $request->product_option);
+            $product_size = $product->sizes->where('id', $request->product_size)->first();
+            $product_options = $product->options->whereIn('id', $request->product_option);
 
-        $options = [
-            'product_size' => [],
-            'product_options' => [],
-            'product_info' => [
-                'image' => $product->thumb_image,
-                'slug' => $product->slug,
+            $options = [
+                'product_size' => [],
+                'product_options' => [],
+                'product_info' => [
+                    'image' => $product->thumb_image,
+                    'slug' => $product->slug,
 
 
-            ]
-        ];
-
-        if($product_size !== null) {
-            $options['product_size'][] = [
-                'id' => $product_size->id,
-                'name' => $product_size->name,
-                'price' => $product_size->price // ?-> is null safe operator
+                ]
             ];
-        }
-        foreach ($product_options as $option) {
-            $options['product_options'][] = [
-                'id' => $option?->id,
-                'name' => $option?->name,
-                'price' => $option?->price,
-            ];
-        }
 
-        Cart::add([
-            'id' => $product->id,
-            'name' => $product->name,
-            'qty' => $request->quantity,
-            'price' => $product->offer_price > 0 ? $product->offer_price : $product->price,
-            'weight' => 0,
-            'options' => $options,
-        ]);
+            if ($product_size !== null) {
+                $options['product_size'] = [
+                    'id' => $product_size->id,
+                    'name' => $product_size->name,
+                    'price' => $product_size->price // ?-> is null safe operator
+                ];
+            }
+            foreach ($product_options as $option) {
+                $options['product_options'][] = [
+                    'id' => $option?->id,
+                    'name' => $option?->name,
+                    'price' => $option?->price,
+                ];
+            }
 
-            return response(['status' => 'success', 'message' => 'Add To Card Successfully'],200);
+            Cart::destroy();
+
+            Cart::add([
+                'id' => $product->id,
+                'name' => $product->name,
+                'qty' => $request->quantity,
+                'price' => $product->offer_price > 0 ? $product->offer_price : $product->price,
+                'weight' => 0,
+                'options' => $options,
+            ]);
+
+            return response(['status' => 'success', 'message' => 'Add To Card Successfully'], 200);
+        } catch (\Exception $e) {
+            return response(['status' => 'error', 'message' => 'Something Went Wrong!'], 500);
         }
-        catch(\Exception $e){
-            return response(['status' => 'error', 'message' => 'Something Went Wrong!'],500);
-        }
-
-
     }
 }

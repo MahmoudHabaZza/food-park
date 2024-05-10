@@ -16,11 +16,7 @@ class CartRepository implements CartRepositoryInterface
         $product_options = $product->options->whereIn('id', $request->product_option);
 
         $options = [
-            'product_size' => [
-                'id' => $product_size->id,
-                'name' => $product_size->name,
-                'price' => $product_size->price
-            ],
+            'product_size' => [],
             'product_options' => [],
             'product_info' => [
                 'image' => $product->thumb_image,
@@ -29,11 +25,19 @@ class CartRepository implements CartRepositoryInterface
 
             ]
         ];
+
+        if($product_size !== null) {
+            $options['product_size'][] = [
+                'id' => $product_size->id,
+                'name' => $product_size->name,
+                'price' => $product_size->price // ?-> is null safe operator
+            ];
+        }
         foreach ($product_options as $option) {
             $options['product_options'][] = [
                 'id' => $option?->id,
                 'name' => $option?->name,
-                'price' => $option?->price, // ?-> is null safe operator
+                'price' => $option?->price,
             ];
         }
 

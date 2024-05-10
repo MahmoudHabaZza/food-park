@@ -130,6 +130,18 @@
 
         $('#modal_add_to_cart_form').on('submit',function(e){
             e.preventDefault()
+
+            // validate size if exists
+            let sizeInput = $('input[name="product_size"]');
+            if(sizeInput.length > 0) {
+                if($('input[name="product_size"]:checked').val() === undefined) {
+                    toastr.error('Please Select A Size');
+                    console.error('Please Select A Size');
+                    return;
+                }
+            }
+
+
             let formData = $(this).serialize()
             $.ajax({
                 method : 'POST',

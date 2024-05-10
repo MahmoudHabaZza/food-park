@@ -73,7 +73,7 @@
             </div>
         </div>
         <ul class="details_button_area d-flex flex-wrap">
-            <li><button type="submit" class="common_btn">add to cart</button></li>
+            <li><button type="submit" class="common_btn" id="modal_add_to_cart_button">add to cart</button></li>
         </ul>
     </div>
 </form>
@@ -147,12 +147,21 @@
                 method : 'POST',
                 url : '{{ route("add-to-cart") }}' ,
                 data: formData,
+                beforeSend:function(){
+                    $('#modal_add_to_cart_button').attr('disabled',true)
+                    $('#modal_add_to_cart_button').html('<span class="spinner-border text-light spinner-border-sm" role="status" aria-hidden="true"></span>Loading...')
+
+                },
                 success : function(response) {
                     toastr.success(response.message);
                 },
                 error:function(xhr,status,error) {
                     let errorMessage = xhr.responseJSON.message;
                     toastr.error(errorMessage);
+                },
+                complete:function(){
+                    $('#modal_add_to_cart_button').html('Add To Cart')
+                    $('#modal_add_to_cart_button').attr('disabled',false)
                 }
 
             })

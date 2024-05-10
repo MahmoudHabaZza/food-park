@@ -52,6 +52,7 @@
                 url: '{{ route("product.load-modal", ":productIdPlaceholder") }}'.replace(":productIdPlaceholder",
                     productId),
                 beforeSend: function(){
+                    $('.overlay-container').removeClass('d-none')
                     $('.overlay').addClass('active')
                 },
                 // :productIdPlaceholder is not the variable it is a placeholder and it is replaced by function replace()
@@ -64,6 +65,7 @@
                 },
                 complete:function(){
                     $('.overlay').removeClass('active')
+                    $('.overlay-container').addClass('d-none')
                 }
             })
         }

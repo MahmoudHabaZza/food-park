@@ -38,7 +38,9 @@
     ==============================-->
 
 
-@include('EndUser.layouts.scripts')
+@include('EndUser.layouts.footer-scripts')
+
+@include('EndUser.layouts.global-scripts')
 
 </body>
 

@@ -37,11 +37,13 @@ class CartRepository implements CartRepositoryInterface
                 ];
             }
             foreach ($product_options as $option) {
-                $options['product_options'] = [
+                $options['product_options'][] = [
                     'id' => $option?->id,
                     'name' => $option?->name,
                     'price' => $option?->price,
                 ];
+
+
             }
 
             Cart::add([
@@ -57,7 +59,7 @@ class CartRepository implements CartRepositoryInterface
             return response(['status' => 'success', 'message' => 'Add To Card Successfully'], 200);
         } catch (\Exception $e) {
 
-            return response(['status' => 'error', 'message' => $e->getMessage()], 500);
+            return response(['status' => 'error', 'message' => 'Something Went Wrong'], 500);
             // return response(['status' => 'error', 'message' => 'Something Went Wrong!'], 500);
         }
     }

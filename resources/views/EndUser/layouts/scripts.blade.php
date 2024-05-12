@@ -76,8 +76,10 @@
                 url: '{{ route("get-cart-products") }}',
                 success:function(response){
                     $('#cart_contents').html(response)
-                    let cartTotal = $('#cart_total').val();
+                    let cartTotal = $('#cart_total').val()
+                    let cartCount = $('#cart_product_count').val()
                     $('.cart_subtotal').text(("{{ currencyPosition(':cartTotal') }}").replace(':cartTotal',cartTotal))
+                    $('.cart_count').text(cartCount)
 
                 },
                 error:function(xhr,status,error){

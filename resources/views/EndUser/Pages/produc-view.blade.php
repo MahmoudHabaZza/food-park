@@ -110,7 +110,7 @@
                                 <div class="quentity_btn_area d-flex flex-wrapa align-items-center">
                                     <div class="quentity_btn">
                                         <button class="btn btn-danger v_decrement"><i class="fal fa-minus"></i></button>
-                                        <input type="text" value="1" readonly class="v_quantity">
+                                        <input type="text" name="qty" value="1" readonly class="v_quantity">
                                         <button class="btn btn-success v_increment"><i class="fal fa-plus"></i></button>
                                     </div>
                                     <h3 class="v_total_price">{{ $product->offer_price > 0 ? currencyPosition($product->offer_price) : currencyPosition($product->price) }}</h3>
@@ -397,6 +397,11 @@
 @section('js')
     <script>
         $(document).ready(function() {
+            // reset data 
+            $('.v_product_size').prop('checked',false)
+            $('.v_product_option').prop('checked',false)
+            $('.v_quantity').val(1)
+
             $('.v_product_size').on('change', function() {
                 v_updateTotalPrice()
 

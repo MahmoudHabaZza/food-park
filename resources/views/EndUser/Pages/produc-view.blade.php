@@ -266,7 +266,7 @@
                             </div>
                             <div class="fp__menu_item_text">
                                 <p class="rating">
-                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>si
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star-half-alt"></i>

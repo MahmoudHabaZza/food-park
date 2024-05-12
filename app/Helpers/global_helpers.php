@@ -30,4 +30,24 @@ if (!function_exists('generateUniqueSlug')) {
             }
         }
     }
+
+
+    if (!function_exists('cartTotal')) {
+        function cartTotal()
+        {
+            $total = 0;
+            foreach (Cart::content() as $item) {
+                $productPrice = $item->price;
+                $productSize = $item->options?->product_size['price'] ?? 0;
+                $productOptions = 0;
+                foreach ($item->options->product_options as $option) {
+                    $productOptions += $option['price'];
+                }
+
+                $total += ($productPrice + $productSize + $productOptions) * $item->qty;
+            }
+
+            return $total;
+        }
+    }
 }

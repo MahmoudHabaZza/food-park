@@ -79,26 +79,31 @@
             <span class="close_cart"><i class="fal fa-times"></i></span>
         </div>
         <ul id="cart_contents">
-            @foreach (Cart::content() as $cartProduct )
-            <li>
-                <div class="menu_cart_img">
-                    <img src="{{ asset($cartProduct->options->product_info['image']) }}" alt="{{ $cartProduct->options->product_info['slug']  }}" class="img-fluid w-100">
-                </div>
-                <div class="menu_cart_text">
-                    <a class="title" href="{{ route('product.show',$cartProduct->options->product_info['slug']) }}">{{ $cartProduct->name }}</a>
-                    <p class="quantity">Quantity : {{ $cartProduct->qty }}</p>
-                    <p class="size">{{ @$cartProduct->options->product_size['name'] }}</p>
-                        @foreach ($cartProduct->options->product_options as $cartProductOption )
-                        <span class="extra">{{ @$cartProductOption['name'] }}</span>
+            @foreach (Cart::content() as $cartProduct)
+                <li>
+                    <div class="menu_cart_img">
+                        <img src="{{ asset($cartProduct->options->product_info['image']) }}"
+                            alt="{{ $cartProduct->options->product_info['slug'] }}" class="img-fluid w-100">
+                    </div>
+                    <div class="menu_cart_text">
+                        <a class="title"
+                            href="{{ route('product.show', $cartProduct->options->product_info['slug']) }}">{{ $cartProduct->name }}</a>
+                        <p class="quantity">Quantity : {{ $cartProduct->qty }}</p>
+                        <p class="size">{{ @$cartProduct->options->product_size['name'] }}
+                            {{ @$cartProduct->options->product_size['price'] ? '( ' . currencyPosition($cartProduct->options->product_size['price']) . ' )' : '' }}
+                        </p>
+                        @foreach ($cartProduct->options->product_options as $cartProductOption)
+                            <span class="extra">{{ @$cartProductOption['name'] }}
+                                {{ @$cartProductOption['price'] ? '( ' . currencyPosition($cartProductOption['price']) . ' )' : '' }}</span>
                         @endforeach
-                    <p class="price">{{ currencyPosition($cartProduct->price) }}</p>
-                </div>
-                <span class="del_icon"><i class="fal fa-times"></i></span>
-            </li>
+                        <p class="price">{{ currencyPosition($cartProduct->price) }}</p>
+                    </div>
+                    <span class="del_icon"><i class="fal fa-times"></i></span>
+                </li>
             @endforeach
 
         </ul>
-        <p class="subtotal">sub total <span>$1220.00</span></p>
+        <p class="subtotal">sub total <span>{{ currencyPosition(cartTotal()) }}</span></p>
         <a class="cart_view" href="cart_view.html"> view cart</a>
         <a class="checkout" href="check_out.html">checkout</a>
     </div>

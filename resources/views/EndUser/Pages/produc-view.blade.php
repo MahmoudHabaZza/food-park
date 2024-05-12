@@ -71,17 +71,18 @@
                         </h3>
                         <p class="short_description">{{ $product->short_description }}</p>
 
-                        <form action="">
+                        <form action="" id="v_add_to_cart_form">
                             @csrf
                             <input type="hidden" name="base_price" class="v_base_price"
                                 value={{ $product->offer_price > 0 ? $product->offer_price : $product->price }}>
+                            <input type="hidden" name="product_id" value="{{ $product->id }}"  >
                             @if ($product->sizes()->exists())
                                 <div class="details_size">
                                     <h5>select size</h5>
                                     @foreach ($product->sizes as $size)
                                         <div class="form-check">
                                             <input class="form-check-input v_product_size" type="radio" data-price="{{ $size->price }}"
-                                                name="product_size" id="{{ $size->name }}">
+                                                name="product_size" id="{{ $size->name }}" value="{{ $size->id }}">
                                             <label class="form-check-label" for="{{ $size->name }}">
                                                 {{ $size->name }} <span>+ {{ currencyPosition($size->price) }}</span>
                                             </label>
@@ -96,7 +97,7 @@
                                     @foreach ($product->options as $option)
                                         <div class="form-check">
                                             <input class="form-check-input v_product_option"  data-price="{{ $option->price }}" type="checkbox"
-                                                value="" id="{{ $option->name }}">
+                                                value="{{ $option->id }}" id="{{ $option->name }}">
                                             <label class="form-check-label" for="{{ $option->name }}">
 
                                                 {{ $option->name }} <span>+ {{ currencyPosition($option->price) }}</span>
@@ -118,7 +119,7 @@
                             </div>
                         </form>
                         <ul class="details_button_area d-flex flex-wrap">
-                            <li><a class="common_btn" href="#">add to cart</a></li>
+                            <li><a class="common_btn v_submit_button" href="javascript:;">add to cart</a></li>
                             <li><a class="wishlist" href="#"><i class="far fa-heart"></i></a></li>
                         </ul>
                     </div>
@@ -397,7 +398,7 @@
 @section('js')
     <script>
         $(document).ready(function() {
-            // reset data 
+            // reset data
             $('.v_product_size').prop('checked',false)
             $('.v_product_option').prop('checked',false)
             $('.v_quantity').val(1)
@@ -448,6 +449,54 @@
                 $('.v_total_price').text(('{{ currencyPosition(":totalPrice") }}').replace(":totalPrice", totalPrice))
                 // the placeholder is typed between "" and :
             }
+
+            $('.v_submit_button').on('click',function(e){
+                e.preventDefault();
+                $('#v_add_to_cart_form').submit();
+
+            })
+
+            $('#v_add_to_cart_form').on('submit',function(e){
+            e.preventDefault()
+
+            // validate size if exists
+            let sizeInput = $('input[name="product_size"]');
+            if(sizeInput.length > 0) {
+                if($('input[name="product_size"]:checked').val() === undefined) {
+                    toastr.error('Please Select A Size');
+                    console.error('Please Select A Size');
+                    return;
+                }
+            }
+
+            // handle add to cart
+            let formData = $(this).serialize()
+            $.ajax({
+                method : 'POST',
+                url : '{{ route("add-to-cart") }}' ,
+                data: formData,
+                beforeSend:function(){
+                    $('.v_submit_button').attr('disabled',true)
+                    $('.v_submit_button').html('<span class="spinner-border text-light spinner-border-sm" role="status" aria-hidden="true"></span>Loading...')
+
+                },
+                success : function(response) {
+                    updateCartProducts();
+                    toastr.success(response.message);
+                },
+                error:function(xhr,status,error) {
+                    let errorMessage = xhr.responseJSON.message;
+                    toastr.error(errorMessage);
+                },
+                complete:function(){
+                    $('.v_submit_button').html('Add To Cart')
+                    $('.v_submit_button').attr('disabled',false)
+                }
+
+            })
+        })
+
+
         })
     </script>
 @endsection

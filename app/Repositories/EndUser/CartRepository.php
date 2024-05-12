@@ -37,7 +37,7 @@ class CartRepository implements CartRepositoryInterface
                 ];
             }
             foreach ($product_options as $option) {
-                $options['product_options'][] = [
+                $options['product_options'] = [
                     'id' => $option?->id,
                     'name' => $option?->name,
                     'price' => $option?->price,
@@ -53,9 +53,12 @@ class CartRepository implements CartRepositoryInterface
                 'options' => $options,
             ]);
 
+
             return response(['status' => 'success', 'message' => 'Add To Card Successfully'], 200);
         } catch (\Exception $e) {
-            return response(['status' => 'error', 'message' => 'Something Went Wrong!'], 500);
+
+            return response(['status' => 'error', 'message' => $e->getMessage()], 500);
+            // return response(['status' => 'error', 'message' => 'Something Went Wrong!'], 500);
         }
     }
 
@@ -68,13 +71,11 @@ class CartRepository implements CartRepositoryInterface
     // Remove Cart Item From Sidebar
     public function removeCartItem($rowId)
     {
-        try{
+        try {
             Cart::remove($rowId);
             return response(['status' => 'success', 'message' => 'Item Removed Successfully'], 200);
-
-        }catch(\Exception $e) {
+        } catch (\Exception $e) {
             return response(['status' => 'error', 'message' => 'Something Went Wrong'], 500);
-
         }
     }
 }

@@ -49,9 +49,9 @@
         function loadProductModal(productId) {
             $.ajax({
                 method: 'GET',
-                url: '{{ route("product.load-modal", ":productIdPlaceholder") }}'.replace(":productIdPlaceholder",
+                url: '{{ route('product.load-modal', ':productIdPlaceholder') }}'.replace(":productIdPlaceholder",
                     productId),
-                beforeSend: function(){
+                beforeSend: function() {
                     $('.overlay-container').removeClass('d-none')
                     $('.overlay').addClass('active')
                 },
@@ -63,26 +63,31 @@
                 error: function(xhr, status, error) {
                     console.error(error)
                 },
-                complete:function(){
+                complete: function() {
                     $('.overlay').removeClass('active')
                     $('.overlay-container').addClass('d-none')
                 }
             })
         }
 
-        function updateCartProducts() {
+        function updateCartProducts(callback = null) {
             $.ajax({
                 method: "GET",
-                url: '{{ route("get-cart-products") }}',
-                success:function(response){
+                url: '{{ route('get-cart-products') }}',
+                success: function(response) {
                     $('#cart_contents').html(response)
                     let cartTotal = $('#cart_total').val()
                     let cartCount = $('#cart_product_count').val()
-                    $('.cart_subtotal').text(("{{ currencyPosition(':cartTotal') }}").replace(':cartTotal',cartTotal))
+                    $('.cart_subtotal').text(("{{ currencyPosition(':cartTotal') }}").replace(':cartTotal',
+                        cartTotal))
                     $('.cart_count').text(cartCount)
 
+                    if (callback && typeof callback === 'function') {
+                        callback()
+                    }
+
                 },
-                error:function(xhr,status,error){
+                error: function(xhr, status, error) {
                     console.error(error)
                 }
             })
@@ -90,12 +95,23 @@
 
         function removeItemFromCart($rowId) {
             $.ajax({
-                method : "GET",
-                url: '{{ route("remove-cart-item",":rowId") }}'.replace(":rowId",$rowId),
-                success:function(response){
-
+                method: "GET",
+                url: '{{ route('remove-cart-item', ':rowId') }}'.replace(":rowId", $rowId),
+                beforeSend: function() {
+                    $('.overlay-container').removeClass('d-none')
+                    $('.overlay').addClass('active')
                 },
-                error:function(xhr,status,error){
+                success: function(response) {
+                    if (response.status === 'success') {
+                        updateCartProducts(function() {
+                            $('.overlay').removeClass('active')
+                            $('.overlay-container').addClass('d-none')
+                            toastr.success('Item Removed Successfully')
+                        })
+                    }
+                },
+                error: function(xhr, status, error) {
+                    toastr.error(xhr.responseJSON.message)
                     console.error(error)
                 }
             })

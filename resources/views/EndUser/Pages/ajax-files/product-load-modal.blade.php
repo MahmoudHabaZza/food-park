@@ -153,6 +153,7 @@
 
                 },
                 success : function(response) {
+                    updateCartProducts();
                     toastr.success(response.message);
                 },
                 error:function(xhr,status,error) {

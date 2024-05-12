@@ -44,8 +44,6 @@ class CartRepository implements CartRepositoryInterface
                 ];
             }
 
-            Cart::destroy();
-
             Cart::add([
                 'id' => $product->id,
                 'name' => $product->name,
@@ -59,5 +57,10 @@ class CartRepository implements CartRepositoryInterface
         } catch (\Exception $e) {
             return response(['status' => 'error', 'message' => 'Something Went Wrong!'], 500);
         }
+    }
+
+    public function getCartProducts()
+    {
+        return view('EndUser.Pages.ajax-files.sidebar-cart-products')->render();
     }
 }

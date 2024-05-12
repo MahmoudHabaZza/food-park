@@ -19,4 +19,8 @@ class CartController extends Controller
     {
         return $this->cartRepository->addToCart($request);
     }
+
+    public function getCartProducts() {
+        return $this->cartRepository->getCartProducts();
+    }
 }

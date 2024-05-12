@@ -28,6 +28,7 @@ Route::get('product/load-modal/{productId}', [HomeController::class, 'loadProduc
 // Cart Routes
 Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
 Route::get('get-cart-products',[CartController::class,'getCartProducts'])->name('get-cart-products');
+Route::get('remove-cart-item/{rowId}',[CartController::class,'removeCartItem'])->name('remove-cart-item');
 
 
 Route::group(['middleware' => 'auth'], function () {

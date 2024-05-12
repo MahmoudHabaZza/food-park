@@ -59,8 +59,22 @@ class CartRepository implements CartRepositoryInterface
         }
     }
 
+
     public function getCartProducts()
     {
         return view('EndUser.Pages.ajax-files.sidebar-cart-products')->render();
+    }
+
+    // Remove Cart Item From Sidebar
+    public function removeCartItem($rowId)
+    {
+        try{
+            Cart::remove($rowId);
+            return response(['status' => 'success', 'message' => 'Item Removed Successfully'], 200);
+
+        }catch(\Exception $e) {
+            return response(['status' => 'error', 'message' => 'Something Went Wrong'], 500);
+
+        }
     }
 }

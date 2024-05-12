@@ -87,6 +87,19 @@
                 }
             })
         }
+
+        function removeItemFromCart($rowId) {
+            $.ajax({
+                method : "GET",
+                url: '{{ route("remove-cart-item",":rowId") }}'.replace(":rowId",$rowId),
+                success:function(response){
+
+                },
+                error:function(xhr,status,error){
+                    console.error(error)
+                }
+            })
+        }
     </script>
 
     @yield('js')

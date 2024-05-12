@@ -59,7 +59,8 @@
                     </div>
                 </li>
                 <li>
-                    <a class="cart_icon"><i class="fas fa-shopping-basket"></i> <span class="cart_count">{{ count(Cart::content()) }}</span></a>
+                    <a class="cart_icon"><i class="fas fa-shopping-basket"></i> <span
+                            class="cart_count">{{ count(Cart::content()) }}</span></a>
                 </li>
                 <li>
                     <a href="{{ route('login') }}"><i class="fas fa-user"></i></a>
@@ -75,7 +76,7 @@
 <div class="fp__menu_cart_area">
     <div class="fp__menu_cart_boody">
         <div class="fp__menu_cart_header">
-            <h5>total items <span class="cart_count h5" >({{ count(Cart::content()) }})</span></h5>
+            <h5>total items <span class="cart_count h5">({{ count(Cart::content()) }})</span></h5>
             <span class="close_cart"><i class="fal fa-times"></i></span>
         </div>
         <ul id="cart_contents">
@@ -98,7 +99,8 @@
                         @endforeach
                         <p class="price">{{ currencyPosition($cartProduct->price) }}</p>
                     </div>
-                    <span class="del_icon"><i class="fal fa-times"></i></span>
+                    <span class="del_icon" onclick="removeItemFromCart('{{ $cartProduct->rowId }}')"><i
+                            class="fal fa-times"></i></span>
                 </li>
             @endforeach
 

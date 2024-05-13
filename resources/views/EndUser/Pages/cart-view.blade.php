@@ -83,9 +83,9 @@
 
                                         <td class="fp__pro_select">
                                             <div class="quentity_btn">
-                                                <button class="btn btn-danger"><i class="fal fa-minus"></i></button>
-                                                <input type="text" placeholder="1">
-                                                <button class="btn btn-success"><i class="fal fa-plus"></i></button>
+                                                <button class="btn btn-danger decrement"><i class="fal fa-minus"></i></button>
+                                                <input type="text" id="quantity" placeholder="1" value="{{ $item->qty }}" readonly>
+                                                <button class="btn btn-success increment"><i class="fal fa-plus"></i></button>
                                             </div>
                                         </td>
 
@@ -123,4 +123,25 @@
     <!--============================
         CART VIEW END
     ==============================-->
+@endsection
+
+@section('js')
+
+<script>
+    $(document).ready(function(){
+        $('.increment').on('click',function(){
+            let inputField = $(this).siblings('#quantity');
+            let currentVal = parseInt(inputField.val());
+            inputField.val(currentVal + 1);
+        })
+        $('.decrement').on('click',function(){
+            let inputField = $(this).siblings('#quantity');
+            let currentVal = parseInt(inputField.val());
+            if(currentVal > 1) {
+                inputField.val(currentVal - 1);
+            }
+        })
+    })
+</script>
+
 @endsection

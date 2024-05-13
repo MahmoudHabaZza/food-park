@@ -31,6 +31,10 @@ Route::get('get-cart-products',[CartController::class,'getCartProducts'])->name(
 Route::get('remove-cart-item/{rowId}',[CartController::class,'removeCartItem'])->name('remove-cart-item');
 
 
+// Cart Page Routes
+Route::get('/cart',[CartController::class,'index'])->name('cart.index');
+
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [EndUserDashboardController::class, 'index'])->name('dashboard');
 

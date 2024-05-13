@@ -6,9 +6,16 @@ use App\Interfaces\EndUser\CartRepositoryInterface;
 use App\Models\Product;
 use Cart;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class CartRepository implements CartRepositoryInterface
 {
+
+    public function index() : View
+    {
+        return view('EndUser.Pages.cart-view');
+    }
+
     public function addToCart(Request $request)
     {
 

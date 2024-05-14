@@ -31,4 +31,7 @@ class CartController extends Controller
     public function removeCartItem($rowId) {
         return $this->cartRepository->removeCartItem($rowId);
     }
+    public function updateCartQty(Request $request){
+        return $this->cartRepository->updateCartQty($request);
+    }
 }

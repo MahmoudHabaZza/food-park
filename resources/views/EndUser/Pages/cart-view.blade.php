@@ -84,7 +84,7 @@
                                         <td class="fp__pro_select">
                                             <div class="quentity_btn">
                                                 <button class="btn btn-danger decrement"><i class="fal fa-minus"></i></button>
-                                                <input type="text" id="quantity" placeholder="1" value="{{ $item->qty }}" readonly>
+                                                <input type="text" id="quantity" data-id="{{ $item->rowId }}" placeholder="1" value="{{ $item->qty }}" readonly>
                                                 <button class="btn btn-success increment"><i class="fal fa-plus"></i></button>
                                             </div>
                                         </td>
@@ -133,14 +133,44 @@
             let inputField = $(this).siblings('#quantity');
             let currentVal = parseInt(inputField.val());
             inputField.val(currentVal + 1);
+            let rowId = inputField.data("id");
+            updateCartQty(rowId,inputField.val())
+
         })
         $('.decrement').on('click',function(){
             let inputField = $(this).siblings('#quantity');
             let currentVal = parseInt(inputField.val());
             if(currentVal > 1) {
                 inputField.val(currentVal - 1);
+                let rowId = inputField.data("id");
+                updateCartQty(rowId,inputField.val())
             }
         })
+
+        function updateCartQty(rowId,qty){
+
+            $.ajax({
+                method:"POST",
+                url:'{{ route("cart.qty-update") }}',
+                data:{
+                    'rowId':rowId,
+                    'qty':qty,
+                    '_token': '{{ csrf_token() }}'
+                },
+                beforeSend:function(){
+
+                },
+                success:function(response){
+
+                },
+                error:function(xhr,status,error){
+
+                },
+                complete:function(){
+
+                }
+            })
+        }
     })
 </script>
 

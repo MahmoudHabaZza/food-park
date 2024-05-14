@@ -158,16 +158,18 @@
                     '_token': '{{ csrf_token() }}'
                 },
                 beforeSend:function(){
-
+                    showLoader()
                 },
                 success:function(response){
 
                 },
                 error:function(xhr,status,error){
-
+                    hideLoader()
+                    toastr.error(xhr.responseJSON.message)
+                    console.error(error)
                 },
                 complete:function(){
-
+                    hideLoader()
                 }
             })
         }

@@ -15,6 +15,19 @@
     });
 
 
+
+    // Show Loader
+    function showLoader(){
+        $('.overlay-container').removeClass('d-none')
+        $('.overlay').addClass('active')
+    }
+    // Hide Loader
+    function hideLoader() {
+        $('.overlay').removeClass('active')
+        $('.overlay-container').addClass('d-none')
+    }
+
+
     // Load Modal of Any Product
     function loadProductModal(productId) {
         $.ajax({
@@ -22,8 +35,7 @@
             url: '{{ route("product.load-modal", ":productIdPlaceholder") }}'.replace(":productIdPlaceholder",
                 productId),
             beforeSend: function() {
-                $('.overlay-container').removeClass('d-none')
-                $('.overlay').addClass('active')
+                showLoader()
             },
             // :productIdPlaceholder is not the variable it is a placeholder and it is replaced by function replace()
             success: function(response) {
@@ -34,8 +46,7 @@
                 console.error(error)
             },
             complete: function() {
-                $('.overlay').removeClass('active')
-                $('.overlay-container').addClass('d-none')
+                hideLoader()
             }
         })
     }
@@ -68,14 +79,12 @@
             method: "GET",
             url: '{{ route("remove-cart-item", ':rowId') }}'.replace(":rowId", $rowId),
             beforeSend: function() {
-                $('.overlay-container').removeClass('d-none')
-                $('.overlay').addClass('active')
+                showLoader()
             },
             success: function(response) {
                 if (response.status === 'success') {
                     updateCartProducts(function() {
-                        $('.overlay').removeClass('active')
-                        $('.overlay-container').addClass('d-none')
+                        hideLoader()
                         toastr.success('Item Removed Successfully')
                     })
                 }

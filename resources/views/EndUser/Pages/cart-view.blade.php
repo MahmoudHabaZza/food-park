@@ -90,7 +90,7 @@
                                         </td>
 
                                         <td class="fp__pro_tk">
-                                            <h6>$180,00</h6>
+                                            <h6 class="cart_product_total" >{{ currencyPosition(cartProductTotal($item->rowId))  }}</h6>
                                         </td>
 
                                         <td class="fp__pro_icon">
@@ -134,7 +134,10 @@
             let currentVal = parseInt(inputField.val());
             inputField.val(currentVal + 1);
             let rowId = inputField.data("id");
-            updateCartQty(rowId,inputField.val())
+            updateCartQty(rowId,inputField.val(),function(response){
+                let productTotal = response.product_total;
+                    inputField.closest("tr").find(".cart_product_total").text("{{ currencyPosition(':productTotal') }}".replace(':productTotal',productTotal));
+            })
 
         })
         $('.decrement').on('click',function(){
@@ -143,11 +146,14 @@
             if(currentVal > 1) {
                 inputField.val(currentVal - 1);
                 let rowId = inputField.data("id");
-                updateCartQty(rowId,inputField.val())
+                updateCartQty(rowId,inputField.val(),function(response){
+                let productTotal = response.product_total;
+                inputField.closest("tr").find(".cart_product_total").text("{{ currencyPosition(':productTotal') }}".replace(':productTotal',productTotal));
+            })
             }
         })
 
-        function updateCartQty(rowId,qty){
+        function updateCartQty(rowId,qty,callback){
 
             $.ajax({
                 method:"POST",
@@ -161,7 +167,9 @@
                     showLoader()
                 },
                 success:function(response){
-
+                    if(callback && typeof callback === 'function'){
+                        callback(response)
+                    }
                 },
                 error:function(xhr,status,error){
                     hideLoader()

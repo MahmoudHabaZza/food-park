@@ -92,7 +92,7 @@ class CartRepository implements CartRepositoryInterface
     public function updateCartQty(Request $request) : Response {
         try {
             Cart::update($request->rowId,$request->qty);
-            return response(['status' => 'success', 'message' => 'Quantity Updated Successfully'], 200);
+            return response(['status' => 'success', 'message' => 'Quantity Updated Successfully','product_total' => cartProductTotal($request->rowId)], 200);
         }catch(\Exception $e){
             return response(['status' => 'error', 'message' => $e->getMessage()], 500);
 

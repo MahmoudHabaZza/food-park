@@ -50,4 +50,25 @@ if (!function_exists('generateUniqueSlug')) {
             return $total;
         }
     }
+
+    // Update Product Total Price
+    if (!function_exists('cartProductTotal')) {
+        function cartProductTotal($rowId)
+        {
+            $total = 0;
+
+                $product = Cart::get($rowId);
+                $productPrice = $product->price;
+                $productSize = $product->options?->product_size['price'] ?? 0;
+                $productOptions = 0;
+                foreach ($product->options->product_options as $option) {
+                    $productOptions += $option['price'];
+                }
+
+                $total += ($productPrice + $productSize + $productOptions) * $product->qty;
+
+
+            return $total;
+        }
+    }
 }

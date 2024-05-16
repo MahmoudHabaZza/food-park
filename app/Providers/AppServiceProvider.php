@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Interfaces\Admin\CategoryRepositoryInterface;
+use App\Interfaces\Admin\CouponRepositoryInterface;
 use App\Interfaces\Admin\ProductGalleryRepositoryInterface;
 use App\Interfaces\Admin\ProductOptionRepositoryInterface;
 use App\Interfaces\Admin\ProductRepositoryInterface;
@@ -15,6 +16,7 @@ use App\Interfaces\EndUser\CartRepositoryInterface;
 use App\Interfaces\EndUser\HomeRepositoryInterface;
 use App\Interfaces\EndUser\ProfileRepositoryInterface as EndUserProfileRepositoryInterface;
 use App\Repositories\Admin\CategoryRepository;
+use App\Repositories\Admin\CouponRepository;
 use App\Repositories\Admin\ProductGalleryRepository;
 use App\Repositories\Admin\ProductOptionRepository;
 use App\Repositories\Admin\ProductRepository;
@@ -48,6 +50,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(HomeRepositoryInterface::class, HomeRepository::class);
         $this->app->bind(SettingRepositoryInterface::class, SettingRepository::class);
         $this->app->bind(CartRepositoryInterface::class, CartRepository::class);
+        $this->app->bind(CouponRepositoryInterface::class, CouponRepository::class);
     }
 
     /**

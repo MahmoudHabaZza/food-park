@@ -7,6 +7,7 @@ use App\Models\Product;
 use Cart;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class CartRepository implements CartRepositoryInterface
@@ -19,10 +20,12 @@ class CartRepository implements CartRepositoryInterface
 
     public function addToCart(Request $request)
     {
-
+        $product = Product::with(['sizes', 'options'])->findOrFail($request->product_id);
+        if($product->quantity < $request->quantity) {
+            throw ValidationException::withMessages(['Quantity is not available!']);
+        }
 
         try {
-            $product = Product::with(['sizes', 'options'])->findOrFail($request->product_id);
             $product_size = $product->sizes->where('id', $request->product_size)->first();
             $product_options = $product->options->whereIn('id', $request->product_option);
 
@@ -90,9 +93,18 @@ class CartRepository implements CartRepositoryInterface
     }
 
     public function updateCartQty(Request $request) : Response {
+
+
+        $item = Cart::get($request->rowId);
+
+        $product = Product::findOrFail($item->id);
+        if($product->quantity < $request->qty){
+            return response(['status'=>'error','message'=> 'Quantity is not available','qty'=> $item->qty]);
+        }
+
         try {
-            Cart::update($request->rowId,$request->qty);
-            return response(['status' => 'success', 'message' => 'Quantity Updated Successfully','product_total' => cartProductTotal($request->rowId)], 200);
+            $cart = Cart::update($request->rowId,$request->qty);
+            return response(['status' => 'success', 'message' => 'Quantity Updated Successfully','product_total' => cartProductTotal($request->rowId) , 'qty' => $cart->qty ], 200);
         }catch(\Exception $e){
             return response(['status' => 'error', 'message' => $e->getMessage()], 500);
 

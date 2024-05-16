@@ -52,6 +52,7 @@ namespace App\Models{
  * @property string|null $seo_description
  * @property float $price
  * @property float $offer_price
+ * @property int|null $quantity
  * @property int $status
  * @property int $show_at_home
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -74,6 +75,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereOfferPrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product wherePrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereQuantity($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereSeoDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereSeoTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereShortDescription($value)
@@ -179,9 +181,19 @@ namespace App\Models{
 /**
  * 
  *
+ * @property int $id
+ * @property string $key
+ * @property string|null $value
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|Setting newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Setting newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Setting query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Setting whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Setting whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Setting whereKey($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Setting whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Setting whereValue($value)
  */
 	class Setting extends \Eloquent {}
 }

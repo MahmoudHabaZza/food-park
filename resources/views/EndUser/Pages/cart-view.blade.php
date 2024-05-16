@@ -3,8 +3,8 @@
 @endsection
 @section('content')
     <!--=============================
-            BREADCRUMB START
-        ==============================-->
+                BREADCRUMB START
+            ==============================-->
     <section class="fp__breadcrumb" style="background: url('{{ asset('assets/EndUser/images/counter_bg.jpg') }}');">
         <div class="fp__breadcrumb_overlay">
             <div class="container">
@@ -19,13 +19,13 @@
         </div>
     </section>
     <!--=============================
-            BREADCRUMB END
-        ==============================-->
+                BREADCRUMB END
+            ==============================-->
 
 
     <!--============================
-            CART VIEW START
-        ==============================-->
+                CART VIEW START
+            ==============================-->
     <section class="fp__cart_view mt_125 xs_mt_95 mb_100 xs_mb_70">
         <div class="container">
             <div class="row">
@@ -55,10 +55,10 @@
                                             total
                                         </th>
 
-                                        @if(Cart::content()->count() > 0)
-                                        <th class="fp__pro_icon">
-                                            <a class="clear_all" href="{{ route('cart.destroy') }}">clear all</a>
-                                        </th>
+                                        @if (Cart::content()->count() > 0)
+                                            <th class="fp__pro_icon">
+                                                <a class="clear_all" href="{{ route('cart.destroy') }}">clear all</a>
+                                            </th>
                                         @endif
                                     </tr>
                                     @foreach (Cart::content() as $item)
@@ -103,13 +103,14 @@
                                             </td>
 
                                             <td class="fp__pro_icon">
-                                                <a href="#" class="remove_product" data-id="{{ $item->rowId }}"><i class="far fa-times"></i></a>
+                                                <a href="#" class="remove_product" data-id="{{ $item->rowId }}"><i
+                                                        class="far fa-times"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
                                     @if (Cart::content()->count() === 0)
                                         <tr>
-                                            <td  style="display: inline;width: 100%;" >Cart is Empty</td>
+                                            <td style="display: inline;width: 100%;">Cart is Empty</td>
                                         </tr>
                                     @endif
 
@@ -136,8 +137,8 @@
         </div>
     </section>
     <!--============================
-            CART VIEW END
-        ==============================-->
+                CART VIEW END
+            ==============================-->
 @endsection
 
 @section('js')
@@ -148,11 +149,21 @@
                 let currentVal = parseInt(inputField.val());
                 inputField.val(currentVal + 1);
                 let rowId = inputField.data("id");
+
+
+
                 updateCartQty(rowId, inputField.val(), function(response) {
-                    let productTotal = response.product_total;
-                    inputField.closest("tr").find(".cart_product_total").text(
-                        "{{ currencyPosition(':productTotal') }}".replace(':productTotal',
-                            productTotal));
+                    if (response.status === 'success') {
+                        inputField.val(response.qty)
+                        let productTotal = response.product_total;
+                        inputField.closest("tr").find(".cart_product_total").text(
+                            "{{ currencyPosition(':productTotal') }}".replace(':productTotal',
+                                productTotal));
+                    } else if (response.status === 'error') {
+                        inputField.val(response.qty)
+                        toastr.error('Quantity is not Avaialable')
+                    }
+
                 })
 
             })
@@ -163,10 +174,17 @@
                     inputField.val(currentVal - 1);
                     let rowId = inputField.data("id");
                     updateCartQty(rowId, inputField.val(), function(response) {
-                        let productTotal = response.product_total;
-                        inputField.closest("tr").find(".cart_product_total").text(
-                            "{{ currencyPosition(':productTotal') }}".replace(':productTotal',
-                                productTotal));
+                        if (response.status === 'success') {
+                            inputField.val(response.qty)
+                            let productTotal = response.product_total;
+                            inputField.closest("tr").find(".cart_product_total").text(
+                                "{{ currencyPosition(':productTotal') }}".replace(
+                                    ':productTotal',
+                                    productTotal));
+                        } else if (response.status === 'error') {
+                            inputField.val(response.qty)
+                            toastr.error('Quantity is not Avaialable')
+                        }
                     })
                 }
             })

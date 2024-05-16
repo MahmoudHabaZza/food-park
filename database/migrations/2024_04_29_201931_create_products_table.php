@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('seo_description')->nullable();
             $table->double('price');
             $table->double('offer_price')->default(0);
+            $table->integer('quantity')->nullable();
             $table->boolean('status')->default(1);
             $table->boolean('show_at_home')->default(0);
             $table->timestamps();

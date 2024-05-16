@@ -11,4 +11,5 @@ interface CartRepositoryInterface
     public function getCartProducts();
     public function removeCartItem($rowId);
     public function updateCartQty(Request $request);
+    public function cartDestroy();
 }

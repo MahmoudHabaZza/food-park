@@ -98,4 +98,8 @@ class CartRepository implements CartRepositoryInterface
 
         }
     }
+    public function cartDestroy(){
+        Cart::destroy();
+        return redirect()->back();
+    }
 }

@@ -34,4 +34,7 @@ class CartController extends Controller
     public function updateCartQty(Request $request){
         return $this->cartRepository->updateCartQty($request);
     }
+    public function cartDestroy(){
+        return $this->cartRepository->cartDestroy();
+    }
 }

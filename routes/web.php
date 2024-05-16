@@ -34,6 +34,7 @@ Route::get('remove-cart-item/{rowId}',[CartController::class,'removeCartItem'])-
 // Cart Page Routes
 Route::get('/cart',[CartController::class,'index'])->name('cart.index');
 Route::post('/cart-qty-update',[CartController::class,'updateCartQty'])->name('cart.qty-update');
+Route::get('/cart-destroy',[CartController::class,'cartDestroy'])->name('cart.destroy');
 
 
 Route::group(['middleware' => 'auth'], function () {

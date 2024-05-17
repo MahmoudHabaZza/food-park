@@ -17,7 +17,14 @@ class CouponFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->word(),
+            'code' => fake()->word(),
+            'quantity' => fake()->randomElement([20,50,70]),
+            'min_purchase_amount' => fake()->randomFloat(4,200,500),
+            'expire_date' => fake()->date(),
+            'discount_type' => 'percent',
+            'discount' => 10,
+            'status' => fake()->boolean(),
         ];
     }
 }

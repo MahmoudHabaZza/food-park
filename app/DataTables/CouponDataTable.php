@@ -22,8 +22,21 @@ class CouponDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'coupon.action')
-            ->setRowId('id');
+            ->setRowId('id')
+            ->addColumn('action',function($query){
+                $edit = '<a href="' . route('admin.coupon.edit', $query->id) . '" class="btn btn-warning fas fa-edit mr-2"></a>';
+                $delete = '<a href="' . route('admin.coupon.destroy', $query->id) . '" class="btn btn-danger delete-item fas fa-trash "></a>';
+                return $edit . $delete;
+            })
+            ->addColumn('status',function($query){
+                if($query->status == 1) {
+                    return "<div class='badge badge-success text-center'>Active</div>";
+                }else {
+                    return "<div class='badge badge-danger text-center'>Inactive</div>";
+
+                }
+            })
+            ->rawColumns(['action','status']);
     }
 
     /**
@@ -62,15 +75,20 @@ class CouponDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+            Column::make('id'),
+            Column::make('name'),
+            Column::make('code'),
+            Column::make('quantity'),
+            Column::make('min_purchase_amount'),
+            Column::make('discount_type'),
+            Column::make('discount'),
+            Column::make('expire_date'),
+            Column::make('status'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(60)
+                  ->width(150)
                   ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
         ];
     }
 

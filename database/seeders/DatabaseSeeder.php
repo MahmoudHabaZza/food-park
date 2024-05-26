@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             WhyChooseUsSeeder::class,
             CategorySeeder::class,
             ProductSeeder::class,
+            CouponSeeder::class,
 
         ]);
     }

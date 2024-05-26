@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTables\CouponDataTable;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\CouponCreateRequest;
 use App\Interfaces\Admin\CouponRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -28,15 +29,15 @@ class CouponController extends Controller
      */
     public function create()
     {
-        //
+        return $this->couponRepository->create();
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CouponCreateRequest $request)
     {
-        //
+        return $this->couponRepository->store($request);
     }
 
     /**

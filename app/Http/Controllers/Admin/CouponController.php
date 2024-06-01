@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\CouponDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CouponCreateRequest;
+use App\Http\Requests\Admin\CouponUpdateRequest;
 use App\Interfaces\Admin\CouponRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -41,27 +42,19 @@ class CouponController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        //
+        return $this->couponRepository->edit($id);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CouponUpdateRequest $request , string $id)
     {
-        //
+        return $this->couponRepository->update($request , $id);
     }
 
     /**
@@ -69,6 +62,6 @@ class CouponController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return $this->couponRepository->destroy($id);
     }
 }

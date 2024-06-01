@@ -4,10 +4,12 @@ namespace App\Repositories\EndUser;
 
 use App\Interfaces\EndUser\HomeRepositoryInterface;
 use App\Models\Category;
+use App\Models\Coupon;
 use App\Models\Product;
 use App\Models\SectionTitle;
 use App\Models\Slider;
 use App\Models\WhyChooseUs;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
 
@@ -47,5 +49,31 @@ class HomeRepository implements HomeRepositoryInterface
         $product = Product::with(['sizes', 'options'])->findOrFail($productId);
         return view('EndUser.Pages.ajax-files.product-load-modal',compact('product'))->render();
         // render() => to ensure that we have html response
+    }
+
+    public function applyCoupon(Request $request)
+    {
+        $code = $request->code;
+        $subtotal = $request->subtotal;
+        $coupon = Coupon::where('code',$code)->first();
+        if(!$coupon) {
+            return response(['message'=> 'Coupon is Invalid'],422);
+        }
+        if($coupon->quantity <= 0) {
+            return response(['message' => 'All of this Coupon quantity redeemed'],422);
+        }
+        if($coupon->expire_date < now()){
+            return response(['message' => 'Coupon Expired'],422);
+        }
+        if($coupon->discount_type === 'percent') {
+            $discount = $subtotal * $coupon->discount / 100;
+        }elseif($coupon->discount_type === 'amount') {
+            $discount = $coupon->discount;
+        }
+
+        $finalTotal = $subtotal - $discount;
+
+        return response(['status'=> 'success','message' => 'Coupon Applied Successfully','discount'=> $discount ?? 0 , 'finalTotal' => $finalTotal]);
+
     }
 }

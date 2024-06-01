@@ -122,12 +122,12 @@
                 <div class="col-lg-4 wow fadeInUp" data-wow-duration="1s">
                     <div class="fp__cart_list_footer_button">
                         <h6>total cart</h6>
-                        <p>subtotal: <span>$124.00</span></p>
-                        <p>delivery: <span>$00.00</span></p>
-                        <p>discount: <span>$10.00</span></p>
-                        <p class="total"><span>total:</span> <span>$134.00</span></p>
-                        <form>
-                            <input type="text" placeholder="Coupon Code">
+                        <p>subtotal: <span>{{ currencyPosition(cartTotal()) }}</span></p>
+                        <p>delivery: <span>{{ currencyPosition(0) }}</span></p>
+                        <p>discount: <span id="discount">{{ currencyPosition(0) }}</span></p>
+                        <p class="total"><span>total:</span> <span id="final_total">{{ currencyPosition(0) }}</span></p>
+                        <form id="coupon_form">
+                            <input type="text" name="code" id="coupon_code" placeholder="Coupon Code">
                             <button type="submit">apply</button>
                         </form>
                         <a class="common_btn" href=" #">checkout</a>
@@ -240,6 +240,40 @@
                         console.error(error)
                     },
                     complete: function() {
+                        hideLoader()
+                    }
+                })
+            }
+
+            $("#coupon_form").on('submit',function(e){
+                e.preventDefault()
+                let code = $("#coupon_code").val()
+                let subtotal = parseInt("{{ cartTotal() }}")
+                applyCoupon(code,subtotal)
+            })
+
+            function applyCoupon(code , subtotal) {
+                $.ajax({
+                    method: 'POST',
+                    url: '{{ route("apply-coupon") }}',
+                    data: {
+                        code: code,
+                        subtotal:subtotal,
+                        _token:"{{ csrf_token() }}"
+                    },
+                    beforeSend:function(){
+                        showLoader()
+                    },
+                    success:function(response){
+                        $("#discount").text('{{ currencyPosition(":discount") }}'.replace(":discount",response.discount))
+                        $("#final_total").text('{{ currencyPosition(":final_total") }}'.replace(":final_total",response.finalTotal))
+                        toastr.success(response.message)
+                    },
+                    error:function(xhr,status,error){
+                        hideLoader()
+                        toastr.error(xhr.responseJSON.message)
+                    },
+                    complete:function(){
                         hideLoader()
                     }
                 })

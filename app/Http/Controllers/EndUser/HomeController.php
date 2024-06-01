@@ -4,6 +4,7 @@ namespace App\Http\Controllers\EndUser;
 
 use App\Http\Controllers\Controller;
 use App\Interfaces\EndUser\HomeRepositoryInterface;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -29,5 +30,9 @@ class HomeController extends Controller
     public function loadProductModal($productId)
     {
         return $this->homeRepository->loadProductModal($productId);
+    }
+
+    public function applyCoupon(Request $request) {
+        return $this->homeRepository->applyCoupon($request);
     }
 }

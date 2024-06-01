@@ -36,6 +36,10 @@ Route::get('/cart',[CartController::class,'index'])->name('cart.index');
 Route::post('/cart-qty-update',[CartController::class,'updateCartQty'])->name('cart.qty-update');
 Route::get('/cart-destroy',[CartController::class,'cartDestroy'])->name('cart.destroy');
 
+// Cart Coupon Routes
+Route::post('/apply-coupon',[HomeController::class,'applyCoupon'])->name('apply-coupon');
+
+
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [EndUserDashboardController::class, 'index'])->name('dashboard');

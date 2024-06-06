@@ -10,4 +10,5 @@ interface HomeRepositoryInterface
     public function showProduct(string $slug);
     public function loadProductModal($productId);
     public function applyCoupon(Request $request);
+    public function removeCoupon();
 }

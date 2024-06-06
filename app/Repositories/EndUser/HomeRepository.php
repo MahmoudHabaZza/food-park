@@ -77,11 +77,26 @@ class HomeRepository implements HomeRepositoryInterface
 
             session()->put('coupon',['code'=> $code,'discount'=> $discount]);
 
-            return response(['status'=> 'success','message' => 'Coupon Applied Successfully','discount'=> $discount ?? 0 , 'finalTotal' => $finalTotal]);
+            return response(['status'=> 'success','message' => 'Coupon Applied Successfully','discount'=> $discount ?? 0 , 'finalTotal' => $finalTotal , 'coupon_code' => $code]);
         }else {
             return response(['status' => 'error' , 'message' => 'Please Add Any Product to Cart To Apply Coupon'],422);
         }
 
+
+    }
+
+    public function removeCoupon(){
+        try{
+            session()->forget('coupon');
+        return response([
+            'status' => 'success',
+            'message' => 'Coupon Removed!',
+            'discount' => 0,
+            'total' => cartTotal()
+            ]);
+        } catch(\Exception $e) {
+            return response(['status' => 'error' , 'message' => $e->getMessage()]);
+        }
 
     }
 }

@@ -153,6 +153,18 @@
                             <input type="text" name="code" id="coupon_code" placeholder="Coupon Code">
                             <button type="submit">apply</button>
                         </form>
+
+                        <div class="coupon_card">
+
+                            @if (session()->has('coupon'))
+                            <div class="card mt-3">
+                                <div class="m-2">
+                                    <span><b>Applid Coupon : {{ session()->get('coupon')['code'] }}</b></span>
+                                    <span><button><i class="far fa-times"  id="remove_coupon"></i></button></span>
+                                </div>
+                            </div>
+                            @endif
+                        </div>
                         <a class="common_btn" href=" #">checkout</a>
                     </div>
                 </div>
@@ -290,6 +302,9 @@
                 applyCoupon(code,subtotal)
             })
 
+
+
+
             function applyCoupon(code , subtotal) {
                 $.ajax({
                     method: 'POST',
@@ -303,8 +318,16 @@
                         showLoader()
                     },
                     success:function(response){
+                        $("#coupon_code").val("")
                         $("#discount").text('{{ currencyPosition(":discount") }}'.replace(":discount",response.discount))
                         $("#final_total").text('{{ currencyPosition(":final_total") }}'.replace(":final_total",response.finalTotal))
+                        couponCartHtml = `<div class="card mt-3">
+                                <div class="m-2">
+                                    <span><b>Applid Coupon : ${response.coupon_code}</b></span>
+                                    <span><button><i class="far fa-times" id="remove_coupon" ></i></button></span>
+                                </div>
+                            </div>`
+                        $('.coupon_card').html(couponCartHtml)
                         toastr.success(response.message)
                     },
                     error:function(xhr,status,error){
@@ -316,6 +339,35 @@
                     }
                 })
             }
+
+            $('.coupon_card').on('click', '#remove_coupon', function() {
+                removeCoupon();
+            });
+
+    function removeCoupon() {
+        $.ajax({
+            method: 'GET',
+            url: '{{ route("remove-coupon") }}',
+            beforeSend: function() {
+                showLoader();
+            },
+            success: function(response) {
+                $("#discount").text("{{ currencyPosition(':discount') }}".replace(':discount', response.discount));
+                $("#final_total").text("{{ currencyPosition(':final_total') }}".replace(':final_total', response.total));
+                $(".coupon_card").html("");
+                toastr.success(response.message);
+            },
+            error: function(xhr, status, error) {
+                // Handle error
+                console.log(error)
+            },
+            complete: function() {
+                hideLoader();
+            }
+        });
+    }
+
+
         })
     </script>
 @endsection

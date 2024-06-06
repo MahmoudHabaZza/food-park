@@ -38,6 +38,7 @@ Route::get('/cart-destroy',[CartController::class,'cartDestroy'])->name('cart.de
 
 // Cart Coupon Routes
 Route::post('/apply-coupon',[HomeController::class,'applyCoupon'])->name('apply-coupon');
+Route::get('/remove-coupon',[HomeController::class,'removeCoupon'])->name('remove-coupon');
 
 
 

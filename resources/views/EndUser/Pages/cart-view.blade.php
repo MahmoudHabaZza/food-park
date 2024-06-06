@@ -122,10 +122,22 @@
                 <div class="col-lg-4 wow fadeInUp" data-wow-duration="1s">
                     <div class="fp__cart_list_footer_button">
                         <h6>total cart</h6>
-                        <p>subtotal: <span>{{ currencyPosition(cartTotal()) }}</span></p>
+                        <p>subtotal: <span id="subtotal">{{ currencyPosition(cartTotal()) }}</span></p>
                         <p>delivery: <span>{{ currencyPosition(0) }}</span></p>
-                        <p>discount: <span id="discount">{{ currencyPosition(0) }}</span></p>
-                        <p class="total"><span>total:</span> <span id="final_total">{{ currencyPosition(0) }}</span></p>
+                        <p>discount: <span id="discount">
+                            @if (session()->has('coupon'))
+                                {{ currencyPosition(session()->get('coupon')['discount']) }}
+                            @else
+                                {{ currencyPosition(0) }}
+                            @endif
+                        </span></p>
+                        <p class="total"><span>total:</span> <span id="final_total">
+                            @if (session()->has('coupon'))
+                                {{ currencyPosition( cartTotal() - session()->get('coupon')['discount']) }}
+                            @else
+                                {{ currencyPosition(cartTotal()) }}
+                            @endif
+                        </span></p>
                         <form id="coupon_form">
                             <input type="text" name="code" id="coupon_code" placeholder="Coupon Code">
                             <button type="submit">apply</button>
@@ -144,6 +156,7 @@
 @section('js')
     <script>
         $(document).ready(function() {
+            var cartTotal = parseInt("{{ cartTotal() }}")
             $('.increment').on('click', function() {
                 let inputField = $(this).siblings('#quantity');
                 let currentVal = parseInt(inputField.val());
@@ -159,6 +172,8 @@
                         inputField.closest("tr").find(".cart_product_total").text(
                             "{{ currencyPosition(':productTotal') }}".replace(':productTotal',
                                 productTotal));
+                        cartTotal = response.cartSubTotal
+                        $("#subtotal").text("{{ currencyPosition(':subtotal') }}".replace(':subtotal',cartTotal))
                     } else if (response.status === 'error') {
                         inputField.val(response.qty)
                         toastr.error('Quantity is not Avaialable')
@@ -181,6 +196,9 @@
                                 "{{ currencyPosition(':productTotal') }}".replace(
                                     ':productTotal',
                                     productTotal));
+                                    cartTotal = response.cartSubTotal
+                            $("#subtotal").text("{{ currencyPosition(':subtotal') }}".replace(':subtotal',cartTotal))
+
                         } else if (response.status === 'error') {
                             inputField.val(response.qty)
                             toastr.error('Quantity is not Avaialable')
@@ -204,7 +222,10 @@
                         if (response.status === 'success') {
                             updateCartProducts(function() {
                                 hideLoader()
+                                cartTotal = response.cartSubTotal
+                                $("#subtotal").text("{{ currencyPosition(':subtotal') }}".replace(':subtotal',cartTotal))
                                 toastr.success('Item Removed Successfully')
+
                             })
                         }
                     },
@@ -248,7 +269,7 @@
             $("#coupon_form").on('submit',function(e){
                 e.preventDefault()
                 let code = $("#coupon_code").val()
-                let subtotal = parseInt("{{ cartTotal() }}")
+                let subtotal = cartTotal
                 applyCoupon(code,subtotal)
             })
 

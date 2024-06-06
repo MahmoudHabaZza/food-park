@@ -66,12 +66,14 @@ class HomeRepository implements HomeRepositoryInterface
             return response(['message' => 'Coupon Expired'],422);
         }
         if($coupon->discount_type === 'percent') {
-            $discount = $subtotal * $coupon->discount / 100;
+            $discount = number_format($subtotal * $coupon->discount / 100,2);
         }elseif($coupon->discount_type === 'amount') {
-            $discount = $coupon->discount;
+            $discount = number_format($coupon->discount,2);
         }
 
         $finalTotal = $subtotal - $discount;
+
+        session()->put('coupon',['code'=> $code,'discount'=> $discount]);
 
         return response(['status'=> 'success','message' => 'Coupon Applied Successfully','discount'=> $discount ?? 0 , 'finalTotal' => $finalTotal]);
 

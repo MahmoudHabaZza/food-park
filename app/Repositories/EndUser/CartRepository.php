@@ -86,7 +86,7 @@ class CartRepository implements CartRepositoryInterface
     {
         try {
             Cart::remove($rowId);
-            return response(['status' => 'success', 'message' => 'Item Removed Successfully'], 200);
+            return response(['status' => 'success', 'message' => 'Item Removed Successfully' , 'cartSubTotal' => cartTotal()], 200);
         } catch (\Exception $e) {
             return response(['status' => 'error', 'message' => 'Something Went Wrong'], 500);
         }
@@ -104,7 +104,7 @@ class CartRepository implements CartRepositoryInterface
 
         try {
             $cart = Cart::update($request->rowId,$request->qty);
-            return response(['status' => 'success', 'message' => 'Quantity Updated Successfully','product_total' => cartProductTotal($request->rowId) , 'qty' => $cart->qty ], 200);
+            return response(['status' => 'success', 'message' => 'Quantity Updated Successfully','product_total' => cartProductTotal($request->rowId) , 'qty' => $cart->qty , 'cartSubTotal' => cartTotal()  ], 200);
         }catch(\Exception $e){
             return response(['status' => 'error', 'message' => $e->getMessage()], 500);
 

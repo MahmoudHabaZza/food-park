@@ -126,14 +126,25 @@
                         <p>delivery: <span>{{ currencyPosition(0) }}</span></p>
                         <p>discount: <span id="discount">
                             @if (session()->has('coupon'))
+                                @if (Cart::content()->count() > 0)
                                 {{ currencyPosition(session()->get('coupon')['discount']) }}
+                                @else
+                                    {{ session()->forget('coupon') }}
+                                    {{ currencyPosition(0) }}
+
+                                @endif
                             @else
                                 {{ currencyPosition(0) }}
                             @endif
                         </span></p>
                         <p class="total"><span>total:</span> <span id="final_total">
                             @if (session()->has('coupon'))
+                                @if (Cart::content()->count() > 0)
                                 {{ currencyPosition( cartTotal() - session()->get('coupon')['discount']) }}
+                                @else
+                                {{ session()->forget('coupon') }}
+                                {{ currencyPosition(0) }}
+                                @endif
                             @else
                                 {{ currencyPosition(cartTotal()) }}
                             @endif
@@ -173,7 +184,9 @@
                             "{{ currencyPosition(':productTotal') }}".replace(':productTotal',
                                 productTotal));
                         cartTotal = response.cartSubTotal
+                        cartFinalTotal = response.cartFinalTotal
                         $("#subtotal").text("{{ currencyPosition(':subtotal') }}".replace(':subtotal',cartTotal))
+                        $("#final_total").text("{{ currencyPosition(':finaltotal') }}".replace(':finaltotal',cartFinalTotal))
                     } else if (response.status === 'error') {
                         inputField.val(response.qty)
                         toastr.error('Quantity is not Avaialable')
@@ -197,7 +210,9 @@
                                     ':productTotal',
                                     productTotal));
                                     cartTotal = response.cartSubTotal
+                                    cartFinalTotal = response.cartFinalTotal
                             $("#subtotal").text("{{ currencyPosition(':subtotal') }}".replace(':subtotal',cartTotal))
+                            $("#final_total").text("{{ currencyPosition(':finaltotal') }}".replace(':finaltotal',cartFinalTotal))
 
                         } else if (response.status === 'error') {
                             inputField.val(response.qty)
@@ -223,7 +238,9 @@
                             updateCartProducts(function() {
                                 hideLoader()
                                 cartTotal = response.cartSubTotal
+                                cartFinalTotal = response.finalTotal
                                 $("#subtotal").text("{{ currencyPosition(':subtotal') }}".replace(':subtotal',cartTotal))
+                                $("#final_total").text("{{ currencyPosition(':finalTotal') }}".replace(':finalTotal',cartFinalTotal))
                                 toastr.success('Item Removed Successfully')
 
                             })

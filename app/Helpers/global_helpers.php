@@ -71,4 +71,29 @@ if (!function_exists('generateUniqueSlug')) {
             return $total;
         }
     }
+    // Calculate Cart Final total
+    if (!function_exists('cartFinalTotal')) {
+        function cartFinalTotal()
+        {
+
+            $finalTotal = 0;
+
+            if(session()->has('coupon')){
+                if( Cart::content()->count() > 0 ) {
+                    $finalTotal = cartTotal() - session()->get('coupon')['discount'];
+                    return $finalTotal;
+                }else {
+                    return $finalTotal;
+                }
+
+
+            }else{
+                    $finalTotal = cartTotal();
+                    return $finalTotal;
+            }
+
+
+
+        }
+    }
 }

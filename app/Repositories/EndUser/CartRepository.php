@@ -13,7 +13,7 @@ use Illuminate\View\View;
 class CartRepository implements CartRepositoryInterface
 {
 
-    public function index() : View
+    public function index(): View
     {
         return view('EndUser.Pages.cart-view');
     }
@@ -21,7 +21,7 @@ class CartRepository implements CartRepositoryInterface
     public function addToCart(Request $request)
     {
         $product = Product::with(['sizes', 'options'])->findOrFail($request->product_id);
-        if($product->quantity < $request->quantity) {
+        if ($product->quantity < $request->quantity) {
             throw ValidationException::withMessages(['Quantity is not available!']);
         }
 
@@ -53,8 +53,6 @@ class CartRepository implements CartRepositoryInterface
                     'name' => $option?->name,
                     'price' => $option?->price,
                 ];
-
-
             }
 
             Cart::add([
@@ -86,32 +84,43 @@ class CartRepository implements CartRepositoryInterface
     {
         try {
             Cart::remove($rowId);
-            return response(['status' => 'success', 'message' => 'Item Removed Successfully' , 'cartSubTotal' => cartTotal()], 200);
+            return response(['status' => 'success', 'message' => 'Item Removed Successfully', 'cartSubTotal' => cartTotal(), 'finalTotal' => cartFinalTotal()], 200);
         } catch (\Exception $e) {
             return response(['status' => 'error', 'message' => 'Something Went Wrong'], 500);
         }
     }
 
-    public function updateCartQty(Request $request) : Response {
+    public function updateCartQty(Request $request): Response
+    {
 
 
         $item = Cart::get($request->rowId);
 
         $product = Product::findOrFail($item->id);
-        if($product->quantity < $request->qty){
-            return response(['status'=>'error','message'=> 'Quantity is not available','qty'=> $item->qty]);
+        if ($product->quantity < $request->qty) {
+            return response(['status' => 'error', 'message' => 'Quantity is not available', 'qty' => $item->qty]);
         }
 
         try {
-            $cart = Cart::update($request->rowId,$request->qty);
-            return response(['status' => 'success', 'message' => 'Quantity Updated Successfully','product_total' => cartProductTotal($request->rowId) , 'qty' => $cart->qty , 'cartSubTotal' => cartTotal()  ], 200);
-        }catch(\Exception $e){
+            $cart = Cart::update($request->rowId, $request->qty);
+            return response([
+                'status' => 'success',
+                'message' => 'Quantity Updated Successfully',
+                'product_total' => cartProductTotal($request->rowId),
+                'qty' => $cart->qty,
+                'cartSubTotal' => cartTotal(),
+                'cartFinalTotal' => cartFinalTotal()
+            ], 200);
+        } catch (\Exception $e) {
             return response(['status' => 'error', 'message' => $e->getMessage()], 500);
-
         }
     }
-    public function cartDestroy(){
+    public function cartDestroy()
+    {
         Cart::destroy();
+        if(session()->has('coupon')) {
+            session()->forget('coupon');
+        }
         return redirect()->back();
     }
 }

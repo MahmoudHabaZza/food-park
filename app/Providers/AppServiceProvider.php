@@ -13,7 +13,9 @@ use App\Interfaces\Admin\ProfileRepositoryInterface;
 use App\Interfaces\Admin\SettingRepositoryInterface;
 use App\Interfaces\Admin\SliderRepositoryInterface;
 use App\Interfaces\Admin\WhyChooseUsRepositoryInterface;
+use App\Interfaces\EndUser\AddressRepositoryInterface;
 use App\Interfaces\EndUser\CartRepositoryInterface;
+use App\Interfaces\EndUser\DashboardRepositoryInterface;
 use App\Interfaces\EndUser\HomeRepositoryInterface;
 use App\Interfaces\EndUser\ProfileRepositoryInterface as EndUserProfileRepositoryInterface;
 use App\Repositories\Admin\CategoryRepository;
@@ -27,7 +29,9 @@ use App\Repositories\Admin\ProfileRepository;
 use App\Repositories\Admin\SettingRepository;
 use App\Repositories\Admin\SliderRepository;
 use App\Repositories\Admin\WhyChooseUsRepository;
+use App\Repositories\EndUser\AddressRepository;
 use App\Repositories\EndUser\CartRepository;
+use App\Repositories\EndUser\DashboardRepository;
 use App\Repositories\EndUser\HomeRepository;
 use App\Repositories\EndUser\ProfileRepository as EndUserProfileRepository;
 use Illuminate\Support\ServiceProvider;
@@ -54,6 +58,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CartRepositoryInterface::class, CartRepository::class);
         $this->app->bind(CouponRepositoryInterface::class, CouponRepository::class);
         $this->app->bind(DeliveryAreaRepositoryInterface::class, DeliveryAreaRepository::class);
+        $this->app->bind(DashboardRepositoryInterface::class, DashboardRepository::class);
+        $this->app->bind(AddressRepositoryInterface::class, AddressRepository::class);
     }
 
     /**

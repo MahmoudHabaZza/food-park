@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\EndUser\AddressController;
 use App\Http\Controllers\EndUser\CartController;
 use App\Http\Controllers\EndUser\DashboardController as EndUserDashboardController;
 use App\Http\Controllers\EndUser\HomeController;
@@ -44,6 +45,10 @@ Route::get('/remove-coupon',[HomeController::class,'removeCoupon'])->name('remov
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [EndUserDashboardController::class, 'index'])->name('dashboard');
+
+    Route::group(['prefix' => 'address' , 'as' => 'address.' ,'controller' => AddressController::class],function(){
+        Route::post('/store','store')->name('store');
+    });
 
     // Profile Routes
     Route::group(

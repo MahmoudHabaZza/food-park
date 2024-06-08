@@ -48,6 +48,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'address' , 'as' => 'address.' ,'controller' => AddressController::class],function(){
         Route::post('/store','store')->name('store');
+        Route::put('/update/{id}','update')->name('update');
     });
 
     // Profile Routes

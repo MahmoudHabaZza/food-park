@@ -22,5 +22,8 @@ class AddressController extends Controller
     public function update(AddressUpdateRequest $request , string $id) {
         return $this->addressRepository->update($request, $id);
     }
+    public function destroy(string $id){
+        return $this->addressRepository->destroy($id);
+    }
 
 }

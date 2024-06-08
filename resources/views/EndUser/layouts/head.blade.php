@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="{{ asset('assets/EndUser') }}/css/animate.css">
     <link rel="stylesheet" href="{{ asset('assets/EndUser') }}/css/jquery.exzoom.css">
 
+    {{-- Sweet Alert --}}
+    <link rel="stylesheet" href="{{ asset('assets/Admin') }}/css/sweetalert2.min.css">
+
     <link rel="stylesheet" href="{{ asset('assets/EndUser') }}/css/style.css">
     <link rel="stylesheet" href="{{ asset('assets/EndUser') }}/css/custom.css">
     <link rel="stylesheet" href="{{ asset('assets/EndUser') }}/css/responsive.css">

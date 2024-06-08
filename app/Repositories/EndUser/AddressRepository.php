@@ -42,4 +42,13 @@ class AddressRepository implements AddressRepositoryInterface {
         toastr()->success('Address Updated Successfully');
         return to_route('dashboard');
     }
+    public function destroy(string $id)
+    {
+        $address = Address::findOrFail($id);
+        if($address && $address->user_id === auth()->user()->id){
+            $address->delete();
+            return response(['status'=> 'success','message' => 'address deleted successfully']);
+        }
+        return response(['status'=> 'error','message' => 'something went wrong!']);
+    }
 }

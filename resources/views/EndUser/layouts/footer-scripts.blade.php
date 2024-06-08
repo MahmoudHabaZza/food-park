@@ -29,4 +29,8 @@
 
     <script src="{{ asset('assets/EndUser') }}/js/toastr.min.js"></script>
 
+    {{-- Sweet Alert --}}
+    <script src="{{ asset('assets/Admin') }}/js/sweetalert2.min.js"></script>
+
+
     @yield('js')

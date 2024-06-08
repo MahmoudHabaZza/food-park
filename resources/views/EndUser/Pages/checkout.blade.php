@@ -184,7 +184,7 @@ Checkout
                                 {{ currencyPosition(cartTotal()) }}
                             @endif
                         </span></p>
-                        <a class="common_btn" href="{{ route('checkout.index') }}">checkout</a>
+                        <a class="common_btn" id="checkout_to_payment" href="">checkout</a>
                     </div>
                 </div>
             </div>
@@ -217,12 +217,47 @@ Checkout
                     $('#final_total').text("{{ currencyPosition(':finalTotal') }}".replace(':finalTotal',response.finalTotal))
                 },
                 error:function(xhr,status,error){
+                    let errorMessage = xhr.resopnseJSON.message
+                    toastr.error(errorMessage)
+                    console.log(errorMessage)
 
                 },
                 complete:function(){
                     hideLoader()
                 }
 
+            })
+        })
+        $('#checkout_to_payment').on('click',function(e){
+            e.preventDefault()
+            let address = $('.v_address:checked')
+            if(address.length === 0){
+                toastr.error("Please Select An Address!")
+                return;
+            }
+            let addressId = address.val()
+            $.ajax({
+                method:"POST",
+                url:"{{ route('checkout.redirect') }}",
+                data:{
+                    address:addressId,
+                    _token:"{{ csrf_token() }}"
+                },
+                beforeSend:function(){
+                    showLoader()
+                },
+                success:function(response){
+
+                },
+                error:function(xhr,status,error){
+                    let errorMessage = xhr.resopnseJSON.message
+                    toastr.error(errorMessage)
+                    console.log(errorMessage)
+
+                },
+                complete:function(){
+                    hideLoader()
+                }
             })
         })
     })

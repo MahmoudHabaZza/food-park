@@ -68,6 +68,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Checkout Routes
     Route::get('/checkout',[CheckoutController::class,'index'])->name('checkout.index');
     Route::post('/checkout/delivery-calculation',[CheckoutController::class,'deliveryCalculation'])->name('checkout.delivery-calculation');
+    Route::post('/checkout/redirect',[CheckoutController::class,'checkoutRedirect'])->name('checkout.redirect');
 
 });
 

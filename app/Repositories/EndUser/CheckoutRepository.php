@@ -25,4 +25,8 @@ class CheckoutRepository implements CheckoutRepositoryInterface {
         }
 
     }
+    public function checkoutRedirect(Request $request)
+    {
+        
+    }
 }

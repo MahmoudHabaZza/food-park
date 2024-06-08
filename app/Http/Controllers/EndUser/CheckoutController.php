@@ -20,4 +20,7 @@ class CheckoutController extends Controller
     public function deliveryCalculation(Request $request) {
         return $this->checkoutRepository->deliveryCalculation($request);
     }
+    public function checkoutRedirect(Request $request){
+        return $this->checkoutRepository->checkoutRedirect($request);
+    }
 }

@@ -23,7 +23,7 @@ class AddressRepository implements AddressRepositoryInterface {
         ]);
 
         toastr()->success('Address Added Successfully');
-        return to_route('dashboard');
+        return redirect()->back();
     }
 
     public function update(AddressUpdateRequest $request, string $id)

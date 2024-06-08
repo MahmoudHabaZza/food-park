@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\EndUser\AddressController;
 use App\Http\Controllers\EndUser\CartController;
+use App\Http\Controllers\EndUser\CheckoutController;
 use App\Http\Controllers\EndUser\DashboardController as EndUserDashboardController;
 use App\Http\Controllers\EndUser\HomeController;
 use App\Http\Controllers\EndUser\ProfileController as EndUserProfileController;
@@ -46,6 +47,7 @@ Route::get('/remove-coupon',[HomeController::class,'removeCoupon'])->name('remov
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [EndUserDashboardController::class, 'index'])->name('dashboard');
 
+    // Address Routes
     Route::group(['prefix' => 'address' , 'as' => 'address.' ,'controller' => AddressController::class],function(){
         Route::post('/store','store')->name('store');
         Route::put('/update/{id}','update')->name('update');
@@ -62,6 +64,11 @@ Route::group(['middleware' => 'auth'], function () {
             Route::put('avatar', 'updateAvatar')->name('update.avatar');
         }
     );
+
+    // Checkout Routes
+    Route::get('/checkout',[CheckoutController::class,'index'])->name('checkout.index');
+    Route::post('/checkout/delivery-calculation',[CheckoutController::class,'deliveryCalculation'])->name('checkout.delivery-calculation');
+
 });
 
 

@@ -5,11 +5,19 @@ namespace App\Repositories\EndUser;
 use App\Interfaces\EndUser\CheckoutRepositoryInterface;
 use App\Models\Address;
 use App\Models\DeliveryArea;
+use Cart;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class CheckoutRepository implements CheckoutRepositoryInterface {
     public function index()
     {
+        if(Cart::content()->count() === 0){
+            toastr()->error('Add Some Food To Continue to Checkout Page');
+            return redirect()->back();
+
+        }
+
         $userAddresses = Address::where('user_id',auth()->user()->id)->get();
         $supportedAreas = DeliveryArea::where('status',1)->get();
         return view('EndUser.pages.checkout',compact('userAddresses','supportedAreas'));

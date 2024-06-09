@@ -3,16 +3,23 @@
 namespace App\Repositories\EndUser;
 
 use App\Interfaces\EndUser\PaymentRepositoryInterface;
+use Cart;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class PaymentRepository implements PaymentRepositoryInterface {
-    public function index() : View
+    public function index()
     {
+        if(Cart::content()->count() === 0){
+            toastr()->error('Add Some Food To Continue to Payment Page');
+            return redirect()->back();
+
+        }
 
         if(!session()->has('selectedAddress') && !session()->has('delivery_fee')) {
             throw ValidationException::withMessages(['Something Went Wrong']);
         }
+
 
         $subtotal = cartTotal();
         $delivery_fee = session()->get('delivery_fee') ?? 0;

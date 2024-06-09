@@ -73,22 +73,22 @@ if (!function_exists('generateUniqueSlug')) {
     }
     // Calculate Cart Final total
     if (!function_exists('cartFinalTotal')) {
-        function cartFinalTotal()
+        function cartFinalTotal($deliveryFee = 0)
         {
 
             $finalTotal = 0;
 
             if(session()->has('coupon')){
                 if( Cart::content()->count() > 0 ) {
-                    $finalTotal = cartTotal() - session()->get('coupon')['discount'];
+                    $finalTotal = (cartTotal() + $deliveryFee) - session()->get('coupon')['discount'];
                     return $finalTotal;
                 }else {
-                    return $finalTotal;
+                    return ($finalTotal + $deliveryFee);
                 }
 
 
             }else{
-                    $finalTotal = cartTotal();
+                    $finalTotal = cartTotal() + $deliveryFee;
                     return $finalTotal;
             }
 

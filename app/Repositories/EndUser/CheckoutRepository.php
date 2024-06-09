@@ -27,9 +27,14 @@ class CheckoutRepository implements CheckoutRepositoryInterface {
     }
     public function checkoutRedirect(Request $request)
     {
+        $request->validate([
+            'address' => ['required','integer']
+        ]);
         $address = Address::with('deliveryArea')->findOrFail($request->address);
         $selectedAddress = $address->address .' , Area :  '. $address->deliveryArea->area_name;
-        session('selectedAddress',$selectedAddress);
+        $delivery_fee = $address->deliveryArea->delivery_fee;
+        session()->put('selectedAddress',$selectedAddress);
+        session()->put('delivery_fee',$delivery_fee);
         return response(['redirect_url' => route('payment.index')]);
 
     }

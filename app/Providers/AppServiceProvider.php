@@ -18,6 +18,7 @@ use App\Interfaces\EndUser\CartRepositoryInterface;
 use App\Interfaces\EndUser\CheckoutRepositoryInterface;
 use App\Interfaces\EndUser\DashboardRepositoryInterface;
 use App\Interfaces\EndUser\HomeRepositoryInterface;
+use App\Interfaces\EndUser\PaymentRepositoryInterface;
 use App\Interfaces\EndUser\ProfileRepositoryInterface as EndUserProfileRepositoryInterface;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\CouponRepository;
@@ -35,6 +36,7 @@ use App\Repositories\EndUser\CartRepository;
 use App\Repositories\EndUser\CheckoutRepository;
 use App\Repositories\EndUser\DashboardRepository;
 use App\Repositories\EndUser\HomeRepository;
+use App\Repositories\EndUser\PaymentRepository;
 use App\Repositories\EndUser\ProfileRepository as EndUserProfileRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -63,6 +65,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(DashboardRepositoryInterface::class, DashboardRepository::class);
         $this->app->bind(AddressRepositoryInterface::class, AddressRepository::class);
         $this->app->bind(CheckoutRepositoryInterface::class, CheckoutRepository::class);
+        $this->app->bind(PaymentRepositoryInterface::class, PaymentRepository::class);
     }
 
     /**

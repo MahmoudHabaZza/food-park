@@ -73,6 +73,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Payment Routes
     Route::get('payment',[PaymentController::class,'index'])->name('payment.index');
+    Route::post('payment/make',[PaymentController::class,'makePayment'])->name('payment.make');
 
 });
 

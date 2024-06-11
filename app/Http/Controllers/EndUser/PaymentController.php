@@ -16,4 +16,7 @@ class PaymentController extends Controller
     public function index(){
         return $this->paymentRepository->index();
     }
+    public function makePayment(Request $request) {
+        return $this->paymentRepository->makePayment($request);
+    }
 }

@@ -35,7 +35,7 @@ Payment
                         <div class="row">
                             <h2>Choose Payment Gateway</h2>
                             <div class="col-lg-6 col-6 col-sm-6 col-md-6 wow fadeInUp" data-wow-duration="1s">
-                                <a class="fp__single_payment" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                <a class="fp__single_payment payment-card" data-name="paypal"  data-bs-toggle="modal" data-bs-target="#exampleModal"
                                     href="#">
                                     <img src="{{ asset('assets/EndUser/images/pay_1.jpg') }}" alt="payment method" class="img-fluid w-100">
                                 </a>
@@ -97,4 +97,37 @@ Payment
         PAYMENT PAGE END
     ==============================-->
 
+@endsection
+@section('js')
+        <script>
+            $(document).ready(function(){
+                $('.payment-card').on('click',function(e){
+                    let paymentGateway = $(this).data("name");
+                    e.preventDefault();
+                    $.ajax({
+                        method:'POST',
+                        url:'{{ route("payment.make") }}',
+                        data:{
+                            payment_gateway:paymentGateway,
+                            _token:'{{ csrf_token() }}'
+                        },
+                        beforeSend:function(){
+                            showLoader();
+                        },
+                        success:function(response){
+
+                        },
+                        error:function(xhr,status,error){
+                            let errors = xhr.responseJSON.errors;
+                            $.each(errors,function(index,value){
+                                toastr.error(value);
+                            })
+                        },
+                        complete:function(){
+                            hideLoader();
+                        }
+                    })
+                })
+            })
+        </script>
 @endsection

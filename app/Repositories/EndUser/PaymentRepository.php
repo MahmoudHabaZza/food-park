@@ -11,8 +11,7 @@ class PaymentRepository implements PaymentRepositoryInterface {
     public function index()
     {
         if(Cart::content()->count() === 0){
-            toastr()->error('Add Some Food To Continue to Payment Page');
-            return redirect()->back();
+            throw ValidationException::withMessages(['Add Some Products To continue to payment page']);
 
         }
 

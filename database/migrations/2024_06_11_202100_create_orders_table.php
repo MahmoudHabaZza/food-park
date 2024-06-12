@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('invoice_id');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->text('address');
-            $table->double('discount')->default('0');
+            $table->double('discount')->default(0);
+            $table->double('delivery_charge')->default(0);
             $table->double('subtotal');
             $table->double('final_total');
             $table->integer('product_qty');
@@ -25,7 +26,7 @@ return new class extends Migration
             $table->timestamp('payment_approve_date')->nullable();
             $table->string('transaction_id')->nullable();
             $table->json('coupon_info')->nullable();
-            $table->string('currency_name');
+            $table->string('currency_name')->nullable();
             $table->string('order_status')->default('pending');
             $table->timestamps();
         });

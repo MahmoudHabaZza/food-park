@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Order;
+use Carbon\Carbon;
+
 if (!function_exists('generateUniqueSlug')) {
     function generateUniqueSlug(string $model, string $name)
     {
@@ -57,15 +60,15 @@ if (!function_exists('generateUniqueSlug')) {
         {
             $total = 0;
 
-                $product = Cart::get($rowId);
-                $productPrice = $product->price;
-                $productSize = $product->options?->product_size['price'] ?? 0;
-                $productOptions = 0;
-                foreach ($product->options->product_options as $option) {
-                    $productOptions += $option['price'];
-                }
+            $product = Cart::get($rowId);
+            $productPrice = $product->price;
+            $productSize = $product->options?->product_size['price'] ?? 0;
+            $productOptions = 0;
+            foreach ($product->options->product_options as $option) {
+                $productOptions += $option['price'];
+            }
 
-                $total += ($productPrice + $productSize + $productOptions) * $product->qty;
+            $total += ($productPrice + $productSize + $productOptions) * $product->qty;
 
 
             return $total;
@@ -78,22 +81,31 @@ if (!function_exists('generateUniqueSlug')) {
 
             $finalTotal = 0;
 
-            if(session()->has('coupon')){
-                if( Cart::content()->count() > 0 ) {
+            if (session()->has('coupon')) {
+                if (Cart::content()->count() > 0) {
                     $finalTotal = (cartTotal() + $deliveryFee) - session()->get('coupon')['discount'];
                     return $finalTotal;
-                }else {
+                } else {
                     return ($finalTotal + $deliveryFee);
                 }
+            } else {
+                $finalTotal = cartTotal() + $deliveryFee;
+                return $finalTotal;
+            }
+        }
+    }
+
+    if (!function_exists('generateInvoiceId')) {
+        function generateInvoiceId()
+        {
+            $invoiceId = 'INV-' . Carbon::now()->format('YmdHis') . rand(1, 99999);
 
 
-            }else{
-                    $finalTotal = cartTotal() + $deliveryFee;
-                    return $finalTotal;
+            while (Order::where('invoice_id', $invoiceId)->exists()) {
+                $invoiceId = 'INV-' . Carbon::now()->format('YmdHis') . rand(1, 99999);
             }
 
-
-
+            return $invoiceId;
         }
     }
 }

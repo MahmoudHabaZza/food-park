@@ -3,6 +3,7 @@
 namespace App\Repositories\EndUser;
 
 use App\Interfaces\EndUser\PaymentRepositoryInterface;
+use App\Services\OrderService;
 use Cart;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -27,11 +28,18 @@ class PaymentRepository implements PaymentRepositoryInterface {
         $final_total = cartFinalTotal($delivery_fee);
         return view('EndUser.pages.payment',compact('subtotal','delivery_fee','discount','final_total'));
     }
-    public function makePayment(Request $request)
+    public function makePayment(Request $request,OrderService $orderService)
     {
         $request->validate([
             'payment_gateway' => ['required','string','in:paypal']
         ]);
-        
+
+        try{
+            $orderService->createOrder();
+
+        }catch(\Exception $e) {
+            throw $e;
+        }
+
     }
 }

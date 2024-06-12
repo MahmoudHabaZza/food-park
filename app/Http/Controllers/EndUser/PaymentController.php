@@ -4,6 +4,7 @@ namespace App\Http\Controllers\EndUser;
 
 use App\Http\Controllers\Controller;
 use App\Interfaces\EndUser\PaymentRepositoryInterface;
+use App\Services\OrderService;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
@@ -16,7 +17,7 @@ class PaymentController extends Controller
     public function index(){
         return $this->paymentRepository->index();
     }
-    public function makePayment(Request $request) {
-        return $this->paymentRepository->makePayment($request);
+    public function makePayment(Request $request , OrderService $orderService) {
+        return $this->paymentRepository->makePayment($request , $orderService);
     }
 }

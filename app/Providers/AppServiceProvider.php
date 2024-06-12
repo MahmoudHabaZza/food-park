@@ -6,6 +6,7 @@ use App\Interfaces\Admin\CategoryRepositoryInterface;
 use App\Interfaces\Admin\CouponRepositoryInterface;
 use App\Interfaces\Admin\DeliveryAreaRepositoryInterface;
 use App\Interfaces\Admin\OrderRepositoryInterface;
+use App\Interfaces\Admin\PaymentGatewaySettingRepositoryInterface;
 use App\Interfaces\Admin\ProductGalleryRepositoryInterface;
 use App\Interfaces\Admin\ProductOptionRepositoryInterface;
 use App\Interfaces\Admin\ProductRepositoryInterface;
@@ -24,6 +25,7 @@ use App\Interfaces\EndUser\ProfileRepositoryInterface as EndUserProfileRepositor
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\CouponRepository;
 use App\Repositories\Admin\DeliveryAreaRepository;
+use App\Repositories\Admin\PaymentGatewaySettingRepository;
 use App\Repositories\Admin\ProductGalleryRepository;
 use App\Repositories\Admin\ProductOptionRepository;
 use App\Repositories\Admin\ProductRepository;
@@ -68,6 +70,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AddressRepositoryInterface::class, AddressRepository::class);
         $this->app->bind(CheckoutRepositoryInterface::class, CheckoutRepository::class);
         $this->app->bind(PaymentRepositoryInterface::class, PaymentRepository::class);
+        $this->app->bind(PaymentGatewaySettingRepositoryInterface::class, PaymentGatewaySettingRepository::class);
     }
 
     /**

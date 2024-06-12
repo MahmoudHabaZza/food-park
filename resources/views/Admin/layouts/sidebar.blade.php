@@ -32,6 +32,7 @@
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ route('admin.coupon.index') }}">Coupon</a></li>
                     <li><a class="nav-link" href="{{ route('admin.delivery-area.index') }}">Delivery Areas</a></li>
+                    <li><a class="nav-link" href="{{ route('admin.payment-gateways.index') }}">Payment Gateways</a></li>
                 </ul>
             </li>
             <li><a class="nav-link" href="{{ route('admin.setting.index') }}"><i class="far fa-square"></i> <span>Settings</span></a></li>

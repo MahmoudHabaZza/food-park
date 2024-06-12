@@ -34,11 +34,8 @@ class PaymentRepository implements PaymentRepositoryInterface {
             'payment_gateway' => ['required','string','in:paypal']
         ]);
 
-        try{
-            $orderService->createOrder();
-
-        }catch(\Exception $e) {
-            throw $e;
+        if($orderService->createOrder()){
+            return true;
         }
 
     }

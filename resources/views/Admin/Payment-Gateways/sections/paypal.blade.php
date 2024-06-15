@@ -5,14 +5,14 @@ aria-labelledby="home-tab4">
         <h5>Update General Settings</h5>
     </div>
     <div class="card-body">
-        <form action="{{ route('admin.setting.general-settings.update') }}" method="POST">
+        <form action="{{ route('admin.paypal.settings.update') }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Paypal Status</label>
-                        <select name="" class="form-control select2">
+                        <select name="paypal_status" class="form-control select2">
                             <option value="1">Active</option>
                             <option value="0">Inactive</option>
                         </select>
@@ -21,7 +21,7 @@ aria-labelledby="home-tab4">
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Paypal Account Mode</label>
-                        <select name="" class="form-control select2">
+                        <select name="paypal_account_mode" class="form-control select2">
                             <option value="sandbox">Sandbox</option>
                             <option value="live">Live</option>
                         </select>
@@ -30,16 +30,18 @@ aria-labelledby="home-tab4">
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Paypal Country Name</label>
-                        <select name="" class="form-control select2">
-                            <option value="sandbox">Sandbox</option>
-                            <option value="live">Live</option>
+                        <select name="paypal_country" class="form-control select2">
+                            <option selected disabled value="">Choose</option>
+                            @foreach (config('country_list') as $key => $value)
+                                <option value="{{ $key }}">{{ $value }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Paypal Account Currency</label>
-                        <select name="site_default_currency" class="form-control select2">
+                        <select name="paypal_account_currency" class="form-control select2">
                             <option value="" disabled>Choose</option>
                             @foreach (config('currencys.currency_list') as $currency )
                             <option @selected(config('settings.site_default_currency') === $currency)  value="{{ $currency }}">{{ $currency }}</option>
@@ -49,28 +51,28 @@ aria-labelledby="home-tab4">
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label>Currency Rate</label>
-                        <input type="text" name="" class="form-control"  value="" />
+                        <label>Currency Rate Per ( {{ config('settings.site_default_currency') }} )</label>
+                        <input type="text" name="paypal_currency_rate" class="form-control"  value="" />
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Paypal Client Id</label>
-                        <input type="text" name="" class="form-control"  value="" />
+                        <input type="text" name="paypal_api_key" class="form-control"  value="" />
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Paypal Secret Key</label>
-                        <input type="text" name="" class="form-control"  value="" />
+                        <input type="text" name="paypal_secret_key" class="form-control"  value="" />
                     </div>
                 </div>
                 <div class="col-md-12">
                 <div class="form-group">
-                    <label>Image</label>
+                    <label>Paypal Logo</label>
                     <div id="image-preview" class="image-preview">
                         <label for="image-upload" id="image-label">Choose File</label>
-                        <input type="file" name="avatar" id="image-upload" />
+                        <input type="file" name="paypal_image" id="image-upload" />
                     </div>
                 </div>
             </div>

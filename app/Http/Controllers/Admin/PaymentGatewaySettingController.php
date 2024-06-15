@@ -16,5 +16,8 @@ class PaymentGatewaySettingController extends Controller
     public function index() {
         return $this->paymentGatewayRepository->index();
     }
+    public function paypalSettingsUpdate(Request $request) {
+        return $this->paymentGatewayRepository->paypalSettingsUpdate($request);
+    }
 
 }

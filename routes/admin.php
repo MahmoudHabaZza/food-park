@@ -104,5 +104,6 @@ Route::group([
 
         // Payment Gateways Setting Routes
         Route::get('payment-gateways',[PaymentGatewaySettingController::class,'index'])->name('payment-gateways.index');
+        Route::put('paypal-settings-update',[PaymentGatewaySettingController::class,'paypalSettingsUpdate'])->name('paypal.settings.update');
     });
 });

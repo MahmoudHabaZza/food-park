@@ -35,7 +35,7 @@ class PaymentGatewaySettingRepository implements PaymentGatewaySettingRepository
                 'paypal_image' => ['nullable', 'image']
             ]);
 
-            $imagePath = $this->uploadImage($request, 'paypal_image');
+            $imagePath = $this->uploadImage($request, 'paypal_image','uploads/Admin/Payment-Gateway-Logos');
             PaymentGatewaySetting::updateOrCreate(
                 ['key' => 'paypal_image'],
                 ['value' => $imagePath]

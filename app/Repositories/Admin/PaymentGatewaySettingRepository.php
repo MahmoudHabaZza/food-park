@@ -4,6 +4,7 @@ namespace App\Repositories\Admin;
 
 use App\Interfaces\Admin\PaymentGatewaySettingRepositoryInterface;
 use App\Models\PaymentGatewaySetting;
+use App\Services\PaymentGatewaySettingService;
 use App\Traits\UploadFileTrait;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -50,6 +51,9 @@ class PaymentGatewaySettingRepository implements PaymentGatewaySettingRepository
                 ['value' => $value]
             );
         }
+
+        $paymentGatewaySettingService = app(PaymentGatewaySettingService::class);
+        $paymentGatewaySettingService->clearCachedSettings();
 
         toastr()->success('Updated Successfully');
         return redirect()->back();

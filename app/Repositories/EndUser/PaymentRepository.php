@@ -7,17 +7,17 @@ use App\Services\OrderService;
 use Cart;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-use Illuminate\View\View;
+use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
-class PaymentRepository implements PaymentRepositoryInterface {
+class PaymentRepository implements PaymentRepositoryInterface
+{
     public function index()
     {
-        if(Cart::content()->count() === 0){
+        if (Cart::content()->count() === 0) {
             throw ValidationException::withMessages(['Add Some Products To continue to payment page']);
-
         }
 
-        if(!session()->has('selectedAddress') && !session()->has('delivery_fee')) {
+        if (!session()->has('selectedAddress') && !session()->has('delivery_fee')) {
             throw ValidationException::withMessages(['Something Went Wrong']);
         }
 
@@ -26,29 +26,29 @@ class PaymentRepository implements PaymentRepositoryInterface {
         $delivery_fee = session()->get('delivery_fee') ?? 0;
         $discount = session()->get('coupon')['discount'] ?? 0;
         $final_total = cartFinalTotal($delivery_fee);
-        return view('EndUser.pages.payment',compact('subtotal','delivery_fee','discount','final_total'));
+        return view('EndUser.pages.payment', compact('subtotal', 'delivery_fee', 'discount', 'final_total'));
     }
-    public function makePayment(Request $request,OrderService $orderService)
+    public function makePayment(Request $request, OrderService $orderService)
     {
         $request->validate([
-            'payment_gateway' => ['required','string','in:paypal']
+            'payment_gateway' => ['required', 'string', 'in:paypal']
         ]);
 
-        if($orderService->createOrder()){
+        if ($orderService->createOrder()) {
             // redirect user to the selected payment gateway
 
             switch ($request->payment_gateway) {
                 case 'paypal':
-                    return response(['redirect_url'=> route('paypal.payment')]);
+                    return response(['redirect_url' => route('paypal.payment')]);
                     break;
                 default:
                     break;
             }
         }
-
     }
 
-    public function setPaypalConfig(){
+    public function setPaypalConfig()
+    {
         $config = [
             'mode'    => config('gatewaySettings.paypal_account_mode'), // Can only be 'sandbox' Or 'live'. If empty or invalid, 'live' will be used.
             'sandbox' => [
@@ -74,14 +74,35 @@ class PaymentRepository implements PaymentRepositoryInterface {
 
     public function payWithPaypal()
     {
+        $final_total = session()->get('final_total');
+        $payableAmount = round($final_total * config('gatewaySettings.paypal_currency_rate'));
+        $config = $this->setPaypalConfig();
+        $provider = new PayPalClient($config);
+        $provider->getAccessToken();
 
+        $response = $provider->createOrder([
+            'intent' => 'CAPTURE',
+            'application_context' => [
+                'return_url' => route('paypal.success'),
+                'cancel_url' => route('paypal.cancel')
+            ],
+            'purchase_units' => [
+                [
+                    'amount' => [
+                        'currency_code' => config('gatewaySettings.paypal_account_currency'),
+                        'value' => $payableAmount
+                    ]
+
+                ]
+            ]
+        ]);
+
+        dd($response);
     }
     public function paypalSuccess()
     {
-
     }
     public function paypalCancel()
     {
-
     }
 }

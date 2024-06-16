@@ -42,6 +42,9 @@ class OrderService {
                 ]);
             }
 
+            /** Store the final total in session to pass it to the payment gateway */
+            session()->put('final_total',$order->final_total);
+
             return true;
         }catch(\Exception $e) {
             logger($e);

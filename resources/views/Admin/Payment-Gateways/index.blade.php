@@ -1,6 +1,6 @@
 @extends('Admin.layouts.master')
 @section('title')
-    Settings
+    Payment Gateway Settings
 @endsection
 @section('content')
     <div class="section">

@@ -35,8 +35,21 @@ class PaymentRepository implements PaymentRepositoryInterface {
         ]);
 
         if($orderService->createOrder()){
-            return true;
+            // redirect user to the selected payment gateway
+            return response(['redirect_url'=> route('paypal.payment')]);
         }
+
+    }
+    public function payWithPaypal()
+    {
+        
+    }
+    public function paypalSuccess()
+    {
+
+    }
+    public function paypalCancel()
+    {
 
     }
 }

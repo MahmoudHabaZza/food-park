@@ -115,7 +115,7 @@ Payment
                             showLoader();
                         },
                         success:function(response){
-
+                            window.location.href = response.redirect_url;
                         },
                         error:function(xhr,status,error){
                             let errors = xhr.responseJSON.errors;

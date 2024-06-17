@@ -3,6 +3,7 @@
 namespace App\Repositories\EndUser;
 
 use App\Events\OrderPaymentUpdateEvent;
+use App\Events\OrderPlacedNotificationEvent;
 use App\Interfaces\EndUser\PaymentRepositoryInterface;
 use App\Services\OrderService;
 use Cart;
@@ -131,6 +132,7 @@ class PaymentRepository implements PaymentRepositoryInterface
 
 
             OrderPaymentUpdateEvent::dispatch($order_id,$payment_info,'PayPal');
+            OrderPlacedNotificationEvent::dispatch($order_id);
 
             dd('success');
 

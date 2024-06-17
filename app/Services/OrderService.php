@@ -45,6 +45,9 @@ class OrderService {
             /** Store the final total in session to pass it to the payment gateway */
             session()->put('final_total',$order->final_total);
 
+            /** Store the order id to grab it after completing the payment  */
+            session()->put('order_id',$order->id);
+
             return true;
         }catch(\Exception $e) {
             logger($e);

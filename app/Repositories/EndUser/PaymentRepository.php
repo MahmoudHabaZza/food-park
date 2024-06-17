@@ -119,7 +119,14 @@ class PaymentRepository implements PaymentRepositoryInterface
 
 
         if(isset($response['status']) && $response['status'] === 'COMPLETED'){
-            dd('Payment Completed');
+            $order_id = session()->get('order_id');
+            $payment_info = [
+                'transaction_id' => $response['purchase_units'][0]['payments']['captures'][0]['id'],
+                'currency' => $response['purchase_units'][0]['payments']['captures'][0]['amount']['currency_code'],
+                'status' => $response['purchase_units'][0]['payments']['captures'][0]['amount']['status'],
+
+            ];
+            dd($payment_info);
         }
     }
     public function paypalCancel()

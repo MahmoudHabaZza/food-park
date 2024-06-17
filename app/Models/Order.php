@@ -11,6 +11,6 @@ class Order extends Model
     protected $fillable = [
         'invoice_id','user_id','address','discount','subtotal',
         'final_total','product_qty','payment_method','payment_approve_date','transaction_id',
-        'coupon_info','currency_name','order_status','delivery_charge'
+        'coupon_info','currency_name','order_status','delivery_charge','payment_status'
     ];
 }

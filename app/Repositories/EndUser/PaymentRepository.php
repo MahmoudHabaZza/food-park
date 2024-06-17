@@ -2,6 +2,7 @@
 
 namespace App\Repositories\EndUser;
 
+use App\Events\OrderPaymentUpdateEvent;
 use App\Interfaces\EndUser\PaymentRepositoryInterface;
 use App\Services\OrderService;
 use Cart;
@@ -120,13 +121,19 @@ class PaymentRepository implements PaymentRepositoryInterface
 
         if(isset($response['status']) && $response['status'] === 'COMPLETED'){
             $order_id = session()->get('order_id');
+            $captures = $response['purchase_units'][0]['payments']['captures'][0];
             $payment_info = [
-                'transaction_id' => $response['purchase_units'][0]['payments']['captures'][0]['id'],
-                'currency' => $response['purchase_units'][0]['payments']['captures'][0]['amount']['currency_code'],
-                'status' => $response['purchase_units'][0]['payments']['captures'][0]['amount']['status'],
+                'transaction_id' => $captures['id'],
+                'currency' => $captures['amount']['currency_code'],
+                'status' => $captures['status'],
 
             ];
-            dd($payment_info);
+
+
+            OrderPaymentUpdateEvent::dispatch($order_id,$payment_info,'PayPal');
+
+            dd('success');
+
         }
     }
     public function paypalCancel()

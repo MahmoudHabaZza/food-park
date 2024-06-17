@@ -35,7 +35,7 @@ Payment
                         <div class="row">
                             <h2>Choose Payment Gateway</h2>
                             <div class="col-lg-6 col-6 col-sm-6 col-md-6 wow fadeInUp" data-wow-duration="1s">
-                                <a class="fp__single_payment payment-card" data-name="paypal"  data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                <a class="fp__single_payment payment-card" data-name="paypal"
                                     href="#">
                                     <img src="{{ asset('assets/EndUser/images/pay_1.jpg') }}" alt="payment method" class="img-fluid w-100">
                                 </a>

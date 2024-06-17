@@ -76,6 +76,7 @@ class PaymentRepository implements PaymentRepositoryInterface
     {
         $final_total = session()->get('final_total');
         $payableAmount = round($final_total * config('gatewaySettings.paypal_currency_rate'));
+        // dd($payableAmount);
         $config = $this->setPaypalConfig();
         $provider = new PayPalClient($config);
         $provider->getAccessToken();
@@ -97,10 +98,29 @@ class PaymentRepository implements PaymentRepositoryInterface
             ]
         ]);
 
-        dd($response);
+
+        if(isset($response['id']) && $response['id'] != NULL){
+            foreach($response['links'] as $link){
+                if($link['rel'] === 'approve'){
+                    return redirect()->away($link['href']);
+                }
+            }
+        }
     }
-    public function paypalSuccess()
+    public function paypalSuccess(Request $request)
     {
+        $config = $this->setPaypalConfig();
+        $provider = new PayPalClient($config);
+        $provider->getAccessToken();
+
+
+        $response = $provider->capturePaymentOrder($request->token);
+
+
+
+        if(isset($response['status']) && $response['status'] === 'COMPLETED'){
+            dd('Payment Completed');
+        }
     }
     public function paypalCancel()
     {

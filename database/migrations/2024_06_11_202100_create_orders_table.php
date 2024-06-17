@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('invoice_id');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->text('address');
+            $table->foreignId('delivery_area_id')->constrained();
             $table->double('discount')->default(0);
             $table->double('delivery_charge')->default(0);
             $table->double('subtotal');

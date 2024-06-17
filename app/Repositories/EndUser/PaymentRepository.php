@@ -32,9 +32,12 @@ class PaymentRepository implements PaymentRepositoryInterface
     }
     public function makePayment(Request $request, OrderService $orderService)
     {
+
         $request->validate([
             'payment_gateway' => ['required', 'string', 'in:paypal']
         ]);
+
+
 
         if ($orderService->createOrder()) {
             // redirect user to the selected payment gateway
@@ -99,6 +102,7 @@ class PaymentRepository implements PaymentRepositoryInterface
                 ]
             ]
         ]);
+
 
 
         if(isset($response['id']) && $response['id'] != NULL){

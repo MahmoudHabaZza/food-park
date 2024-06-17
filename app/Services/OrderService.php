@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Cart;
+use Exception;
 
 class OrderService {
     public function createOrder() {
@@ -14,6 +15,7 @@ class OrderService {
                 'invoice_id' => generateInvoiceId(),
                 'user_id' => auth()->user()->id,
                 'address' => session()->get('selectedAddress'),
+                'delivery_area_id' => session()->get('delivery_area_id'),
                 'discount' => session()->get('coupon')['discount'] ?? 0,
                 'delivery_charge' => session()->get('delivery_fee'),
                 'subtotal' => cartTotal(),

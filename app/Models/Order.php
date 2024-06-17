@@ -12,10 +12,13 @@ class Order extends Model
     protected $fillable = [
         'invoice_id','user_id','address','discount','subtotal',
         'final_total','product_qty','payment_method','payment_approve_date','transaction_id',
-        'coupon_info','currency_name','order_status','delivery_charge','payment_status'
+        'coupon_info','currency_name','order_status','delivery_charge','payment_status','delivery_area_id'
     ];
 
     public function user() : BelongsTo {
         return $this->belongsTo(User::class);
+    }
+    public function deliveryArea() : BelongsTo {
+        return $this->belongsTo(DeliveryArea::class);
     }
 }

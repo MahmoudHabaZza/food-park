@@ -32,14 +32,53 @@ class PaymentGatewaySettingRepository implements PaymentGatewaySettingRepository
             'paypal_app_id' => ['required']
         ]);
 
-        if ($request->hasFile('paypal_image')) {
+        if ($request->hasFile('paypal_logo')) {
             $request->validate([
-                'paypal_image' => ['nullable', 'image']
+                'paypal_logo' => ['nullable', 'image']
             ]);
 
-            $imagePath = $this->uploadImage($request, 'paypal_image','uploads/Admin/Payment-Gateway-Logos');
+            $imagePath = $this->uploadImage($request, 'paypal_logo','uploads/Admin/Payment-Gateway-Logos');
             PaymentGatewaySetting::updateOrCreate(
-                ['key' => 'paypal_image'],
+                ['key' => 'paypal_logo'],
+                ['value' => $imagePath]
+            );
+        }
+
+
+
+        foreach ($validatedData as $key => $value) {
+            PaymentGatewaySetting::updateOrCreate(
+                ['key' => $key],
+                ['value' => $value]
+            );
+        }
+
+        $paymentGatewaySettingService = app(PaymentGatewaySettingService::class);
+        $paymentGatewaySettingService->clearCachedSettings();
+
+        toastr()->success('Updated Successfully');
+        return redirect()->back();
+    }
+    public function stripeSettingUpdate(Request $request)
+    {
+        $validatedData = $request->validate([
+            'stripe_status' => ['required', 'boolean'],
+            'stripe_country' => ['required', 'string'],
+            'stripe_account_currency' => ['required', 'string'],
+            'stripe_currency_rate' => ['required', 'numeric'],
+            'stripe_api_key' => ['required'],
+            'stripe_secret_key' => ['required'],
+
+        ]);
+
+        if ($request->hasFile('stripe_logo')) {
+            $request->validate([
+                'stripe_logo' => ['nullable', 'image']
+            ]);
+
+            $imagePath = $this->uploadImage($request, 'stripe_logo','uploads/Admin/Payment-Gateway-Logos');
+            PaymentGatewaySetting::updateOrCreate(
+                ['key' => 'stripe_logo'],
                 ['value' => $imagePath]
             );
         }

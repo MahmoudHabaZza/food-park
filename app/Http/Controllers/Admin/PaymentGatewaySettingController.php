@@ -19,5 +19,8 @@ class PaymentGatewaySettingController extends Controller
     public function paypalSettingsUpdate(Request $request) {
         return $this->paymentGatewayRepository->paypalSettingsUpdate($request);
     }
+    public function stripeSettingUpdate(Request $request){
+        return $this->paymentGatewayRepository->stripeSettingUpdate($request);
+    }
 
 }

@@ -117,7 +117,7 @@ class PaymentRepository implements PaymentRepositoryInterface
             return redirect()->route('paypal.cancel')->withErrors(['error' => $response['error']['message']]);
         }
     }
-    public function paypalSuccess(Request $request)
+    public function paypalSuccess(Request $request,OrderService $orderService)
     {
         $config = $this->setPaypalConfig();
         $provider = new PayPalClient($config);
@@ -143,12 +143,14 @@ class PaymentRepository implements PaymentRepositoryInterface
             OrderPlacedNotificationEvent::dispatch($order_id);
 
 
+
+            $orderService->clearSession();
             session()->put('payment-success',true);
             return redirect()->route('payment.success');
 
         }else {
             session()->put('payment-cancel',true);
-            return redirect()->route('paypal.cancel')->withErrors(['error' => $response['error']['message']]);
+            return redirect()->route('paypal.cancel')->withErrors(['error' => $response['errors']['message']]);
 
         }
 
@@ -157,7 +159,7 @@ class PaymentRepository implements PaymentRepositoryInterface
     public function paypalCancel(Request $request)
     {
 
-        
+
         return redirect()->route('payment.cancel');
     }
     public function paymentSuccess()

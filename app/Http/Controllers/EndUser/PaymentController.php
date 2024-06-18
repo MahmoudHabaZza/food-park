@@ -23,8 +23,8 @@ class PaymentController extends Controller
     public function payWithPaypal() {
         return $this->paymentRepository->payWithPaypal();
     }
-    public function paypalSuccess(Request $request) {
-        return $this->paymentRepository->paypalSuccess($request);
+    public function paypalSuccess(Request $request,OrderService $orderService) {
+        return $this->paymentRepository->paypalSuccess($request, $orderService);
     }
     public function paypalCancel(Request $request) {
         return $this->paymentRepository->paypalCancel($request);

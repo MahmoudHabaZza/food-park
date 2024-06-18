@@ -56,4 +56,14 @@ class OrderService {
             return false;
         }
     }
+
+    public function clearSession(){
+        Cart::destroy();
+        session()->forget('coupon');
+        session()->forget('selectedAddress');
+        session()->forget('delivery_area_id');
+        session()->forget('delivery_fee');
+        session()->forget('final_total');
+        session()->forget('order_id');
+    }
 }

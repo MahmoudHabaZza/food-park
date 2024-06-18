@@ -124,7 +124,7 @@ Payment
                             })
                         },
                         complete:function(){
-                            hideLoader();
+                            // hideLoader();
                         }
                     })
                 })

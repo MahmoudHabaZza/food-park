@@ -29,6 +29,7 @@ class PaymentGatewaySettingRepository implements PaymentGatewaySettingRepository
             'paypal_currency_rate' => ['required', 'numeric'],
             'paypal_api_key' => ['required'],
             'paypal_secret_key' => ['required'],
+            'paypal_app_id' => ['required']
         ]);
 
         if ($request->hasFile('paypal_image')) {

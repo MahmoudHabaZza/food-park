@@ -10,5 +10,7 @@ interface PaymentRepositoryInterface {
     public function makePayment(Request $request,OrderService $orderService);
     public function payWithPaypal();
     public function paypalSuccess(Request $request);
-    public function paypalCancel();
+    public function paypalCancel(Request $request);
+    public function paymentSuccess();
+    public function paymentCancel();
 }

@@ -76,10 +76,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('payment/make',[PaymentController::class,'makePayment'])->name('payment.make');
 
     // Paypal Routes
-    // don't forget to group and organize the routes later on .... 
+    // don't forget to group and organize the routes later on ....
     Route::get('paypal/payment',[PaymentController::class,'payWithPaypal'])->name('paypal.payment');
     Route::get('paypal/success',[PaymentController::class,'paypalSuccess'])->name('paypal.success');
     Route::get('paypal/cancel',[PaymentController::class,'paypalCancel'])->name('paypal.cancel');
+
+    Route::get('payment-success',[PaymentController::class,'paymentSuccess'])->name('payment.success');
+    Route::get('payment-cancel',[PaymentController::class,'paymentCancel'])->name('payment.cancel');
 
 });
 

@@ -8,6 +8,7 @@ use App\Interfaces\EndUser\PaymentRepositoryInterface;
 use App\Services\OrderService;
 use Cart;
 use Illuminate\Http\Request;
+use Illuminate\Validation\UnauthorizedException;
 use Illuminate\Validation\ValidationException;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
@@ -111,6 +112,9 @@ class PaymentRepository implements PaymentRepositoryInterface
                     return redirect()->away($link['href']);
                 }
             }
+        }else {
+            session()->put('payment-cancel',true);
+            return redirect()->route('paypal.cancel')->withErrors(['error' => $response['error']['message']]);
         }
     }
     public function paypalSuccess(Request $request)
@@ -138,11 +142,40 @@ class PaymentRepository implements PaymentRepositoryInterface
             OrderPaymentUpdateEvent::dispatch($order_id,$payment_info,'PayPal');
             OrderPlacedNotificationEvent::dispatch($order_id);
 
-            dd('success');
+
+            session()->put('payment-success',true);
+            return redirect()->route('payment.success');
+
+        }else {
+            session()->put('payment-cancel',true);
+            return redirect()->route('paypal.cancel')->withErrors(['error' => $response['error']['message']]);
 
         }
+
+
     }
-    public function paypalCancel()
+    public function paypalCancel(Request $request)
     {
+
+        
+        return redirect()->route('payment.cancel');
+    }
+    public function paymentSuccess()
+    {
+        if(session()->has('payment-success') && session()->get('payment-success') === true){
+            session()->forget('payment-success');
+            return view('EndUser.pages.payment-success');
+        }else {
+            return redirect('/')->withErrors(['error' => 'Unauthorized Access']);
+        }
+    }
+    public function paymentCancel()
+    {
+        if(session()->has('payment-cancel') && session()->get('payment-cancel') === true) {
+            session()->forget('payment-cancel');
+            return view('EndUser.pages.payment-cancel');
+        }else {
+            return redirect('/')->withErrors(['error' => 'unauthorized Access']);
+        }
     }
 }

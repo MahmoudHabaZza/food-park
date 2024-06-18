@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\UnauthorizedException;
 use Illuminate\Validation\ValidationException;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
+use Stripe\Stripe;
+use Stripe\Checkout\Session as StripeSession;
 
 class PaymentRepository implements PaymentRepositoryInterface
 {
@@ -35,7 +37,7 @@ class PaymentRepository implements PaymentRepositoryInterface
     {
 
         $request->validate([
-            'payment_gateway' => ['required', 'string', 'in:paypal']
+            'payment_gateway' => ['required', 'string', 'in:paypal,stripe']
         ]);
 
 
@@ -46,6 +48,9 @@ class PaymentRepository implements PaymentRepositoryInterface
             switch ($request->payment_gateway) {
                 case 'paypal':
                     return response(['redirect_url' => route('paypal.payment')]);
+                    break;
+                case 'stripe':
+                    return response(['redirect_url' => route('stripe.payment')]);
                     break;
                 default:
                     break;
@@ -179,5 +184,12 @@ class PaymentRepository implements PaymentRepositoryInterface
         }else {
             return redirect('/')->withErrors(['error' => 'unauthorized Access']);
         }
+    }
+
+    public function payWithStripe()
+    {
+        Stripe::setApiKey(config('gatewaySettings.stripe_secret_key'));
+
+        $response = StripeSession::create();
     }
 }

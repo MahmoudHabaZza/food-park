@@ -13,4 +13,5 @@ interface PaymentRepositoryInterface {
     public function paypalCancel(Request $request);
     public function paymentSuccess();
     public function paymentCancel();
+    public function payWithStripe();
 }

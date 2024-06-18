@@ -92,6 +92,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/cancel', 'paypalCancel')->name('cancel');
         });
 
+        Route::get('stripe/payment','payWithStripe')->name('stripe.payment');
 
     });
 

@@ -36,4 +36,7 @@ class PaymentController extends Controller
     public function paymentCancel() {
         return $this->paymentRepository->paymentCancel();
     }
+    public function payWithStripe(){
+        return $this->paymentRepository->payWithStripe();
+    }
 }

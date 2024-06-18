@@ -37,7 +37,13 @@
                             <div class="col-lg-6 col-6 col-sm-6 col-md-6 wow fadeInUp" data-wow-duration="1s">
                                 <a class="fp__single_payment payment-card" data-name="paypal"
                                     href="#">
-                                    <img src="{{ asset('assets/EndUser/images/pay_1.jpg') }}" alt="payment method" class="img-fluid w-100">
+                                    <img src="{{ asset(config('gatewaySettings.paypal_logo')) }}" alt="payment method" class="img-fluid w-100">
+                                </a>
+                            </div>
+                            <div class="col-lg-6 col-6 col-sm-6 col-md-6 wow fadeInUp" data-wow-duration="1s">
+                                <a class="fp__single_payment payment-card" data-name="stripe"
+                                    href="#">
+                                    <img src="{{ asset(config('gatewaySettings.stripe_logo')) }}" alt="payment method" class="img-fluid w-100">
                                 </a>
                             </div>
                         </div>

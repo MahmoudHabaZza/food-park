@@ -1,4 +1,7 @@
 @extends('EndUser.layouts.master')
+@section('title')
+{{ auth()->user()->name }} | Dashboard
+@endsection
 @section('content')
     <!--=============================
                                                     BREADCRUMB START

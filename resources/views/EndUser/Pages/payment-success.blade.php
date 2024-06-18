@@ -1,6 +1,6 @@
 @extends('EndUser.layouts.master')
 @section('title')
-Order
+{{ config('settings.site_name') }} | Payment Success
 @endsection
 @section('content')
     <!--=============================

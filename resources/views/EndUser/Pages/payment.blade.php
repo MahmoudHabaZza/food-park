@@ -1,6 +1,6 @@
 @extends('EndUser.layouts.master')
 @section('title')
-Payment
+{{ @config('settings.site_name') }} | Payment Page
 @endsection
 @section('content')
     <!--=============================

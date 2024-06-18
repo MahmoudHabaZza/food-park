@@ -1,6 +1,6 @@
 @extends('EndUser.layouts.master')
 @section('title')
-Checkout
+{{ @config('settings.site_name') }} | Checkout
 @endsection
 @section('content')
 

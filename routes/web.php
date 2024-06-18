@@ -67,22 +67,36 @@ Route::group(['middleware' => 'auth'], function () {
     );
 
     // Checkout Routes
-    Route::get('/checkout',[CheckoutController::class,'index'])->name('checkout.index');
-    Route::post('/checkout/delivery-calculation',[CheckoutController::class,'deliveryCalculation'])->name('checkout.delivery-calculation');
-    Route::post('/checkout/redirect',[CheckoutController::class,'checkoutRedirect'])->name('checkout.redirect');
+    Route::group(['prefix' => 'checkout', 'as' => 'checkout.', 'controller' => CheckoutController::class], function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/delivery-calculation', 'deliveryCalculation')->name('delivery-calculation');
+        Route::post('/redirect', 'checkoutRedirect')->name('redirect');
+    });
 
     // Payment Routes
-    Route::get('payment',[PaymentController::class,'index'])->name('payment.index');
-    Route::post('payment/make',[PaymentController::class,'makePayment'])->name('payment.make');
 
-    // Paypal Routes
-    // don't forget to group and organize the routes later on ....
-    Route::get('paypal/payment',[PaymentController::class,'payWithPaypal'])->name('paypal.payment');
-    Route::get('paypal/success',[PaymentController::class,'paypalSuccess'])->name('paypal.success');
-    Route::get('paypal/cancel',[PaymentController::class,'paypalCancel'])->name('paypal.cancel');
+    Route::controller(PaymentController::class)->group(function(){
 
-    Route::get('payment-success',[PaymentController::class,'paymentSuccess'])->name('payment.success');
-    Route::get('payment-cancel',[PaymentController::class,'paymentCancel'])->name('payment.cancel');
+        // Payment Routes
+        Route::group(['prefix' => 'payment' , 'as' => 'payment.'],function(){
+            Route::get('/', 'index')->name('index');
+            Route::post('/make', 'makePayment')->name('make');
+            Route::get('/success', 'paymentSuccess')->name('success');
+            Route::get('/cancel', 'paymentCancel')->name('cancel');
+        });
+
+        // Paypal Routes
+        Route::group(['prefix' => 'paypal', 'as' => 'paypal.'], function () {
+            Route::get('/payment', 'payWithPaypal')->name('payment');
+            Route::get('/success', 'paypalSuccess')->name('success');
+            Route::get('/cancel', 'paypalCancel')->name('cancel');
+        });
+
+
+    });
+
+
+
 
 });
 

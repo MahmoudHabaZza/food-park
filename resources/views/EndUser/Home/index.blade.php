@@ -1,4 +1,7 @@
 @extends('EndUser.layouts.master')
+@section('title')
+{{ @config('settings.site_name') }} | Home
+@endsection
 @section('content')
     <!--=============================
                 BANNER START

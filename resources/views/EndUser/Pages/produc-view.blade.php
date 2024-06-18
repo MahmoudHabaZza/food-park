@@ -1,5 +1,7 @@
 @extends('EndUser.layouts.master')
-
+@section('title')
+{{ $product->name }}
+@endsection
 @section('content')
     <!--=============================
                             BREADCRUMB START

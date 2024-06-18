@@ -1,5 +1,6 @@
 @extends('EndUser.layouts.master')
 @section('title')
+{{ @config('settings.site_name') }} | Cart Page
 @endsection
 @section('content')
     <!--=============================

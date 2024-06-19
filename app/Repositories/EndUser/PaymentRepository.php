@@ -85,6 +85,9 @@ class PaymentRepository implements PaymentRepositoryInterface
 
     public function payWithPaypal()
     {
+        if(!session()->has('order_id')){
+            return redirect('/')->withErrors(['error' => 'unauthorized Access']);
+        }
         $final_total = session()->get('final_total');
         $payableAmount = round($final_total * config('gatewaySettings.paypal_currency_rate'));
         // dd($payableAmount);
@@ -184,6 +187,11 @@ class PaymentRepository implements PaymentRepositoryInterface
 
     public function payWithStripe()
     {
+
+        if(!session()->has('order_id')){
+            return redirect('/')->withErrors(['error' => 'unauthorized Access']);
+        }
+
         $final_total = session()->get('final_total');
         $payableAmount = round($final_total * config('gatewaySettings.paypal_currency_rate') * 100); // $10 => 1000
         Stripe::setApiKey(config('gatewaySettings.stripe_secret_key'));
@@ -209,20 +217,39 @@ class PaymentRepository implements PaymentRepositoryInterface
         return redirect()->away($response->url);
     }
 
-    public function stripeSuccess(Request $request)
+    public function stripeSuccess(Request $request , OrderService $orderService)
     {
         try {
             $sessionId = $request->session_id;
             Stripe::setApiKey(config('gatewaySettings.stripe_secret_key'));
             $response = StripeSession::retrieve($sessionId);
-            dd($response);
-        }catch(\Exception $e){
-            return redirect()->route('home')->withErrors(['error' => 'unauthorized Access']);
+            if($response->payment_status === 'paid'){
+                $orderId = session()->get('order_id');
+                $payment_info = [
+                    'transaction_id' => $response->payment_intent,
+                    'currency' => $response->currency,
+                    'status' => $response->status
+                ];
+
+                OrderPaymentUpdateEvent::dispatch($orderId,$payment_info,'Stripe');
+                OrderPlacedNotificationEvent::dispatch($orderId);
+
+                $orderService->clearSession();
+
+                session()->put('payment-success', true);
+                return redirect()->route('payment.success');
+            }else {
+                session()->put('payment-cancel',true);
+                return redirect()->route('stripe.cancel');
+            }
+        }catch(\Exception){
+            return redirect('/')->withErrors(['error' => 'unauthorized Access']);
         }
 
 
     }
     public function stripeCancel()
     {
+        return redirect()->route('payment.cancel');
     }
 }

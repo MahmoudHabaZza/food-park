@@ -39,4 +39,10 @@ class PaymentController extends Controller
     public function payWithStripe(){
         return $this->paymentRepository->payWithStripe();
     }
+    public function stripeSuccess(Request $request){
+        return $this->paymentRepository->stripeSuccess($request);
+    }
+    public function stripeCancel(){
+        return $this->paymentRepository->stripeCancel();
+    }
 }

@@ -202,15 +202,25 @@ class PaymentRepository implements PaymentRepositoryInterface
                 ]
             ],
             'mode' => 'payment',
-            'success_url' => route('stripe.success'),
+            'success_url' => route('stripe.success') . '?session_id={CHECKOUT_SESSION_ID}', //
             'cancel_url' => route('stripe.cancel')
         ]);
 
         return redirect()->away($response->url);
     }
 
-    public function stripeSuccess()
+    public function stripeSuccess(Request $request)
     {
+        try {
+            $sessionId = $request->session_id;
+            Stripe::setApiKey(config('gatewaySettings.stripe_secret_key'));
+            $response = StripeSession::retrieve($sessionId);
+            dd($response);
+        }catch(\Exception $e){
+            return redirect()->route('home')->withErrors(['error' => 'unauthorized Access']);
+        }
+
+
     }
     public function stripeCancel()
     {

@@ -111,18 +111,18 @@ class PaymentRepository implements PaymentRepositoryInterface
 
 
 
-        if(isset($response['id']) && $response['id'] != NULL){
-            foreach($response['links'] as $link){
-                if($link['rel'] === 'approve'){
+        if (isset($response['id']) && $response['id'] != NULL) {
+            foreach ($response['links'] as $link) {
+                if ($link['rel'] === 'approve') {
                     return redirect()->away($link['href']);
                 }
             }
-        }else {
-            session()->put('payment-cancel',true);
+        } else {
+            session()->put('payment-cancel', true);
             return redirect()->route('paypal.cancel')->withErrors(['error' => $response['error']['message']]);
         }
     }
-    public function paypalSuccess(Request $request,OrderService $orderService)
+    public function paypalSuccess(Request $request, OrderService $orderService)
     {
         $config = $this->setPaypalConfig();
         $provider = new PayPalClient($config);
@@ -133,7 +133,7 @@ class PaymentRepository implements PaymentRepositoryInterface
 
 
 
-        if(isset($response['status']) && $response['status'] === 'COMPLETED'){
+        if (isset($response['status']) && $response['status'] === 'COMPLETED') {
             $order_id = session()->get('order_id');
             $captures = $response['purchase_units'][0]['payments']['captures'][0];
             $payment_info = [
@@ -144,22 +144,18 @@ class PaymentRepository implements PaymentRepositoryInterface
             ];
 
 
-            OrderPaymentUpdateEvent::dispatch($order_id,$payment_info,'PayPal');
+            OrderPaymentUpdateEvent::dispatch($order_id, $payment_info, 'PayPal');
             OrderPlacedNotificationEvent::dispatch($order_id);
 
 
 
             $orderService->clearSession();
-            session()->put('payment-success',true);
+            session()->put('payment-success', true);
             return redirect()->route('payment.success');
-
-        }else {
-            session()->put('payment-cancel',true);
+        } else {
+            session()->put('payment-cancel', true);
             return redirect()->route('paypal.cancel')->withErrors(['error' => $response['errors']['message']]);
-
         }
-
-
     }
     public function paypalCancel(Request $request)
     {
@@ -169,27 +165,54 @@ class PaymentRepository implements PaymentRepositoryInterface
     }
     public function paymentSuccess()
     {
-        if(session()->has('payment-success') && session()->get('payment-success') === true){
+        if (session()->has('payment-success') && session()->get('payment-success') === true) {
             session()->forget('payment-success');
             return view('EndUser.pages.payment-success');
-        }else {
+        } else {
             return redirect('/')->withErrors(['error' => 'Unauthorized Access']);
         }
     }
     public function paymentCancel()
     {
-        if(session()->has('payment-cancel') && session()->get('payment-cancel') === true) {
+        if (session()->has('payment-cancel') && session()->get('payment-cancel') === true) {
             session()->forget('payment-cancel');
             return view('EndUser.pages.payment-cancel');
-        }else {
+        } else {
             return redirect('/')->withErrors(['error' => 'unauthorized Access']);
         }
     }
 
     public function payWithStripe()
     {
+        $final_total = session()->get('final_total');
+        $payableAmount = round($final_total * config('gatewaySettings.paypal_currency_rate') * 100); // $10 => 1000
         Stripe::setApiKey(config('gatewaySettings.stripe_secret_key'));
 
-        $response = StripeSession::create();
+        $response = StripeSession::create([
+            'line_items' => [
+                [
+                    'price_data' => [
+                        'currency' => config('gatewaySettings.stripe_account_currency'),
+                        'product_data' => [
+                            'name' => 'Product'
+                        ],
+                        'unit_amount' => $payableAmount,
+                    ],
+                    'quantity' => 1
+                ]
+            ],
+            'mode' => 'payment',
+            'success_url' => route('stripe.success'),
+            'cancel_url' => route('stripe.cancel')
+        ]);
+
+        return redirect()->away($response->url);
+    }
+
+    public function stripeSuccess()
+    {
+    }
+    public function stripeCancel()
+    {
     }
 }

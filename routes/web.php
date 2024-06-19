@@ -93,6 +93,8 @@ Route::group(['middleware' => 'auth'], function () {
         });
 
         Route::get('stripe/payment','payWithStripe')->name('stripe.payment');
+        Route::get('stripe/success','stripeSuccess')->name('stripe.success');
+        Route::get('stripe/cancel','stripeCancel')->name('stripe.cancel');
 
     });
 

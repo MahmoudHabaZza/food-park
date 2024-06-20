@@ -98,11 +98,11 @@ if (!function_exists('generateUniqueSlug')) {
     if (!function_exists('generateInvoiceId')) {
         function generateInvoiceId()
         {
-            $invoiceId = Carbon::now()->format('YmdHis') . rand(1, 99999);
+            $invoiceId = Carbon::now()->format('Ymds') . rand(1, 99999);
 
 
             while (Order::where('invoice_id', $invoiceId)->exists()) {
-                $invoiceId = Carbon::now()->format('YmdHis') . rand(1, 99999);
+                $invoiceId = Carbon::now()->format('Ymds') . rand(1, 99999);
             }
 
             return $invoiceId;

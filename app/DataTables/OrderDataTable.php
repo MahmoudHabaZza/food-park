@@ -50,7 +50,7 @@ class OrderDataTable extends DataTable
                 return $query->final_total . ' ' . strtoupper($query->currency_name);
             })
             ->addColumn('action', function ($query) {
-                $show = '<a href=' . route('admin.Slider.edit', $query->id) . ' class="btn btn-primary">
+                $show = '<a href=' . route('admin.order.show', $query->id) . ' class="btn btn-primary">
                 <i class="fas fa-eye"></i></a>';
                 $status = '<a href="' . route('admin.Slider.edit', $query->id) . '" class="btn btn-warning fas fa-truck-loading mx-2"></a>';
                 $delete = '<a href="' . route('admin.Slider.destroy', $query->id) . '" class="btn btn-danger delete-item fas fa-trash "></a>';

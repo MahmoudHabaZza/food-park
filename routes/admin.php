@@ -110,6 +110,7 @@ Route::group([
         Route::put('razorpay-settings-update',[PaymentGatewaySettingController::class,'razorpaySettingUpdate'])->name('razorpay.settings.update');
 
 
-        Route::get('/orders',[OrderController::class,'index'])->name('order.index');
+        Route::get('orders',[OrderController::class,'index'])->name('order.index');
+        Route::get('orders/{id}',[OrderController::class,'show'])->name('order.show');
     });
 });

@@ -17,4 +17,7 @@ class OrderController extends Controller
     public function index(OrderDataTable $dataTable){
         return $this->orderRepository->index($dataTable);
     }
+    public function show($id){
+        return $this->orderRepository->show($id);
+    }
 }

@@ -51,18 +51,7 @@
                                     href="#">
                                     <img src="{{ asset(config('gatewaySettings.razorpay_logo')) }}" alt="payment method" class="img-fluid w-100">
                                 </a>
-                                <form>
-                                    <script src="https://checkout.razorpay.com/v1/checkout.js"
-                                            data-key="{{ config('gatewaySettings.razorpay_api_key') }}"
-                                            data-amount="10000"
-                                            data-buttontext="Pay"
-                                            data-name="Payment"
-                                            data-description="Payment For Product"
-                                            data-prefill.name="John"
-                                            data-prefill.email="test@gmail.com"
-                                            data-theme.color="#ff7529">
-                                    </script>
-                                  </form>
+
                             </div>
                         </div>
                     </div>

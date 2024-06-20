@@ -37,7 +37,7 @@ class PaymentRepository implements PaymentRepositoryInterface
     {
 
         $request->validate([
-            'payment_gateway' => ['required', 'string', 'in:paypal,stripe']
+            'payment_gateway' => ['required', 'string', 'in:paypal,stripe,razorpay']
         ]);
 
 
@@ -51,6 +51,9 @@ class PaymentRepository implements PaymentRepositoryInterface
                     break;
                 case 'stripe':
                     return response(['redirect_url' => route('stripe.payment')]);
+                    break;
+                case 'razorpay':
+                    return response(['redirect_url' => route('razorpay.redirect')]);
                     break;
                 default:
                     break;
@@ -251,5 +254,13 @@ class PaymentRepository implements PaymentRepositoryInterface
     public function stripeCancel()
     {
         return redirect()->route('payment.cancel');
+    }
+    public function razorpayRedirect()
+    {
+        return view('EndUser.pages.razorpay-redirect');
+    }
+    public function payWithRazorpay(Request $request)
+    {
+        dd($request->all());
     }
 }

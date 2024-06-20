@@ -45,4 +45,10 @@ class PaymentController extends Controller
     public function stripeCancel(){
         return $this->paymentRepository->stripeCancel();
     }
+    public function razorpayRedirect(){
+        return $this->paymentRepository->razorpayRedirect();
+    }
+    public function payWithRazorpay(Request $request){
+        return $this->paymentRepository->payWithRazorpay($request);
+    }
 }

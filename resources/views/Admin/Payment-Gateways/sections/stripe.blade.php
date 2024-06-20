@@ -17,15 +17,6 @@
                             </select>
                         </div>
                     </div>
-                    {{-- <div class="col-md-12">
-                        <div class="form-group">
-                            <label>Paypal Account Mode</label>
-                            <select name="paypal_account_mode" class="form-control select2">
-                                <option @selected(@$paymentSetting->paypal_account_mode[0]['value'] === 'sandbox') value="sandbox">Sandbox</option>
-                                <option @selected(@$paymentSetting->paypal_account_mode[0]['value'] === 'live') value="live">Live</option>
-                            </select>
-                        </div>
-                    </div> --}}
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>Stripe Country Name</label>

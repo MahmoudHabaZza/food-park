@@ -13,6 +13,7 @@ use Illuminate\Validation\ValidationException;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 use Stripe\Stripe;
 use Stripe\Checkout\Session as StripeSession;
+use Razorpay\Api\Api as RazorpayApi;
 
 class PaymentRepository implements PaymentRepositoryInterface
 {
@@ -88,7 +89,7 @@ class PaymentRepository implements PaymentRepositoryInterface
 
     public function payWithPaypal()
     {
-        if(!session()->has('order_id')){
+        if (!session()->has('order_id')) {
             return redirect('/')->withErrors(['error' => 'unauthorized Access']);
         }
         $final_total = session()->get('final_total');
@@ -191,7 +192,7 @@ class PaymentRepository implements PaymentRepositoryInterface
     public function payWithStripe()
     {
 
-        if(!session()->has('order_id')){
+        if (!session()->has('order_id')) {
             return redirect('/')->withErrors(['error' => 'unauthorized Access']);
         }
 
@@ -220,36 +221,34 @@ class PaymentRepository implements PaymentRepositoryInterface
         return redirect()->away($response->url);
     }
 
-    public function stripeSuccess(Request $request , OrderService $orderService)
+    public function stripeSuccess(Request $request, OrderService $orderService)
     {
         try {
             $sessionId = $request->session_id;
             Stripe::setApiKey(config('gatewaySettings.stripe_secret_key'));
             $response = StripeSession::retrieve($sessionId);
-            if($response->payment_status === 'paid'){
+            if ($response->payment_status === 'paid') {
                 $orderId = session()->get('order_id');
                 $payment_info = [
                     'transaction_id' => $response->payment_intent,
                     'currency' => $response->currency,
-                    'status' => $response->status
+                    'status' => 'COMPLETED'
                 ];
 
-                OrderPaymentUpdateEvent::dispatch($orderId,$payment_info,'Stripe');
+                OrderPaymentUpdateEvent::dispatch($orderId, $payment_info, 'Stripe');
                 OrderPlacedNotificationEvent::dispatch($orderId);
 
                 $orderService->clearSession();
 
                 session()->put('payment-success', true);
                 return redirect()->route('payment.success');
-            }else {
-                session()->put('payment-cancel',true);
+            } else {
+                session()->put('payment-cancel', true);
                 return redirect()->route('stripe.cancel');
             }
-        }catch(\Exception){
+        } catch (\Exception) {
             return redirect('/')->withErrors(['error' => 'unauthorized Access']);
         }
-
-
     }
     public function stripeCancel()
     {
@@ -257,10 +256,53 @@ class PaymentRepository implements PaymentRepositoryInterface
     }
     public function razorpayRedirect()
     {
+        if (!session()->has('order_id')) {
+            return redirect('/')->withErrors(['error' => 'Unauthorized Access']);
+        }
         return view('EndUser.pages.razorpay-redirect');
     }
-    public function payWithRazorpay(Request $request)
+    public function payWithRazorpay(Request $request, OrderService $orderService)
     {
-        dd($request->all());
+        $api = new RazorpayApi(
+            config('gatewaySettings.razorpay_api_key'),
+            config('gatewaySettings.razorpay_secret_key')
+        );
+
+        if ($request->has('razorpay_payment_id') && $request->filled('razorpay_payment_id')) {
+            try {
+
+                $final_total = session()->get('final_total');
+                $payableAmount = round($final_total * config('gatewaySettings.razorpay_currency_rate') * 100);
+
+                $response = $api->payment->fetch($request->razorpay_payment_id)
+                    ->capture(['amount' => $payableAmount]); // to ensure that the payable amount is the final total
+
+                if ($response['status'] === 'captured') {
+                    $orderId = session()->get('order_id');
+                    $payment_info = [
+                        'transaction_id' => $response->id,
+                        'currency' => config('settings.site_default_currency'),
+                        'status' => 'COMPLETED',
+                    ];
+
+                    OrderPaymentUpdateEvent::dispatch($orderId, $payment_info, 'Razorpay');
+                    OrderPlacedNotificationEvent::dispatch($orderId);
+
+                    $orderService->clearSession();
+
+                    session()->put('payment-success', true);
+                    return redirect()->route('payment.success');
+                } else {
+                    session()->put('payment-cancel', true);
+                    return redirect()->route('payment.cancel');
+                }
+            } catch (\Exception $e) {
+                logger($e->getMessage());
+                session()->put('payment-cancel', true);
+                return redirect()->route('payment.cancel')->withErrors(['error' => $e->getMessage()]);
+            }
+        } else {
+            return redirect('/')->withErrors(['error' => 'unauthorized Access']);
+        }
     }
 }

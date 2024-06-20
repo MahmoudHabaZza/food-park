@@ -48,7 +48,7 @@ class PaymentController extends Controller
     public function razorpayRedirect(){
         return $this->paymentRepository->razorpayRedirect();
     }
-    public function payWithRazorpay(Request $request){
-        return $this->paymentRepository->payWithRazorpay($request);
+    public function payWithRazorpay(Request $request , OrderService $orderService){
+        return $this->paymentRepository->payWithRazorpay($request,$orderService);
     }
 }

@@ -17,5 +17,5 @@ interface PaymentRepositoryInterface {
     public function stripeSuccess(Request $request,OrderService $orderService);
     public function stripeCancel();
     public function razorpayRedirect();
-    public function payWithRazorpay(Request $request);
+    public function payWithRazorpay(Request $request,OrderService $orderService);
 }

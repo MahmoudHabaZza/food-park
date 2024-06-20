@@ -87,28 +87,4 @@
         </div>
     </div>
 </div>
-@section('js')
-    <script>
-        $(document).ready(function() {
-            var imagePath = '{{ asset(@$paymentSetting->stripe_logo[0]["value"]) }}';
-            $('.stripe-preview').css({
-                'background-image': "url('" + imagePath + "')",
-                'background-size': 'cover',
-                'background-position': 'center center'
-            });
 
-            $.uploadPreview({
-                input_field: "#image-upload-2", // Default: .image-upload
-                preview_box: "#image-preview-2", // Default: .image-preview
-                label_field: "#image-label-2", // Default: .image-label
-                label_default: "Choose File", // Default: Choose File
-                label_selected: "Change File", // Default: Change File
-                no_label: false, // Default: false
-                success_callback: null // Default: null
-            });
-
-
-
-        });
-    </script>
-@endsection

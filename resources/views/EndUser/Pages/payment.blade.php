@@ -34,17 +34,35 @@
                     <div class="fp__payment_area">
                         <div class="row">
                             <h2>Choose Payment Gateway</h2>
-                            <div class="col-lg-6 col-6 col-sm-6 col-md-6 wow fadeInUp" data-wow-duration="1s">
+                            <div class="col-lg-3 col-6 col-sm-6 col-md-6 wow fadeInUp" data-wow-duration="1s">
                                 <a class="fp__single_payment payment-card" data-name="paypal"
                                     href="#">
                                     <img src="{{ asset(config('gatewaySettings.paypal_logo')) }}" alt="payment method" class="img-fluid w-100">
                                 </a>
                             </div>
-                            <div class="col-lg-6 col-6 col-sm-6 col-md-6 wow fadeInUp" data-wow-duration="1s">
+                            <div class="col-lg-3 col-6 col-sm-6 col-md-6 wow fadeInUp" data-wow-duration="1s">
                                 <a class="fp__single_payment payment-card" data-name="stripe"
                                     href="#">
                                     <img src="{{ asset(config('gatewaySettings.stripe_logo')) }}" alt="payment method" class="img-fluid w-100">
                                 </a>
+                            </div>
+                            <div class="col-lg-3 col-6 col-sm-6 col-md-6 wow fadeInUp" data-wow-duration="1s">
+                                <a class="fp__single_payment payment-card" data-name="razorpay"
+                                    href="#">
+                                    <img src="{{ asset(config('gatewaySettings.razorpay_logo')) }}" alt="payment method" class="img-fluid w-100">
+                                </a>
+                                <form>
+                                    <script src="https://checkout.razorpay.com/v1/checkout.js"
+                                            data-key="{{ config('gatewaySettings.razorpay_api_key') }}"
+                                            data-amount="10000"
+                                            data-buttontext="Pay"
+                                            data-name="Payment"
+                                            data-description="Payment For Product"
+                                            data-prefill.name="John"
+                                            data-prefill.email="test@gmail.com"
+                                            data-theme.color="#ff7529">
+                                    </script>
+                                  </form>
                             </div>
                         </div>
                     </div>

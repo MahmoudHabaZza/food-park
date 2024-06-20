@@ -122,6 +122,23 @@
                 success_callback: null // Default: null
             });
 
+                var razorpayImagePath = '{{ asset(@$paymentSetting->razorpay_logo[0]["value"]) }}';
+                $('.razorpay-preview').css({
+                    'background-image': "url('" + razorpayImagePath + "')",
+                    'background-size': 'cover',
+                    'background-position': 'center center'
+                });
+
+            $.uploadPreview({
+                input_field: "#image-upload-3", // Default: .image-upload
+                preview_box: "#image-preview-3", // Default: .image-preview
+                label_field: "#image-label-3", // Default: .image-label
+                label_default: "Choose File", // Default: Choose File
+                label_selected: "Change File", // Default: Change File
+                no_label: false, // Default: false
+                success_callback: null // Default: null
+            });
+
 
 
         });

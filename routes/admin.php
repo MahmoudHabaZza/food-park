@@ -106,5 +106,6 @@ Route::group([
         Route::get('payment-gateways',[PaymentGatewaySettingController::class,'index'])->name('payment-gateways.index');
         Route::put('paypal-settings-update',[PaymentGatewaySettingController::class,'paypalSettingsUpdate'])->name('paypal.settings.update');
         Route::put('stripe-settings-update',[PaymentGatewaySettingController::class,'stripeSettingUpdate'])->name('stripe.settings.update');
+        Route::put('razorpay-settings-update',[PaymentGatewaySettingController::class,'razorpaySettingUpdate'])->name('razorpay.settings.update');
     });
 });

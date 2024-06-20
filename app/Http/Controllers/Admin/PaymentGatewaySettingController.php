@@ -22,5 +22,8 @@ class PaymentGatewaySettingController extends Controller
     public function stripeSettingUpdate(Request $request){
         return $this->paymentGatewayRepository->stripeSettingUpdate($request);
     }
+    public function razorpaySettingUpdate(Request $request){
+        return $this->paymentGatewayRepository->razorpaySettingUpdate($request);
+    }
 
 }

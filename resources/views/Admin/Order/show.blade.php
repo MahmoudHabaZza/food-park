@@ -124,7 +124,7 @@
               </div>
               <div class="row mt-4">
                 <div class="col-lg-8">
-                    <div class="col-md-4">
+                    <div class="col-md-4 d-print-none">
                     <form action="{{ route('admin.order.status.update',$order->id) }}" method="POST">
                         @csrf
                         @method('PUT')
@@ -175,9 +175,28 @@
         <div class="text-md-right">
           <div class="float-lg-left mb-lg-0 mb-3">
           </div>
-          <button class="btn btn-warning btn-icon icon-left"><i class="fas fa-print"></i> Print</button>
+          <button class="btn btn-warning btn-icon icon-left" id="print_button"><i class="fas fa-print"></i> Print</button>
         </div>
       </div>
     </div>
   </section>
+@endsection
+@section('js')
+<script>
+    $(document).ready(function(){
+        $('#print_button').on('click',function(){
+            let printableContent = $('.invoice-print').html();
+            let printableWindow = window.open('','','width=600,height=600');
+            printableWindow.open();
+            printableWindow.document.write('<html>')
+            printableWindow.document.write('<link rel="stylesheet" href="{{ asset("assets/Admin") }}/modules/bootstrap/css/bootstrap.min.css">');
+            printableWindow.document.write('<body>');
+            printableWindow.document.write(printableContent);
+            printableWindow.document.write('</body><html>');
+
+            printableWindow.print();
+            printableWindow.close();
+        })
+    })
+</script>
 @endsection

@@ -41,8 +41,6 @@ class PaymentRepository implements PaymentRepositoryInterface
             'payment_gateway' => ['required', 'string', 'in:paypal,stripe,razorpay']
         ]);
 
-
-
         if ($orderService->createOrder()) {
             // redirect user to the selected payment gateway
 

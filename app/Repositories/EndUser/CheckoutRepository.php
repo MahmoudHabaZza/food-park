@@ -42,7 +42,7 @@ class CheckoutRepository implements CheckoutRepositoryInterface {
         $selectedAddress = $address->address .' , Area :  '. $address->deliveryArea->area_name;
         $delivery_fee = $address->deliveryArea->delivery_fee;
         session()->put('selectedAddress',$selectedAddress);
-        session()->put('delivery_area_id',$address->deliveryArea->id);
+        session()->put('address_id',$address->id);
         session()->put('delivery_fee',$delivery_fee);
         return response(['redirect_url' => route('payment.index')]);
 

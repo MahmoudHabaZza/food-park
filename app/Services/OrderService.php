@@ -15,7 +15,7 @@ class OrderService {
                 'invoice_id' => generateInvoiceId(),
                 'user_id' => auth()->user()->id,
                 'address' => session()->get('selectedAddress'),
-                'delivery_area_id' => session()->get('delivery_area_id'),
+                'address_id' => session()->get('address_id'),
                 'discount' => session()->get('coupon')['discount'] ?? 0,
                 'delivery_charge' => session()->get('delivery_fee'),
                 'subtotal' => cartTotal(),
@@ -61,7 +61,7 @@ class OrderService {
         Cart::destroy();
         session()->forget('coupon');
         session()->forget('selectedAddress');
-        session()->forget('delivery_area_id');
+        session()->forget('address_id');
         session()->forget('delivery_fee');
         session()->forget('final_total');
         session()->forget('order_id');

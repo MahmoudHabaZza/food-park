@@ -24,20 +24,18 @@
               <div class="row">
                 <div class="col-md-6">
                   <address>
-                    <strong>Billed To:</strong><br>
-                      Ujang Maman<br>
-                      1234 Main<br>
-                      Apt. 4B<br>
-                      Bogor Barat, Indonesia
+                    <strong>Shipped To To:</strong><br>
+                      <strong>Name : </strong>{{ $order->userAddress->first_name }} {{ $order->userAddress->last_name }}<br>
+                      <strong>Phone : </strong>{{ $order->userAddress->phone }}<br>
+                      <strong>Address : </strong>{!! $order->userAddress->address !!}<br>
+                      <strong>Area : </strong>{!! $order->userAddress->deliveryArea->area_name !!}<br>
+
                   </address>
                 </div>
                 <div class="col-md-6 text-md-right">
                   <address>
-                    <strong>Shipped To:</strong><br>
-                    Muhamad Nauval Azhar<br>
-                    1234 Main<br>
-                    Apt. 4B<br>
-                    Bogor Barat, Indonesia
+                    <strong>Order Date:</strong><br>
+                    {{ date('F d, Y - H:i',strtotime($order->created_at)) }}
                   </address>
                 </div>
               </div>
@@ -45,14 +43,27 @@
                 <div class="col-md-6">
                   <address>
                     <strong>Payment Method:</strong><br>
-                    Visa ending **** 4242<br>
-                    ujang@maman.com
+                    {{ $order->payment_method }}<br>
+                    <strong>Payment Status</strong>
+                    @if ($order->payment_status === 'pending')
+                        <div class="badge badge-danger">pending</div>
+                     @elseif (strtoupper($order->payment_status) === 'COMPLETED')
+                        <div class="badge badge-success">COMPLETED</div>
+                     @else
+                        <div class="badge badge-success">{{ $order->payment_status }}</div>
+                    @endif
                   </address>
                 </div>
                 <div class="col-md-6 text-md-right">
                   <address>
-                    <strong>Order Date:</strong><br>
-                    September 19, 2018<br><br>
+                    <strong>Order Status</strong><br>
+                    @if ($order->order_status === 'delivered')
+                        <div class="badge badge-success">Delivered</div>
+                     @elseif ($order->order_status === 'declined')
+                        <div class="badge badge-danger">Declined</div>
+                     @else
+                        <div class='badge badge-warning'>{{ $order->order_status }}</div>
+                    @endif
                   </address>
                 </div>
               </div>

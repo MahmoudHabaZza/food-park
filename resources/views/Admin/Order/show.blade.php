@@ -79,57 +79,92 @@
                   <tr>
                     <th data-width="40">#</th>
                     <th>Item</th>
+                    <th>Size & Optional</th>
                     <th class="text-center">Price</th>
                     <th class="text-center">Quantity</th>
                     <th class="text-right">Totals</th>
                   </tr>
+                  @foreach ($order->items as $item)
+                  @php
+
+                      $size = json_decode($item->product_size);
+                      $options = json_decode($item->product_option);
+                      $optionsPrice = 0;
+                      foreach ($options as $option) {
+                        $optionsPrice += $option->price;
+                      }
+
+                      $sizePrice = @$size->price;
+                      $productTotal = ($item->unit_price + $sizePrice + $optionsPrice ) * $item->qty;
+
+                  @endphp
                   <tr>
-                    <td>1</td>
-                    <td>Mouse Wireless</td>
-                    <td class="text-center">$10.99</td>
-                    <td class="text-center">1</td>
-                    <td class="text-right">$10.99</td>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $item->product_name }}</td>
+                    <td>
+                        @if ($size)
+                        <b>{{ @$size->name }} ( {{ currencyPosition($size->price) }} )</b>
+                        @endif
+                        <br>
+                        @if($options)
+                            <b>Options:</b><br>
+                            @foreach ($options as $item_option)
+                                {{ $item_option->name }} ( {{ currencyPosition($item_option->price) }} )<br>
+                            @endforeach
+                        @endif
+                    </td>
+                    <td class="text-center">{{ currencyPosition($item->unit_price) }}</td>
+                    <td class="text-center">{{ $item->qty }}</td>
+                    <td class="text-right">{{ currencyPosition($productTotal) }}</td>
                   </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Keyboard Wireless</td>
-                    <td class="text-center">$20.00</td>
-                    <td class="text-center">3</td>
-                    <td class="text-right">$60.00</td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Headphone Blitz TDR-3000</td>
-                    <td class="text-center">$600.00</td>
-                    <td class="text-center">1</td>
-                    <td class="text-right">$600.00</td>
-                  </tr>
+                  @endforeach
+
+
                 </table>
               </div>
               <div class="row mt-4">
                 <div class="col-lg-8">
-                  <div class="section-title">Payment Method</div>
-                  <p class="section-lead">The payment method that we provide is to make it easier for you to pay invoices.</p>
-                  <div class="images">
-                    <img src="assets/img/visa.png" alt="visa">
-                    <img src="assets/img/jcb.png" alt="jcb">
-                    <img src="assets/img/mastercard.png" alt="mastercard">
-                    <img src="assets/img/paypal.png" alt="paypal">
-                  </div>
+                    <div class="col-md-4">
+                    <form action="{{ route('admin.order.status.update',$order->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="form-group">
+                            <label for="payment_status">Payment Status</label>
+                            <select  class="form-control" name="payment_status" id="payment_status">
+                                <option @selected(strtolower($order->payment_status) === 'pending') value="pending">Pending</option>
+                                <option @selected(strtolower($order->payment_status) === 'completed') value="completed">Completed</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="order_status">Order Status</label>
+                            <select  class="form-control" name="order_status" id="order_status">
+                                <option @selected(strtolower($order->order_status) === 'pending') value="pending">Pending</option>
+                                <option @selected(strtolower($order->order_status) === 'in_process') value="in_process">In Process</option>
+                                <option @selected(strtolower($order->order_status) === 'delivered') value="delivered">Delivered</option>
+                                <option @selected(strtolower($order->order_status) === 'declined') value="declined">Declined</option>
+                            </select>
+                        </div>
+                        <input type="submit" value="Update Status" class="btn btn-info">
+                    </form>
+                </div>
                 </div>
                 <div class="col-lg-4 text-right">
                   <div class="invoice-detail-item">
                     <div class="invoice-detail-name">Subtotal</div>
-                    <div class="invoice-detail-value">$670.99</div>
+                    <div class="invoice-detail-value">{{ currencyPosition($order->subtotal) }}</div>
                   </div>
                   <div class="invoice-detail-item">
                     <div class="invoice-detail-name">Shipping</div>
-                    <div class="invoice-detail-value">$15</div>
+                    <div class="invoice-detail-value">{{ currencyPosition($order->delivery_charge) }}</div>
+                  </div>
+                  <div class="invoice-detail-item">
+                    <div class="invoice-detail-name">Discount</div>
+                    <div class="invoice-detail-value">{{ currencyPosition($order->discount) }}</div>
                   </div>
                   <hr class="mt-2 mb-2">
                   <div class="invoice-detail-item">
                     <div class="invoice-detail-name">Total</div>
-                    <div class="invoice-detail-value invoice-detail-value-lg">$685.99</div>
+                    <div class="invoice-detail-value invoice-detail-value-lg">{{ currencyPosition($order->final_total) }}</div>
                   </div>
                 </div>
               </div>
@@ -139,8 +174,6 @@
         <hr>
         <div class="text-md-right">
           <div class="float-lg-left mb-lg-0 mb-3">
-            <button class="btn btn-primary btn-icon icon-left"><i class="fas fa-credit-card"></i> Process Payment</button>
-            <button class="btn btn-danger btn-icon icon-left"><i class="fas fa-times"></i> Cancel</button>
           </div>
           <button class="btn btn-warning btn-icon icon-left"><i class="fas fa-print"></i> Print</button>
         </div>

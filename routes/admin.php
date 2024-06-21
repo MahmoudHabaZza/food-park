@@ -93,6 +93,11 @@ Route::group([
         // Delivery Area Routes
         Route::resource('delivery-area',DeliveryAreaController::class);
 
+
+        Route::get('orders',[OrderController::class,'index'])->name('order.index');
+        Route::get('orders/{id}',[OrderController::class,'show'])->name('order.show');
+        Route::put('orders/{id}/update-status',[OrderController::class,'updateOrderStatus'])->name('order.status.update');
+
         // Settings Routes
         Route::group([
             'prefix' => 'setting',
@@ -110,7 +115,6 @@ Route::group([
         Route::put('razorpay-settings-update',[PaymentGatewaySettingController::class,'razorpaySettingUpdate'])->name('razorpay.settings.update');
 
 
-        Route::get('orders',[OrderController::class,'index'])->name('order.index');
-        Route::get('orders/{id}',[OrderController::class,'show'])->name('order.show');
+
     });
 });

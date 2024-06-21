@@ -20,4 +20,7 @@ class OrderController extends Controller
     public function show($id){
         return $this->orderRepository->show($id);
     }
+    public function updateOrderStatus(Request $request,string $id){
+        return $this->orderRepository->updateOrderStatus($request,$id);
+    }
 }

@@ -7,6 +7,7 @@ use App\Interfaces\Admin\OrderRepositoryInterface;
 use App\Models\Order;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class OrderRepository implements OrderRepositoryInterface {
     public function index(OrderDataTable $dataTable)
@@ -18,7 +19,7 @@ class OrderRepository implements OrderRepositoryInterface {
         $order = Order::findOrFail($id);
         return view('Admin.Order.show',compact('order'));
     }
-    public function updateOrderStatus(Request $request, string $id) : RedirectResponse
+    public function updateOrderStatus(Request $request, string $id) : RedirectResponse|Response
     {
         $request->validate([
             'payment_status' => ['required','in:pending,completed'],
@@ -30,7 +31,15 @@ class OrderRepository implements OrderRepositoryInterface {
             'order_status' => $request->order_status,
         ]);
 
+        if($request->ajax()){
+            return response(['message' => 'Order Status Updated Successfully']);
+        }
         toastr()->success('Status Updated Successfully');
         return redirect()->back();
+    }
+    public function getOrderStatus(string $id)
+    {
+        $orderStatus = Order::select(['payment_status','order_status'])->findOrFail($id);
+        return response($orderStatus);
     }
 }

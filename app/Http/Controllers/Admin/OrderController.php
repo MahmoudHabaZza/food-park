@@ -23,4 +23,7 @@ class OrderController extends Controller
     public function updateOrderStatus(Request $request,string $id){
         return $this->orderRepository->updateOrderStatus($request,$id);
     }
+    public function getOrderStatus(string $id){
+        return $this->orderRepository->getOrderStatus($id);
+    }
 }

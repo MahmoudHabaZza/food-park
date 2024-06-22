@@ -9,4 +9,5 @@ interface OrderRepositoryInterface {
     public function index(OrderDataTable $dataTable);
     public function show($id);
     public function updateOrderStatus(Request $request , string $id);
+    public function getOrderStatus(string $id);
 }

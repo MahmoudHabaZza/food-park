@@ -97,6 +97,8 @@ Route::group([
         Route::get('orders',[OrderController::class,'index'])->name('order.index');
         Route::get('orders/{id}',[OrderController::class,'show'])->name('order.show');
         Route::put('orders/{id}/update-status',[OrderController::class,'updateOrderStatus'])->name('order.status.update');
+        Route::get('orders/status/{id}',[OrderController::class,'getOrderStatus'])->name('order.status.get');
+
 
         // Settings Routes
         Route::group([

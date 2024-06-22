@@ -187,12 +187,13 @@
         $('#print_button').on('click',function(){
             let printableContent = $('.invoice-print').html();
             let printableWindow = window.open('','','width=600,height=600');
-            printableWindow.open();
-            printableWindow.document.write('<html>')
+            printableWindow.document.open();
+            printableWindow.document.write('<html>');
             printableWindow.document.write('<link rel="stylesheet" href="{{ asset("assets/Admin") }}/modules/bootstrap/css/bootstrap.min.css">');
             printableWindow.document.write('<body>');
             printableWindow.document.write(printableContent);
             printableWindow.document.write('</body><html>');
+            printableWindow.document.close();
 
             printableWindow.print();
             printableWindow.close();

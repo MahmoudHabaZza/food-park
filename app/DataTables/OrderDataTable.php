@@ -52,7 +52,7 @@ class OrderDataTable extends DataTable
             ->addColumn('action', function ($query) {
                 $show = '<a href=' . route('admin.order.show', $query->id) . ' class="btn btn-primary">
                 <i class="fas fa-eye"></i></a>';
-                $status = '<a href="' . route('admin.Slider.edit', $query->id) . '" class="btn btn-warning fas fa-truck-loading mx-2"></a>';
+                $status = '<a href="javascript:;" data-toggle="modal" data-target="#order_status" class="btn btn-warning fas fa-truck-loading mx-2 order_status_btn" data-id='.$query->id.'></a>';
                 $delete = '<a href="' . route('admin.Slider.destroy', $query->id) . '" class="btn btn-danger delete-item fas fa-trash "></a>';
                 return $show.$status.$delete;
             })

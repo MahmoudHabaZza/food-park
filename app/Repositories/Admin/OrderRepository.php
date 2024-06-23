@@ -2,7 +2,11 @@
 
 namespace App\Repositories\Admin;
 
+use App\DataTables\DeclinedOrderDataTable;
+use App\DataTables\DeliveredOrderDataTable;
+use App\DataTables\InProcessOrderDataTable;
 use App\DataTables\OrderDataTable;
+use App\DataTables\PendingOrderDataTable;
 use App\Interfaces\Admin\OrderRepositoryInterface;
 use App\Models\Order;
 use Illuminate\Http\RedirectResponse;
@@ -41,5 +45,33 @@ class OrderRepository implements OrderRepositoryInterface {
     {
         $orderStatus = Order::select(['payment_status','order_status'])->findOrFail($id);
         return response($orderStatus);
+    }
+    public function destroy(string $id)
+    {
+        try{
+            $order = Order::findOrFail($id);
+            $order->delete();
+            return response(['status' => 'success','message' => 'Order Deleted Successfully']);
+        }catch(\Exception $e){
+            logger($e);
+            return response(['status' => 'error','message' => 'Something Went Wrong']);
+        }
+    }
+    public function pendingOrderIndex(PendingOrderDataTable $dataTable)
+    {
+        return $dataTable->render('Admin.Order.pending-order-index');
+    }
+    public function inProcessOrderIndex(InProcessOrderDataTable $dataTable)
+    {
+        return $dataTable->render('Admin.Order.in-process-order-index');
+    }
+    public function deliveredOrderIndex(DeliveredOrderDataTable $dataTable)
+    {
+        return $dataTable->render('Admin.Order.delivered-order-index');
+
+    }
+    public function declinedOrderIndex(DeclinedOrderDataTable $dataTable)
+    {
+        return $dataTable->render('Admin.Order.declined-order-index');
     }
 }

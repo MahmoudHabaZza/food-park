@@ -1,11 +1,11 @@
 @extends('Admin.layouts.master')
 @section('title')
-    All Orders
+    Pending Orders
 @endsection
 @section('content')
     <div class="section">
         <div class="section-header">
-            <h1>All Orders</h1>
+            <h1>Pending Orders</h1>
         </div>
         <div class="card card-primary">
             <div class="card-header">
@@ -111,7 +111,7 @@
                         toastr.success(response.message);
                         $('#order_status').modal('hide');
                         // $('.close-button').click();
-                        $('#order-table').DataTable().draw();
+                        $('table').DataTable().draw();
 
 
                     },

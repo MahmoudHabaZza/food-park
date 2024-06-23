@@ -95,9 +95,14 @@ Route::group([
 
 
         Route::get('orders',[OrderController::class,'index'])->name('order.index');
+        Route::get('pending-orders',[OrderController::class,'pendingOrderIndex'])->name('pending-orders');
+        Route::get('in-process-orders',[OrderController::class,'inProcessOrderIndex'])->name('in-process-orders');
+        Route::get('delivered-orders',[OrderController::class,'deliveredOrderIndex'])->name('delivered-orders');
+        Route::get('declined-orders',[OrderController::class,'declinedOrderIndex'])->name('declined-orders');
         Route::get('orders/{id}',[OrderController::class,'show'])->name('order.show');
         Route::put('orders/{id}/update-status',[OrderController::class,'updateOrderStatus'])->name('order.status.update');
         Route::get('orders/status/{id}',[OrderController::class,'getOrderStatus'])->name('order.status.get');
+        Route::delete('orders/{id}',[OrderController::class,'destroy'])->name('order.destroy');
 
 
         // Settings Routes

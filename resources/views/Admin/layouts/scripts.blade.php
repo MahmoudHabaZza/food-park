@@ -76,8 +76,8 @@
                         success: function(response) {
                             if (response.status === 'success') {
                                 toastr.success('Deleted Successfully')
-                                // $('table').DataTable().draw()
-                                window.location.reload()
+                                $('table').DataTable().draw()
+                                // window.location.reload()
                             } else if (response.status === 'error') {
                                 console.error(response.message)
                             }

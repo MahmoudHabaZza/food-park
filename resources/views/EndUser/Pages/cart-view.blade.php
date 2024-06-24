@@ -177,7 +177,7 @@
             ==============================-->
 @endsection
 
-@section('js')
+@push('js')
     <script>
         $(document).ready(function() {
             var cartTotal = parseInt("{{ cartTotal() }}")
@@ -371,4 +371,4 @@
 
         })
     </script>
-@endsection
+@endpush

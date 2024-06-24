@@ -5,6 +5,7 @@ namespace App\Repositories\EndUser;
 use App\Interfaces\EndUser\DashboardRepositoryInterface;
 use App\Models\Address;
 use App\Models\DeliveryArea;
+use App\Models\Order;
 use Illuminate\View\View;
 
 class DashboardRepository implements DashboardRepositoryInterface {
@@ -12,6 +13,7 @@ class DashboardRepository implements DashboardRepositoryInterface {
     {
         $supportedAreas = DeliveryArea::where('status',1)->get();
         $userAddresses = Address::where('user_id',auth()->user()->id)->get();
-        return view('EndUser.Dashboard.index',compact('supportedAreas','userAddresses'));
+        $orders = Order::where('user_id',auth()->user()->id)->get();
+        return view('EndUser.Dashboard.index',compact('supportedAreas','userAddresses','orders'));
     }
 }

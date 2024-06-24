@@ -124,7 +124,7 @@ class PaymentRepository implements PaymentRepositoryInterface
             }
         } else {
             session()->put('payment-cancel', true);
-            return redirect()->route('paypal.cancel')->withErrors(['error' => $response['error']['message']]);
+            return redirect()->route('paypal.cancel')->withErrors(['error' => $response['error']]);
         }
     }
     public function paypalSuccess(Request $request, OrderService $orderService)

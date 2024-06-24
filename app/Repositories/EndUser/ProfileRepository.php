@@ -38,13 +38,18 @@ public function updatePassword(ProfileUpdatePasswordRequest $request) : Redirect
 
 public function updateAvatar(Request $request)
 {
-    $image_path =   $this->uploadImage($request , 'avatar' , 'uploads/EndUser/ProfileImages');
-    $user = Auth::user();
-    $user->update([
-        'avatar' => $image_path,
-    ]);
+    try{
+        $image_path =   $this->uploadImage($request , 'avatar' , 'uploads/EndUser/ProfileImages');
+        $user = Auth::user();
+        $user->update([
+            'avatar' => $image_path,
+        ]);
 
-    return response(['status' => 'success' , 'message' => 'Avatar Updated Successfully']);
+        return response(['status' => 'success' , 'message' => 'Avatar Updated Successfully']);
+    }catch(\Exception $e){
+        return response(['status' => 'error' , 'message' => $e->getMessage()]);
+    }
+
 }
 
 }

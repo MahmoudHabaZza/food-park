@@ -117,7 +117,7 @@
     ==============================-->
 
 @endsection
-@section('js')
+@push('js')
         <script>
             $(document).ready(function(){
                 $('.payment-card').on('click',function(e){
@@ -149,4 +149,4 @@
                 })
             })
         </script>
-@endsection
+@endpush

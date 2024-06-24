@@ -47,11 +47,12 @@
                             </select>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary close-button" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary close-button"
+                                data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary submit-btn">Save changes</button>
                         </div>
-                    </div>
-                    </form>
+                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -70,26 +71,34 @@
                 $.ajax({
                     method: 'GET',
                     url: '{{ route("admin.order.status.get", ":id") }}'.replace(":id", id),
-                    beforeSend:function(){
-                        $('.submit-btn').prop('disabled',true);
+                    beforeSend: function() {
+                        $('.submit-btn').prop('disabled', true);
                     },
                     success: function(response) {
                         paymentStatus.val('');
                         orderStatus.val('');
 
+
                         paymentStatus.find('option').each(function() {
-                            if ($(this).val() == response.payment_status) {
-                                paymentStatus.val(response.payment_status);
+                            var lowerCasePaymentStatus = response.payment_status
+                                .toLowerCase();
+
+                            if ($(this).val() === lowerCasePaymentStatus) {
+                                paymentStatus.val(lowerCasePaymentStatus);
                             }
                         });
 
                         orderStatus.find('option').each(function() {
-                            if ($(this).val() == response.order_status) {
-                                orderStatus.val(response.order_status);
+                            var lowerCaseOrderStatus = response.order_status
+                                .toLowerCase();
+
+                            if ($(this).val() === lowerCaseOrderStatus) {
+                                orderStatus.val(lowerCaseOrderStatus);
                             }
                         });
 
-                        $('.submit-btn').prop('disabled',false)
+
+                        $('.submit-btn').prop('disabled', false)
                     },
                     error: function(xhr, status, error) {
                         console.error(error);
@@ -97,17 +106,17 @@
                 });
             });
 
-            $('.order_status_form').on('submit',function(e){
+            $('.order_status_form').on('submit', function(e) {
                 e.preventDefault();
                 let formData = $(this).serialize();
                 $.ajax({
-                    method:"POST",
+                    method: "POST",
                     url: '{{ route("admin.order.status.update", ":id") }}'.replace(":id", orderId),
-                    data:formData,
-                    beforeSend:function(){
-                        $('.submit-btn').prop('disabled',true);
+                    data: formData,
+                    beforeSend: function() {
+                        $('.submit-btn').prop('disabled', true);
                     },
-                    success:function(response){
+                    success: function(response) {
                         toastr.success(response.message);
                         $('#order_status').modal('hide');
                         // $('.close-button').click();
@@ -115,7 +124,7 @@
 
 
                     },
-                    error:function(xhr,status,error){
+                    error: function(xhr, status, error) {
                         toastr.error(xhr.responseJSON.message)
                     }
 

@@ -92,10 +92,14 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/cancel', 'paypalCancel')->name('cancel');
         });
 
-        Route::get('stripe/payment','payWithStripe')->name('stripe.payment');
-        Route::get('stripe/success','stripeSuccess')->name('stripe.success');
-        Route::get('stripe/cancel','stripeCancel')->name('stripe.cancel');
+        // Stripe Routes
+        Route::group(['prefix' => 'stripe','as' => 'stripe.'],function(){
+            Route::get('/payment','payWithStripe')->name('payment');
+            Route::get('/success','stripeSuccess')->name('success');
+            Route::get('/cancel','stripeCancel')->name('cancel');
+        });
 
+        // Razorpay Routes
         Route::get('razorpay/redirect','razorpayRedirect')->name('razorpay.redirect');
         Route::post('razorpay/payment','payWithRazorpay')->name('razorpay.payment');
 

@@ -33,4 +33,4 @@
     <script src="{{ asset('assets/Admin') }}/js/sweetalert2.min.js"></script>
 
 
-    @yield('js')
+    @stack('js')

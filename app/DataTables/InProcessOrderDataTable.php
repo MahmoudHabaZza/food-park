@@ -34,12 +34,12 @@ class InProcessOrderDataTable extends DataTable
                 }
             })
             ->addColumn('payment_status', function ($query) {
-                if ($query->payment_status === 'pending') {
+                if (strtolower($query->payment_status) === 'pending') {
                     return '<div class="badge badge-danger">pending</div>';
-                } elseif (strtoupper($query->payment_status) === 'COMPLETED') {
+                } elseif (strtolower($query->payment_status) === 'completed') {
                     return '<div class="badge badge-success">COMPLETED</div>';
                 } else {
-                    return '<div class="badge badge-success">' . $query->payment_status . '</div>';
+                    return '<div class="badge badge-warning">' . $query->payment_status . '</div>';
                 }
             })
             ->addColumn('created_at', function ($query) {

@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\WhyChooseUsController;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 
 Route::group([
@@ -93,16 +94,18 @@ Route::group([
         // Delivery Area Routes
         Route::resource('delivery-area',DeliveryAreaController::class);
 
-
-        Route::get('orders',[OrderController::class,'index'])->name('order.index');
-        Route::get('pending-orders',[OrderController::class,'pendingOrderIndex'])->name('pending-orders');
-        Route::get('in-process-orders',[OrderController::class,'inProcessOrderIndex'])->name('in-process-orders');
-        Route::get('delivered-orders',[OrderController::class,'deliveredOrderIndex'])->name('delivered-orders');
-        Route::get('declined-orders',[OrderController::class,'declinedOrderIndex'])->name('declined-orders');
-        Route::get('orders/{id}',[OrderController::class,'show'])->name('order.show');
-        Route::put('orders/{id}/update-status',[OrderController::class,'updateOrderStatus'])->name('order.status.update');
-        Route::get('orders/status/{id}',[OrderController::class,'getOrderStatus'])->name('order.status.get');
-        Route::delete('orders/{id}',[OrderController::class,'destroy'])->name('order.destroy');
+        // Order Routes
+        Route::group(['prefix' => 'orders','as' => 'order.' , 'controller' => OrderController::class],function(){
+            Route::get('/','index')->name('index');
+            Route::get('pending','pendingOrderIndex')->name('pending');
+            Route::get('in-process','inProcessOrderIndex')->name('inprocess');
+            Route::get('delivered','deliveredOrderIndex')->name('delivered');
+            Route::get('declined','declinedOrderIndex')->name('declined');
+            Route::get('/{id}','show')->name('show');
+            Route::put('/{id}/update-status','updateOrderStatus')->name('status.update');
+            Route::put('/status/{id}','getOrderStatus')->name('status.get');
+            Route::delete('/{id}','destroy')->name('destroy');
+        });
 
 
         // Settings Routes

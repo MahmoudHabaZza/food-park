@@ -322,7 +322,7 @@
     <!-- CART POPUT END -->
 @endsection
 
-@section('js')
+@push('js')
     <script>
         $(document).ready(function() {
             // reset data
@@ -429,4 +429,4 @@
 
         })
     </script>
-@endsection
+@endpush

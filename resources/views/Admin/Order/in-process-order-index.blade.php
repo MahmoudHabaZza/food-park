@@ -78,14 +78,20 @@ In Process Orders
                         orderStatus.val('');
 
                         paymentStatus.find('option').each(function() {
-                            if ($(this).val() == response.payment_status) {
-                                paymentStatus.val(response.payment_status);
+                            var lowerCasePaymentStatus = response.payment_status
+                                .toLowerCase();
+
+                            if ($(this).val() === lowerCasePaymentStatus) {
+                                paymentStatus.val(lowerCasePaymentStatus);
                             }
                         });
 
                         orderStatus.find('option').each(function() {
-                            if ($(this).val() == response.order_status) {
-                                orderStatus.val(response.order_status);
+                            var lowerCaseOrderStatus = response.order_status
+                                .toLowerCase();
+
+                            if ($(this).val() === lowerCaseOrderStatus) {
+                                orderStatus.val(lowerCaseOrderStatus);
                             }
                         });
 

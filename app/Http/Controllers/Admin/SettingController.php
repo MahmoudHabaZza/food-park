@@ -21,4 +21,7 @@ class SettingController extends Controller
     public function updateGeneralSettings(Request $request) {
         return $this->settingRepository->updateGeneralSettings($request);
     }
+    public function updatePusherSettings(Request $request){
+        return $this->settingRepository->updatePusherSettings($request);
+    }
 }

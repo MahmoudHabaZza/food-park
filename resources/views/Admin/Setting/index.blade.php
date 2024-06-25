@@ -17,11 +17,11 @@
                         <ul class="nav nav-pills flex-column" id="myTab4" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" id="home-tab4" data-toggle="tab" href="#general-settings"
-                                    role="tab" aria-controls="home" aria-selected="true">Home</a>
+                                    role="tab" aria-controls="home" aria-selected="true">General Settings</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="profile-tab4" data-toggle="tab" href="#profile4" role="tab"
-                                    aria-controls="profile" aria-selected="false">Profile</a>
+                                <a class="nav-link" id="profile-tab4" data-toggle="tab" href="#pusher-settings"
+                                    role="tab" aria-controls="profile" aria-selected="false">Pusher Settings</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="contact-tab4" data-toggle="tab" href="#contact4" role="tab"
@@ -31,67 +31,8 @@
                     </div>
                     <div class="col-12 col-sm-12 col-md-10">
                         <div class="tab-content no-padding" id="myTab2Content">
-                            <div class="tab-pane fade show active" id="general-settings" role="tabpanel"
-                                aria-labelledby="home-tab4">
-                                <div class="card card-primary border">
-                                    <div class="card-header">
-                                        <h5>Update General Settings</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <form action="{{ route('admin.setting.general-settings.update') }}" method="POST">
-                                            @csrf
-                                            @method('PUT')
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Site Name</label>
-                                                        <input type="text" name="site_name" class="form-control"  value="{{ config('settings.site_name'), }}" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Site Default Currency</label>
-                                                        <select name="site_default_currency" class="form-control select2">
-                                                            <option value="" disabled>Choose</option>
-                                                            @foreach (config('currencys.currency_list') as $currency )
-                                                            <option @selected(config('settings.site_default_currency') === $currency)  value="{{ $currency }}">{{ $currency }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Currency Icon</label>
-                                                        <input type="text" name="site_currency_icon"
-                                                            class="form-control" value="{{ config('settings.site_currency_icon') }}" />
-                                                    </div>
-
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Currency Posision</label>
-                                                        <select name="site_default_currency_position"
-                                                            class="form-control select2">
-                                                            <option @selected( config('settings.site_default_currency_position') === 'right' ) value="right">Right</option>
-                                                            <option @selected( config('settings.site_default_currency_position') === 'left' ) value="left">Left</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">Save</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="profile4" role="tabpanel" aria-labelledby="profile-tab4">
-                                Sed sed metus vel lacus hendrerit tempus. Sed efficitur velit tortor, ac efficitur est
-                                lobortis quis. Nullam lacinia metus erat, sed fermentum justo rutrum ultrices. Proin quis
-                                iaculis tellus. Etiam ac vehicula eros, pharetra consectetur dui. Aliquam convallis neque
-                                eget tellus efficitur, eget maximus massa imperdiet. Morbi a mattis velit. Donec hendrerit
-                                venenatis justo, eget scelerisque tellus pharetra a.
-                            </div>
+                            @include('Admin.Setting.sections.general-settings')
+                            @include('Admin.Setting.sections.pusher-settings')
                             <div class="tab-pane fade" id="contact4" role="tabpanel" aria-labelledby="contact-tab4">
                                 Vestibulum imperdiet odio sed neque ultricies, ut dapibus mi maximus. Proin ligula massa,
                                 gravida in lacinia efficitur, hendrerit eget mauris. Pellentesque fermentum, sem interdum

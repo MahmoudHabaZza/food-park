@@ -37,4 +37,26 @@ class SettingRepository implements SettingRepositoryInterface
         toastr()->success('Settings Uptaded Successfully');
         return redirect()->back();
     }
+    public function updatePusherSettings(Request $request)
+    {
+        $validatedData = $request->validate([
+            'pusher_app_id' => ['required'],
+            'pusher_key' => ['required'],
+            'pusher_secret_key' => ['required'],
+            'pusher_cluster' => ['required'],
+        ]);
+
+        foreach($validatedData as $key => $value){
+            Setting::updateOrCreate(
+                ['key' => $key],
+                ['value' => $value],
+            );
+        }
+
+        $settingsService = app(SettingsService::class);
+        $settingsService->clearCachedSettings();
+
+        toastr()->success('Pusher Settings Uptaded Successfully');
+        return redirect()->back();
+    }
 }

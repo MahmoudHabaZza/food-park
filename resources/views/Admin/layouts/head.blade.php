@@ -36,6 +36,7 @@
     {{-- Icon Picker --}}
     <link rel="stylesheet" href="{{ asset('assets/Admin') }}/css/bootstrap-iconpicker.min.css">
 
+    @vite(['resources/js/app.js'])
 
     @yield('css')
     <!-- Start GA -->

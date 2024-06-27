@@ -32,3 +32,10 @@ window.Echo = new Echo({
     forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? "https") === "https",
     enabledTransports: ["ws", "wss"],
 });
+
+window.Echo.channel("order-placed").listen(
+    "RTOrderPlacedNotificationEvent",
+    (e) => {
+        console.log(e);
+    }
+);

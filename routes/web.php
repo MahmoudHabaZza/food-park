@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\RTOrderPlacedNotificationEvent;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\EndUser\AddressController;
@@ -110,9 +111,9 @@ Route::group(['middleware' => 'auth'], function () {
 
 });
 
-
-
-
+Route::get('test',function(){
+    RTOrderPlacedNotificationEvent::dispatch('test order');
+});
 
 
 

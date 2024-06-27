@@ -24,7 +24,7 @@ class RTOrderPlacedNotificationListener
     {
         OrderPlacedNotification::create([
             'message' => $event->message,
-            'order_id' => $event->orderId
+            'order_id' => $event->orderId,
         ]);
     }
 }

@@ -52,7 +52,8 @@
                             </div>
                             <div class="dropdown-item-desc">
                                 {{ $notification->message }}
-                                <div class="time">{{ $notification->created_at->diffForHumans() }}</div>
+                                <div class="time">{{ date('h:i | d-F-Y', strtotime($notification->created_at)) }}
+                                </div>
                             </div>
                         </a>
                     @endforeach

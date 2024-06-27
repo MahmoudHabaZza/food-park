@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\Order;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -13,13 +14,15 @@ use Illuminate\Queue\SerializesModels;
 class RTOrderPlacedNotificationEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    public $order;
+    public $message;
+    public $orderId;
     /**
      * Create a new event instance.
      */
-    public function __construct($order)
+    public function __construct(Order $order)
     {
-        $this->order = $order;
+        $this->message = '#'.$order->invoice_id.' New Order Has Been Placed';
+        $this->orderId = $order->id;
     }
 
 

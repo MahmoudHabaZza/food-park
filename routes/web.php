@@ -11,6 +11,7 @@ use App\Http\Controllers\EndUser\HomeController;
 use App\Http\Controllers\EndUser\PaymentController;
 use App\Http\Controllers\EndUser\ProfileController as EndUserProfileController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -112,7 +113,8 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::get('test',function(){
-    RTOrderPlacedNotificationEvent::dispatch('test order');
+    $order = Order::first();
+    RTOrderPlacedNotificationEvent::dispatch($order);
 });
 
 

@@ -36,7 +36,6 @@
     {{-- Icon Picker --}}
     <link rel="stylesheet" href="{{ asset('assets/Admin') }}/css/bootstrap-iconpicker.min.css">
 
-    @vite(['resources/js/app.js'])
 
     @yield('css')
     <!-- Start GA -->
@@ -50,6 +49,11 @@
         gtag('js', new Date());
 
         gtag('config', 'UA-94034622-3');
+
+        var pusherKey = "{{ config('settings.pusher_key') }}";
+        var pusherCluster = "{{ config('settings.pusher_cluster') }}";
     </script>
+
+    @vite(['resources/js/app.js'])
     <!-- /END GA -->
 </head>

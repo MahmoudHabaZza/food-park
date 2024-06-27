@@ -22,6 +22,7 @@ use App\Interfaces\EndUser\DashboardRepositoryInterface;
 use App\Interfaces\EndUser\HomeRepositoryInterface;
 use App\Interfaces\EndUser\PaymentRepositoryInterface;
 use App\Interfaces\EndUser\ProfileRepositoryInterface as EndUserProfileRepositoryInterface;
+use App\Models\Setting;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\CouponRepository;
 use App\Repositories\Admin\DeliveryAreaRepository;
@@ -79,6 +80,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        /** Set The Pusher Configuration  */
+        $keys = ['pusher_app_id','pusher_key','pusher_secret_key','pusher_cluster'];
+        $pusherConfig = Setting::whereIn('key',$keys)->pluck('value','key');
+        config(['broadcasting.connections.pusher.key' => @$pusherConfig['pusher_key']]);
+        config(['broadcasting.connections.pusher.secret' => @$pusherConfig['pusher_secret_key']]);
+        config(['broadcasting.connections.pusher.app_id' => @$pusherConfig['pusher_app_id']]);
+        config(['broadcasting.connections.pusher.options.cluster' => @$pusherConfig['pusher_cluster']]);
+
     }
 }

@@ -33,7 +33,7 @@ window.Echo = new Echo({
     enabledTransports: ["ws", "wss"],
 });
 
-window.Echo.channel("order-placed").listen(
+window.Echo.channel('order-placed-channel').listen(
     "RTOrderPlacedNotificationEvent",
     (e) => {
         console.log(e);
@@ -47,5 +47,7 @@ window.Echo.channel("order-placed").listen(
                             </div>
                     </a>`;
         $(".rt_notification").prepend(html);
+        $(".notification_beep").addClass('beep');
+
     }
 );

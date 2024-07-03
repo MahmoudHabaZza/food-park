@@ -9,6 +9,7 @@ use App\DataTables\OrderDataTable;
 use App\DataTables\PendingOrderDataTable;
 use App\Interfaces\Admin\OrderRepositoryInterface;
 use App\Models\Order;
+use App\Models\OrderPlacedNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -21,6 +22,7 @@ class OrderRepository implements OrderRepositoryInterface {
     public function show($id)
     {
         $order = Order::findOrFail($id);
+        $notification = OrderPlacedNotification::where('order_id',$order->id)->update(['seen' => 1]);
         return view('Admin.Order.show',compact('order'));
     }
     public function updateOrderStatus(Request $request, string $id) : RedirectResponse|Response

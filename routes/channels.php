@@ -18,6 +18,6 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 });
 
 
-Broadcast::channel('order-placed',function(){
+Broadcast::channel('order-placed-channel', function () {
     return true;
 });

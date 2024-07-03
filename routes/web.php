@@ -112,11 +112,10 @@ Route::group(['middleware' => 'auth'], function () {
 
 });
 
-Route::get('test',function(){
+Route::get('event',function(){
     $order = Order::first();
     RTOrderPlacedNotificationEvent::dispatch($order);
 });
-
 
 
 require __DIR__ . '/auth.php';

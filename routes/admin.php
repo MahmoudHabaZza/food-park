@@ -108,6 +108,9 @@ Route::group([
         });
 
 
+        // Notification Routes
+        Route::get('clear-notification',[DashboardController::class,'clearNotification'])->name('clear-notification');
+
         // Settings Routes
         Route::group([
             'prefix' => 'setting',

@@ -22,9 +22,9 @@ class RTOrderPlacedNotificationEvent implements ShouldBroadcast
      */
     public function __construct(Order $order)
     {
-        $this->message = '#'.$order->invoice_id.' New Order Has Been Placed';
+        $this->message = '#' . $order->invoice_id . ' New Order Has Been Placed';
         $this->orderId = $order->id;
-        $this->date = date("h:i | d-F-Y",strtotime($order->created_at));
+        $this->date = date("h:i | d-F-Y", strtotime($order->created_at));
     }
 
 
@@ -33,10 +33,11 @@ class RTOrderPlacedNotificationEvent implements ShouldBroadcast
      *
      * @return array<int, \Illuminate\Broadcasting\Channel>
      */
+
     public function broadcastOn(): array
     {
         return [
-            new Channel('order-placed'),
+            new Channel('order-placed-channel'),
         ];
     }
 }

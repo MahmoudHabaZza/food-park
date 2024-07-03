@@ -4,7 +4,9 @@ namespace App\Repositories\EndUser;
 
 use App\Events\OrderPaymentUpdateEvent;
 use App\Events\OrderPlacedNotificationEvent;
+use App\Events\RTOrderPlacedNotificationEvent;
 use App\Interfaces\EndUser\PaymentRepositoryInterface;
+use App\Models\Order;
 use App\Services\OrderService;
 use Cart;
 use Illuminate\Http\Request;
@@ -151,6 +153,7 @@ class PaymentRepository implements PaymentRepositoryInterface
 
             OrderPaymentUpdateEvent::dispatch($order_id, $payment_info, 'PayPal');
             OrderPlacedNotificationEvent::dispatch($order_id);
+            RTOrderPlacedNotificationEvent::dispatch(Order::find($order_id));
 
 
 
@@ -235,6 +238,8 @@ class PaymentRepository implements PaymentRepositoryInterface
 
                 OrderPaymentUpdateEvent::dispatch($orderId, $payment_info, 'Stripe');
                 OrderPlacedNotificationEvent::dispatch($orderId);
+                RTOrderPlacedNotificationEvent::dispatch(Order::find($orderId));
+
 
                 $orderService->clearSession();
 
@@ -285,6 +290,8 @@ class PaymentRepository implements PaymentRepositoryInterface
 
                     OrderPaymentUpdateEvent::dispatch($orderId, $payment_info, 'Razorpay');
                     OrderPlacedNotificationEvent::dispatch($orderId);
+                    RTOrderPlacedNotificationEvent::dispatch(Order::find($orderId));
+
 
                     $orderService->clearSession();
 

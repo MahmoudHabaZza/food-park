@@ -32,18 +32,18 @@ Route::get('product/load-modal/{productId}', [HomeController::class, 'loadProduc
 
 // Cart Routes
 Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
-Route::get('get-cart-products',[CartController::class,'getCartProducts'])->name('get-cart-products');
-Route::get('remove-cart-item/{rowId}',[CartController::class,'removeCartItem'])->name('remove-cart-item');
+Route::get('get-cart-products', [CartController::class, 'getCartProducts'])->name('get-cart-products');
+Route::get('remove-cart-item/{rowId}', [CartController::class, 'removeCartItem'])->name('remove-cart-item');
 
 
 // Cart Page Routes
-Route::get('/cart',[CartController::class,'index'])->name('cart.index');
-Route::post('/cart-qty-update',[CartController::class,'updateCartQty'])->name('cart.qty-update');
-Route::get('/cart-destroy',[CartController::class,'cartDestroy'])->name('cart.destroy');
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart-qty-update', [CartController::class, 'updateCartQty'])->name('cart.qty-update');
+Route::get('/cart-destroy', [CartController::class, 'cartDestroy'])->name('cart.destroy');
 
 // Cart Coupon Routes
-Route::post('/apply-coupon',[HomeController::class,'applyCoupon'])->name('apply-coupon');
-Route::get('/remove-coupon',[HomeController::class,'removeCoupon'])->name('remove-coupon');
+Route::post('/apply-coupon', [HomeController::class, 'applyCoupon'])->name('apply-coupon');
+Route::get('/remove-coupon', [HomeController::class, 'removeCoupon'])->name('remove-coupon');
 
 
 
@@ -51,10 +51,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [EndUserDashboardController::class, 'index'])->name('dashboard');
 
     // Address Routes
-    Route::group(['prefix' => 'address' , 'as' => 'address.' ,'controller' => AddressController::class],function(){
-        Route::post('/store','store')->name('store');
-        Route::put('/update/{id}','update')->name('update');
-        Route::delete('/destroy/{id}','destroy')->name('destroy');
+    Route::group(['prefix' => 'address', 'as' => 'address.', 'controller' => AddressController::class], function () {
+        Route::post('/store', 'store')->name('store');
+        Route::put('/update/{id}', 'update')->name('update');
+        Route::delete('/destroy/{id}', 'destroy')->name('destroy');
     });
 
     // Profile Routes
@@ -77,10 +77,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Payment Routes
 
-    Route::controller(PaymentController::class)->group(function(){
+    Route::controller(PaymentController::class)->group(function () {
 
         // Payment Routes
-        Route::group(['prefix' => 'payment' , 'as' => 'payment.'],function(){
+        Route::group(['prefix' => 'payment', 'as' => 'payment.'], function () {
             Route::get('/', 'index')->name('index');
             Route::post('/make', 'makePayment')->name('make');
             Route::get('/success', 'paymentSuccess')->name('success');
@@ -95,27 +95,18 @@ Route::group(['middleware' => 'auth'], function () {
         });
 
         // Stripe Routes
-        Route::group(['prefix' => 'stripe','as' => 'stripe.'],function(){
-            Route::get('/payment','payWithStripe')->name('payment');
-            Route::get('/success','stripeSuccess')->name('success');
-            Route::get('/cancel','stripeCancel')->name('cancel');
+        Route::group(['prefix' => 'stripe', 'as' => 'stripe.'], function () {
+            Route::get('/payment', 'payWithStripe')->name('payment');
+            Route::get('/success', 'stripeSuccess')->name('success');
+            Route::get('/cancel', 'stripeCancel')->name('cancel');
         });
 
         // Razorpay Routes
-        Route::get('razorpay/redirect','razorpayRedirect')->name('razorpay.redirect');
-        Route::post('razorpay/payment','payWithRazorpay')->name('razorpay.payment');
-
+        Route::get('razorpay/redirect', 'razorpayRedirect')->name('razorpay.redirect');
+        Route::post('razorpay/payment', 'payWithRazorpay')->name('razorpay.payment');
     });
-
-
-
-
 });
 
-Route::get('event',function(){
-    $order = Order::first();
-    RTOrderPlacedNotificationEvent::dispatch($order);
-});
 
 
 require __DIR__ . '/auth.php';

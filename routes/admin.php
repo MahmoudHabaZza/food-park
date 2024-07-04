@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\WhyChooseUsController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 
@@ -110,6 +111,9 @@ Route::group([
 
         // Notification Routes
         Route::get('clear-notification',[DashboardController::class,'clearNotification'])->name('clear-notification');
+
+        // Chat Routes
+        Route::get('chat',[ChatController::class,'index'])->name('chat.index');
 
         // Settings Routes
         Route::group([

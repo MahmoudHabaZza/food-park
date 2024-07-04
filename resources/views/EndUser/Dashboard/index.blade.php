@@ -61,6 +61,10 @@
                                     data-bs-target="#v-pills-profile" type="button" role="tab"
                                     aria-controls="v-pills-profile" aria-selected="false"><span><i
                                             class="fas fa-bags-shopping"></i></span> Order</button>
+                                <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
+                                    data-bs-target="#v-pills-settings" type="button" role="tab"
+                                    aria-controls="v-pills-settings" aria-selected="false"><span><i
+                                    class="far fa-comment-dots"></i></span> Message <b>7</b></button>
 
                                 <button class="nav-link" id="v-pills-messages-tab2" data-bs-toggle="pill"
                                     data-bs-target="#v-pills-messages2" type="button" role="tab"
@@ -93,6 +97,7 @@
                                 @include('EndUser.Dashboard.Sections.personal-info-section')
                                 @include('EndUser.Dashboard.Sections.address-section')
                                 @include('EndUser.Dashboard.Sections.order-section')
+                                @include('EndUser.Dashboard.Sections.message-section')
 
 
 

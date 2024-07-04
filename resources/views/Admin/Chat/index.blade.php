@@ -53,8 +53,10 @@
                         </div>
                         <div class="card-footer chat-form">
                             <form id="chat-form">
-                                <input type="text" class="form-control" placeholder="Type a message">
-                                <button class="btn btn-primary">
+                                @csrf
+                                <input type="text" class="form-control fp_send_message" placeholder="Type a message" name="message">
+                                <input type="hidden" name="receiver_id" value="" id="receiver_id">
+                                <button class="btn btn-primary" type="submit">
                                     <i class="far fa-paper-plane"></i>
                                 </button>
                             </form>
@@ -68,8 +70,11 @@
 @section('js')
     <script>
         $(document).ready(function(){
+            var userId = "{{ auth()->user()->id }}";
+            $('#receiver_id').val("");
             $('.fp_chat_user').on('click',function(){
                 let senderId = $(this).data("user");
+                $('#receiver_id').val(senderId);
                 $.ajax({
                     method: "GET",
                     url:'{{ route("admin.chat.get-chat",":senderId") }}'.replace(":senderId",senderId),
@@ -82,7 +87,7 @@
                             let date = new Date(message.created_at);
                             let options = { day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' };
                             let formattedTime = new Intl.DateTimeFormat('en-US', options).format(date);
-                            let html = `<div class="chat-item chat-left" style=""><img src="../dist/img/avatar/avatar-1.png">
+                            let html = `<div class="chat-item ${message.sender_id == userId ? 'chat-right' : 'chat-left'}" style=""><img src="../dist/img/avatar/avatar-1.png">
                                 <div class="chat-details">
                                     <div class="chat-text">${message.message}</div>
                                     <div class="chat-time">${formattedTime}</div>
@@ -96,6 +101,49 @@
                     }
                 });
             })
+            $('#chat-form').on('submit',function(e){
+                e.preventDefault();
+                let currentDate = new Date();
+                let formattedTime = currentDate.toLocaleString('en-US', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                    hour: 'numeric',
+                    minute: 'numeric',
+                    hour12: true
+                });
+
+                let formData = $(this).serialize();
+                $.ajax({
+                    method: "POST",
+                    url: "{{ route('admin.chat.send-message') }}",
+                    data: formData,
+                    beforeSend: function() {
+                            let message = $('.fp_send_message').val();
+                            if(message != ''){
+                                let html = `<div class="chat-item chat-right" style=""><img src="../dist/img/avatar/avatar-2.png">
+                                    <div class="chat-details">
+                                        <div class="chat-text">${message}</div>
+                                        <div class="chat-time">${formattedTime}</div>
+                                    </div>
+                                </div>`;
+                            $('.chat-content').append(html);
+                            $('.fp_send_message').val('');
+                        }
+
+                    },
+                    success: function(response) {
+
+                    },
+                    error: function(xhr, status, error) {
+                        errors = xhr.responseJSON.errors;
+                        $.each(errors,function(key, value){
+                            toastr.error(value);
+                        });
+                    }
+                });
+            });
+
         })
     </script>
 @endsection

@@ -32,6 +32,7 @@ class ChatRepository implements ChatRepositoryInterface
         $receiver_id = auth()->user()->id;
         $chats = Chat::whereIn('sender_id',[$senderId,$receiver_id])
             ->whereIn('receiver_id',[$senderId,$receiver_id])
+            ->with('sender')
             ->orderBy('created_at','asc')
             ->get();
         return response($chats);

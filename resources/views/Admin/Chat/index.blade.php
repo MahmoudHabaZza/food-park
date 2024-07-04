@@ -26,7 +26,7 @@
                                 @foreach ($chatUsers as $chatUser)
                                 <li class="media fp_chat_user" data-user="{{ $chatUser->id }}" style="cursor: pointer;">
                                     <img alt="image" class="mr-3 rounded-circle" width="50"
-                                        src="{{ asset($chatUser->avatar)  }}" style="width:50px;height:50px;object-fill:cover;">
+                                        src="{{ asset($chatUser->avatar)  }}" style="width:50px;height:50px;object-fit:cover;">
                                     <div class="media-body">
                                         <div class="mt-0 mb-1 font-weight-bold">{{ $chatUser->name }}</div>
                                         <div class="text-success text-small font-600-bold"><i class="fas fa-circle"></i>
@@ -70,6 +70,12 @@
 @section('js')
     <script>
         $(document).ready(function(){
+
+            function scrollToBottom() {
+                let chatContent = $('.chat-content');
+                chatContent.scrollTop(chatContent.prop("scrollHeight"));
+            }
+
             var userId = "{{ auth()->user()->id }}";
             $('#receiver_id').val("");
             $('.fp_chat_user').on('click',function(){
@@ -83,17 +89,20 @@
                     },
                     success:function(response){
                         $('.chat-content').empty();
+
                         $.each(response,function(index,message){
+                            let avatar = "{{ asset(':avatar') }}".replace(':avatar',message.sender.avatar);
                             let date = new Date(message.created_at);
                             let options = { day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' };
                             let formattedTime = new Intl.DateTimeFormat('en-US', options).format(date);
-                            let html = `<div class="chat-item ${message.sender_id == userId ? 'chat-right' : 'chat-left'}" style=""><img src="../dist/img/avatar/avatar-1.png">
+                            let html = `<div class="chat-item ${message.sender_id == userId ? 'chat-right' : 'chat-left'}" style=""><img src="${avatar}" style="width:50px;height:50px;object-fit:cover;">
                                 <div class="chat-details">
                                     <div class="chat-text">${message.message}</div>
                                     <div class="chat-time">${formattedTime}</div>
                                 </div>
                             </div>`;
                             $('.chat-content').append(html);
+                            scrollToBottom();
                         })
                     },
                     error:function(xhr,status,error){
@@ -121,7 +130,8 @@
                     beforeSend: function() {
                             let message = $('.fp_send_message').val();
                             if(message != ''){
-                                let html = `<div class="chat-item chat-right" style=""><img src="../dist/img/avatar/avatar-2.png">
+                                let avatar = "{{ asset(auth()->user()->avatar) }}";
+                                let html = `<div class="chat-item chat-right" style=""><img src="${avatar}">
                                     <div class="chat-details">
                                         <div class="chat-text">${message}</div>
                                         <div class="chat-time">${formattedTime}</div>
@@ -129,6 +139,7 @@
                                 </div>`;
                             $('.chat-content').append(html);
                             $('.fp_send_message').val('');
+                            scrollToBottom()
                         }
 
                     },
@@ -145,5 +156,6 @@
             });
 
         })
+
     </script>
 @endsection

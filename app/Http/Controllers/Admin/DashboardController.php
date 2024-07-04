@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\OrderPlacedNotification;
+use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
@@ -11,7 +12,18 @@ class DashboardController extends Controller
 {
     public function index() : View
     {
-        dd(auth()->user()->chats);
+        $curUserId = auth()->user()->id;
+        $chatUsers = User::where('id','!=',$curUserId)
+            ->whereHas('chats',function($query) use($curUserId){
+                $query->where(function($subQuery) use($curUserId){
+                    $subQuery->where('sender_id',$curUserId)
+                        ->orWhere('receiver_id',$curUserId);
+                });
+            })
+            ->orderByDesc('created_at')
+            ->distinct()
+            ->get();
+            dd($chatUsers);
         return view('Admin.Dashboard.index');
     }
 

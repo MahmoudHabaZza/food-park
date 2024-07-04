@@ -3,6 +3,7 @@
 namespace App\Repositories\Admin;
 
 use App\Interfaces\Admin\ChatRepositoryInterface;
+use App\Models\Chat;
 use App\Models\User;
 
 class ChatRepository implements ChatRepositoryInterface
@@ -24,6 +25,11 @@ class ChatRepository implements ChatRepositoryInterface
     }
     public function getChat(string $senderId)
     {
-        return $senderId;
+        $receiver_id = auth()->user()->id;
+        $chats = Chat::whereIn('sender_id',[$senderId,$receiver_id])
+            ->whereIn('receiver_id',[$senderId,$receiver_id])
+            ->orderBy('created_at','asc')
+            ->get();
+        dd($chats);
     }
 }

@@ -17,4 +17,8 @@ class ChatController extends Controller
     {
         return $this->chatRepository->index();
     }
+    public function getChat(string $senderId)
+    {
+        return $this->chatRepository->getChat($senderId);
+    }
 }

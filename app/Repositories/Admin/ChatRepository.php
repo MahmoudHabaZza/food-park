@@ -22,4 +22,8 @@ class ChatRepository implements ChatRepositoryInterface
             ->get();
         return view('Admin.Chat.index' , compact('chatUsers'));
     }
+    public function getChat(string $senderId)
+    {
+        return $senderId;
+    }
 }

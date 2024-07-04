@@ -114,6 +114,7 @@ Route::group([
 
         // Chat Routes
         Route::get('chat',[ChatController::class,'index'])->name('chat.index');
+        Route::get('chat/get/{senderId}',[ChatController::class,'getChat'])->name('chat.get-chat');
 
         // Settings Routes
         Route::group([

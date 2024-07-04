@@ -11,7 +11,7 @@ class DashboardController extends Controller
 {
     public function index() : View
     {
-
+        dd(auth()->user()->chats);
         return view('Admin.Dashboard.index');
     }
 

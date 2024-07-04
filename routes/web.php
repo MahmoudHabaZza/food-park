@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\EndUser\AddressController;
 use App\Http\Controllers\EndUser\CartController;
+use App\Http\Controllers\EndUser\ChatController;
 use App\Http\Controllers\EndUser\CheckoutController;
 use App\Http\Controllers\EndUser\DashboardController as EndUserDashboardController;
 use App\Http\Controllers\EndUser\HomeController;
@@ -105,6 +106,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('razorpay/redirect', 'razorpayRedirect')->name('razorpay.redirect');
         Route::post('razorpay/payment', 'payWithRazorpay')->name('razorpay.payment');
     });
+
+    // Chat Routes
+    Route::post('chat/send-message',[ChatController::class,'sendMessage'])->name('send-message');
 });
 
 

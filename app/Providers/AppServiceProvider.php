@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Interfaces\Admin\CategoryRepositoryInterface;
+use App\Interfaces\Admin\ChatRepositoryInterface;
 use App\Interfaces\Admin\CouponRepositoryInterface;
 use App\Interfaces\Admin\DeliveryAreaRepositoryInterface;
 use App\Interfaces\Admin\OrderRepositoryInterface;
@@ -17,6 +18,7 @@ use App\Interfaces\Admin\SliderRepositoryInterface;
 use App\Interfaces\Admin\WhyChooseUsRepositoryInterface;
 use App\Interfaces\EndUser\AddressRepositoryInterface;
 use App\Interfaces\EndUser\CartRepositoryInterface;
+use App\Interfaces\EndUser\ChatRepositoryInterface as EndUserChatRepositoryInterface;
 use App\Interfaces\EndUser\CheckoutRepositoryInterface;
 use App\Interfaces\EndUser\DashboardRepositoryInterface;
 use App\Interfaces\EndUser\HomeRepositoryInterface;
@@ -24,6 +26,7 @@ use App\Interfaces\EndUser\PaymentRepositoryInterface;
 use App\Interfaces\EndUser\ProfileRepositoryInterface as EndUserProfileRepositoryInterface;
 use App\Models\Setting;
 use App\Repositories\Admin\CategoryRepository;
+use App\Repositories\Admin\ChatRepository;
 use App\Repositories\Admin\CouponRepository;
 use App\Repositories\Admin\DeliveryAreaRepository;
 use App\Repositories\Admin\OrderRepository;
@@ -38,6 +41,7 @@ use App\Repositories\Admin\SliderRepository;
 use App\Repositories\Admin\WhyChooseUsRepository;
 use App\Repositories\EndUser\AddressRepository;
 use App\Repositories\EndUser\CartRepository;
+use App\Repositories\EndUser\ChatRepository as EndUserChatRepository;
 use App\Repositories\EndUser\CheckoutRepository;
 use App\Repositories\EndUser\DashboardRepository;
 use App\Repositories\EndUser\HomeRepository;
@@ -73,6 +77,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(PaymentRepositoryInterface::class, PaymentRepository::class);
         $this->app->bind(PaymentGatewaySettingRepositoryInterface::class, PaymentGatewaySettingRepository::class);
         $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
+        $this->app->bind(ChatRepositoryInterface::class, ChatRepository::class);
+        $this->app->bind(EndUserChatRepositoryInterface::class, EndUserChatRepository::class);
     }
 
     /**

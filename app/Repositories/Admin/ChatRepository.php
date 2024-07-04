@@ -20,7 +20,10 @@ class ChatRepository implements ChatRepositoryInterface
             })
             ->orderByDesc('created_at')
             ->distinct()
-            ->get();
+            ->get()
+            ->sortByDesc(function ($user) {
+                return $user->chats->first()->created_at ?? now()->subYear();
+            });
         return view('Admin.Chat.index' , compact('chatUsers'));
     }
     public function getChat(string $senderId)
@@ -30,6 +33,6 @@ class ChatRepository implements ChatRepositoryInterface
             ->whereIn('receiver_id',[$senderId,$receiver_id])
             ->orderBy('created_at','asc')
             ->get();
-        dd($chats);
+        return response($chats);
     }
 }

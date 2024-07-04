@@ -44,18 +44,12 @@
                             <h4>Chat with Rizal</h4>
                         </div>
                         <div class="card-body chat-content" >
-                            <div class="chat-item chat-left" style=""><img src="../dist/img/avatar/avatar-1.png">
-                                <div class="chat-details">
-                                    <div class="chat-text">Hi, dude!</div>
-                                    <div class="chat-time">05:55</div>
-                                </div>
-                            </div>
-                            <div class="chat-item chat-right" style=""><img src="../dist/img/avatar/avatar-2.png">
+                            {{-- <div class="chat-item chat-right" style=""><img src="../dist/img/avatar/avatar-2.png">
                                 <div class="chat-details">
                                     <div class="chat-text">Wat?</div>
                                     <div class="chat-time">05:55</div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="card-footer chat-form">
                             <form id="chat-form">
@@ -83,7 +77,19 @@
 
                     },
                     success:function(response){
-
+                        $('.chat-content').empty();
+                        $.each(response,function(index,message){
+                            let date = new Date(message.created_at);
+                            let options = { day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+                            let formattedTime = new Intl.DateTimeFormat('en-US', options).format(date);
+                            let html = `<div class="chat-item chat-left" style=""><img src="../dist/img/avatar/avatar-1.png">
+                                <div class="chat-details">
+                                    <div class="chat-text">${message.message}</div>
+                                    <div class="chat-time">${formattedTime}</div>
+                                </div>
+                            </div>`;
+                            $('.chat-content').append(html);
+                        })
                     },
                     error:function(xhr,status,error){
 

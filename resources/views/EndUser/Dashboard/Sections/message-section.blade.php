@@ -52,17 +52,23 @@
                     url: "{{ route('send-message') }}",
                     data: formData,
                     beforeSend: function() {
-                        let message = $('.fp_send_message').val();
-                        let html = `<div class="fp__chating tf_chat_right">
-                        <div class="fp__chating_img">
-                            <img src="images/client_img_1.jpg" alt="person" class="img-fluid w-100">
-                        </div>
-                        <div class="fp__chating_text">
-                            <p>${message}</p>
-                            <span>15 Jun, 2023, 05:26 AM</span>
-                        </div>
-                    </div>`
-                    $('.fp__chat_body').append(html);
+                        // if($('.fp_send_message').val() == '')
+                        // {
+                        //     toastr.error('Message Cannot be empty');
+                        // }
+                            let message = $('.fp_send_message').val();
+                            let html = `<div class="fp__chating tf_chat_right">
+                            <div class="fp__chating_img">
+                                <img src="{{ asset(auth()->user()->avatar) }}" alt="{{ auth()->user()->name }}" class="img-fluid w-100" style="border-radius:50%;">
+                            </div>
+                            <div class="fp__chating_text">
+                                <p>${message}</p>
+                                <span>sending....</span>
+                            </div>
+                        </div>`
+                        $('.fp__chat_body').append(html);
+                        $('.fp_send_message').val('');
+
                     },
                     success: function(response) {
 

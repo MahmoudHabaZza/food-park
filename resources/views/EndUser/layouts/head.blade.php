@@ -27,6 +27,9 @@
     <!-- <link rel="stylesheet" href="{{ asset('assets/EndUser') }}/css/rtl.css"> -->
     @yield('css')
     <script>
+
+        var pusherKey = "{{ config('settings.pusher_key') }}";
+        var pusherCluster = "{{ config('settings.pusher_cluster') }}";
         var loggedInUserId = "{{ auth()->user()->id ?? '' }}";
     </script>
     @vite(['resources/js/app.js']);

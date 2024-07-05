@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Admin;
 
+use App\Events\ChatEvent;
 use App\Interfaces\Admin\ChatRepositoryInterface;
 use App\Models\Chat;
 use App\Models\User;
@@ -49,6 +50,8 @@ class ChatRepository implements ChatRepositoryInterface
             'receiver_id' => $request->receiver_id,
             'message' => $request->message,
         ]);
+
+        broadcast(new ChatEvent($request->message, $request->receiver_id))->toOthers();
 
         return response(['status' => 'success']);
     }

@@ -12,8 +12,8 @@ class ChatRepository implements ChatRepositoryInterface
     public function sendMessage(Request $request)
     {
         $request->validate([
-            'message' => ['required','max:1000'],
-            'receiver_id' => ['required','integer']
+            'message' => ['required', 'max:1000'],
+            'receiver_id' => ['required', 'integer']
         ]);
 
         Chat::create([
@@ -22,7 +22,7 @@ class ChatRepository implements ChatRepositoryInterface
             'message' => $request->message,
         ]);
 
-        broadcast(new ChatEvent($request->message,$request->receiver_id))->toOthers();
+        broadcast(new ChatEvent($request->message, $request->receiver_id))->toOthers();
 
         return response(['status' => 'success']);
     }

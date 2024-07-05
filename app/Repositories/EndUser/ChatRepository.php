@@ -2,6 +2,7 @@
 
 namespace App\Repositories\EndUser;
 
+use App\Events\ChatEvent;
 use App\Interfaces\EndUser\ChatRepositoryInterface;
 use App\Models\Chat;
 use Illuminate\Http\Request;
@@ -20,6 +21,8 @@ class ChatRepository implements ChatRepositoryInterface
             'receiver_id' => $request->receiver_id,
             'message' => $request->message,
         ]);
+
+        broadcast(new ChatEvent($request->message,$request->receiver_id))->toOthers();
 
         return response(['status' => 'success']);
     }

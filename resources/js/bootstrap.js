@@ -51,3 +51,10 @@ window.Echo.channel('order-placed-channel').listen(
 
     }
 );
+
+
+window.Echo.private('chat.'+loggedInUserId).listen(
+    "ChatEvent",function(e){
+        console.log(e);
+    }
+);

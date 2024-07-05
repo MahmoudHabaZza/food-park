@@ -21,3 +21,7 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 Broadcast::channel('order-placed-channel', function () {
     return true;
 });
+
+Broadcast::channel('chat.{id}',function($user,$id){
+    return $user->id = $id;
+});

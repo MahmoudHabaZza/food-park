@@ -26,6 +26,10 @@
     <link rel="stylesheet" href="{{ asset('assets/EndUser') }}/css/toastr.min.css">
     <!-- <link rel="stylesheet" href="{{ asset('assets/EndUser') }}/css/rtl.css"> -->
     @yield('css')
+    <script>
+        var loggedInUserId = "{{ auth()->user()->id ?? '' }}";
+    </script>
+    @vite(['resources/js/app.js']);
 </head>
 
 <body>

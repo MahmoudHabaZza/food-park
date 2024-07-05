@@ -109,6 +109,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Chat Routes
     Route::post('chat/send-message',[ChatController::class,'sendMessage'])->name('send-message');
+    Route::get('chat/get/{receiverId}', [ChatController::class, 'getChat'])->name('chat.get-chat');
+
 });
 
 

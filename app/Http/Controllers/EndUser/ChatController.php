@@ -16,4 +16,8 @@ class ChatController extends Controller
     public function sendMessage(Request $request){
         return $this->chatRepository->sendMessage($request);
     }
+    public function getChat(string $senderId)
+    {
+        return $this->chatRepository->getChat($senderId);
+    }
 }

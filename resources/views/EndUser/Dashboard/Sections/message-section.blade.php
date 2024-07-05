@@ -44,6 +44,11 @@
 @push('js')
     <script>
         $(document).ready(function() {
+            function scrollToBottom(){
+                    let chatContent = $('.fp__chat_body');
+                    chatContent.scrollTop(chatContent.prop("scrollHeight"));
+            }
+            var userId = "{{ auth()->user()->id }}";
             $('.chat_input').on('submit', function(e) {
                 e.preventDefault();
                 let formData = $(this).serialize();
@@ -58,17 +63,27 @@
                         // }
                             let message = $('.fp_send_message').val();
                             if(message != ''){
+                                    let currentDate = new Date();
+                                    let formattedDate = currentDate.toLocaleString('en-US', {
+                                        day: 'numeric',
+                                        month: 'numeric',
+                                        year: 'numeric',
+                                        hour: 'numeric',
+                                        minute: 'numeric',
+                                        hour12: true
+                                    });
                                 let html = `<div class="fp__chating tf_chat_right">
                                     <div class="fp__chating_img">
                                         <img src="{{ asset(auth()->user()->avatar) }}" alt="{{ auth()->user()->name }}" class="img-fluid w-100" style="border-radius:50%;">
                                     </div>
                                     <div class="fp__chating_text">
                                         <p>${message}</p>
-                                        <span>sending....</span>
+                                        <span>${formattedDate}</span>
                                     </div>
                                 </div>`
                                 $('.fp__chat_body').append(html);
                                 $('.fp_send_message').val('');
+                                scrollToBottom();
                             }
 
                     },
@@ -80,6 +95,40 @@
                         $.each(errors,function(key, value){
                             toastr.error(value);
                         });
+                    }
+                });
+            })
+            $('.fp_chat_message').on('click',function(){
+
+                let receiverId = 1; // this is the id of the admin
+                $.ajax({
+                    method: "GET",
+                    url:'{{ route("chat.get-chat",":receiverId") }}'.replace(":receiverId",receiverId),
+                    beforeSend:function(){
+
+                    },
+                    success:function(response){
+                        $('.fp__chat_body').empty();
+
+                        $.each(response,function(index,message){
+                            let avatar = "{{ asset(':avatar') }}".replace(':avatar',message.sender.avatar);
+                            let date = new Date(message.created_at);
+                            let options = { day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' };
+                            let formattedTime = new Intl.DateTimeFormat('en-US', options).format(date);
+                            let html = `<div class="fp__chating ${message.sender_id == userId ? 'tf_chat_right' : ''}">
+                                            <div class="fp__chating_img">
+                                                <img src="${message.sender.avatar}" alt="person" class="img-fluid w-100" style='border-radius:50%'>
+                                            </div>
+                                            <div class="fp__chating_text"><p>${message.message}</p>
+                                                <span>${formattedTime}</span>
+                                            </div>
+                                        </div>`
+                            $('.fp__chat_body').append(html);
+                            scrollToBottom();
+                        })
+                    },
+                    error:function(xhr,status,error){
+
                     }
                 });
             })

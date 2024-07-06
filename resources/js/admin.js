@@ -14,4 +14,11 @@ window.Echo.private("chat." + loggedInUserId).listen("ChatEvent", function (e) {
         $(".chat-content").append(html);
         $('.chat-content').scrollTop($('.chat-content').prop("scrollHeight"));
     }
+
+    $('.fp_chat_user').each(function(){
+        let senderId = $(this).data("user");
+        if(e.senderId == senderId){
+            $(this).find('.got_new_message').html('<i class="beep"></i>New Message');
+        }
+    })
 });

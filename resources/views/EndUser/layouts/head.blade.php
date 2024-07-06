@@ -32,7 +32,7 @@
         var pusherCluster = "{{ config('settings.pusher_cluster') }}";
         var loggedInUserId = "{{ auth()->user()->id ?? '' }}";
     </script>
-    @vite(['resources/js/app.js']);
+    @vite(['resources/js/app.js','resources/js/enduser.js']);
 </head>
 
 <body>

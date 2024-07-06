@@ -93,7 +93,7 @@
                         $.each(response,function(index,message){
                             let avatar = "{{ asset(':avatar') }}".replace(':avatar',message.sender.avatar);
                             let date = new Date(message.created_at);
-                            let options = { day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+                            let options = { day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' };
                             let formattedTime = new Intl.DateTimeFormat('en-US', options).format(date);
                             let html = `<div class="chat-item ${message.sender_id == userId ? 'chat-right' : 'chat-left'}" style=""><img src="${avatar}" style="width:50px;height:50px;object-fit:cover;">
                                 <div class="chat-details">
@@ -115,7 +115,7 @@
                 let currentDate = new Date();
                 let formattedTime = currentDate.toLocaleString('en-US', {
                     day: 'numeric',
-                    month: 'long',
+                    month: 'numeric',
                     year: 'numeric',
                     hour: 'numeric',
                     minute: 'numeric',

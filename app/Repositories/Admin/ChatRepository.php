@@ -13,20 +13,16 @@ class ChatRepository implements ChatRepositoryInterface
     public function index()
     {
         $curUserId = auth()->user()->id;
-        $chatUsers = User::where('id', '!=', $curUserId)
-            ->whereHas('chats', function ($query) use ($curUserId) {
-                $query->where(function ($subQuery) use ($curUserId) {
-                    $subQuery->where('sender_id', $curUserId)
-                        ->orWhere('receiver_id', $curUserId);
-                });
-            })
-            ->orderByDesc('created_at')
-            ->distinct()
-            ->get()
-            ->sortByDesc(function ($user) {
-                return $user->chats->first()->created_at ?? now()->subYear();
-            });
-        return view('Admin.Chat.index' , compact('chatUsers'));
+        $senders = Chat::select('sender_id')
+            ->where('receiver_id',$curUserId)
+            ->where('sender_id','!=',$curUserId)
+            ->selectRaw('MAX(created_at) as latest_message_sent')
+            ->groupBy('sender_id')
+            ->orderByDesc('latest_message_sent')
+            ->get();
+
+
+        return view('Admin.Chat.index' , compact('senders'));
     }
     public function getChat(string $senderId)
     {

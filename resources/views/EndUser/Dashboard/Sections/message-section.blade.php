@@ -63,15 +63,7 @@
                         // }
                             let message = $('.fp_send_message').val();
                             if(message != ''){
-                                    let currentDate = new Date();
-                                    let formattedDate = currentDate.toLocaleString('en-US', {
-                                        day: 'numeric',
-                                        month: 'numeric',
-                                        year: 'numeric',
-                                        hour: 'numeric',
-                                        minute: 'numeric',
-                                        hour12: true
-                                    });
+                                let formattedDate = formatDate();
                                 let html = `<div class="fp__chating tf_chat_right">
                                     <div class="fp__chating_img">
                                         <img src="{{ asset(auth()->user()->avatar) }}" alt="{{ auth()->user()->name }}" class="img-fluid w-100" style="border-radius:50%;">
@@ -112,9 +104,7 @@
 
                         $.each(response,function(index,message){
                             let avatar = "{{ asset(':avatar') }}".replace(':avatar',message.sender.avatar);
-                            let date = new Date(message.created_at);
-                            let options = { day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' };
-                            let formattedTime = new Intl.DateTimeFormat('en-US', options).format(date);
+                            let formattedTime = formatDate(new Date(message.created_at));
                             let html = `<div class="fp__chating ${message.sender_id == userId ? 'tf_chat_right' : ''}">
                                             <div class="fp__chating_img">
                                                 <img src="${message.sender.avatar}" alt="person" class="img-fluid w-100" style='border-radius:50%'>

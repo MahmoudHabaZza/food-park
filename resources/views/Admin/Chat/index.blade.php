@@ -92,9 +92,7 @@
 
                         $.each(response,function(index,message){
                             let avatar = "{{ asset(':avatar') }}".replace(':avatar',message.sender.avatar);
-                            let date = new Date(message.created_at);
-                            let options = { day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' };
-                            let formattedTime = new Intl.DateTimeFormat('en-US', options).format(date);
+                            let formattedTime = formatDate(new Date(message.created_at));
                             let html = `<div class="chat-item ${message.sender_id == userId ? 'chat-right' : 'chat-left'}" style=""><img src="${avatar}" style="width:50px;height:50px;object-fit:cover;">
                                 <div class="chat-details">
                                     <div class="chat-text">${message.message}</div>
@@ -112,15 +110,8 @@
             })
             $('#chat-form').on('submit',function(e){
                 e.preventDefault();
-                let currentDate = new Date();
-                let formattedTime = currentDate.toLocaleString('en-US', {
-                    day: 'numeric',
-                    month: 'numeric',
-                    year: 'numeric',
-                    hour: 'numeric',
-                    minute: 'numeric',
-                    hour12: true
-                });
+                let formattedTime = formatDate();
+
 
                 let formData = $(this).serialize();
                 $.ajax({

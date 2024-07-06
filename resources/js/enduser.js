@@ -1,13 +1,5 @@
 window.Echo.private("chat." + loggedInUserId).listen("ChatEvent", function (e) {
-    let currentDate = new Date();
-    let formattedDate = currentDate.toLocaleString("en-US", {
-        day: "numeric",
-        month: "numeric",
-        year: "numeric",
-        hour: "numeric",
-        minute: "numeric",
-        hour12: true,
-    });
+    let formattedDate = formatDate();
     let html = `<div class="fp__chating">
                                     <div class="fp__chating_img">
                                         <img src="${e.avatar}" alt="" class="img-fluid w-100" style="border-radius:50%;">

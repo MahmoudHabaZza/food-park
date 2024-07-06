@@ -27,6 +27,12 @@
     <!-- <link rel="stylesheet" href="{{ asset('assets/EndUser') }}/css/rtl.css"> -->
     @yield('css')
     <script>
+        // formated time function in real time chating
+        function formatDate(date = new Date()) {
+            let options = { day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' };
+            let formattedTime = new Intl.DateTimeFormat('en-US', options).format(date);
+            return formattedTime;
+        }
 
         var pusherKey = "{{ config('settings.pusher_key') }}";
         var pusherCluster = "{{ config('settings.pusher_cluster') }}";

@@ -24,7 +24,7 @@
                         <div class="card-body" >
                             <ul class="list-unstyled list-unstyled-border">
                                 @foreach ($chatUsers as $chatUser)
-                                <li class="media fp_chat_user" data-user="{{ $chatUser->id }}" style="cursor: pointer;">
+                                <li class="media fp_chat_user" data-user="{{ $chatUser->id }}" data-name="{{ $chatUser->name }}" style="cursor: pointer;">
                                     <img alt="image" class="mr-3 rounded-circle" width="50"
                                         src="{{ asset($chatUser->avatar)  }}" style="width:50px;height:50px;object-fit:cover;">
                                     <div class="media-body">
@@ -39,17 +39,11 @@
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 col-lg-9">
-                    <div class="card chat-box" id="mychatbox" style="height: 70vh">
+                    <div class="card chat-box" id="mychatbox" data-inbox="" style="height: 70vh">
                         <div class="card-header">
-                            <h4>Chat with Rizal</h4>
+                            <h4 id="chat-header">Chat</h4>
                         </div>
                         <div class="card-body chat-content" >
-                            {{-- <div class="chat-item chat-right" style=""><img src="../dist/img/avatar/avatar-2.png">
-                                <div class="chat-details">
-                                    <div class="chat-text">Wat?</div>
-                                    <div class="chat-time">05:55</div>
-                                </div>
-                            </div> --}}
                         </div>
                         <div class="card-footer chat-form">
                             <form id="chat-form">
@@ -79,13 +73,17 @@
             var userId = "{{ auth()->user()->id }}";
             $('#receiver_id').val("");
             $('.fp_chat_user').on('click',function(){
+
                 let senderId = $(this).data("user");
+                let userName = $(this).data("name");
+                $('#mychatbox').attr('data-inbox',senderId);
                 $('#receiver_id').val(senderId);
                 $.ajax({
                     method: "GET",
                     url:'{{ route("admin.chat.get-chat",":senderId") }}'.replace(":senderId",senderId),
                     beforeSend:function(){
-
+                        $('.chat-content').empty();
+                        $('#chat-header').text("Chat With "+userName);
                     },
                     success:function(response){
                         $('.chat-content').empty();

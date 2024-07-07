@@ -62,7 +62,7 @@
                                     aria-controls="v-pills-profile" aria-selected="false"><span><i
                                             class="fas fa-bags-shopping"></i></span> Order</button>
                                 @php
-                                    $unseenMessages = \App\Models\Chat::where(['sender_id' => 1 , 'receiver_id' => @auth()->user()->id,'seen' => 0])->count();
+                                    @   $unseenMessages = \App\Models\Chat::where(['sender_id' => 1 , 'receiver_id' => @auth()->user()->id,'seen' => 0])->count();
                                 @endphp
                                 <button class="nav-link fp_chat_message" id="v-pills-settings-tab" data-bs-toggle="pill"
                                     data-bs-target="#v-pills-settings" type="button" role="tab"

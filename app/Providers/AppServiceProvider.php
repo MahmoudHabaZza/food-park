@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Interfaces\Admin\CategoryRepositoryInterface;
 use App\Interfaces\Admin\ChatRepositoryInterface;
 use App\Interfaces\Admin\CouponRepositoryInterface;
+use App\Interfaces\Admin\DailyOfferRepositoryInterface;
 use App\Interfaces\Admin\DeliveryAreaRepositoryInterface;
 use App\Interfaces\Admin\OrderRepositoryInterface;
 use App\Interfaces\Admin\PaymentGatewaySettingRepositoryInterface;
@@ -28,6 +29,7 @@ use App\Models\Setting;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\ChatRepository;
 use App\Repositories\Admin\CouponRepository;
+use App\Repositories\Admin\DailyOfferRepository;
 use App\Repositories\Admin\DeliveryAreaRepository;
 use App\Repositories\Admin\OrderRepository;
 use App\Repositories\Admin\PaymentGatewaySettingRepository;
@@ -79,6 +81,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
         $this->app->bind(ChatRepositoryInterface::class, ChatRepository::class);
         $this->app->bind(EndUserChatRepositoryInterface::class, EndUserChatRepository::class);
+        $this->app->bind(DailyOfferRepositoryInterface::class, DailyOfferRepository::class);
     }
 
     /**

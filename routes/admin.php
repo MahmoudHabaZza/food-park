@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ChatController;
 use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Admin\DailyOfferController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DeliveryAreaController;
 use App\Http\Controllers\Admin\OrderController;
@@ -116,6 +117,10 @@ Route::group([
         Route::get('chat',[ChatController::class,'index'])->name('chat.index');
         Route::get('chat/get/{senderId}',[ChatController::class,'getChat'])->name('chat.get-chat');
         Route::post('chat/send-message', [ChatController::class, 'sendMessage'])->name('chat.send-message');
+
+        // Daily Offer Routes
+        Route::get('daily-offer/search-product',[DailyOfferController::class,'searchProduct'])->name('daily-offer.search');
+        Route::resource('daily-offer',DailyOfferController::class);
 
 
         // Settings Routes

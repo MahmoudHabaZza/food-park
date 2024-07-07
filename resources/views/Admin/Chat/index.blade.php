@@ -134,7 +134,7 @@
                     data: formData,
                     beforeSend: function() {
                             let message = $('.fp_send_message').val();
-                            if(message != ''){
+                            if(message != '' && $('#receiver_id').val() != ''){
                                 let avatar = "{{ asset(auth()->user()->avatar) }}";
                                 let html = `<div class="chat-item chat-right" style=""><img src="${avatar}">
                                     <div class="chat-details">

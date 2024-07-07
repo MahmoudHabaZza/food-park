@@ -8,34 +8,13 @@
         </ul>
     </form>
     <ul class="navbar-nav navbar-right">
-        <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
-                class="nav-link nav-link-lg message-toggle beep"><i class="far fa-envelope"></i></a>
-            <div class="dropdown-menu dropdown-list dropdown-menu-right">
-                <div class="dropdown-header">Messages
-                    <div class="float-right">
-                        <a href="">Mark All As Read</a>
-                    </div>
-                </div>
-                <div class="dropdown-list-content dropdown-list-message">
-                    <a href="#" class="dropdown-item">
-                        <div class="dropdown-item-avatar">
-                            <img alt="image" src="assets/img/avatar/avatar-5.png" class="rounded-circle">
-                        </div>
-                        <div class="dropdown-item-desc">
-                            <b>Alfa Zulkarnain</b>
-                            <p>Exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
-                            <div class="time">Yesterday</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="dropdown-footer text-center">
-                    <a href="">View All <i class="fas fa-chevron-right"></i></a>
-                </div>
-            </div>
-        </li>
         @php
             $notifications = \App\Models\OrderPlacedNotification::where('seen', 0)->latest()->take(10)->get();
+            $unseenMessages = \App\Models\Chat::where(['receiver_id'=> auth()->user()->id , 'seen' => 0])->count();
         @endphp
+        <li class="dropdown dropdown-list-toggle"><a href="{{ route('admin.chat.index') }}"
+                class="nav-link nav-link-lg unseen_messages {{ $unseenMessages > 0 ? 'beep' : '' }}"><i class="far fa-envelope"></i></a>
+        </li>
         <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
                 class="nav-link notification-toggle nav-link-lg notification_beep {{ count($notifications) > 0 ? 'beep' : '' }}"><i class="far fa-bell"></i></a>
             <div class="dropdown-menu dropdown-list dropdown-menu-right">

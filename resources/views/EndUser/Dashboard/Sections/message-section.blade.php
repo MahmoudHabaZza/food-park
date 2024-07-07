@@ -116,6 +116,9 @@
                             $('.fp__chat_body').append(html);
                             scrollToBottom();
                         })
+
+                        $('.unseen_messages_count').text(0);
+
                     },
                     error:function(xhr,status,error){
 

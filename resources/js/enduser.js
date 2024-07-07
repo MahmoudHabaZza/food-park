@@ -1,4 +1,5 @@
 window.Echo.private("chat." + loggedInUserId).listen("ChatEvent", function (e) {
+    $(".unseen_messages_count").text(1);
     let formattedDate = formatDate();
     let html = `<div class="fp__chating">
                                     <div class="fp__chating_img">

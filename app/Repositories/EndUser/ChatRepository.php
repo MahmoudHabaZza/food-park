@@ -36,6 +36,7 @@ class ChatRepository implements ChatRepositoryInterface
             ->with('sender')
             ->orderBy('created_at', 'asc')
             ->get();
+        Chat::where(['sender_id' => 1 , 'receiver_id' => auth()->user()->id,'seen' => 0])->update(['seen' => 1]);
         return response($chats);
     }
 }

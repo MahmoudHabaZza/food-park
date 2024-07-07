@@ -21,4 +21,6 @@ window.Echo.private("chat." + loggedInUserId).listen("ChatEvent", function (e) {
             $(this).find('.got_new_message').html('<i class="beep"></i>New Message');
         }
     })
+
+    $(".unseen_messages").addClass('beep');
 });

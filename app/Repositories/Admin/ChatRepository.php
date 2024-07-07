@@ -53,6 +53,6 @@ class ChatRepository implements ChatRepositoryInterface
         $senderId = auth()->user()->id;
         broadcast(new ChatEvent($request->message,$avatar, $request->receiver_id,$senderId))->toOthers();
 
-        return response(['status' => 'success']);
+        return response(['status' => 'success','msg_temp_id' => $request->msg_temp_id]);
     }
 }

@@ -63,7 +63,7 @@
                             class="cart_count">{{ count(Cart::content()) }}</span></a>
                 </li>
                 @php
-                    $unseenMessages = \App\Models\Chat::where(['sender_id' => 1 , 'receiver_id' => auth()->user()->id,'seen' => 0])->count();
+                    $unseenMessages = \App\Models\Chat::where(['sender_id' => 1 , 'receiver_id' => @auth()->user()->id,'seen' => 0])->count();
                 @endphp
                 <li>
                     <a href="javascript:;" class="message_icon">

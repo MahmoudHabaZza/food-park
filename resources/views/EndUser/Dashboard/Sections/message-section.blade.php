@@ -30,8 +30,8 @@
                 </div>
                 <form class="fp__single_chat_bottom chat_input">
                     @csrf
-                    <label for="select_file"><i class="far fa-file-medical" aria-hidden="true"></i></label>
                     <input type="text" placeholder="Type a message..." name="message" class="fp_send_message">
+                    <input type="hidden" name="msg_temp_id" class="msg_temp_id" value="">
                     <input type="hidden" name="receiver_id" value="1">
                     <button class="fp__massage_btn" type="submit"><i class="fas fa-paper-plane"
                             aria-hidden="true"></i></button>
@@ -51,36 +51,37 @@
             var userId = "{{ auth()->user()->id }}";
             $('.chat_input').on('submit', function(e) {
                 e.preventDefault();
+                var msg_temp_id = Math.floor(Math.random() * 10000) + 1;
+                $('.msg_temp_id').val(msg_temp_id);
                 let formData = $(this).serialize();
                 $.ajax({
                     method: "POST",
                     url: "{{ route('send-message') }}",
                     data: formData,
                     beforeSend: function() {
-                        // if($('.fp_send_message').val() == '')
-                        // {
-                        //     toastr.error('Message Cannot be empty');
-                        // }
                             let message = $('.fp_send_message').val();
                             if(message != ''){
-                                let formattedDate = formatDate();
                                 let html = `<div class="fp__chating tf_chat_right">
                                     <div class="fp__chating_img">
                                         <img src="{{ asset(auth()->user()->avatar) }}" alt="{{ auth()->user()->name }}" class="img-fluid w-100" style="border-radius:50%;">
-                                    </div>
-                                    <div class="fp__chating_text">
-                                        <p>${message}</p>
-                                        <span>${formattedDate}</span>
-                                    </div>
-                                </div>`
-                                $('.fp__chat_body').append(html);
-                                $('.fp_send_message').val('');
-                                scrollToBottom();
-                            }
+                                        </div>
+                                        <div class="fp__chating_text">
+                                            <p>${message}</p>
+                                            <span class="msg_sending ${msg_temp_id}">sending...</span>
+                                            </div>
+                                            </div>`
+                                            $('.fp__chat_body').append(html);
+                                            $('.fp_send_message').val('');
+                                            scrollToBottom();
+                                        }
 
-                    },
-                    success: function(response) {
-
+                                    },
+                                    success: function(response) {
+                                        if($('.msg_temp_id').val() == response.msg_temp_id)
+                                        {
+                                            let formattedDate = formatDate();
+                                            $('.'+ msg_temp_id).text(formattedDate);
+                                        }
                     },
                     error: function(xhr, status, error) {
                         errors = xhr.responseJSON.errors;

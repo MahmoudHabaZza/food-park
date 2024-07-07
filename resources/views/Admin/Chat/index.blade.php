@@ -57,6 +57,7 @@
                             <form id="chat-form">
                                 @csrf
                                 <input type="text" class="form-control fp_send_message" placeholder="Type a message" name="message">
+                                <input type="hidden" name="msg_temp_id" class="msg_temp_id" value="">
                                 <input type="hidden" name="receiver_id" value="" id="receiver_id">
                                 <button class="btn btn-primary" type="submit">
                                     <i class="far fa-paper-plane"></i>
@@ -122,7 +123,8 @@
             })
             $('#chat-form').on('submit',function(e){
                 e.preventDefault();
-                let formattedTime = formatDate();
+                var msg_temp_id = Math.floor(Math.random() * 10000) + 1;
+                $('.msg_temp_id').val(msg_temp_id);
 
 
                 let formData = $(this).serialize();
@@ -137,7 +139,7 @@
                                 let html = `<div class="chat-item chat-right" style=""><img src="${avatar}">
                                     <div class="chat-details">
                                         <div class="chat-text">${message}</div>
-                                        <div class="chat-time">${formattedTime}</div>
+                                        <div class="chat-time msg_sending ${msg_temp_id}">sending...</div>
                                     </div>
                                 </div>`;
                             $('.chat-content').append(html);
@@ -153,7 +155,10 @@
 
                     },
                     success: function(response) {
-
+                        if($('.msg_temp_id').val() == response.msg_temp_id){
+                            let formattedDate = formatDate();
+                            $('.'+ msg_temp_id).text(formattedDate);
+                        }
                     },
                     error: function(xhr, status, error) {
                         errors = xhr.responseJSON.errors;

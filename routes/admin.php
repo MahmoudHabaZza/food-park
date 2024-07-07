@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\Admin\BannderSliderController;
+use App\Http\Controllers\Admin\BannerSliderController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ChatController;
 use App\Http\Controllers\Admin\CouponController;
@@ -122,6 +124,10 @@ Route::group([
         Route::get('daily-offer/search-product',[DailyOfferController::class,'searchProduct'])->name('daily-offer.search');
         Route::put('daily-offer-title-update', [DailyOfferController::class, 'updateTitle'])->name('daily-offer.title');
         Route::resource('daily-offer',DailyOfferController::class);
+
+        // Banner Slider Routes
+        Route::resource('banner-slider',BannerSliderController::class);
+
 
 
         // Settings Routes

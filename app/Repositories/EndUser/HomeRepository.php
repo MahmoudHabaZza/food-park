@@ -3,6 +3,7 @@
 namespace App\Repositories\EndUser;
 
 use App\Interfaces\EndUser\HomeRepositoryInterface;
+use App\Models\BannerSlider;
 use App\Models\Category;
 use App\Models\Coupon;
 use App\Models\DailyOffer;
@@ -25,7 +26,8 @@ class HomeRepository implements HomeRepositoryInterface
         $sections = WhyChooseUs::where('status', 1)->get();
         $categories = Category::where(['show_at_home' => 1, 'status' => 1])->get();
         $dailyOffers = DailyOffer::with('product')->where('status',1)->take(15)->get();
-        return view('EndUser.Home.index', compact('sliders', 'why_choose_us', 'sectionTitles', 'sections', 'categories','dailyOffers'));
+        $bannerSliders = BannerSlider::where('status',1)->take(15)->get();
+    return view('EndUser.Home.index', compact('sliders', 'why_choose_us', 'sectionTitles', 'sections', 'categories','dailyOffers','bannerSliders'));
     }
 
     public function getSectionTitles(): Collection

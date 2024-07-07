@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Interfaces\Admin\BannerSliderRepositoryInterface;
 use App\Interfaces\Admin\CategoryRepositoryInterface;
 use App\Interfaces\Admin\ChatRepositoryInterface;
 use App\Interfaces\Admin\CouponRepositoryInterface;
@@ -26,6 +27,7 @@ use App\Interfaces\EndUser\HomeRepositoryInterface;
 use App\Interfaces\EndUser\PaymentRepositoryInterface;
 use App\Interfaces\EndUser\ProfileRepositoryInterface as EndUserProfileRepositoryInterface;
 use App\Models\Setting;
+use App\Repositories\Admin\BannerSliderRepository;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\ChatRepository;
 use App\Repositories\Admin\CouponRepository;
@@ -82,6 +84,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ChatRepositoryInterface::class, ChatRepository::class);
         $this->app->bind(EndUserChatRepositoryInterface::class, EndUserChatRepository::class);
         $this->app->bind(DailyOfferRepositoryInterface::class, DailyOfferRepository::class);
+        $this->app->bind(BannerSliderRepositoryInterface::class, BannerSliderRepository::class);
     }
 
     /**

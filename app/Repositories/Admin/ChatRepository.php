@@ -22,6 +22,7 @@ class ChatRepository implements ChatRepositoryInterface
             ->get();
 
 
+
         return view('Admin.Chat.index' , compact('senders'));
     }
     public function getChat(string $senderId)
@@ -32,6 +33,7 @@ class ChatRepository implements ChatRepositoryInterface
             ->with('sender')
             ->orderBy('created_at','asc')
             ->get();
+        Chat::where('sender_id',$senderId)->where('receiver_id',$receiver_id)->where('seen',0)->update(['seen' => 1]);
         return response($chats);
     }
     public function sendMessage(Request $request)

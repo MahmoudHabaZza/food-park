@@ -26,13 +26,19 @@
                                 @foreach ($senders as $sender)
                                 @php
                                     $chatUser = \App\Models\User::find($sender->sender_id);
+                                    $unseenMessages = \App\Models\Chat::where('sender_id',$chatUser->id)
+                                        ->where('receiver_id',auth()->user()->id)->where('seen',0)->count();
                                 @endphp
                                 <li class="media fp_chat_user" data-user="{{ $chatUser->id }}" data-name="{{ $chatUser->name }}" style="cursor: pointer;">
                                     <img alt="image" class="mr-3 rounded-circle" width="50"
                                         src="{{ asset($chatUser->avatar)  }}" style="width:50px;height:50px;object-fit:cover;">
                                     <div class="media-body">
                                         <div class="mt-0 mb-1 font-weight-bold">{{ $chatUser->name }}</div>
-                                        <div class="text-warning text-small font-600-bold got_new_message"></div>
+                                        <div class="text-warning text-small font-600-bold got_new_message">
+                                            @if ($unseenMessages > 0)
+                                                <i class="beep"></i>New Message
+                                            @endif
+                                        </div>
                                     </div>
                                 </li>
                                 @endforeach
@@ -102,6 +108,12 @@
                             $('.chat-content').append(html);
                             scrollToBottom();
                         })
+
+                        $('.fp_chat_user').each(function(){
+                            if(senderId == $('#mychatbox').attr('data-inbox')){
+                                $(this).find(".got_new_message").html("");
+                            }
+                        })
                     },
                     error:function(xhr,status,error){
 
@@ -130,6 +142,12 @@
                                 </div>`;
                             $('.chat-content').append(html);
                             $('.fp_send_message').val('');
+                            $('.fp_chat_user').each(function(){
+                            let senderId = $(this).data("user");
+                            if($('#mychatbox').attr('data-inbox') == senderId){
+                                $(this).find('.got_new_message').html('');
+                            }
+                            })
                             scrollToBottom()
                         }
 

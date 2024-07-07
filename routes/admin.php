@@ -120,6 +120,7 @@ Route::group([
 
         // Daily Offer Routes
         Route::get('daily-offer/search-product',[DailyOfferController::class,'searchProduct'])->name('daily-offer.search');
+        Route::put('daily-offer-title-update', [DailyOfferController::class, 'updateTitle'])->name('daily-offer.title');
         Route::resource('daily-offer',DailyOfferController::class);
 
 

@@ -5,6 +5,7 @@ namespace App\Repositories\EndUser;
 use App\Interfaces\EndUser\HomeRepositoryInterface;
 use App\Models\Category;
 use App\Models\Coupon;
+use App\Models\DailyOffer;
 use App\Models\Product;
 use App\Models\SectionTitle;
 use App\Models\Slider;
@@ -23,7 +24,8 @@ class HomeRepository implements HomeRepositoryInterface
         $sectionTitles = $this->getSectionTitles();
         $sections = WhyChooseUs::where('status', 1)->get();
         $categories = Category::where(['show_at_home' => 1, 'status' => 1])->get();
-        return view('EndUser.Home.index', compact('sliders', 'why_choose_us', 'sectionTitles', 'sections', 'categories'));
+        $dailyOffers = DailyOffer::with('product')->where('status',1)->take(15)->get();
+        return view('EndUser.Home.index', compact('sliders', 'why_choose_us', 'sectionTitles', 'sections', 'categories','dailyOffers'));
     }
 
     public function getSectionTitles(): Collection
@@ -31,7 +33,10 @@ class HomeRepository implements HomeRepositoryInterface
         $keys = [
             'why_choose_top_title',
             'why_choose_main_title',
-            'why_choose_sub_title'
+            'why_choose_sub_title',
+            'daily_offer_top_title',
+            'daily_offer_main_title',
+            'daily_offer_sub_title'
         ];
         return SectionTitle::whereIn('key', $keys)->pluck('value', 'key');
     }

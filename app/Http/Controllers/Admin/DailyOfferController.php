@@ -41,23 +41,16 @@ class DailyOfferController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $this->dailyOfferRepository->store($request);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        //
+        return $this->dailyOfferRepository->edit($id);
     }
 
     /**
@@ -65,14 +58,17 @@ class DailyOfferController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        return $this->dailyOfferRepository->update($request,$id);
     }
 
+    public function updateTitle(Request $request){
+        return $this->dailyOfferRepository->updateTitle($request);
+    }
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        return $this->dailyOfferRepository->destroy($id);
     }
 }

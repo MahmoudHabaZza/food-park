@@ -1,34 +1,35 @@
 @extends('Admin.layouts.master')
 @section('title')
-    Create New Daily Offer
+    Edit Daily Offer
 @endsection
 @section('content')
     <div class="section">
         <div class="section-header">
-            <h1>Daily Offer</h1>
+            <h1>Edit Daily Offer</h1>
         </div>
         <div class="card card-primary">
             <div class="card-header">
-                Create New Daily Offer
+                Edit Daily Offer
             </div>
             <div class="card-body">
-                <form action="{{ route('admin.daily-offer.store') }}" method="POST">
+                <form action="{{ route('admin.daily-offer.update',$dailyOffer->id) }}" method="POST">
                     @csrf
+                    @method('PUT')
                     <div class="form-group">
                         <label>Product</label>
                         <select class="form-control" id="select2" name="product">
-                            <option disabled selected value="">Search Product</option>
+                            <option value="{{ $dailyOffer->product->id }}" selected>{{ $dailyOffer->product->name }}</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label>Status</label>
                         <select class="form-control" name="status">
                             <option disabled selected value="">Choose Status</option>
-                            <option value="1">Active</option>
-                            <option value="0">Inactive</option>
+                            <option @selected($dailyOffer->status == 1) value="1">Active</option>
+                            <option @selected($dailyOffer->status == 0) value="0">Inactive</option>
                         </select>
                     </div>
-                    <button class="btn btn-primary" type="submit">Create</button>
+                    <button class="btn btn-primary" type="submit">Update</button>
 
 
 

@@ -108,4 +108,12 @@ if (!function_exists('generateUniqueSlug')) {
             return $invoiceId;
         }
     }
+
+    // calculate discount percent
+    if(!function_exists('discountInPercent')){
+        function discountInPercent($originalPrice , $offerPrice){
+            $result = round((($originalPrice - $offerPrice) / $originalPrice) * 100);
+            return $result;
+        }
+    }
 }

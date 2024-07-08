@@ -31,6 +31,7 @@ Route::get('product/{slug}', [HomeController::class, 'showProduct'])->name('prod
 Route::get('product/load-modal/{productId}', [HomeController::class, 'loadProductModal'])->name('product.load-modal');
 // Chef Page Routes
 Route::get('/chefs',[HomeController::class,'chef'])->name('chef.index');
+Route::get('/testimonials',[HomeController::class,'testimonials'])->name('testimonial.index');
 
 
 // Cart Routes

@@ -4,8 +4,8 @@
 @endsection
 @section('content')
     <!--=============================
-                        BREADCRUMB START
-                    ==============================-->
+                                BREADCRUMB START
+                            ==============================-->
     <section class="fp__breadcrumb" style="background: url('{{ asset('assets/EndUser/images/counter_bg.jpg') }}');">
         <div class="fp__breadcrumb_overlay">
             <div class="container">
@@ -20,13 +20,13 @@
         </div>
     </section>
     <!--=============================
-                        BREADCRUMB END
-                    ==============================-->
+                                BREADCRUMB END
+                            ==============================-->
 
 
     <!--=============================
-                        TEAM PAGE START
-                    ==============================-->
+                                TEAM PAGE START
+                            ==============================-->
     <section class="fp__team_page pt_95 xs_pt_65 pb_100 xs_pb_70">
         <div class="container">
             <div class="row">
@@ -49,7 +49,7 @@
                                     @if ($chef->x)
                                         <li><a href="{{ $chef->x }}"><i class="fab fa-twitter"></i></a></li>
                                     @else
-                                        <li><a href="javascript:;"><i class="fab fa-twitter"></i></a></li>
+                                        <li><a href="javascript:;"></a></li>
                                     @endif
                                 </ul>
                             </div>
@@ -72,6 +72,6 @@
         </div>
     </section>
     <!--=============================
-                        TEAM PAGE END
-                    ==============================-->
+                                TEAM PAGE END
+                            ==============================-->
 @endsection

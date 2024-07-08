@@ -41,4 +41,7 @@ class HomeController extends Controller
     public function chef(){
         return $this->homeRepository->chef();
     }
+    public function testimonials(){
+        return $this->homeRepository->testimonials();
+    }
 }

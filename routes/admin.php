@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\ProductSizeController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\WhyChooseUsController;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
@@ -133,6 +134,9 @@ Route::group([
         Route::put('chef-title-update', [ChefController::class, 'updateTitle'])->name('chef.title');
         Route::resource('chef',ChefController::class);
 
+        // Testimonial Routes
+        Route::put('testimonial-title-update', [TestimonialController::class, 'updateTitle'])->name('testimonial.title');
+        Route::resource('testimonial', TestimonialController::class);
 
 
         // Settings Routes

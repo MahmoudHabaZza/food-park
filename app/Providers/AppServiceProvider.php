@@ -18,6 +18,7 @@ use App\Interfaces\Admin\ProductSizeRepositoryInterface;
 use App\Interfaces\Admin\ProfileRepositoryInterface;
 use App\Interfaces\Admin\SettingRepositoryInterface;
 use App\Interfaces\Admin\SliderRepositoryInterface;
+use App\Interfaces\Admin\TestimonialRepositoryInterface;
 use App\Interfaces\Admin\WhyChooseUsRepositoryInterface;
 use App\Interfaces\EndUser\AddressRepositoryInterface;
 use App\Interfaces\EndUser\CartRepositoryInterface;
@@ -44,6 +45,7 @@ use App\Repositories\Admin\ProductSizeRepository;
 use App\Repositories\Admin\ProfileRepository;
 use App\Repositories\Admin\SettingRepository;
 use App\Repositories\Admin\SliderRepository;
+use App\Repositories\Admin\TestimonialRepository;
 use App\Repositories\Admin\WhyChooseUsRepository;
 use App\Repositories\EndUser\AddressRepository;
 use App\Repositories\EndUser\CartRepository;
@@ -89,6 +91,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(DailyOfferRepositoryInterface::class, DailyOfferRepository::class);
         $this->app->bind(BannerSliderRepositoryInterface::class, BannerSliderRepository::class);
         $this->app->bind(ChefRepositoryInterface::class, ChefRepository::class);
+        $this->app->bind(TestimonialRepositoryInterface::class, TestimonialRepository::class);
     }
 
     /**

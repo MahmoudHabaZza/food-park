@@ -11,6 +11,7 @@ use App\Models\DailyOffer;
 use App\Models\Product;
 use App\Models\SectionTitle;
 use App\Models\Slider;
+use App\Models\Testimonial;
 use App\Models\WhyChooseUs;
 use Cart;
 use Illuminate\Http\Request;
@@ -26,10 +27,11 @@ class HomeRepository implements HomeRepositoryInterface
         $sectionTitles = $this->getSectionTitles();
         $sections = WhyChooseUs::where('status', 1)->get();
         $categories = Category::where(['show_at_home' => 1, 'status' => 1])->get();
-        $dailyOffers = DailyOffer::with('product')->where('status',1)->take(15)->get();
-        $bannerSliders = BannerSlider::where('status',1)->take(15)->get();
-        $chefs = Chef::where(['status' => 1 , 'show_at_home' => 1])->get();
-    return view('EndUser.Home.index', compact('sliders', 'why_choose_us', 'sectionTitles', 'sections', 'categories','dailyOffers','bannerSliders','chefs'));
+        $dailyOffers = DailyOffer::with('product')->where('status', 1)->take(15)->get();
+        $bannerSliders = BannerSlider::where('status', 1)->take(15)->get();
+        $chefs = Chef::where(['status' => 1, 'show_at_home' => 1])->get();
+        $testimonials = Testimonial::where(['status' => 1, 'show_at_home' => 1])->take(15)->get();
+        return view('EndUser.Home.index', compact('sliders', 'why_choose_us', 'sectionTitles', 'sections', 'categories', 'dailyOffers', 'bannerSliders', 'chefs', 'testimonials'));
     }
 
     public function getSectionTitles(): Collection
@@ -44,6 +46,9 @@ class HomeRepository implements HomeRepositoryInterface
             'chef_top_title',
             'chef_main_title',
             'chef_sub_title',
+            'testimonial_top_title',
+            'testimonial_main_title',
+            'testimonial_sub_title',
         ];
         return SectionTitle::whereIn('key', $keys)->pluck('value', 'key');
     }
@@ -60,60 +65,64 @@ class HomeRepository implements HomeRepositoryInterface
     public function loadProductModal($productId)
     {
         $product = Product::with(['sizes', 'options'])->findOrFail($productId);
-        return view('EndUser.Pages.ajax-files.product-load-modal',compact('product'))->render();
+        return view('EndUser.Pages.ajax-files.product-load-modal', compact('product'))->render();
         // render() => to ensure that we have html response
     }
 
     public function applyCoupon(Request $request)
     {
-        if(Cart::content()->count() > 0) {
+        if (Cart::content()->count() > 0) {
             $code = $request->code;
             $subtotal = $request->subtotal;
-            $coupon = Coupon::where('code',$code)->first();
-            if(!$coupon) {
-                return response(['message'=> 'Coupon is Invalid'],422);
+            $coupon = Coupon::where('code', $code)->first();
+            if (!$coupon) {
+                return response(['message' => 'Coupon is Invalid'], 422);
             }
-            if($coupon->quantity <= 0) {
-                return response(['message' => 'All of this Coupon quantity redeemed'],422);
+            if ($coupon->quantity <= 0) {
+                return response(['message' => 'All of this Coupon quantity redeemed'], 422);
             }
-            if($coupon->expire_date < now()){
-                return response(['message' => 'Coupon Expired'],422);
+            if ($coupon->expire_date < now()) {
+                return response(['message' => 'Coupon Expired'], 422);
             }
-            if($coupon->discount_type === 'percent') {
-                $discount = number_format($subtotal * $coupon->discount / 100,2);
-            }elseif($coupon->discount_type === 'amount') {
-                $discount = number_format($coupon->discount,2);
+            if ($coupon->discount_type === 'percent') {
+                $discount = number_format($subtotal * $coupon->discount / 100, 2);
+            } elseif ($coupon->discount_type === 'amount') {
+                $discount = number_format($coupon->discount, 2);
             }
 
             $finalTotal = $subtotal - $discount;
 
-            session()->put('coupon',['code'=> $code,'discount'=> $discount]);
+            session()->put('coupon', ['code' => $code, 'discount' => $discount]);
 
-            return response(['status'=> 'success','message' => 'Coupon Applied Successfully','discount'=> $discount ?? 0 , 'finalTotal' => $finalTotal , 'coupon_code' => $code]);
-        }else {
-            return response(['status' => 'error' , 'message' => 'Please Add Any Product to Cart To Apply Coupon'],422);
+            return response(['status' => 'success', 'message' => 'Coupon Applied Successfully', 'discount' => $discount ?? 0, 'finalTotal' => $finalTotal, 'coupon_code' => $code]);
+        } else {
+            return response(['status' => 'error', 'message' => 'Please Add Any Product to Cart To Apply Coupon'], 422);
         }
-
-
     }
 
-    public function removeCoupon(){
-        try{
+    public function removeCoupon()
+    {
+        try {
             session()->forget('coupon');
-        return response([
-            'status' => 'success',
-            'message' => 'Coupon Removed!',
-            'discount' => 0,
-            'total' => cartTotal()
+            return response([
+                'status' => 'success',
+                'message' => 'Coupon Removed!',
+                'discount' => 0,
+                'total' => cartTotal()
             ]);
-        } catch(\Exception $e) {
-            return response(['status' => 'error' , 'message' => $e->getMessage()]);
+        } catch (\Exception $e) {
+            return response(['status' => 'error', 'message' => $e->getMessage()]);
         }
-
     }
 
-    public function chef() {
-        $chefs = Chef::where(['status' => 1,'show_at_home' => 1])->paginate(8);
-        return view('EndUser.pages.chef-view',compact('chefs'));
+    public function chef()
+    {
+        $chefs = Chef::where(['status' => 1, 'show_at_home' => 1])->paginate(8);
+        return view('EndUser.pages.chef-view', compact('chefs'));
+    }
+    public function testimonials()
+    {
+        $testimonials = Testimonial::where(['status' => 1, 'show_at_home' => 1])->paginate(8);
+        return view('EndUser.pages.testimonial-view', compact('testimonials'));
     }
 }

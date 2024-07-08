@@ -12,4 +12,5 @@ interface HomeRepositoryInterface
     public function applyCoupon(Request $request);
     public function removeCoupon();
     public function chef();
+    public function testimonials();
 }

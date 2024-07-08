@@ -38,4 +38,7 @@ class HomeController extends Controller
     public function removeCoupon(){
         return $this->homeRepository->removeCoupon();
     }
+    public function chef(){
+        return $this->homeRepository->chef();
+    }
 }

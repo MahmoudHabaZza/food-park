@@ -11,4 +11,5 @@ interface HomeRepositoryInterface
     public function loadProductModal($productId);
     public function applyCoupon(Request $request);
     public function removeCoupon();
+    public function chef();
 }

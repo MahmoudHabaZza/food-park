@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\BannderSliderController;
 use App\Http\Controllers\Admin\BannerSliderController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ChatController;
+use App\Http\Controllers\Admin\ChefController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\DailyOfferController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -127,6 +128,10 @@ Route::group([
 
         // Banner Slider Routes
         Route::resource('banner-slider',BannerSliderController::class);
+
+        // Chef Routes
+        Route::put('chef-title-update', [ChefController::class, 'updateTitle'])->name('chef.title');
+        Route::resource('chef',ChefController::class);
 
 
 

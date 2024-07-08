@@ -24,6 +24,7 @@
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ route('admin.why-choose-us.index') }}">Why Choose Us</a></li>
                     <li><a class="nav-link" href="{{ route('admin.banner-slider.index') }}">Banner Slider</a></li>
+                    <li><a class="nav-link" href="{{ route('admin.chef.index') }}">Chefs</a></li>
                 </ul>
             </li>
             <li class="dropdown">

@@ -5,6 +5,7 @@ namespace App\Repositories\EndUser;
 use App\Interfaces\EndUser\HomeRepositoryInterface;
 use App\Models\BannerSlider;
 use App\Models\Category;
+use App\Models\Chef;
 use App\Models\Coupon;
 use App\Models\DailyOffer;
 use App\Models\Product;
@@ -27,7 +28,8 @@ class HomeRepository implements HomeRepositoryInterface
         $categories = Category::where(['show_at_home' => 1, 'status' => 1])->get();
         $dailyOffers = DailyOffer::with('product')->where('status',1)->take(15)->get();
         $bannerSliders = BannerSlider::where('status',1)->take(15)->get();
-    return view('EndUser.Home.index', compact('sliders', 'why_choose_us', 'sectionTitles', 'sections', 'categories','dailyOffers','bannerSliders'));
+        $chefs = Chef::where(['status' => 1 , 'show_at_home' => 1])->get();
+    return view('EndUser.Home.index', compact('sliders', 'why_choose_us', 'sectionTitles', 'sections', 'categories','dailyOffers','bannerSliders','chefs'));
     }
 
     public function getSectionTitles(): Collection
@@ -38,7 +40,10 @@ class HomeRepository implements HomeRepositoryInterface
             'why_choose_sub_title',
             'daily_offer_top_title',
             'daily_offer_main_title',
-            'daily_offer_sub_title'
+            'daily_offer_sub_title',
+            'chef_top_title',
+            'chef_main_title',
+            'chef_sub_title',
         ];
         return SectionTitle::whereIn('key', $keys)->pluck('value', 'key');
     }
@@ -105,5 +110,10 @@ class HomeRepository implements HomeRepositoryInterface
             return response(['status' => 'error' , 'message' => $e->getMessage()]);
         }
 
+    }
+
+    public function chef() {
+        $chefs = Chef::where(['status' => 1,'show_at_home' => 1])->paginate(8);
+        return view('EndUser.pages.chef-view',compact('chefs'));
     }
 }

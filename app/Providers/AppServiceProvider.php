@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Interfaces\Admin\BannerSliderRepositoryInterface;
 use App\Interfaces\Admin\CategoryRepositoryInterface;
 use App\Interfaces\Admin\ChatRepositoryInterface;
+use App\Interfaces\Admin\ChefRepositoryInterface;
 use App\Interfaces\Admin\CouponRepositoryInterface;
 use App\Interfaces\Admin\DailyOfferRepositoryInterface;
 use App\Interfaces\Admin\DeliveryAreaRepositoryInterface;
@@ -30,6 +31,7 @@ use App\Models\Setting;
 use App\Repositories\Admin\BannerSliderRepository;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\ChatRepository;
+use App\Repositories\Admin\ChefRepository;
 use App\Repositories\Admin\CouponRepository;
 use App\Repositories\Admin\DailyOfferRepository;
 use App\Repositories\Admin\DeliveryAreaRepository;
@@ -51,6 +53,7 @@ use App\Repositories\EndUser\DashboardRepository;
 use App\Repositories\EndUser\HomeRepository;
 use App\Repositories\EndUser\PaymentRepository;
 use App\Repositories\EndUser\ProfileRepository as EndUserProfileRepository;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -85,6 +88,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(EndUserChatRepositoryInterface::class, EndUserChatRepository::class);
         $this->app->bind(DailyOfferRepositoryInterface::class, DailyOfferRepository::class);
         $this->app->bind(BannerSliderRepositoryInterface::class, BannerSliderRepository::class);
+        $this->app->bind(ChefRepositoryInterface::class, ChefRepository::class);
     }
 
     /**
@@ -92,6 +96,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Paginator::useBootstrap();
         /** Set The Pusher Configuration  */
         $keys = ['pusher_app_id','pusher_key','pusher_secret_key','pusher_cluster'];
         $pusherConfig = Setting::whereIn('key',$keys)->pluck('value','key');

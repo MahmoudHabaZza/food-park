@@ -6,6 +6,7 @@ use App\Interfaces\Admin\BannerSliderRepositoryInterface;
 use App\Interfaces\Admin\CategoryRepositoryInterface;
 use App\Interfaces\Admin\ChatRepositoryInterface;
 use App\Interfaces\Admin\ChefRepositoryInterface;
+use App\Interfaces\Admin\CounterRepositoryInterface;
 use App\Interfaces\Admin\CouponRepositoryInterface;
 use App\Interfaces\Admin\DailyOfferRepositoryInterface;
 use App\Interfaces\Admin\DeliveryAreaRepositoryInterface;
@@ -33,6 +34,7 @@ use App\Repositories\Admin\BannerSliderRepository;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\ChatRepository;
 use App\Repositories\Admin\ChefRepository;
+use App\Repositories\Admin\CounterRepository;
 use App\Repositories\Admin\CouponRepository;
 use App\Repositories\Admin\DailyOfferRepository;
 use App\Repositories\Admin\DeliveryAreaRepository;
@@ -92,6 +94,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(BannerSliderRepositoryInterface::class, BannerSliderRepository::class);
         $this->app->bind(ChefRepositoryInterface::class, ChefRepository::class);
         $this->app->bind(TestimonialRepositoryInterface::class, TestimonialRepository::class);
+        $this->app->bind(CounterRepositoryInterface::class, CounterRepository::class);
     }
 
     /**

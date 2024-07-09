@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\BannerSliderController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ChatController;
 use App\Http\Controllers\Admin\ChefController;
+use App\Http\Controllers\Admin\CounterController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\DailyOfferController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -137,6 +138,10 @@ Route::group([
         // Testimonial Routes
         Route::put('testimonial-title-update', [TestimonialController::class, 'updateTitle'])->name('testimonial.title');
         Route::resource('testimonial', TestimonialController::class);
+
+        // counter Controller
+        Route::get('counter',[CounterController::class,'index'])->name('counter.index');
+        Route::put('counter',[CounterController::class,'update'])->name('counter.update');
 
 
         // Settings Routes

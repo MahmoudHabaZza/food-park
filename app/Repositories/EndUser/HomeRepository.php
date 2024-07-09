@@ -6,6 +6,7 @@ use App\Interfaces\EndUser\HomeRepositoryInterface;
 use App\Models\BannerSlider;
 use App\Models\Category;
 use App\Models\Chef;
+use App\Models\Counter;
 use App\Models\Coupon;
 use App\Models\DailyOffer;
 use App\Models\Product;
@@ -31,7 +32,19 @@ class HomeRepository implements HomeRepositoryInterface
         $bannerSliders = BannerSlider::where('status', 1)->take(15)->get();
         $chefs = Chef::where(['status' => 1, 'show_at_home' => 1])->get();
         $testimonials = Testimonial::where(['status' => 1, 'show_at_home' => 1])->take(15)->get();
-        return view('EndUser.Home.index', compact('sliders', 'why_choose_us', 'sectionTitles', 'sections', 'categories', 'dailyOffers', 'bannerSliders', 'chefs', 'testimonials'));
+        $counter = Counter::first();
+        return view('EndUser.Home.index', compact(
+            'sliders',
+            'why_choose_us',
+            'sectionTitles',
+            'sections',
+            'categories',
+            'dailyOffers',
+            'bannerSliders',
+            'chefs',
+            'testimonials',
+            'counter',
+        ));
     }
 
     public function getSectionTitles(): Collection

@@ -138,4 +138,7 @@ class HomeRepository implements HomeRepositoryInterface
         $testimonials = Testimonial::where(['status' => 1, 'show_at_home' => 1])->paginate(8);
         return view('EndUser.pages.testimonial-view', compact('testimonials'));
     }
+    public function blogs(){
+        return view('EndUser.pages.blog-view');
+    }
 }

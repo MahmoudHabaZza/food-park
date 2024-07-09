@@ -13,4 +13,5 @@ interface HomeRepositoryInterface
     public function removeCoupon();
     public function chef();
     public function testimonials();
+    public function blogs();
 }

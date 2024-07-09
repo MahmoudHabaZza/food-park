@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Interfaces\Admin\BannerSliderRepositoryInterface;
 use App\Interfaces\Admin\BlogCategoryRepositoryInterface;
+use App\Interfaces\Admin\BlogRepositoryInterface;
 use App\Interfaces\Admin\CategoryRepositoryInterface;
 use App\Interfaces\Admin\ChatRepositoryInterface;
 use App\Interfaces\Admin\ChefRepositoryInterface;
@@ -33,6 +34,7 @@ use App\Interfaces\EndUser\ProfileRepositoryInterface as EndUserProfileRepositor
 use App\Models\Setting;
 use App\Repositories\Admin\BannerSliderRepository;
 use App\Repositories\Admin\BlogCategoryRepository;
+use App\Repositories\Admin\BlogRepository;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\ChatRepository;
 use App\Repositories\Admin\ChefRepository;
@@ -98,6 +100,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(TestimonialRepositoryInterface::class, TestimonialRepository::class);
         $this->app->bind(CounterRepositoryInterface::class, CounterRepository::class);
         $this->app->bind(BlogCategoryRepositoryInterface::class, BlogCategoryRepository::class);
+        $this->app->bind(BlogRepositoryInterface::class, BlogRepository::class);
     }
 
     /**

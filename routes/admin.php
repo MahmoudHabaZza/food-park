@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\BannderSliderController;
 use App\Http\Controllers\Admin\BannerSliderController;
 use App\Http\Controllers\Admin\BlogCategoryController;
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ChatController;
 use App\Http\Controllers\Admin\ChefController;
@@ -146,6 +147,9 @@ Route::group([
 
         // Blog Categories routes
         Route::resource('blog-categories',BlogCategoryController::class);
+        // Blog Routes
+        Route::resource('blogs',BlogController::class);
+
 
         // Settings Routes
         Route::group([

@@ -110,10 +110,18 @@ if (!function_exists('generateUniqueSlug')) {
     }
 
     // calculate discount percent
-    if(!function_exists('discountInPercent')){
-        function discountInPercent($originalPrice , $offerPrice){
+    if (!function_exists('discountInPercent')) {
+        function discountInPercent($originalPrice, $offerPrice)
+        {
             $result = round((($originalPrice - $offerPrice) / $originalPrice) * 100);
             return $result;
+        }
+    }
+
+    if (!function_exists('truncate')) {
+        function truncate(string $string, int $limit = 100)
+        {
+            return \Str::limit($string,$limit,'...');
         }
     }
 }

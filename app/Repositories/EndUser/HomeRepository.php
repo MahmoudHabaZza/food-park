@@ -4,6 +4,7 @@ namespace App\Repositories\EndUser;
 
 use App\Interfaces\EndUser\HomeRepositoryInterface;
 use App\Models\BannerSlider;
+use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Chef;
 use App\Models\Counter;
@@ -139,6 +140,7 @@ class HomeRepository implements HomeRepositoryInterface
         return view('EndUser.pages.testimonial-view', compact('testimonials'));
     }
     public function blogs(){
-        return view('EndUser.pages.blog-view');
+        $blogs = Blog::with(['blogCategory','user'])->where('status',1)->latest()->paginate(9);
+        return view('EndUser.pages.blog-view',compact('blogs'));
     }
 }

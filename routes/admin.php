@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\BannderSliderController;
 use App\Http\Controllers\Admin\BannerSliderController;
+use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ChatController;
 use App\Http\Controllers\Admin\ChefController;
@@ -139,10 +140,12 @@ Route::group([
         Route::put('testimonial-title-update', [TestimonialController::class, 'updateTitle'])->name('testimonial.title');
         Route::resource('testimonial', TestimonialController::class);
 
-        // counter Controller
+        // counter routes
         Route::get('counter',[CounterController::class,'index'])->name('counter.index');
         Route::put('counter',[CounterController::class,'update'])->name('counter.update');
 
+        // Blog Categories routes
+        Route::resource('blog-categories',BlogCategoryController::class);
 
         // Settings Routes
         Route::group([

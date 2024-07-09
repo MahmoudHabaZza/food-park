@@ -1,4 +1,13 @@
 @extends('EndUser.layouts.master')
+@section('og_meta_tags')
+{{-- Open Graph QL => social websites get the information to use it in the rich in it from these meta --}}
+<meta propery="og:title" content="{{ $blog->seo_title }}">
+<meta propery="og:description" content="{{ truncate($blog->seo_description) }}">
+<meta propery="og:url" content="{{ url()->current() }}">
+<meta propery="og:image" content="{{ asset($blog->image) }}">
+<meta propery="og:site_name" content="{{ config('settings.site_name') }}">
+<meta propery="og:type" content="website">
+@endsection
 @section('title')
 {!! $blog->title !!}
 @endsection

@@ -47,4 +47,7 @@ class HomeController extends Controller
     public function blogs(){
         return $this->homeRepository->blogs();
     }
+    public function blogDetails($slug){
+        return $this->homeRepository->blogDetails($slug);
+    }
 }

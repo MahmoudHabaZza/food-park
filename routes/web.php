@@ -33,7 +33,8 @@ Route::get('product/load-modal/{productId}', [HomeController::class, 'loadProduc
 Route::get('/chefs',[HomeController::class,'chef'])->name('chef.index');
 Route::get('/testimonials',[HomeController::class,'testimonials'])->name('testimonial.index');
 // Blog
-Route::get('/blogs',[HomeController::class,'blogs'])->name('testimonial.blogs');
+Route::get('/blogs',[HomeController::class,'blogs'])->name('blogs.index');
+Route::get('/blog/{slug}',[HomeController::class,'blogDetails'])->name('blogDetails');
 
 
 // Cart Routes

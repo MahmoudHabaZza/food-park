@@ -143,4 +143,8 @@ class HomeRepository implements HomeRepositoryInterface
         $blogs = Blog::with(['blogCategory','user'])->where('status',1)->latest()->paginate(9);
         return view('EndUser.pages.blog-view',compact('blogs'));
     }
+    public function blogDetails($slug){
+        $blog = Blog::with(['blogCategory','user'])->where('slug',$slug)->where('status',1)->firstOrFail();
+        return view('EndUser.pages.blog-details',compact('blog'));
+    }
 }

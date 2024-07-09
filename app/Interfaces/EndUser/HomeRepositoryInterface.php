@@ -14,4 +14,5 @@ interface HomeRepositoryInterface
     public function chef();
     public function testimonials();
     public function blogs();
+    public function blogDetails(string $slug);
 }

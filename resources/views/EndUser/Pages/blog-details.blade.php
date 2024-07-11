@@ -1,8 +1,8 @@
 @extends('EndUser.layouts.master')
 @section('og_meta_tags')
 {{-- Open Graph QL => social websites get the information to use it in the rich in it from these meta --}}
-<meta propery="og:title" content="{{ $blog->seo_title }}">
-<meta propery="og:description" content="{{ truncate($blog->seo_description) }}">
+<meta propery="og:title" content="{{ $blog->seo_title ? $blog->seo_title : '' }}">
+<meta propery="og:description" content="{{ $blog->seo_description ? truncate($blog->seo_description) : '' }}">
 <meta propery="og:url" content="{{ url()->current() }}">
 <meta propery="og:image" content="{{ asset($blog->image) }}">
 <meta propery="og:site_name" content="{{ config('settings.site_name') }}">
@@ -76,22 +76,26 @@
                     </div>
 
                     <ul class="blog_det_button mt_100 xs_mt_70 wow fadeInUp" data-wow-duration="1s">
+                        @if ($prevBlog)
                         <li>
-                            <a href="#">
-                                <img src="images/det_btn_img_1.jpg" alt="button img" class="img-fluid w-100">
-                                <p>Spray spray tires washing car
+                            <a href="{{ route('blogDetails',$prevBlog->slug) }}">
+                                <img src="{{ asset($prevBlog->image) }}" alt="button img" class="img-fluid w-100">
+                                <p>{!! truncate($prevBlog->title) !!}
                                     <span> <i class="far fa-long-arrow-left"></i> Previous</span>
                                 </p>
                             </a>
                         </li>
+                        @endif
+                        @if ($nextBlog)
                         <li>
-                            <a href="#">
-                                <p>25 Years of Expert Cleaning Services
+                            <a href="{{ route('blogDetails',$nextBlog->slug) }}">
+                                <p>{!! truncate($nextBlog->title) !!}
                                     <span>next <i class="far fa-long-arrow-right"></i></span>
                                 </p>
-                                <img src="images/det_btn_img_2.jpg" alt="button img" class="img-fluid w-100">
+                                <img src="{{ asset($nextBlog->image) }}" alt="button img" class="img-fluid w-100">
                             </a>
                         </li>
+                        @endif
                     </ul>
 
                     <div class="fp__comment mt_100 xs_mt_70 wow fadeInUp" data-wow-duration="1s">
@@ -179,32 +183,22 @@
                                 <button type="submit"><i class="fas fa-search"></i></button>
                             </form>
                         </div>
+                        @if($latestBlogs)
                         <div class="fp__related_blog blog_sidebar wow fadeInUp" data-wow-duration="1s">
                             <h3>Latest Post</h3>
                             <ul>
+                                @foreach ($latestBlogs as $blog)
                                 <li>
-                                    <img src="images/blog_1.jpg" alt="blog" class="img-fluid w-100">
+                                    <img src="{{ asset($blog->image) }}" alt="blog" class="img-fluid w-100">
                                     <div class="text">
-                                        <a href="#">Mechanic at car service tire change the car.</a>
-                                        <p><i class="far fa-calendar-alt"></i> 29 oct 2022</p>
+                                        <a href="{{ route('blogDetails',$blog->slug) }}">{!! truncate($blog->title) !!}</a>
+                                        <p><i class="far fa-calendar-alt"></i>{{ date("d m Y",strtotime($blog->created_at)) }}</p>
                                     </div>
                                 </li>
-                                <li>
-                                    <img src="images/blog_2.jpg" alt="blog" class="img-fluid w-100">
-                                    <div class="text">
-                                        <a href="#">Transportation and logistics of container cargo ship.</a>
-                                        <p><i class="far fa-calendar-alt"></i> 29 oct 2022</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <img src="images/blog_3.jpg" alt="blog" class="img-fluid w-100">
-                                    <div class="text">
-                                        <a href="#">Commercial cleaning crew ladies working.</a>
-                                        <p><i class="far fa-calendar-alt"></i> 29 oct 2022</p>
-                                    </div>
-                                </li>
+                                @endforeach
                             </ul>
                         </div>
+                        @endif
                         <div class="fp__blog_categori blog_sidebar wow fadeInUp" data-wow-duration="1s">
                             <h3>Categories</h3>
                             <ul>

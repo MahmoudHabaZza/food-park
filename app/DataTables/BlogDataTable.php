@@ -41,7 +41,7 @@ class BlogDataTable extends DataTable
                 }
             })
             ->addColumn('image', function ($query) {
-                return "<img src='" . asset($query->image) . "'  style='width:80px;' />";
+                return "<img src='" . asset($query->image) . "'  style='width:80px;height:80px;object-fit:cover' />";
             })
             ->rawColumns(['action','category','author','status','image'])
             ->setRowId('id');

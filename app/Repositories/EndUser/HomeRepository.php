@@ -145,6 +145,12 @@ class HomeRepository implements HomeRepositoryInterface
     }
     public function blogDetails($slug){
         $blog = Blog::with(['blogCategory','user'])->where('slug',$slug)->where('status',1)->firstOrFail();
-        return view('EndUser.pages.blog-details',compact('blog'));
+        $nextBlog = Blog::select('id','image','slug','title')->where('status','1')
+        ->where('id','>',$blog->id)->orderBy('id','ASC')->first();
+        $prevBlog = Blog::select('id','image','slug','title')->where('status','1')
+        ->where('id','<',$blog->id)->orderBy('id','DESC')->first();
+        $latestBlogs = Blog::select('id','image','slug','title','created_at')
+            ->where('status' ,1)->where('id','!=',$blog->id)->latest()->take(5)->get();
+        return view('EndUser.pages.blog-details',compact('blog','nextBlog','prevBlog','latestBlogs'));
     }
 }

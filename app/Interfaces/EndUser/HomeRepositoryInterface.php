@@ -15,4 +15,5 @@ interface HomeRepositoryInterface
     public function testimonials();
     public function blogs();
     public function blogDetails(string $slug);
+    public function blogCommentStore(Request $request,string $blogId);
 }

@@ -35,6 +35,7 @@ Route::get('/testimonials',[HomeController::class,'testimonials'])->name('testim
 // Blog
 Route::get('/blogs',[HomeController::class,'blogs'])->name('blogs.index');
 Route::get('/blog/{slug}',[HomeController::class,'blogDetails'])->name('blogDetails');
+Route::post('/blog/comment/{blogId}',[HomeController::class,'blogCommentStore'])->name('blog.comment.store');
 
 
 // Cart Routes

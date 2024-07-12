@@ -50,4 +50,8 @@ class HomeController extends Controller
     public function blogDetails($slug){
         return $this->homeRepository->blogDetails($slug);
     }
+    public function blogCommentStore(Request $request , string $blogId)
+    {
+        return $this->homeRepository->blogCommentStore($request, $blogId);
+    }
 }

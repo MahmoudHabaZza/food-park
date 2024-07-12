@@ -5,6 +5,8 @@ namespace App\Repositories\EndUser;
 use App\Interfaces\EndUser\HomeRepositoryInterface;
 use App\Models\BannerSlider;
 use App\Models\Blog;
+use App\Models\BlogCategory;
+use App\Models\BlogComment;
 use App\Models\Category;
 use App\Models\Chef;
 use App\Models\Counter;
@@ -139,18 +141,37 @@ class HomeRepository implements HomeRepositoryInterface
         $testimonials = Testimonial::where(['status' => 1, 'show_at_home' => 1])->paginate(8);
         return view('EndUser.pages.testimonial-view', compact('testimonials'));
     }
-    public function blogs(){
-        $blogs = Blog::with(['blogCategory','user'])->where('status',1)->latest()->paginate(9);
-        return view('EndUser.pages.blog-view',compact('blogs'));
+    public function blogs()
+    {
+        $blogs = Blog::with(['blogCategory', 'user'])->where('status', 1)->latest()->paginate(9);
+        return view('EndUser.pages.blog-view', compact('blogs'));
     }
-    public function blogDetails($slug){
-        $blog = Blog::with(['blogCategory','user'])->where('slug',$slug)->where('status',1)->firstOrFail();
-        $nextBlog = Blog::select('id','image','slug','title')->where('status','1')
-        ->where('id','>',$blog->id)->orderBy('id','ASC')->first();
-        $prevBlog = Blog::select('id','image','slug','title')->where('status','1')
-        ->where('id','<',$blog->id)->orderBy('id','DESC')->first();
-        $latestBlogs = Blog::select('id','image','slug','title','created_at')
-            ->where('status' ,1)->where('id','!=',$blog->id)->latest()->take(5)->get();
-        return view('EndUser.pages.blog-details',compact('blog','nextBlog','prevBlog','latestBlogs'));
+    public function blogDetails($slug)
+    {
+        $blog = Blog::with(['blogCategory', 'user'])->where('slug', $slug)->where('status', 1)->firstOrFail();
+        $nextBlog = Blog::select('id', 'image', 'slug', 'title')->where('status', '1')
+            ->where('id', '>', $blog->id)->orderBy('id', 'ASC')->first();
+        $prevBlog = Blog::select('id', 'image', 'slug', 'title')->where('status', '1')
+            ->where('id', '<', $blog->id)->orderBy('id', 'DESC')->first();
+        $latestBlogs = Blog::select('id', 'image', 'slug', 'title', 'created_at')
+            ->where('status', 1)->where('id', '!=', $blog->id)->latest()->take(5)->get();
+        $categories = BlogCategory::withCount(['blogs'])->take(5)->get();
+        return view('EndUser.pages.blog-details', compact('blog', 'nextBlog', 'prevBlog', 'latestBlogs', 'categories'));
+    }
+    public function blogCommentStore(Request $request, string $blogId)
+    {
+        $request->validate([
+            'comment' => ['required', 'max:500']
+        ]);
+
+        Blog::findOrFail($blogId);
+        BlogComment::create([
+            'blog_id' => $blogId,
+            'user_id' => auth()->user()->id,
+            'comment' => $request->comment,
+        ]);
+
+        toastr()->success('Comment Submitted Successfully, Wait for approval from admin');
+        return redirect()->back();
     }
 }

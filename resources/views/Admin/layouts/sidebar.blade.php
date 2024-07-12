@@ -63,8 +63,9 @@
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
                     <span>Blog</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="{{ route('admin.blogs.index') }}">Blogs</a></li>
                     <li><a class="nav-link" href="{{ route('admin.blog-categories.index') }}">Categories</a></li>
+                    <li><a class="nav-link" href="{{ route('admin.blogs.index') }}">All Blogs</a></li>
+                    <li><a class="nav-link" href="{{ route('admin.blog-comments.index') }}">Comments</a></li>
                 </ul>
             </li>
             {{-- <li class="dropdown">

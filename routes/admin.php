@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ChatController;
 use App\Http\Controllers\Admin\ChefController;
+use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\CounterController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\DailyOfferController;
@@ -149,6 +150,8 @@ Route::group([
         Route::resource('blog-categories',BlogCategoryController::class);
         // Blog Routes
         Route::resource('blogs',BlogController::class);
+        // Blog Comment Routes
+        Route::get('blog-comments',[CommentController::class,'index'])->name('blog-comments.index');
 
 
         // Settings Routes

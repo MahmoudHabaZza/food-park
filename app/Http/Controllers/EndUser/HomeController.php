@@ -44,8 +44,8 @@ class HomeController extends Controller
     public function testimonials(){
         return $this->homeRepository->testimonials();
     }
-    public function blogs(){
-        return $this->homeRepository->blogs();
+    public function blogs(Request $request){
+        return $this->homeRepository->blogs($request);
     }
     public function blogDetails($slug){
         return $this->homeRepository->blogDetails($slug);

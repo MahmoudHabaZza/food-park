@@ -141,10 +141,26 @@ class HomeRepository implements HomeRepositoryInterface
         $testimonials = Testimonial::where(['status' => 1, 'show_at_home' => 1])->paginate(8);
         return view('EndUser.pages.testimonial-view', compact('testimonials'));
     }
-    public function blogs()
+    public function blogs(Request $request)
     {
-        $blogs = Blog::with(['blogCategory', 'user'])->where('status', 1)->latest()->paginate(9);
-        return view('EndUser.pages.blog-view', compact('blogs'));
+        $blogs = Blog::with(['blogCategory', 'user'])->where('status', 1);
+
+        if($request->has('search') && $request->filled('search')){
+            $blogs->where(function ($query)use($request){
+                $query->where('title', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('content', 'LIKE', '%' . $request->search . '%');
+            });
+        }
+
+        if($request->has('category') && $request->filled('category')){
+            $blogs->whereHas('blogCategory',function ($query)use($request){
+                $query->where('slug','LIKE','%'.$request->category.'%');
+            });
+        }
+
+        $blogs = $blogs->latest()->paginate(9);
+        $categories = BlogCategory::where('status', 1)->get();
+        return view('EndUser.pages.blog-view', compact('blogs','categories'));
     }
     public function blogDetails($slug)
     {

@@ -15,7 +15,7 @@
     <!--=============================
             BREADCRUMB START
         ==============================-->
-    <section class="fp__breadcrumb" style="background: url(images/counter_bg.jpg);">
+    <section class="fp__breadcrumb" style="background: url({{ asset('assets/EndUser/images/counter_bg.jpg') }});">
         <div class="fp__breadcrumb_overlay">
             <div class="container">
                 <div class="fp__breadcrumb_text">
@@ -157,8 +157,8 @@
                     <div id="sticky_sidebar">
                         <div class="fp__blog_search blog_sidebar m-0 wow fadeInUp" data-wow-duration="1s">
                             <h3>Search</h3>
-                            <form>
-                                <input type="text" placeholder="Search">
+                            <form action="{{ route('blogs.index') }}">
+                                <input type="text" placeholder="Search" name="search">
                                 <button type="submit"><i class="fas fa-search"></i></button>
                             </form>
                         </div>
@@ -186,7 +186,7 @@
                             <ul>
                                 @foreach ($categories as $category)
                                     <li><a
-                                            href="javascript:;">{{ $category->name }}<span>{{ $category->blogs_count }}</span></a>
+                                            href="{{ route('blogs.index',['category'=>$category->slug]) }}">{{ $category->name }}<span>{{ $category->blogs_count }}</span></a>
                                     </li>
                                 @endforeach
                             </ul>

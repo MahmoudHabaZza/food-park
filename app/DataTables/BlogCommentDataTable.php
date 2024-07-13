@@ -24,13 +24,14 @@ class BlogCommentDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($query) {
 
-                if ($query->status == 1) {
-                    $edit = '<a href="' . route('admin.chef.edit', $query->id) . '" class="btn btn-warning fas fa-eye "></a>';
-                } else {
-                    $edit = '<a href="' . route('admin.chef.edit', $query->id) . '" class="btn btn-warning fas fa-eye-slash "></a>';
-                }
+                $edit = '<form action="" data-id='.$query->id.' method="POST" class="d-inline-block update_status_form">
+                    '.csrf_field().'
+                    '.method_field('PUT').'
+                    <input type="hidden" name="status" value="'. ($query->status == 1? 0 : 1). '">
+                    <button type="submit" class="btn btn-'. ($query->status == 1 ? 'success fas fa-eye' :'warning fas fa-eye-slash'). '"></button>
+                </form>';
 
-                $delete = '<a href="' . route('admin.chef.destroy', $query->id) . '" class="btn btn-danger mx-2 delete-item fas fa-trash "></a>';
+                $delete = '<a href="' . route('admin.blog-comments.destroy', $query->id) . '" class="btn btn-danger mx-2 delete-item fas fa-trash "></a>';
                 return $edit . $delete;
             })
             ->addColumn('blog_title', function ($query) {

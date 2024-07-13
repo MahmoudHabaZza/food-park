@@ -18,5 +18,13 @@ class CommentController extends Controller
     {
         return $this->commentRepository->index($dataTable);
     }
+    public function updateStatus(Request $request,string $id)
+    {
+        return $this->commentRepository->updateStatus($request, $id);
+    }
+    public function destroy(string $id)
+    {
+        return $this->commentRepository->destroy($id);
+    }
 
 }

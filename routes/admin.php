@@ -152,6 +152,8 @@ Route::group([
         Route::resource('blogs',BlogController::class);
         // Blog Comment Routes
         Route::get('blog-comments',[CommentController::class,'index'])->name('blog-comments.index');
+        Route::put('blog-comments/update-status/{id}',[CommentController::class,'updateStatus'])->name('blog-comments.updateStatus');
+        Route::delete('blog-comments/{id}',[CommentController::class,'destroy'])->name('blog-comments.destroy');
 
 
         // Settings Routes

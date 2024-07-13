@@ -149,6 +149,7 @@ class HomeRepository implements HomeRepositoryInterface
     public function blogDetails($slug)
     {
         $blog = Blog::with(['blogCategory', 'user'])->where('slug', $slug)->where('status', 1)->firstOrFail();
+        $comments = $blog->comments()->where('status',1)->orderBy('created_at','DESC')->paginate(15);
         $nextBlog = Blog::select('id', 'image', 'slug', 'title')->where('status', '1')
             ->where('id', '>', $blog->id)->orderBy('id', 'ASC')->first();
         $prevBlog = Blog::select('id', 'image', 'slug', 'title')->where('status', '1')
@@ -156,7 +157,15 @@ class HomeRepository implements HomeRepositoryInterface
         $latestBlogs = Blog::select('id', 'image', 'slug', 'title', 'created_at')
             ->where('status', 1)->where('id', '!=', $blog->id)->latest()->take(5)->get();
         $categories = BlogCategory::withCount(['blogs'])->take(5)->get();
-        return view('EndUser.pages.blog-details', compact('blog', 'nextBlog', 'prevBlog', 'latestBlogs', 'categories'));
+        return view('EndUser.pages.blog-details', compact(
+            'blog',
+            'nextBlog',
+            'prevBlog',
+            'latestBlogs',
+            'categories',
+            'comments',
+
+        ));
     }
     public function blogCommentStore(Request $request, string $blogId)
     {

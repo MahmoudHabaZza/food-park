@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ChatController;
 use App\Http\Controllers\Admin\ChefController;
 use App\Http\Controllers\Admin\CommentController;
+use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\CounterController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\DailyOfferController;
@@ -160,6 +161,10 @@ Route::group([
         // About Routes
         Route::get('about',[AboutController::class,'index'])->name('about.index');
         Route::put('about',[AboutController::class,'update'])->name('about.update');
+
+        // Contact Routes
+        Route::get('contact',[ContactController::class,'index'])->name('contact.index');
+        Route::put('contact',[ContactController::class,'update'])->name('contact.update');
 
         // Settings Routes
         Route::group([

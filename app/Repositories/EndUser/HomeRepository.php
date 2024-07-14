@@ -10,6 +10,7 @@ use App\Models\BlogCategory;
 use App\Models\BlogComment;
 use App\Models\Category;
 use App\Models\Chef;
+use App\Models\Contact;
 use App\Models\Counter;
 use App\Models\Coupon;
 use App\Models\DailyOffer;
@@ -163,6 +164,11 @@ class HomeRepository implements HomeRepositoryInterface
             'testimonials',
             'counter',
         ));
+    }
+    public function contact()
+    {
+        $contact = Contact::first();
+        return view('EndUser.Pages.contact',compact('contact'));
     }
     public function blogs(Request $request)
     {

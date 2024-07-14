@@ -48,6 +48,11 @@ class HomeController extends Controller
     {
         return $this->homeRepository->about();
     }
+
+    public function contact()
+    {
+        return $this->homeRepository->contact();
+    }
     public function blogs(Request $request){
         return $this->homeRepository->blogs($request);
     }

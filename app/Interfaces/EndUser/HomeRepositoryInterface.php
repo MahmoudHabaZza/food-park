@@ -14,6 +14,7 @@ interface HomeRepositoryInterface
     public function chef();
     public function testimonials();
     public function about();
+    public function contact();
     public function blogs(Request $request);
     public function blogDetails(string $slug);
     public function blogCommentStore(Request $request,string $blogId);

@@ -10,6 +10,7 @@ use App\Interfaces\Admin\CategoryRepositoryInterface;
 use App\Interfaces\Admin\ChatRepositoryInterface;
 use App\Interfaces\Admin\ChefRepositoryInterface;
 use App\Interfaces\Admin\CommentRepositoryInterface;
+use App\Interfaces\Admin\ContactRepositoryInterface;
 use App\Interfaces\Admin\CounterRepositoryInterface;
 use App\Interfaces\Admin\CouponRepositoryInterface;
 use App\Interfaces\Admin\DailyOfferRepositoryInterface;
@@ -41,6 +42,7 @@ use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\ChatRepository;
 use App\Repositories\Admin\ChefRepository;
 use App\Repositories\Admin\CommentRepository;
+use App\Repositories\Admin\ContactRepository;
 use App\Repositories\Admin\CounterRepository;
 use App\Repositories\Admin\CouponRepository;
 use App\Repositories\Admin\DailyOfferRepository;
@@ -105,6 +107,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(BlogRepositoryInterface::class, BlogRepository::class);
         $this->app->bind(CommentRepositoryInterface::class, CommentRepository::class);
         $this->app->bind(AboutRepositoryInterface::class, AboutRepository::class);
+        $this->app->bind(ContactRepositoryInterface::class, ContactRepository::class);
     }
 
     /**

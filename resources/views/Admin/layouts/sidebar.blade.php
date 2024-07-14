@@ -76,6 +76,7 @@
                     <span>Pages</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ route('admin.about.index') }}">About</a></li>
+                    <li><a class="nav-link" href="{{ route('admin.contact.index') }}">Contact</a></li>
                 </ul>
             </li>
             {{-- <li class="dropdown">

@@ -170,6 +170,17 @@ class HomeRepository implements HomeRepositoryInterface
         $contact = Contact::first();
         return view('EndUser.Pages.contact',compact('contact'));
     }
+    public function sendMessage(Request $request)
+    {
+        $request->validate([
+            'name' => ['required','max:50'],
+            'email' => ['required','email','max:255'],
+            'subject' => ['required','max:255'],
+            'message' => ['required','max:1000']
+        ]);
+
+        
+    }
     public function blogs(Request $request)
     {
         $blogs = Blog::withCount(['comments' => function ($query) {

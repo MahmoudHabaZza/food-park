@@ -53,6 +53,11 @@ class HomeController extends Controller
     {
         return $this->homeRepository->contact();
     }
+
+    public function sendMessage(Request $request)
+    {
+        return $this->homeRepository->sendMessage($request);
+    }
     public function blogs(Request $request){
         return $this->homeRepository->blogs($request);
     }

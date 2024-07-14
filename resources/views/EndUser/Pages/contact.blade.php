@@ -64,36 +64,31 @@ Contact Us
                 <div class="row">
                     <div class="col-xl-12 wow fadeInUp" data-wow-duration="1s">
                         <form class="fp__contact_form">
+                            @csrf
                             <h3>contact</h3>
                             <div class="row">
                                 <div class="col-xl-6 col-lg-6">
                                     <div class="fp__contact_form_input">
                                         <span><i class="fal fa-user-alt"></i></span>
-                                        <input type="text" placeholder="Name">
+                                        <input type="text" placeholder="Name" name="name">
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-6">
                                     <div class="fp__contact_form_input">
                                         <span><i class="fal fa-envelope"></i></span>
-                                        <input type="email" placeholder="Email">
+                                        <input type="email" placeholder="Email" name="email">
                                     </div>
                                 </div>
-                                <div class="col-xl-6 col-lg-6">
-                                    <div class="fp__contact_form_input">
-                                        <span><i class="fal fa-phone-alt"></i></span>
-                                        <input type="text" placeholder="Phone">
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6">
+                                <div class="col-xl-12 col-lg-12">
                                     <div class="fp__contact_form_input">
                                         <span><i class="fal fa-book"></i></span>
-                                        <input type="text" placeholder="Subject">
+                                        <input type="text" placeholder="Subject" name="subject">
                                     </div>
                                 </div>
                                 <div class="col-xl-12">
                                     <div class="fp__contact_form_input textarea">
                                         <span><i class="fal fa-book"></i></span>
-                                        <textarea rows="8" placeholder="Message"></textarea>
+                                        <textarea rows="8" placeholder="Message" name="message"></textarea>
                                     </div>
                                     <button type="submit">send message</button>
                                 </div>
@@ -118,3 +113,28 @@ Contact Us
         CONTACT PAGE END
     ==============================-->
 @endsection
+@push('js')
+    <script>
+        $(document).ready(function(){
+            $('.fp__contact_form').on('submit',function(e){
+                e.preventDefault();
+                let formData = $(this).serialize();
+                $.ajax({
+                    method:'POST',
+                    url:'{{ route("contact.sendMessage") }}',
+                    data:formData,
+                    success:function(response){
+
+                    },
+                    error:function(xhr,status,erorr)
+                    {
+                        let errors = xhr.responseJSON.errors;
+                        $.each(errors,function(index,value){
+                            toastr.error(value);
+                        })
+                    }
+                })
+            })
+        })
+    </script>
+@endpush

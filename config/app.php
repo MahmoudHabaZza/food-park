@@ -171,6 +171,7 @@ return [
         App\Providers\SettingsServiceProvider::class,
         App\Providers\PaymentGatewayServiceProvider::class,
         App\Providers\RepositoryServiceProvider::class,
+        App\Providers\CustomMailServiceProvider::class,
     ])->toArray(),
 
     /*

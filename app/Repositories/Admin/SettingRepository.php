@@ -5,6 +5,7 @@ namespace App\Repositories\Admin;
 use App\Interfaces\Admin\SettingRepositoryInterface;
 use App\Models\Setting;
 use App\Services\SettingsService;
+use Cache;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -81,6 +82,7 @@ class SettingRepository implements SettingRepositoryInterface
 
         $settingsService = app(SettingsService::class);
         $settingsService->clearCachedSettings();
+        Cache::forget('mail-settings');
 
         toastr()->success('Mail Settings Updated Successfully');
         return redirect()->back();

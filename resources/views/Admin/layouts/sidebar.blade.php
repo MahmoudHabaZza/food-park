@@ -54,18 +54,28 @@
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ route('admin.coupon.index') }}">Coupon</a></li>
                     <li><a class="nav-link" href="{{ route('admin.delivery-area.index') }}">Delivery Areas</a></li>
-                    <li><a class="nav-link" href="{{ route('admin.payment-gateways.index') }}">Payment Gateways</a></li>
+                    <li><a class="nav-link" href="{{ route('admin.payment-gateways.index') }}">Payment Gateways</a>
+                    </li>
                 </ul>
             </li>
-            <li><a class="nav-link" href="{{ route('admin.setting.index') }}"><i class="far fa-square"></i> <span>Settings</span></a></li>
-            <li><a class="nav-link" href="{{ route('admin.chat.index') }}"><i class="far fa-square"></i> <span>Messages</span></a></li>
-                        <li class="dropdown">
+            <li><a class="nav-link" href="{{ route('admin.setting.index') }}"><i class="far fa-square"></i>
+                    <span>Settings</span></a></li>
+            <li><a class="nav-link" href="{{ route('admin.chat.index') }}"><i class="far fa-square"></i>
+                    <span>Messages</span></a></li>
+            <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
                     <span>Blog</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ route('admin.blog-categories.index') }}">Categories</a></li>
                     <li><a class="nav-link" href="{{ route('admin.blogs.index') }}">All Blogs</a></li>
                     <li><a class="nav-link" href="{{ route('admin.blog-comments.index') }}">Comments</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
+                    <span>Pages</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="{{ route('admin.about.index') }}">About</a></li>
                 </ul>
             </li>
             {{-- <li class="dropdown">

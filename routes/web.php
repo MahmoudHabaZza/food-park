@@ -38,6 +38,10 @@ Route::get('/blog/{slug}',[HomeController::class,'blogDetails'])->name('blogDeta
 Route::post('/blog/comment/{blogId}',[HomeController::class,'blogCommentStore'])->name('blog.comment.store');
 
 
+// About
+Route::get('/about', [HomeController::class, 'about'])->name('about');
+
+
 // Cart Routes
 Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
 Route::get('get-cart-products', [CartController::class, 'getCartProducts'])->name('get-cart-products');

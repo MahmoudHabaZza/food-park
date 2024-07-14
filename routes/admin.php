@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\BannderSliderController;
 use App\Http\Controllers\Admin\BannerSliderController;
@@ -155,6 +156,10 @@ Route::group([
         Route::put('blog-comments/update-status/{id}',[CommentController::class,'updateStatus'])->name('blog-comments.updateStatus');
         Route::delete('blog-comments/{id}',[CommentController::class,'destroy'])->name('blog-comments.destroy');
 
+
+        // About Routes
+        Route::get('about',[AboutController::class,'index'])->name('about.index');
+        Route::put('about',[AboutController::class,'update'])->name('about.update');
 
         // Settings Routes
         Route::group([

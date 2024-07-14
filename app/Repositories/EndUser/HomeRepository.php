@@ -3,6 +3,7 @@
 namespace App\Repositories\EndUser;
 
 use App\Interfaces\EndUser\HomeRepositoryInterface;
+use App\Models\About;
 use App\Models\BannerSlider;
 use App\Models\Blog;
 use App\Models\BlogCategory;
@@ -36,9 +37,9 @@ class HomeRepository implements HomeRepositoryInterface
         $chefs = Chef::where(['status' => 1, 'show_at_home' => 1])->get();
         $testimonials = Testimonial::where(['status' => 1, 'show_at_home' => 1])->take(15)->get();
         $counter = Counter::first();
-        $blogs = Blog::withCount(['comments' => function($query){
+        $blogs = Blog::withCount(['comments' => function ($query) {
             $query->where('status', 1);
-        }])->with(['blogCategory','user'])->where('status', 1)->latest()->take(6)->get();
+        }])->with(['blogCategory', 'user'])->where('status', 1)->latest()->take(6)->get();
         return view('EndUser.Home.index', compact(
             'sliders',
             'why_choose_us',
@@ -144,6 +145,24 @@ class HomeRepository implements HomeRepositoryInterface
     {
         $testimonials = Testimonial::where(['status' => 1, 'show_at_home' => 1])->paginate(8);
         return view('EndUser.pages.testimonial-view', compact('testimonials'));
+    }
+
+    public function about()
+    {
+        $about = About::first();
+        $sectionTitles = $this->getSectionTitles();
+        $sections = WhyChooseUs::where('status', 1)->get();
+        $chefs = Chef::where(['status' => 1, 'show_at_home' => 1])->get();
+        $testimonials = Testimonial::where(['status' => 1, 'show_at_home' => 1])->take(15)->get();
+        $counter = Counter::first();
+        return view('EndUser.pages.about', compact(
+            'about',
+            'sectionTitles',
+            'sections',
+            'chefs',
+            'testimonials',
+            'counter',
+        ));
     }
     public function blogs(Request $request)
     {

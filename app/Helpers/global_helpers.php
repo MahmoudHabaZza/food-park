@@ -121,7 +121,25 @@ if (!function_exists('generateUniqueSlug')) {
     if (!function_exists('truncate')) {
         function truncate(string $string, int $limit = 100)
         {
-            return \Str::limit($string,$limit,'...');
+            return \Str::limit($string, $limit, '...');
         }
+    }
+}
+
+if (!function_exists('getYtThumbnail')) {
+    function getYtThumbnail($link,$size = 'medium')
+    {
+        $videoId = explode("?v=",$link);
+        $videoId = $videoId[1];
+
+        $finalSize = match($size) {
+            'low' => 'sddefault',
+            'medium' => 'mqdefault',
+            'high' => 'hqdefault',
+            'max' => 'maxresdefault',
+
+        };
+
+        return "https://img.youtube.com/vi/$videoId/$finalSize.jpg";
     }
 }

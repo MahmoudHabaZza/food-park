@@ -16,6 +16,33 @@ namespace App\Models{
  * 
  *
  * @property int $id
+ * @property string $image
+ * @property string $main_title
+ * @property string $title
+ * @property string $description
+ * @property string $video_link
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|About newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|About newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|About query()
+ * @method static \Illuminate\Database\Eloquent\Builder|About whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|About whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|About whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|About whereImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|About whereMainTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|About whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|About whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|About whereVideoLink($value)
+ */
+	class About extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
  * @property int $user_id
  * @property int $delivery_area_id
  * @property string $first_name

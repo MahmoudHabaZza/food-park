@@ -242,7 +242,7 @@
                 let rowId = $(this).data("id");
                 $.ajax({
                     method: "GET",
-                    url: '{{ route("remove-cart-item", ":rowId") }}'.replace(":rowId", rowId),
+                    url: '{{ route("cart.removeCartItem", ":rowId") }}'.replace(":rowId", rowId),
                     beforeSend: function() {
                         showLoader()
                     },
@@ -271,7 +271,7 @@
 
                 $.ajax({
                     method: "POST",
-                    url: '{{ route("cart.qty-update") }}',
+                    url: '{{ route("cart.updateCartQty") }}',
                     data: {
                         'rowId': rowId,
                         'qty': qty,

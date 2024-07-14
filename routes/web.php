@@ -26,39 +26,67 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('product/{slug}', [HomeController::class, 'showProduct'])->name('product.show');
-Route::get('product/load-modal/{productId}', [HomeController::class, 'loadProductModal'])->name('product.load-modal');
-// Chef Page Routes
-Route::get('/chefs',[HomeController::class,'chef'])->name('chef.index');
-Route::get('/testimonials',[HomeController::class,'testimonials'])->name('testimonial.index');
-// Blog
-Route::get('/blogs',[HomeController::class,'blogs'])->name('blogs.index');
-Route::get('/blog/{slug}',[HomeController::class,'blogDetails'])->name('blogDetails');
-Route::post('/blog/comment/{blogId}',[HomeController::class,'blogCommentStore'])->name('blog.comment.store');
+// Route::get('/', [HomeController::class, 'index'])->name('home');
+// Route::get('product/{slug}', [HomeController::class, 'showProduct'])->name('product.show');
+// Route::get('product/load-modal/{productId}', [HomeController::class, 'loadProductModal'])->name('product.load-modal');
+// // Chef Page Routes
+// Route::get('/chefs',[HomeController::class,'chef'])->name('chef.index');
+// Route::get('/testimonials',[HomeController::class,'testimonials'])->name('testimonial.index');
+// // Blog
+// Route::get('/blogs',[HomeController::class,'blogs'])->name('blogs.index');
+// Route::get('/blog/{slug}',[HomeController::class,'blogDetails'])->name('blogDetails');
+// Route::post('/blog/comment/{blogId}',[HomeController::class,'blogCommentStore'])->name('blog.comment.store');
 
+Route::controller(HomeController::class)->group(function () {
+    // Home routes
+    Route::get('/', 'index')->name('home');
 
-// About
-Route::get('/about', [HomeController::class, 'about'])->name('about');
-Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
-Route::post('/contact', [HomeController::class, 'sendMessage'])->name('contact.sendMessage');
+    // Product routes
+    Route::prefix('product')->as('product.')->group(function () {
+        Route::get('{slug}', 'showProduct')->name('show');
+        Route::get('load-modal/{productId}', 'loadProductModal')->name('load-modal');
+    });
 
+    // Cart Coupon Routes
+    Route::post('/apply-coupon', 'applyCoupon')->name('apply-coupon');
+    Route::delete('/remove-coupon', 'removeCoupon')->name('remove-coupon');
+
+    // Chef routes
+    Route::get('/chefs', 'chef')->name('chef.index');
+
+    // Testimonial routes
+    Route::get('/testimonials', 'testimonials')->name('testimonial.index');
+
+    // Blog routes
+    Route::prefix('blogs')->as('blogs.')->group(function () {
+        Route::get('/', 'blogs')->name('index');
+        Route::get('/{slug}', 'blogDetails')->name('details');
+        Route::post('/comment/{blogId}', 'blogCommentStore')->name('comment.store');
+    });
+
+    // About
+    Route::get('/about', 'about')->name('about');
+
+    // Contact
+    Route::get('/contact', 'contact')->name('contact');
+    Route::post('/contact', 'sendMessage')->name('contact.sendMessage');
+});
 
 
 // Cart Routes
-Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
-Route::get('get-cart-products', [CartController::class, 'getCartProducts'])->name('get-cart-products');
-Route::get('remove-cart-item/{rowId}', [CartController::class, 'removeCartItem'])->name('remove-cart-item');
+Route::group([
+    'controller' => CartController::class,
+    'prefix' => 'cart',
+    'as' => 'cart.'
+],function(){
+    Route::get('/','index')->name('index');
+    Route::post('add-to-cart','addToCart')->name('addToCart');
+    Route::get('cart-products','getCartProducts')->name('getCartProducts');
+    Route::get('remove-item/{rowId}','removeCartItem')->name('removeCartItem');
+    Route::post('qty-update', 'updateCartQty')->name('updateCartQty');
+    Route::get('destroy','cartDestroy')->name('destroy');
+});
 
-
-// Cart Page Routes
-Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-Route::post('/cart-qty-update', [CartController::class, 'updateCartQty'])->name('cart.qty-update');
-Route::get('/cart-destroy', [CartController::class, 'cartDestroy'])->name('cart.destroy');
-
-// Cart Coupon Routes
-Route::post('/apply-coupon', [HomeController::class, 'applyCoupon'])->name('apply-coupon');
-Route::get('/remove-coupon', [HomeController::class, 'removeCoupon'])->name('remove-coupon');
 
 
 Route::group(['middleware' => 'auth'], function () {

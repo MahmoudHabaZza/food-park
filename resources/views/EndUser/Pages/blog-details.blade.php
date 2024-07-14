@@ -83,7 +83,7 @@
                     <ul class="blog_det_button mt_100 xs_mt_70 wow fadeInUp" data-wow-duration="1s">
                         @if ($prevBlog)
                             <li>
-                                <a href="{{ route('blogDetails', $prevBlog->slug) }}">
+                                <a href="{{ route('blogs.details', $prevBlog->slug) }}">
                                     <img src="{{ asset($prevBlog->image) }}" alt="button img" class="img-fluid w-100">
                                     <p>{!! truncate($prevBlog->title) !!}
                                         <span> <i class="far fa-long-arrow-left"></i> Previous</span>
@@ -93,7 +93,7 @@
                         @endif
                         @if ($nextBlog)
                             <li>
-                                <a href="{{ route('blogDetails', $nextBlog->slug) }}">
+                                <a href="{{ route('blogs.details', $nextBlog->slug) }}">
                                     <p>{!! truncate($nextBlog->title) !!}
                                         <span>next <i class="far fa-long-arrow-right"></i></span>
                                     </p>
@@ -135,7 +135,7 @@
                     @if (\Auth::check())
                         <div class="comment_input mt_100 xs_mt_70 wow fadeInUp" data-wow-duration="1s">
                             <h4>Leave A Comment</h4>
-                            <form action="{{ route('blog.comment.store', $blog->id) }}" method="POST">
+                            <form action="{{ route('blogs.comment.store', $blog->id) }}" method="POST">
                                 @csrf
                                 <div class="row">
                                     <div class="col-xl-12">
@@ -171,7 +171,7 @@
                                             <img src="{{ asset($blog->image) }}" alt="blog" class="img-fluid w-100">
                                             <div class="text">
                                                 <a
-                                                    href="{{ route('blogDetails', $blog->slug) }}">{!! truncate($blog->title) !!}</a>
+                                                    href="{{ route('blogs.details', $blog->slug) }}">{!! truncate($blog->title) !!}</a>
                                                 <p><i
                                                         class="far fa-calendar-alt"></i>{{ date('d m Y', strtotime($blog->created_at)) }}
                                                 </p>

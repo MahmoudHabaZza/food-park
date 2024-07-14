@@ -101,70 +101,81 @@ Route::group([
         );
 
         // Coupon Routes
-        Route::resource('coupon',CouponController::class);
+        Route::resource('coupon', CouponController::class);
 
         // Delivery Area Routes
-        Route::resource('delivery-area',DeliveryAreaController::class);
+        Route::resource('delivery-area', DeliveryAreaController::class);
 
         // Order Routes
-        Route::group(['prefix' => 'orders','as' => 'order.' , 'controller' => OrderController::class],function(){
-            Route::get('/','index')->name('index');
-            Route::get('pending','pendingOrderIndex')->name('pending');
-            Route::get('in-process','inProcessOrderIndex')->name('inprocess');
-            Route::get('delivered','deliveredOrderIndex')->name('delivered');
-            Route::get('declined','declinedOrderIndex')->name('declined');
-            Route::get('/{id}','show')->name('show');
-            Route::put('/{id}/update-status','updateOrderStatus')->name('status.update');
-            Route::put('/status/{id}','getOrderStatus')->name('status.get');
-            Route::delete('/{id}','destroy')->name('destroy');
+        Route::group(['prefix' => 'orders', 'as' => 'order.', 'controller' => OrderController::class], function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('pending', 'pendingOrderIndex')->name('pending');
+            Route::get('in-process', 'inProcessOrderIndex')->name('inprocess');
+            Route::get('delivered', 'deliveredOrderIndex')->name('delivered');
+            Route::get('declined', 'declinedOrderIndex')->name('declined');
+            Route::get('/{id}', 'show')->name('show');
+            Route::put('/{id}/update-status', 'updateOrderStatus')->name('status.update');
+            Route::put('/status/{id}', 'getOrderStatus')->name('status.get');
+            Route::delete('/{id}', 'destroy')->name('destroy');
         });
 
 
         // Notification Routes
-        Route::get('clear-notification',[DashboardController::class,'clearNotification'])->name('clear-notification');
+        Route::get('clear-notification', [DashboardController::class, 'clearNotification'])->name('clear-notification');
 
         // Chat Routes
-        Route::get('chat',[ChatController::class,'index'])->name('chat.index');
-        Route::get('chat/get/{senderId}',[ChatController::class,'getChat'])->name('chat.get-chat');
-        Route::post('chat/send-message', [ChatController::class, 'sendMessage'])->name('chat.send-message');
+        Route::group([
+            'controller' => ChatController::class,
+            'prefix' => 'chat',
+            'as' => 'chat.'
+        ],function(){
+            Route::get('/', 'index')->name('index');
+            Route::get('get/{senderId}', 'getChat')->name('get-chat');
+            Route::post('send-message', 'sendMessage')->name('send-message');
+        });
 
         // Daily Offer Routes
-        Route::get('daily-offer/search-product',[DailyOfferController::class,'searchProduct'])->name('daily-offer.search');
+        Route::get('daily-offer/search-product', [DailyOfferController::class, 'searchProduct'])->name('daily-offer.search');
         Route::put('daily-offer-title-update', [DailyOfferController::class, 'updateTitle'])->name('daily-offer.title');
-        Route::resource('daily-offer',DailyOfferController::class);
+        Route::resource('daily-offer', DailyOfferController::class);
 
         // Banner Slider Routes
-        Route::resource('banner-slider',BannerSliderController::class);
+        Route::resource('banner-slider', BannerSliderController::class);
 
         // Chef Routes
         Route::put('chef-title-update', [ChefController::class, 'updateTitle'])->name('chef.title');
-        Route::resource('chef',ChefController::class);
+        Route::resource('chef', ChefController::class);
 
         // Testimonial Routes
         Route::put('testimonial-title-update', [TestimonialController::class, 'updateTitle'])->name('testimonial.title');
         Route::resource('testimonial', TestimonialController::class);
 
         // counter routes
-        Route::get('counter',[CounterController::class,'index'])->name('counter.index');
-        Route::put('counter',[CounterController::class,'update'])->name('counter.update');
+        Route::get('counter', [CounterController::class, 'index'])->name('counter.index');
+        Route::put('counter', [CounterController::class, 'update'])->name('counter.update');
 
         // Blog Categories routes
-        Route::resource('blog-categories',BlogCategoryController::class);
+        Route::resource('blog-categories', BlogCategoryController::class);
         // Blog Routes
-        Route::resource('blogs',BlogController::class);
+        Route::resource('blogs', BlogController::class);
         // Blog Comment Routes
-        Route::get('blog-comments',[CommentController::class,'index'])->name('blog-comments.index');
-        Route::put('blog-comments/update-status/{id}',[CommentController::class,'updateStatus'])->name('blog-comments.updateStatus');
-        Route::delete('blog-comments/{id}',[CommentController::class,'destroy'])->name('blog-comments.destroy');
+        Route::group([
+            'controller' => CommentController::class,
+            'prefix' => 'blog-comments',
+            'as' => 'blog-comments.'
+        ], function () {
+            Route::get('/', 'index')->name('index');
+            Route::put('update-status/{id}', 'updateStatus')->name('updateStatus');
+            Route::delete('{id}', 'destroy')->name('destroy');
+        });
 
+        // About Us Routes
+        Route::get('about', [AboutController::class, 'index'])->name('about.index');
+        Route::put('about', [AboutController::class, 'update'])->name('about.update');
 
-        // About Routes
-        Route::get('about',[AboutController::class,'index'])->name('about.index');
-        Route::put('about',[AboutController::class,'update'])->name('about.update');
-
-        // Contact Routes
-        Route::get('contact',[ContactController::class,'index'])->name('contact.index');
-        Route::put('contact',[ContactController::class,'update'])->name('contact.update');
+        // Contact Us Routes
+        Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
+        Route::put('contact', [ContactController::class, 'update'])->name('contact.update');
 
         // Settings Routes
         Route::group([
@@ -176,17 +187,14 @@ Route::group([
             Route::put('/general-settings', 'updateGeneralSettings')->name('general-settings.update');
             Route::put('/pusher-settings', 'updatePusherSettings')->name('pusher-settings.update');
             Route::put('/mail-settings', 'updateMailSettings')->name('mail-settings.update');
-
-
         });
 
         // Payment Gateways Setting Routes
-        Route::get('payment-gateways',[PaymentGatewaySettingController::class,'index'])->name('payment-gateways.index');
-        Route::put('paypal-settings-update',[PaymentGatewaySettingController::class,'paypalSettingsUpdate'])->name('paypal.settings.update');
-        Route::put('stripe-settings-update',[PaymentGatewaySettingController::class,'stripeSettingUpdate'])->name('stripe.settings.update');
-        Route::put('razorpay-settings-update',[PaymentGatewaySettingController::class,'razorpaySettingUpdate'])->name('razorpay.settings.update');
-
-
-
+        Route::controller(PaymentGatewaySettingController::class)->group(function () {
+            Route::get('payment-gateways', 'index')->name('payment-gateways.index');
+            Route::put('paypal-settings-update', 'paypalSettingsUpdate')->name('paypal.settings.update');
+            Route::put('stripe-settings-update', 'stripeSettingUpdate')->name('stripe.settings.update');
+            Route::put('razorpay-settings-update', 'razorpaySettingUpdate')->name('razorpay.settings.update');
+        });
     });
 });

@@ -94,7 +94,7 @@
     function updateCartProducts(callback = null) {
         $.ajax({
             method: "GET",
-            url: '{{ route('get-cart-products') }}',
+            url: '{{ route('cart.getCartProducts') }}',
             success: function(response) {
                 $('#cart_contents').html(response)
                 let cartTotal = $('#cart_total').val()
@@ -117,7 +117,7 @@
     function removeItemFromCart($rowId) {
         $.ajax({
             method: "GET",
-            url: '{{ route("remove-cart-item", ':rowId') }}'.replace(":rowId", $rowId),
+            url: '{{ route("cart.removeCartItem", ':rowId') }}'.replace(":rowId", $rowId),
             beforeSend: function() {
                 showLoader()
             },

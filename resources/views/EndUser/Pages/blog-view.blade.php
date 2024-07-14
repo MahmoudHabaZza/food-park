@@ -52,7 +52,7 @@
                 @foreach ($blogs as $blog)
                     <div class="col-xl-4 col-sm-6 col-lg-4 wow fadeInUp" data-wow-duration="1s">
                         <div class="fp__single_blog">
-                            <a href="{{ route('blogDetails',$blog->slug) }}" class="fp__single_blog_img">
+                            <a href="{{ route('blogs.details',$blog->slug) }}" class="fp__single_blog_img">
                                 <img src="{{ asset($blog->image) }}" alt="blog" class="img-fluid w-100">
                             </a>
                             <div class="fp__single_blog_text">
@@ -63,7 +63,7 @@
                                     </li>
                                     <li><i class="fas fa-comments"></i> {{ $blog->comments_count }} comment</li>
                                 </ul>
-                                <a class="title" href="{{ route('blogDetails',$blog->slug) }}">{{ truncate($blog->title)}}</a>
+                                <a class="title" href="{{ route('blogs.details',$blog->slug) }}">{{ truncate($blog->title)}}</a>
                             </div>
                         </div>
                     </div>

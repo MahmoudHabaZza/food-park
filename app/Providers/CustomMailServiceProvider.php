@@ -38,6 +38,7 @@ class CustomMailServiceProvider extends ServiceProvider
 
         // override the mail settings in the config/mail.php file
         if($mailSettings){
+            Config::set('mail.default',$mailSettings['mail_driver']);
             Config::set('mail.mailers.smtp.host',$mailSettings['mail_host']);
             Config::set('mail.mailers.smtp.port',$mailSettings['mail_port']);
             Config::set('mail.mailers.smtp.encryption',$mailSettings['mail_encryption']);

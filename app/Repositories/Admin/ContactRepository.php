@@ -4,7 +4,9 @@ namespace App\Repositories\Admin;
 
 use App\Http\Requests\ContactUpdateRequest;
 use App\Interfaces\Admin\ContactRepositoryInterface;
+use App\Mail\ContactMail;
 use App\Models\Contact;
+use Mail;
 
 class ContactRepository implements ContactRepositoryInterface
 {
@@ -26,7 +28,6 @@ class ContactRepository implements ContactRepositoryInterface
                 'map_link' => $request->map_link,
             ]
         );
-
         toastr()->success('Contact Info Updated Successfully');
         return redirect()->back();
     }

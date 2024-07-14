@@ -90,7 +90,7 @@ Contact Us
                                         <span><i class="fal fa-book"></i></span>
                                         <textarea rows="8" placeholder="Message" name="message"></textarea>
                                     </div>
-                                    <button type="submit">send message</button>
+                                    <button type="submit" class="submit_btn">send message</button>
                                 </div>
                             </div>
                         </form>
@@ -123,8 +123,16 @@ Contact Us
                     method:'POST',
                     url:'{{ route("contact.sendMessage") }}',
                     data:formData,
-                    success:function(response){
+                    beforeSend:function(){
+                        $('.submit_btn').attr('disabled',true);
+                        $('.submit_btn').html(`<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>Sending...`);
 
+                    },
+                    success:function(response){
+                        toastr.success(response.message);
+                        $('.submit_btn').attr('disabled',false);
+                        $('.submit_btn').html(`Send Message`);
+                        $('.fp__contact_form').trigger('reset');
                     },
                     error:function(xhr,status,erorr)
                     {
@@ -132,6 +140,8 @@ Contact Us
                         $.each(errors,function(index,value){
                             toastr.error(value);
                         })
+                        $('.submit_btn').attr('disabled',false);
+                        $('.submit_btn').html(`Send Message`);
                     }
                 })
             })

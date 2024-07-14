@@ -13,16 +13,18 @@ class ContactMail extends Mailable
 {
     use Queueable, SerializesModels;
     public $name;
+    public $email;
     public $mail_subject;
-    public $message;
+    public $content;
     /**
      * Create a new message instance.
      */
-    public function __construct($name,$mail_subject,$message)
+    public function __construct($name,$email,$mail_subject,$content)
     {
         $this->name = $name;
+        $this->email = $email;
         $this->mail_subject = $mail_subject;
-        $this->message = $message;
+        $this->content = $content;
     }
 
     /**
@@ -32,6 +34,8 @@ class ContactMail extends Mailable
     {
         return new Envelope(
             subject: $this->mail_subject,
+            to: config('settings.mail_receiver_address'),
+            from: $this->email,
         );
     }
 

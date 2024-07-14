@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-{{ $name }},
-{{ $message }}
+{{ $name }},<br>
+{{ $content }}
 </body>
 </html>

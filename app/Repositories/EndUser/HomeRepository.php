@@ -3,6 +3,7 @@
 namespace App\Repositories\EndUser;
 
 use App\Interfaces\EndUser\HomeRepositoryInterface;
+use App\Mail\ContactMail;
 use App\Models\About;
 use App\Models\BannerSlider;
 use App\Models\Blog;
@@ -23,6 +24,7 @@ use Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
+use Mail;
 
 class HomeRepository implements HomeRepositoryInterface
 {
@@ -179,7 +181,8 @@ class HomeRepository implements HomeRepositoryInterface
             'message' => ['required','max:1000']
         ]);
 
-        
+        Mail::send(new ContactMail($request->name, $request->email, $request->subject, $request->message));
+        return response(['status' => 'success','message' => 'Message sent successfully']);
     }
     public function blogs(Request $request)
     {

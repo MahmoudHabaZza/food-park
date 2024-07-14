@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\ProductGalleryController;
 use App\Http\Controllers\Admin\ProductOptionController;
 use App\Http\Controllers\Admin\ProductSizeController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\ReservationTimeController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\TestimonialController;
@@ -176,6 +177,9 @@ Route::group([
         // Contact Us Routes
         Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
         Route::put('contact', [ContactController::class, 'update'])->name('contact.update');
+
+        // Reservation Time Routes
+        Route::resource('reservation-times',ReservationTimeController::class);
 
         // Settings Routes
         Route::group([

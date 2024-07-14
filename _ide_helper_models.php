@@ -685,6 +685,29 @@ namespace App\Models{
  * 
  *
  * @property int $id
+ * @property string $start_time
+ * @property string $end_time
+ * @property int $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|ReservationTime newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ReservationTime newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ReservationTime query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ReservationTime whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ReservationTime whereEndTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ReservationTime whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ReservationTime whereStartTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ReservationTime whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ReservationTime whereUpdatedAt($value)
+ */
+	class ReservationTime extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
  * @property string|null $key
  * @property string|null $value
  * @property \Illuminate\Support\Carbon|null $created_at

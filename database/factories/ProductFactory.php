@@ -21,7 +21,7 @@ class ProductFactory extends Factory
             //
             'name' => fake()->word(),
             'slug' => fake()->slug(),
-            'thumb_image' => 'uploads/avatar.png',
+            'thumb_image' => asset('assets/EndUser/images/brand_1.png'),
             // 'category_id' => Category::get()->random()->id,
             'category_id' => fn() => Category::inRandomOrder()->first()->id ,
             'short_description' => fake()->paragraph(),

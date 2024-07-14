@@ -175,6 +175,8 @@ Route::group([
             Route::get('/', 'index')->name('index');
             Route::put('/general-settings', 'updateGeneralSettings')->name('general-settings.update');
             Route::put('/pusher-settings', 'updatePusherSettings')->name('pusher-settings.update');
+            Route::put('/mail-settings', 'updateMailSettings')->name('mail-settings.update');
+
 
         });
 

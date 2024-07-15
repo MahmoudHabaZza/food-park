@@ -70,6 +70,9 @@ Route::controller(HomeController::class)->group(function () {
     // Contact
     Route::get('/contact', 'contact')->name('contact');
     Route::post('/contact', 'sendMessage')->name('contact.sendMessage');
+
+    // Reservation
+    Route::post('reservation','reservation')->name('reservation.store');
 });
 
 

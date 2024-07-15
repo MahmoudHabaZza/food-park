@@ -2,6 +2,7 @@
 
 namespace App\Repositories\EndUser;
 
+use App\Http\Requests\ReservationStoreRequest;
 use App\Interfaces\EndUser\HomeRepositoryInterface;
 use App\Mail\ContactMail;
 use App\Models\About;
@@ -16,6 +17,7 @@ use App\Models\Counter;
 use App\Models\Coupon;
 use App\Models\DailyOffer;
 use App\Models\Product;
+use App\Models\Reservation;
 use App\Models\SectionTitle;
 use App\Models\Slider;
 use App\Models\Testimonial;
@@ -183,6 +185,21 @@ class HomeRepository implements HomeRepositoryInterface
 
         Mail::send(new ContactMail($request->name, $request->email, $request->subject, $request->message));
         return response(['status' => 'success','message' => 'Message sent successfully']);
+    }
+
+    public function reservation(ReservationStoreRequest $request)
+    {
+        Reservation::create([
+            'reservation_id' => rand(1,99999),
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'date' => $request->date,
+            'reservation_time_id' => $request->time,
+            'persons' => $request->persons,
+            'status' => 'pending'
+        ]);
+
+        return response(['status' => 'success','message' => 'Reservation Sent successfully']);
     }
     public function blogs(Request $request)
     {

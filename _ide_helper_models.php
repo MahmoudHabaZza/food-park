@@ -685,6 +685,38 @@ namespace App\Models{
  * 
  *
  * @property int $id
+ * @property string $reservation_id
+ * @property string $name
+ * @property string $phone
+ * @property string $date
+ * @property int $reservation_time_id
+ * @property int $persons
+ * @property string $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\ReservationTime $reservationTime
+ * @method static \Illuminate\Database\Eloquent\Builder|Reservation newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Reservation newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Reservation query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Reservation whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Reservation whereDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Reservation whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Reservation whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Reservation wherePersons($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Reservation wherePhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Reservation whereReservationId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Reservation whereReservationTimeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Reservation whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Reservation whereUpdatedAt($value)
+ */
+	class Reservation extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
  * @property string $start_time
  * @property string $end_time
  * @property int $status

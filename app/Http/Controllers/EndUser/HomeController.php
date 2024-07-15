@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\EndUser;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ReservationStoreRequest;
 use App\Interfaces\EndUser\HomeRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -57,6 +58,10 @@ class HomeController extends Controller
     public function sendMessage(Request $request)
     {
         return $this->homeRepository->sendMessage($request);
+    }
+    public function reservation(ReservationStoreRequest $request)
+    {
+        return $this->homeRepository->reservation($request);
     }
     public function blogs(Request $request){
         return $this->homeRepository->blogs($request);

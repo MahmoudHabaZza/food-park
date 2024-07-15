@@ -132,22 +132,56 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="fp__reservation_form" action="{{  }}" method="POST">
+                    <form class="fp__reservation_form" action="{{ route('reservation.store') }}" method="POST">
                         @csrf
                         <input class="reservation_input" type="text" placeholder="Name" name="name">
                         <input class="reservation_input" type="text" placeholder="Phone" name="phone">
                         <input class="reservation_input" type="date" name="date">
                         <select class="reservation_input" id="select_js" name="time">
-                            <option disabled value="">select time</option>
+                            <option selected disabled value="">select time</option>
                             @foreach ($reservationTimes as $time)
                             <option value="{{ $time->id }}">{{ $time->start_time }} to {{ $time->end_time }}</option>
                             @endforeach
                         </select>
                         <input class="reservation_input" type="text" placeholder="Persons" name="persons">
-                        <button type="submit">book table</button>
+                        <button type="submit" class="submit_btn">book table</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@push('js')
+    <script>
+        $(document).ready(function(){
+            $('.fp__reservation_form').on('submit',function(e){
+                e.preventDefault();
+                let formData = $(this).serialize();
+                $.ajax({
+                    method:'POST',
+                    url:'{{ route("reservation.store") }}',
+                    data :formData,
+                    beforeSend:function(){
+                        $('.submit_btn').html(`<span class="spinner-border text-light"> </span>`);
+                        $('.submit_btn').attr('disabled',true);
+                    },
+                    success:function(response){
+                        toastr.success(response.message);
+                        $('.submit_btn').html(`Book A Table`);
+                        $('.submit_btn').attr('disabled',false);
+                        $('.fp__reservation_form').trigger('reset');
+                        $('#staticBackdrop').modal('hide');
+                    },
+                    error:function(xhr,status,error){
+                        $('.submit_btn').html(`Book A Table`);
+                        $('.submit_btn').attr('disabled',false);
+                        let errors = xhr.responseJSON.errors;
+                        $.each(errors,function(index,value){
+                            toastr.error(value);
+                        });
+                    },
+                })
+            })
+        })
+    </script>
+@endpush

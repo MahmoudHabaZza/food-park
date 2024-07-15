@@ -26,16 +26,20 @@ class ReservationDataTable extends DataTable
                 return $query->reservationTime->start_time .' To ' . $query->reservationTime->end_time;
             })
             ->addColumn('date',function($query){
-                return date('d-m-Y | h:i',strtotime($query->date));
+                return date('d F Y',strtotime($query->date));
             })
-            ->addColumn('status',function(){
-                $html = '<select class="form-control reservation_status">
-                    <option value="pending">Pending</option>
-                    <option value="approved">Approved</option>
-                    <option value="completed">Completed</option>
-                    <option value="canceled">Canceled</option>
+            ->addColumn('status',function($query){
+                $html = '<select class="form-control reservation_status" data-id='.$query->id.'>
+                    <option ' . ($query->status == 'pending' ? "selected" : "") . ' value="pending">Pending</option>
+                    <option ' . ($query->status == 'approved' ? "selected" : "") . ' value="approved">Approved</option>
+                    <option ' . ($query->status == 'completed' ? "selected" : ""). ' value="completed">Completed</option>
+                    <option ' . ($query->status == 'canceled' ? "selected" : "") . ' value="canceled">Canceled</option>
                 </select>';
                 return $html;
+            })
+            ->addColumn('action',function($query){
+            $delete = '<a href="' . route('admin.reservation.destroy', $query->id) . '" class="btn btn-danger delete-item fas fa-trash "></a>';
+            return $delete;
             })
             ->rawColumns(['action','status'])
             ->setRowId('id');

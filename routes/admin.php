@@ -130,7 +130,7 @@ Route::group([
             'controller' => ChatController::class,
             'prefix' => 'chat',
             'as' => 'chat.'
-        ],function(){
+        ], function () {
             Route::get('/', 'index')->name('index');
             Route::get('get/{senderId}', 'getChat')->name('get-chat');
             Route::post('send-message', 'sendMessage')->name('send-message');
@@ -180,11 +180,14 @@ Route::group([
         Route::put('contact', [ContactController::class, 'update'])->name('contact.update');
 
         // Reservation Time Routes
-        Route::resource('reservation-times',ReservationTimeController::class);
+        Route::resource('reservation-times', ReservationTimeController::class);
 
         // Reservation
-        Route::get('reservation',[ReservationController::class,'index'])->name('reservation.index');
-
+        Route::group(['controller' => ReservationController::class, 'prefix' => 'reservation', 'as' => 'reservation.', function () {
+            Route::get('/', 'index')->name('index');
+            Route::put('/status', 'updateStatus')->name('updateStatus');
+            Route::delete('/{id}', 'destroy')->name('destroy');
+        }]);
         // Settings Routes
         Route::group([
             'prefix' => 'setting',

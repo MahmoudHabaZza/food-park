@@ -18,4 +18,11 @@ class ReservationController extends Controller
     {
         return $this->reservationRepository->index($dataTable);
     }
+    public function updateStatus(Request $request){
+        return $this->reservationRepository->updateStatus($request);
+    }
+    public function destroy(string $id)
+    {
+        return $this->reservationRepository->destroy($id);
+    }
 }

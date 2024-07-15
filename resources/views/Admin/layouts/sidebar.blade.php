@@ -58,6 +58,8 @@
                     </li>
                 </ul>
             </li>
+            <li><a class="nav-link" href="{{ route('admin.news-letter.index') }}"><i class="far fa-square"></i>
+                    <span>News Letter</span></a></li>
             <li><a class="nav-link" href="{{ route('admin.setting.index') }}"><i class="far fa-square"></i>
                     <span>Settings</span></a></li>
             <li><a class="nav-link" href="{{ route('admin.chat.index') }}"><i class="far fa-square"></i>

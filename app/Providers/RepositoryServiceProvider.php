@@ -15,6 +15,7 @@ use App\Interfaces\Admin\CounterRepositoryInterface;
 use App\Interfaces\Admin\CouponRepositoryInterface;
 use App\Interfaces\Admin\DailyOfferRepositoryInterface;
 use App\Interfaces\Admin\DeliveryAreaRepositoryInterface;
+use App\Interfaces\Admin\NewsLetterRepositoryInterface;
 use App\Interfaces\Admin\OrderRepositoryInterface;
 use App\Interfaces\Admin\PaymentGatewaySettingRepositoryInterface;
 use App\Interfaces\Admin\ProductGalleryRepositoryInterface;
@@ -49,6 +50,7 @@ use App\Repositories\Admin\CounterRepository;
 use App\Repositories\Admin\CouponRepository;
 use App\Repositories\Admin\DailyOfferRepository;
 use App\Repositories\Admin\DeliveryAreaRepository;
+use App\Repositories\Admin\NewsLetterRepository;
 use App\Repositories\Admin\OrderRepository;
 use App\Repositories\Admin\PaymentGatewaySettingRepository;
 use App\Repositories\Admin\ProductGalleryRepository;
@@ -114,6 +116,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(ContactRepositoryInterface::class, ContactRepository::class);
         $this->app->bind(ReservationTimeRepositoryInterface::class, ReservationTimeRepository::class);
         $this->app->bind(ReservationRepositoryInterface::class, ReservationRepository::class);
+        $this->app->bind(NewsLetterRepositoryInterface::class, NewsLetterRepository::class);
     }
 
     /**

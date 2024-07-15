@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\DailyOfferController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DeliveryAreaController;
+use App\Http\Controllers\Admin\NewsLetterController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PaymentGatewaySettingController;
 use App\Http\Controllers\Admin\ProductController;
@@ -188,6 +189,12 @@ Route::group([
             Route::put('/status', 'updateStatus')->name('updateStatus');
             Route::delete('/{id}', 'destroy')->name('destroy');
         });
+
+        // newsLetter Routes
+        Route::get('newsLetter',[NewsLetterController::class,'index'])->name('news-letter.index');
+        Route::post('news-letter/send',[NewsLetterController::class,'sendNewsletter'])->name('news-letter.send');
+        Route::delete('news-letter/{id}',[NewsLetterController::class,'destroyEmail'])->name('news-letter.destroy');
+
         // Settings Routes
         Route::group([
             'prefix' => 'setting',

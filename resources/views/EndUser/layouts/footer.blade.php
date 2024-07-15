@@ -104,7 +104,7 @@
                         $('.subscribe_form')[0].reset();
                     },
                     error:function(xhr,status,error){
-                        errors = xhr.responseJSON.errors;
+                        let errors = xhr.responseJSON.errors;
                         $.each(errors, function(key,val){
                             toastr.error(val);
                         });

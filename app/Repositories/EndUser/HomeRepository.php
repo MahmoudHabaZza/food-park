@@ -20,6 +20,7 @@ use App\Models\Product;
 use App\Models\Reservation;
 use App\Models\SectionTitle;
 use App\Models\Slider;
+use App\Models\Subscriber;
 use App\Models\Testimonial;
 use App\Models\WhyChooseUs;
 use Auth;
@@ -211,7 +212,12 @@ class HomeRepository implements HomeRepositoryInterface
     }
     public function subscribeNewsLetter(Request $request)
     {
-        dd($request->all());
+        $request->validate([
+            'email' => ['required','email','max:255','unique:subscribers,email'],
+        ],['email.unique' => 'This Email is Already Subscribed']);
+
+        Subscriber::create(['email' => $request->email]);
+        return response(['status' => 'success','message' => 'Subscribed successfully']);    
     }
     public function blogs(Request $request)
     {

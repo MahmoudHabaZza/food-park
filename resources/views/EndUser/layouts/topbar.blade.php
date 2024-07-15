@@ -1,3 +1,6 @@
+@php
+    $social_links = \App\Models\SocialLink::where('status',1)->get();
+@endphp
 <div class="overlay-container d-none">
     <div class="overlay">
         <span class="loader"></span>
@@ -15,10 +18,9 @@
             </div>
             <div class="col-xl-6 col-md-4 d-none d-md-block">
                 <ul class="topbar_icon d-flex flex-wrap">
-                    <li><a href="#"><i class="fab fa-facebook-f"></i></a> </li>
-                    <li><a href="#"><i class="fab fa-twitter"></i></a> </li>
-                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a> </li>
-                    <li><a href="#"><i class="fab fa-behance"></i></a> </li>
+                    @foreach ($social_links as $social_link)
+                    <li><a href="{!! $social_link->link !!}"><i class="{{ $social_link->icon }}"></i></a> </li>
+                    @endforeach
                 </ul>
             </div>
         </div>

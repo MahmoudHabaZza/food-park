@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\Admin\ReservationTimeController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\SocialLinkController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\WhyChooseUsController;
 use App\Http\Controllers\Controller;
@@ -191,9 +192,14 @@ Route::group([
         });
 
         // newsLetter Routes
-        Route::get('newsLetter',[NewsLetterController::class,'index'])->name('news-letter.index');
-        Route::post('news-letter/send',[NewsLetterController::class,'sendNewsletter'])->name('news-letter.send');
-        Route::delete('news-letter/{id}',[NewsLetterController::class,'destroyEmail'])->name('news-letter.destroy');
+        Route::prefix('news-letter')->name('news-letter.')->controller(NewsLetterController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/send', 'sendNewsletter')->name('send');
+            Route::delete('/{id}', 'destroyEmail')->name('destroy');
+        });
+
+        // social links
+        Route::resource('social-links',SocialLinkController::class);
 
         // Settings Routes
         Route::group([

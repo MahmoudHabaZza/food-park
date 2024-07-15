@@ -27,6 +27,7 @@ use App\Interfaces\Admin\ReservationRepositoryInterface;
 use App\Interfaces\Admin\ReservationTimeRepositoryInterface;
 use App\Interfaces\Admin\SettingRepositoryInterface;
 use App\Interfaces\Admin\SliderRepositoryInterface;
+use App\Interfaces\Admin\SocialLinkRepositoryInterface;
 use App\Interfaces\Admin\TestimonialRepositoryInterface;
 use App\Interfaces\Admin\WhyChooseUsRepositoryInterface;
 use App\Interfaces\EndUser\AddressRepositoryInterface;
@@ -62,6 +63,7 @@ use App\Repositories\Admin\ReservationRepository;
 use App\Repositories\Admin\ReservationTimeRepository;
 use App\Repositories\Admin\SettingRepository;
 use App\Repositories\Admin\SliderRepository;
+use App\Repositories\Admin\SocialLinkRepository;
 use App\Repositories\Admin\TestimonialRepository;
 use App\Repositories\Admin\WhyChooseUsRepository;
 use App\Repositories\EndUser\AddressRepository;
@@ -117,6 +119,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(ReservationTimeRepositoryInterface::class, ReservationTimeRepository::class);
         $this->app->bind(ReservationRepositoryInterface::class, ReservationRepository::class);
         $this->app->bind(NewsLetterRepositoryInterface::class, NewsLetterRepository::class);
+        $this->app->bind(SocialLinkRepositoryInterface::class, SocialLinkRepository::class);
     }
 
     /**

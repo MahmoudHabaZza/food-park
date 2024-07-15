@@ -5,7 +5,8 @@
                 <div class="col-lg-4 col-sm-8 col-md-6">
                     <div class="fp__footer_content">
                         <a class="footer_logo" href="index.html">
-                            <img src="{{ asset('assets/EndUser') }}/images/footer_logo.png" alt="FoodPark" class="img-fluid w-100">
+                            <img src="{{ asset('assets/EndUser') }}/images/footer_logo.png" alt="FoodPark"
+                                class="img-fluid w-100">
                         </a>
                         <span>There are many variations of Lorem Ipsum available, but the majority have
                             suffered.</span>
@@ -49,15 +50,15 @@
                             <input type="text" placeholder="Subscribe" name="email">
                             <button type="submit" class="subscribe_btn">Subscribe</button>
                         </form>
+                        @php
+                            $social_links = \App\Models\SocialLink::where('status', 1)->get();
+                        @endphp
                         <div class="fp__footer_social_link">
                             <h5>follow us:</h5>
                             <ul class="d-flex flex-wrap">
-                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fab fa-behance"></i></a></li>
-                                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                                <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
+                                @foreach ($social_links as $social_link)
+                                    <li><a href="{!! $social_link->link !!}"><i class="{{ $social_link->icon }}"></i></a></li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -85,33 +86,35 @@
 </footer>
 @push('js')
     <script>
-        $(document).ready(function(){
-            $('.subscribe_form').on('submit',function(e){
+        $(document).ready(function() {
+            $('.subscribe_form').on('submit', function(e) {
                 e.preventDefault();
                 let formData = $(this).serialize();
                 $.ajax({
-                    method:'POST',
-                    url:'{{ route("subscribe-news-letter") }}',
-                    data:formData,
-                    beforeSend:function(){
-                        $('.subscribe_btn').html(`<span class="spinner-border spinner-border-sm" role="status"></span>`);
-                        $('.subscribe_btn').attr('disabled',true);
+                    method: 'POST',
+                    url: '{{ route('subscribe-news-letter') }}',
+                    data: formData,
+                    beforeSend: function() {
+                        $('.subscribe_btn').html(
+                            `<span class="spinner-border spinner-border-sm" role="status"></span>`
+                            );
+                        $('.subscribe_btn').attr('disabled', true);
                     },
-                    success:function(response){
+                    success: function(response) {
                         toastr.success(response.message);
                         $('.subscribe_btn').html(`Subscribe`);
-                        $('.subscribe_btn').attr('disabled',false);
+                        $('.subscribe_btn').attr('disabled', false);
                         $('.subscribe_form')[0].reset();
                     },
-                    error:function(xhr,status,error){
+                    error: function(xhr, status, error) {
                         let errors = xhr.responseJSON.errors;
-                        $.each(errors, function(key,val){
+                        $.each(errors, function(key, val) {
                             toastr.error(val);
                         });
                     },
-                    complete:function(){
+                    complete: function() {
                         $('.subscribe_btn').html(`Subscribe`);
-                        $('.subscribe_btn').attr('disabled',false);
+                        $('.subscribe_btn').attr('disabled', false);
                     }
 
                 });

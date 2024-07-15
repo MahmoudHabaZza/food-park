@@ -686,6 +686,7 @@ namespace App\Models{
  *
  * @property int $id
  * @property string $reservation_id
+ * @property int $user_id
  * @property string $name
  * @property string $phone
  * @property string $date
@@ -708,6 +709,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Reservation whereReservationTimeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Reservation whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Reservation whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Reservation whereUserId($value)
  */
 	class Reservation extends \Eloquent {}
 }

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Reservation extends Model
 {
     use HasFactory;
-    protected $fillable = ['reservation_id','name','phone','date', 'reservation_time_id','persons','status'];
+    protected $fillable = ['reservation_id','user_id','name','phone','date', 'reservation_time_id','persons','status'];
     public function reservationTime() : BelongsTo
     {
         return $this->belongsTo(ReservationTime::class,'reservation_time_id','id');

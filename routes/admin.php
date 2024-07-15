@@ -183,11 +183,11 @@ Route::group([
         Route::resource('reservation-times', ReservationTimeController::class);
 
         // Reservation
-        Route::group(['controller' => ReservationController::class, 'prefix' => 'reservation', 'as' => 'reservation.', function () {
+        Route::group(['controller' => ReservationController::class, 'prefix' => 'reservation', 'as' => 'reservation.'], function () {
             Route::get('/', 'index')->name('index');
             Route::put('/status', 'updateStatus')->name('updateStatus');
             Route::delete('/{id}', 'destroy')->name('destroy');
-        }]);
+        });
         // Settings Routes
         Route::group([
             'prefix' => 'setting',

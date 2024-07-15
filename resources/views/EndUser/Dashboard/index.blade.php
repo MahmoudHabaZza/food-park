@@ -4,8 +4,8 @@
 @endsection
 @section('content')
     <!--=============================
-                                                                BREADCRUMB START
-                                                            ==============================-->
+                                                                        BREADCRUMB START
+                                                                    ==============================-->
     <section class="fp__breadcrumb" style="background: url(images/counter_bg.jpg);">
         <div class="fp__breadcrumb_overlay">
             <div class="container">
@@ -20,13 +20,13 @@
         </div>
     </section>
     <!--=============================
-                                                                BREADCRUMB END
-                                                            ==============================-->
+                                                                        BREADCRUMB END
+                                                                    ==============================-->
 
 
     <!--=========================
-                                                                DASHBOARD START
-                                                            ==========================-->
+                                                                        DASHBOARD START
+                                                                    ==========================-->
     <section class="fp__dashboard mt_120 xs_mt_90 mb_100 xs_mb_70">
         <div class="container">
             <div class="fp__dashboard_area">
@@ -57,17 +57,25 @@
                                     aria-controls="v-pills-address" aria-selected="true"><span><i
                                             class="fas fa-user"></i></span>address</button>
 
+                                <button class="nav-link" id="v-pills-reservation-tab" data-bs-toggle="pill"
+                                    data-bs-target="#v-pills-reservation" type="button" role="tab"
+                                    aria-controls="v-pills-reservation" aria-selected="false"><span><i
+                                            class="fas fa-bags-shopping"></i></span> Reservations</button>
                                 <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill"
                                     data-bs-target="#v-pills-profile" type="button" role="tab"
                                     aria-controls="v-pills-profile" aria-selected="false"><span><i
                                             class="fas fa-bags-shopping"></i></span> Order</button>
                                 @php
-                                    @   $unseenMessages = \App\Models\Chat::where(['sender_id' => 1 , 'receiver_id' => @auth()->user()->id,'seen' => 0])->count();
+                                    @$unseenMessages = \App\Models\Chat::where([
+                                        'sender_id' => 1,
+                                        'receiver_id' => @auth()->user()->id,
+                                        'seen' => 0,
+                                    ])->count();
                                 @endphp
                                 <button class="nav-link fp_chat_message" id="v-pills-settings-tab" data-bs-toggle="pill"
                                     data-bs-target="#v-pills-settings" type="button" role="tab"
                                     aria-controls="v-pills-settings" aria-selected="false"><span><i
-                                    class="far fa-comment-dots"></i></span> Message
+                                            class="far fa-comment-dots"></i></span> Message
                                     <b class="unseen_messages_count">{{ $unseenMessages > 0 ? 1 : 0 }}</b>
                                 </button>
 
@@ -88,7 +96,8 @@
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
 
-                                    <button class="nav-link" onclick="event.preventDefault();this.closest('form').submit();"
+                                    <button class="nav-link"
+                                        onclick="event.preventDefault();this.closest('form').submit();"
                                         type="button"><span> <i class="fas fa-sign-out-alt"></i>
                                         </span> Logout</button>
                                 </form>
@@ -101,8 +110,10 @@
 
                                 @include('EndUser.Dashboard.Sections.personal-info-section')
                                 @include('EndUser.Dashboard.Sections.address-section')
+                                @include('EndUser.Dashboard.Sections.reservation-section')
                                 @include('EndUser.Dashboard.Sections.order-section')
                                 @include('EndUser.Dashboard.Sections.message-section')
+
 
 
 
@@ -548,8 +559,8 @@
     </div>
     <!-- CART POPUT END -->
     <!--=========================
-                                                                DASHBOARD END
-                                                            ==========================-->
+                                                                        DASHBOARD END
+                                                                    ==========================-->
 @endsection
 @push('js')
     <script>
@@ -560,7 +571,7 @@
 
                 $.ajax({
                     method: 'POST',
-                    url: '{{ route("profile.update.avatar") }}',
+                    url: '{{ route('profile.update.avatar') }}',
                     data: formData,
                     processData: false,
                     contentType: false,
@@ -582,6 +593,5 @@
 
 
         });
-
     </script>
 @endpush

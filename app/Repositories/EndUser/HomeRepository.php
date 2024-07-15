@@ -22,9 +22,11 @@ use App\Models\SectionTitle;
 use App\Models\Slider;
 use App\Models\Testimonial;
 use App\Models\WhyChooseUs;
+use Auth;
 use Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use Mail;
 
@@ -189,8 +191,14 @@ class HomeRepository implements HomeRepositoryInterface
 
     public function reservation(ReservationStoreRequest $request)
     {
+
+        if(!Auth::check()){
+            throw ValidationException::withMessages(['Please Login to Book A Table']);
+        }
+
         Reservation::create([
             'reservation_id' => rand(1,99999),
+            'user_id' => auth()->user()->id,
             'name' => $request->name,
             'phone' => $request->phone,
             'date' => $request->date,

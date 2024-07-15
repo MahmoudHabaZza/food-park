@@ -209,6 +209,10 @@ class HomeRepository implements HomeRepositoryInterface
 
         return response(['status' => 'success','message' => 'Reservation Sent successfully']);
     }
+    public function subscribeNewsLetter(Request $request)
+    {
+        dd($request->all());
+    }
     public function blogs(Request $request)
     {
         $blogs = Blog::withCount(['comments' => function ($query) {

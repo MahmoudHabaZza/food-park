@@ -73,6 +73,9 @@ Route::controller(HomeController::class)->group(function () {
 
     // Reservation
     Route::post('reservation','reservation')->name('reservation.store');
+
+    // Subscribe News Letter
+    Route::post('subscribe-news-letter','subscribeNewsLetter')->name('subscribe-news-letter');
 });
 
 

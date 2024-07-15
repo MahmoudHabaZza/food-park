@@ -18,6 +18,7 @@ interface HomeRepositoryInterface
     public function contact();
     public function sendMessage(Request $request);
     public function reservation(ReservationStoreRequest $request);
+    public function subscribeNewsLetter(Request $request);
     public function blogs(Request $request);
     public function blogDetails(string $slug);
     public function blogCommentStore(Request $request,string $blogId);

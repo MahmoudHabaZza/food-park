@@ -63,6 +63,10 @@ class HomeController extends Controller
     {
         return $this->homeRepository->reservation($request);
     }
+    public function subscribeNewsLetter(Request $request)
+    {
+        return $this->homeRepository->subscribeNewsLetter($request);
+    }
     public function blogs(Request $request){
         return $this->homeRepository->blogs($request);
     }

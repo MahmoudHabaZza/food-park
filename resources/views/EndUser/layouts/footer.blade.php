@@ -44,9 +44,10 @@
                 <div class="col-lg-3 col-sm-8 col-md-6 order-lg-4">
                     <div class="fp__footer_content">
                         <h3>subscribe</h3>
-                        <form>
-                            <input type="text" placeholder="Subscribe">
-                            <button>Subscribe</button>
+                        <form class="subscribe_form">
+                            @csrf
+                            <input type="text" placeholder="Subscribe" name="email">
+                            <button type="submit" class="subscribe_btn">Subscribe</button>
                         </form>
                         <div class="fp__footer_social_link">
                             <h5>follow us:</h5>
@@ -82,3 +83,39 @@
         </div>
     </div>
 </footer>
+@push('js')
+    <script>
+        $(document).ready(function(){
+            $('.subscribe_form').on('submit',function(e){
+                e.preventDefault();
+                let formData = $(this).serialize();
+                $.ajax({
+                    method:'POST',
+                    url:'{{ route("subscribe-news-letter") }}',
+                    data:formData,
+                    beforeSend:function(){
+                        $('.subscribe_btn').html(`<span class="spinner-border spinner-border-sm" role="status"></span>`);
+                        $('.subscribe_btn').attr('disabled',true);
+                    },
+                    success:function(response){
+                        toastr.success(response.message);
+                        $('.subscribe_btn').html(`Subscribe`);
+                        $('.subscribe_btn').attr('disabled',false);
+                        $('.subscribe_form')[0].reset();
+                    },
+                    error:function(xhr,status,error){
+                        errors = xhr.responseJSON.errors;
+                        $.each(errors, function(key,val){
+                            toastr.error(val);
+                        });
+                    },
+                    complete:function(){
+                        $('.subscribe_btn').html(`Subscribe`);
+                        $('.subscribe_btn').attr('disabled',false);
+                    }
+
+                });
+            })
+        })
+    </script>
+@endpush

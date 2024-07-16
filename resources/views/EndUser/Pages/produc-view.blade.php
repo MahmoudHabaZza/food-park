@@ -233,6 +233,7 @@
 
                                         </div>
                                         <div class="col-lg-4">
+                                            @auth
                                             <div class="fp__post_review">
                                                 <h4>write a Review</h4>
                                                 <form action="{{ route('product.product-review.store') }}" method="POST">
@@ -258,6 +259,11 @@
                                                     </div>
                                                 </form>
                                             </div>
+                                            @else
+                                            <div class="fp__post_review">
+                                            <div class="alert alert-warning text-center">Please Login To Add Review</div>
+                                            </div>
+                                            @endauth
                                         </div>
                                     </div>
                                 </div>

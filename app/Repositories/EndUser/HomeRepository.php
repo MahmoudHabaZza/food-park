@@ -17,6 +17,7 @@ use App\Models\Counter;
 use App\Models\Coupon;
 use App\Models\DailyOffer;
 use App\Models\Product;
+use App\Models\ProductRating;
 use App\Models\Reservation;
 use App\Models\SectionTitle;
 use App\Models\Slider;
@@ -106,11 +107,6 @@ class HomeRepository implements HomeRepositoryInterface
             'product_id' => ['required','integer']
         ]);
 
-        if(!Auth::check())
-        {
-            throw ValidationException::withMessages(['Please Login To Make Review']);
-        }
-
         $user = Auth::user();
 
         if ($user) {
@@ -128,6 +124,23 @@ class HomeRepository implements HomeRepositoryInterface
         {
             throw ValidationException::withMessages(['Your Must Buy This product to make a review']);
         }
+
+        $alreadyReviewed = ProductRating::where(['user_id' => $user->id,'product_id' => $request->product_id])->exists();
+        if($alreadyReviewed)
+        {
+            throw ValidationException::withMessages(['You Already Reviewed This Product']);
+        }
+
+        ProductRating::create([
+            'user_id' => $user->id,
+            'product_id' => $request->product_id,
+            'rating' => $request->rating,
+           'review' => $request->review,
+           'status' => 0
+        ]);
+
+        toastr()->success('Review Added Successfully and waiting to approved');
+        return redirect()->back();
 
 
     }

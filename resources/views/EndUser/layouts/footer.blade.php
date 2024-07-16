@@ -1,6 +1,8 @@
 @php
     $footer_info = \App\Models\FooterInfo::first();
     $footerMenuOne = Menu::getByName('footer_menu_one');
+    $footerMenuTwo = Menu::getByName('footer_menu_two');
+    $footerMenuThree = Menu::getByName('footer_menu_three');
 @endphp
 <footer>
     <div class="footer_overlay pt_100 xs_pt_70 pb_100 xs_pb_70">
@@ -44,11 +46,9 @@
                     <div class="fp__footer_content">
                         <h3>Help Link</h3>
                         <ul>
-                            <li><a href="#">Terms And Conditions</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Refund Policy</a></li>
-                            <li><a href="#">FAQ</a></li>
-                            <li><a href="#">contact</a></li>
+                            @foreach ($footerMenuTwo as $menuItem)
+                            <li><a href="{{ $menuItem['link'] }}">{{ $menuItem['label'] }}</a></li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -84,10 +84,9 @@
                     <div class="fp__footer_bottom_text d-flex flex-wrap justify-content-between">
                         <p>{{ @$footer_info->copyright }}</p>
                         <ul class="d-flex flex-wrap">
-                            <li><a href="#">FAQs</a></li>
-                            <li><a href="#">payment</a></li>
-                            <li><a href="#">settings</a></li>
-                            <li><a href="#">privacy policy</a></li>
+                            @foreach ($footerMenuThree as $menuItem)
+                            <li><a href="{{ $menuItem['link'] }}">{{ $menuItem['label'] }}</a></li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>

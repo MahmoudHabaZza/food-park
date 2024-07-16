@@ -50,23 +50,38 @@ $currentUrl = url()->current();
                                                                 <div class="customlinkdiv" id="customlinkdiv">
                                                                     <p id="menu-item-url-wrap">
                                                                         <label class="howto" for="custom-menu-item-url">
-                                                                            <span>URL</span>&nbsp;&nbsp;&nbsp;
-                                                                            <input id="custom-menu-item-url" name="url"
-                                                                                   type="text"
-                                                                                   class="menu-item-textbox "
-                                                                                   placeholder="URL">
+                                                                            <span>Pages</span>&nbsp;&nbsp;&nbsp;
                                                                         </label>
+                                                                        <select name="default_pages"  class="form-control default_pages">
+                                                                            <option value="" selected disabled>Select Page</option>
+                                                                            <option value="Home" data-url="/">Home</option>
+                                                                            <option value="About" data-url="/about">About</option>
+                                                                            <option value="Contact" data-url="/contact">Contact</option>
+                                                                            <option value="Testimonials" data-url="/testimonials">Testimonials</option>
+                                                                            <option value="Chefs" data-url="/chefs">Chefs</option>
+                                                                            <option value="Blogs" data-url="/blogs">Blogs</option>
+                                                                            <option value="Home" data-url="/">Home</option>
+                                                                        </select>
+                                                                    </p>
+                                                                    <p id="menu-item-url-wrap">
+                                                                        <label class="howto" for="custom-menu-item-url">
+                                                                            <span>URL</span>&nbsp;&nbsp;&nbsp;
+                                                                        </label>
+                                                                        <input id="custom-menu-item-url" name="url"
+                                                                               type="text"
+                                                                               class="form-control "
+                                                                               placeholder="URL">
                                                                     </p>
 
                                                                     <p id="menu-item-name-wrap">
                                                                         <label class="howto"
                                                                                for="custom-menu-item-name">
                                                                             <span>@lang("menu-builder::messages.label")</span>&nbsp;
-                                                                            <input id="custom-menu-item-name"
-                                                                                   name="label" type="text"
-                                                                                   class="regular-text menu-item-textbox input-with-default-title"
-                                                                                   title="@lang("menu-builder::messages.menu_label")">
                                                                         </label>
+                                                                        <input id="custom-menu-item-name"
+                                                                               name="label" type="text"
+                                                                               class="regular-text form-control input-with-default-title text-dark"
+                                                                               title="@lang("menu-builder::messages.menu_label")">
                                                                     </p>
 
                                                                     @if(!empty($roles))

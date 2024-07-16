@@ -1,3 +1,6 @@
+@php
+    $main_menu = Menu::getByName('main_menu');
+@endphp
 <nav class="navbar navbar-expand-lg main_menu">
     <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}">
@@ -9,43 +12,23 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav m-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ route('home') }}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="about.html">about</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="menu.html">menu</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('chef.index') }}">chefs</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">pages <i class="far fa-angle-down"></i></a>
-                    <ul class="droap_menu">
-                        <li><a href="menu_details.html">menu details</a></li>
-                        <li><a href="blog_details.html">blog details</a></li>
-                        <li><a href="cart_view.html">cart view</a></li>
-                        <li><a href="check_out.html">checkout</a></li>
-                        <li><a href="payment.html">payment</a></li>
-                        <li><a href="{{ route('testimonial.index') }}">testimonial</a></li>
-                        <li><a href="search_menu.html">search result</a></li>
-                        <li><a href="404.html">404/Error</a></li>
-                        <li><a href="faq.html">FAQs</a></li>
-                        <li><a href="sign_in.html">sign in</a></li>
-                        <li><a href="sign_up.html">sign up</a></li>
-                        <li><a href="forgot_password.html">forgot password</a></li>
-                        <li><a href="privacy_policy.html">privacy policy</a></li>
-                        <li><a href="terms_condition.html">terms and condition</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="blogs.html">blog</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contact.html">contact</a>
-                </li>
+                @foreach ($main_menu as $menuItem)
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{{ $menuItem['link'] }}">{{ $menuItem['label'] }}
+                            @if ($menuItem['child'])
+                            <i class="far fa-angle-down"></i>
+                            @endif
+                        </a>
+
+                        @if ($menuItem['child'])
+                            <ul class="droap_menu">
+                                @foreach ($menuItem['child'] as $childMenuItem)
+                                    <li><a href="{{ $childMenuItem['link'] }}">{{ $childMenuItem['label'] }}</a></li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    </li>
+                @endforeach
             </ul>
             <ul class="menu_icon d-flex flex-wrap">
                 <li>
@@ -63,7 +46,11 @@
                             class="cart_count">{{ count(Cart::content()) }}</span></a>
                 </li>
                 @php
-                    @$unseenMessages = \App\Models\Chat::where(['sender_id' => 1 , 'receiver_id' => @auth()->user()->id,'seen' => 0])->count();
+                    @$unseenMessages = \App\Models\Chat::where([
+                        'sender_id' => 1,
+                        'receiver_id' => @auth()->user()->id,
+                        'seen' => 0,
+                    ])->count();
                 @endphp
                 <li>
                     <a href="javascript:;" class="message_icon">
@@ -120,7 +107,7 @@
     </div>
 </div>
 @php
-    $reservationTimes = \App\Models\ReservationTime::where('status',1)->get();
+    $reservationTimes = \App\Models\ReservationTime::where('status', 1)->get();
 @endphp
 <div class="fp__reservation">
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -140,7 +127,8 @@
                         <select class="reservation_input" id="select_js" name="time">
                             <option selected disabled value="">select time</option>
                             @foreach ($reservationTimes as $time)
-                            <option value="{{ $time->id }}">{{ $time->start_time }} to {{ $time->end_time }}</option>
+                                <option value="{{ $time->id }}">{{ $time->start_time }} to {{ $time->end_time }}
+                                </option>
                             @endforeach
                         </select>
                         <input class="reservation_input" type="text" placeholder="Persons" name="persons">
@@ -153,30 +141,31 @@
 </div>
 @push('js')
     <script>
-        $(document).ready(function(){
-            $('.fp__reservation_form').on('submit',function(e){
+        $(document).ready(function() {
+            $('.fp__reservation_form').on('submit', function(e) {
                 e.preventDefault();
                 let formData = $(this).serialize();
                 $.ajax({
-                    method:'POST',
-                    url:'{{ route("reservation.store") }}',
-                    data :formData,
-                    beforeSend:function(){
-                        $('.submit_btn').html(`<span class="spinner-border text-light"> </span>`);
-                        $('.submit_btn').attr('disabled',true);
+                    method: 'POST',
+                    url: '{{ route('reservation.store') }}',
+                    data: formData,
+                    beforeSend: function() {
+                        $('.submit_btn').html(
+                            `<span class="spinner-border text-light"> </span>`);
+                        $('.submit_btn').attr('disabled', true);
                     },
-                    success:function(response){
+                    success: function(response) {
                         toastr.success(response.message);
                         $('.submit_btn').html(`Book A Table`);
-                        $('.submit_btn').attr('disabled',false);
+                        $('.submit_btn').attr('disabled', false);
                         $('.fp__reservation_form').trigger('reset');
                         $('#staticBackdrop').modal('hide');
                     },
-                    error:function(xhr,status,error){
+                    error: function(xhr, status, error) {
                         $('.submit_btn').html(`Book A Table`);
-                        $('.submit_btn').attr('disabled',false);
+                        $('.submit_btn').attr('disabled', false);
                         let errors = xhr.responseJSON.errors;
-                        $.each(errors,function(index,value){
+                        $.each(errors, function(index, value) {
                             toastr.error(value);
                         });
                     },

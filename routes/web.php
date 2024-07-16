@@ -7,6 +7,7 @@ use App\Http\Controllers\EndUser\AddressController;
 use App\Http\Controllers\EndUser\CartController;
 use App\Http\Controllers\EndUser\ChatController;
 use App\Http\Controllers\EndUser\CheckoutController;
+use App\Http\Controllers\EndUser\CustomPageController;
 use App\Http\Controllers\EndUser\DashboardController as EndUserDashboardController;
 use App\Http\Controllers\EndUser\HomeController;
 use App\Http\Controllers\EndUser\PaymentController;
@@ -76,6 +77,9 @@ Route::controller(HomeController::class)->group(function () {
 
     // Subscribe News Letter
     Route::post('subscribe-news-letter','subscribeNewsLetter')->name('subscribe-news-letter');
+
+    // Custom Page Routes
+    Route::get('page/{slug}',CustomPageController::class)->name('custom-page');
 });
 
 

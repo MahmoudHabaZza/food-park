@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\FooterInfoController;
 use App\Http\Controllers\Admin\MenuBuilderController;
 use App\Http\Controllers\Admin\NewsLetterController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\PageBuilderController;
 use App\Http\Controllers\Admin\PaymentGatewaySettingController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductGalleryController;
@@ -190,6 +191,9 @@ Route::group([
 
         // Menu Builder Controller
         Route::get('menu-builder',[MenuBuilderController::class,'index'])->name('menu-builder.index');
+
+        // Page Builder Routes
+        Route::resource('page-builder',PageBuilderController::class);
 
         // Reservation Time Routes
         Route::resource('reservation-times', ReservationTimeController::class);

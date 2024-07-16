@@ -18,6 +18,7 @@ use App\Interfaces\Admin\DeliveryAreaRepositoryInterface;
 use App\Interfaces\Admin\FooterInfoRepositoryInterface;
 use App\Interfaces\Admin\NewsLetterRepositoryInterface;
 use App\Interfaces\Admin\OrderRepositoryInterface;
+use App\Interfaces\Admin\PageBuilderRepositoryInterface;
 use App\Interfaces\Admin\PaymentGatewaySettingRepositoryInterface;
 use App\Interfaces\Admin\ProductGalleryRepositoryInterface;
 use App\Interfaces\Admin\ProductOptionRepositoryInterface;
@@ -55,6 +56,7 @@ use App\Repositories\Admin\DeliveryAreaRepository;
 use App\Repositories\Admin\FooterInfoRepository;
 use App\Repositories\Admin\NewsLetterRepository;
 use App\Repositories\Admin\OrderRepository;
+use App\Repositories\Admin\PageBuilderRepository;
 use App\Repositories\Admin\PaymentGatewaySettingRepository;
 use App\Repositories\Admin\ProductGalleryRepository;
 use App\Repositories\Admin\ProductOptionRepository;
@@ -123,6 +125,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(NewsLetterRepositoryInterface::class, NewsLetterRepository::class);
         $this->app->bind(SocialLinkRepositoryInterface::class, SocialLinkRepository::class);
         $this->app->bind(FooterInfoRepositoryInterface::class, FooterInfoRepository::class);
+        $this->app->bind(PageBuilderRepositoryInterface::class, PageBuilderRepository::class);
     }
 
     /**

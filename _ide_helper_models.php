@@ -438,7 +438,7 @@ namespace App\Models{
  *
  * @property int $id
  * @property string|null $short_description
- * @property string|null $description
+ * @property string|null $address
  * @property string|null $email
  * @property string|null $phone
  * @property string|null $copyright
@@ -447,9 +447,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|FooterInfo newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|FooterInfo newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|FooterInfo query()
+ * @method static \Illuminate\Database\Eloquent\Builder|FooterInfo whereAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FooterInfo whereCopyright($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FooterInfo whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|FooterInfo whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FooterInfo whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FooterInfo whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FooterInfo wherePhone($value)
@@ -564,6 +564,31 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|OrderPlacedNotification whereUpdatedAt($value)
  */
 	class OrderPlacedNotification extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $slug
+ * @property string $content
+ * @property int $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|PageBuilder newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PageBuilder newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PageBuilder query()
+ * @method static \Illuminate\Database\Eloquent\Builder|PageBuilder whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PageBuilder whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PageBuilder whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PageBuilder whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PageBuilder whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PageBuilder whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PageBuilder whereUpdatedAt($value)
+ */
+	class PageBuilder extends \Eloquent {}
 }
 
 namespace App\Models{

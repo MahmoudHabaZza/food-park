@@ -6869,3 +6869,14 @@ CHECKOUT PAGE START
     border-color: var(--colorPrimary);
     color: var(--colorWhite)
 }
+
+#rate-select {
+    width: 100%;
+    padding: 12px 20px;
+    outline: none;
+    resize: none;
+    border: 1px solid #eee;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 300;
+}

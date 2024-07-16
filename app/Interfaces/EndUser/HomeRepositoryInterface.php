@@ -10,6 +10,7 @@ interface HomeRepositoryInterface
     public function index();
     public function showProduct(string $slug);
     public function loadProductModal($productId);
+    public function productReviewStore(Request $request);
     public function applyCoupon(Request $request);
     public function removeCoupon();
     public function chef();

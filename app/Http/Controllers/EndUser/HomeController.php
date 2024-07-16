@@ -33,6 +33,11 @@ class HomeController extends Controller
         return $this->homeRepository->loadProductModal($productId);
     }
 
+    public function productReviewStore(Request $request)
+    {
+        return $this->homeRepository->productReviewStore($request);
+    }
+
     public function applyCoupon(Request $request) {
         return $this->homeRepository->applyCoupon($request);
     }

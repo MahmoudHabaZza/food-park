@@ -714,6 +714,35 @@ namespace App\Models{
  * 
  *
  * @property int $id
+ * @property int $user_id
+ * @property int $product_id
+ * @property int $order_id
+ * @property int $rating
+ * @property string $review
+ * @property int $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductRating newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductRating newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductRating query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductRating whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductRating whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductRating whereOrderId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductRating whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductRating whereRating($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductRating whereReview($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductRating whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductRating whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductRating whereUserId($value)
+ */
+	class ProductRating extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
  * @property string $name
  * @property float $price
  * @property int $product_id
@@ -954,6 +983,8 @@ namespace App\Models{
  * @property-read int|null $chats_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Order> $orders
+ * @property-read int|null $orders_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])

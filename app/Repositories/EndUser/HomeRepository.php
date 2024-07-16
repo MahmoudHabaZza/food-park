@@ -98,6 +98,40 @@ class HomeRepository implements HomeRepositoryInterface
         // render() => to ensure that we have html response
     }
 
+    public function productReviewStore(Request $request)
+    {
+        $request->validate([
+            'rating' => ['required', 'integer','min:1','max:5'],
+            'review' => ['required','min:10','max:500'],
+            'product_id' => ['required','integer']
+        ]);
+
+        if(!Auth::check())
+        {
+            throw ValidationException::withMessages(['Please Login To Make Review']);
+        }
+
+        $user = Auth::user();
+
+        if ($user) {
+            $hasPurchased = $user->orders()
+            ->where('order_status', 'delivered')
+            ->whereHas('items', function ($query) use ($request) {
+                $query->where('product_id', $request->product_id);
+            })
+            ->exists();
+        } else {
+            $hasPurchased = false;
+        }
+
+        if(!$hasPurchased)
+        {
+            throw ValidationException::withMessages(['Your Must Buy This product to make a review']);
+        }
+
+
+    }
+
     public function applyCoupon(Request $request)
     {
         if (Cart::content()->count() > 0) {
@@ -217,7 +251,7 @@ class HomeRepository implements HomeRepositoryInterface
         ],['email.unique' => 'This Email is Already Subscribed']);
 
         Subscriber::create(['email' => $request->email]);
-        return response(['status' => 'success','message' => 'Subscribed successfully']);    
+        return response(['status' => 'success','message' => 'Subscribed successfully']);
     }
     public function blogs(Request $request)
     {

@@ -3,6 +3,7 @@
 use App\Events\RTOrderPlacedNotificationEvent;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\EndUser\AddressController;
 use App\Http\Controllers\EndUser\CartController;
 use App\Http\Controllers\EndUser\ChatController;
@@ -46,6 +47,8 @@ Route::controller(HomeController::class)->group(function () {
     Route::prefix('product')->as('product.')->group(function () {
         Route::get('{slug}', 'showProduct')->name('show');
         Route::get('load-modal/{productId}', 'loadProductModal')->name('load-modal');
+        // Product Review
+        Route::post('product-review','productReviewStore')->name('product-review.store');
     });
 
     // Cart Coupon Routes
@@ -78,8 +81,12 @@ Route::controller(HomeController::class)->group(function () {
     // Subscribe News Letter
     Route::post('subscribe-news-letter','subscribeNewsLetter')->name('subscribe-news-letter');
 
+
+
     // Custom Page Routes
     Route::get('page/{slug}',CustomPageController::class)->name('custom-page');
+
+
 });
 
 

@@ -55,15 +55,15 @@
                 <div class="col-lg-7 wow fadeInUp" data-wow-duration="1s">
                     <div class="fp__menu_details_text">
                         <h2>{{ $product->name }}</h2>
+                        @if ($product->product_ratings_count > 0)
                         <p class="rating">
+                            @for ($i =1;$i <= $product->product_ratings_avg_rating;$i++)
                             <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <i class="far fa-star"></i>
-                            <span>(201)</span>
+                            @endfor
+                            <span>({{ $product->product_ratings_count }})</span>
                         </p>
-                        <h3 class="price">
+                        @endif
+                        <h3 class="price mt-4">
                             @if ($product->offer_price > 0)
                                 {{ currencyPosition($product->offer_price) }}
                                 <del>{{ currencyPosition($product->price) }}</del>

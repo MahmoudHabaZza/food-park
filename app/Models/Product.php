@@ -28,4 +28,8 @@ class Product extends Model
     {
         return $this->hasMany(ProductSize::class);
     }
+    public function productRatings() : HasMany
+    {
+        return $this->hasMany(ProductRating::class);
+    }
 }

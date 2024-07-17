@@ -85,7 +85,10 @@ class HomeRepository implements HomeRepositoryInterface
 
     public function showProduct(string $slug): View
     {
-        $product = Product::with(['images', 'sizes', 'options'])->where(['slug' => $slug, 'status' => 1])->firstOrFail();
+        $product = Product::with(['images', 'sizes', 'options'])->where(['slug' => $slug, 'status' => 1])
+            ->withAvg('productRatings', 'rating')
+            ->withCount('productRatings')
+            ->firstOrFail();
         $relatedProducts = Product::where('category_id', $product->category_id)
             ->where('id', '!=', $product->id)->take(8)->latest()->get();
 

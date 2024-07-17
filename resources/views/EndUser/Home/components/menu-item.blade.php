@@ -39,9 +39,11 @@
                     ])
                         ->orderBy('id', 'DESC')
                         ->take(8) // Fetch Only 8 Elements
+                        ->withAvg('productRatings','rating')
+                        ->withCount('productRatings')
                         ->get();
-
                 @endphp
+
                 @foreach ($products as $product)
                     <div class="col-xl-3 col-sm-6 col-lg-4 {{ $category->slug }} wow fadeInUp" data-wow-duration="1s">
                         <div class="fp__menu_item">
@@ -52,12 +54,10 @@
                             </div>
                             <div class="fp__menu_item_text">
                                 <p class="rating">
+                                    @for ($i =1;$i <= $product->product_ratings_avg_rating;$i++)
                                     <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                    <i class="far fa-star"></i>
-                                    <span>145</span>
+                                    @endfor
+                                    <span>{{ $product->product_ratings_count > 0 ? $product->product_ratings_count : '' }}</span>
                                 </p>
                                 <a class="title"
                                     href="{{ route('product.show', $product->slug) }}">{{ $product->name }}</a>

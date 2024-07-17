@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Interfaces\Admin\AboutRepositoryInterface;
+use App\Interfaces\Admin\AdminManagementRepositoryInterface;
 use App\Interfaces\Admin\BannerSliderRepositoryInterface;
 use App\Interfaces\Admin\BlogCategoryRepositoryInterface;
 use App\Interfaces\Admin\BlogRepositoryInterface;
@@ -43,6 +44,7 @@ use App\Interfaces\EndUser\PaymentRepositoryInterface;
 use App\Interfaces\EndUser\ProfileRepositoryInterface as EndUserProfileRepositoryInterface;
 use App\Interfaces\EndUser\WithListRepositoryInterface;
 use App\Repositories\Admin\AboutRepository;
+use App\Repositories\Admin\AdminManagementRepository;
 use App\Repositories\Admin\BannerSliderRepository;
 use App\Repositories\Admin\BlogCategoryRepository;
 use App\Repositories\Admin\BlogRepository;
@@ -132,6 +134,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(PageBuilderRepositoryInterface::class, PageBuilderRepository::class);
         $this->app->bind(ProductRatingRepositoryInterface::class, ProductRatingRepository::class);
         $this->app->bind(WithListRepositoryInterface::class, WithListRepository::class);
+        $this->app->bind(AdminManagementRepositoryInterface::class, AdminManagementRepository::class);
     }
 
     /**

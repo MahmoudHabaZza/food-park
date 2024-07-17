@@ -67,8 +67,10 @@
                     <span>Footer Info</span></a></li>
             <li><a class="nav-link" href="{{ route('admin.setting.index') }}"><i class="far fa-square"></i>
                     <span>Settings</span></a></li>
-            <li><a class="nav-link" href="{{ route('admin.chat.index') }}"><i class="far fa-square"></i>
-                    <span>Messages</span></a></li>
+            @if (auth()->user()->id == 1)
+                <li><a class="nav-link" href="{{ route('admin.chat.index') }}"><i class="far fa-square"></i>
+                        <span>Messages</span></a></li>
+            @endif
             <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
                     <span>Blog</span></a>
@@ -79,7 +81,8 @@
                 </ul>
             </li>
             <li class="dropdown">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
+                        class="fas fa-columns"></i>
                     <span>Pages</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ route('admin.page-builder.index') }}">Custom Page</a></li>
@@ -88,10 +91,12 @@
                 </ul>
             </li>
             <li class="dropdown">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
+                        class="fas fa-columns"></i>
                     <span>Manage Reservations</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="{{ route('admin.reservation-times.index') }}">Reservation Times</a></li>
+                    <li><a class="nav-link" href="{{ route('admin.reservation-times.index') }}">Reservation Times</a>
+                    </li>
                 </ul>
             </li>
             {{-- <li class="dropdown">

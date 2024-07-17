@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\Admin\AdminManagementController;
 use App\Http\Controllers\Admin\BannderSliderController;
 use App\Http\Controllers\Admin\BannerSliderController;
 use App\Http\Controllers\Admin\BlogCategoryController;
@@ -135,7 +136,8 @@ Route::group([
         Route::group([
             'controller' => ChatController::class,
             'prefix' => 'chat',
-            'as' => 'chat.'
+            'as' => 'chat.',
+            'middleware' => 'superAdmin'
         ], function () {
             Route::get('/', 'index')->name('index');
             Route::get('get/{senderId}', 'getChat')->name('get-chat');
@@ -222,6 +224,9 @@ Route::group([
         // social links
         Route::resource('social-links',SocialLinkController::class);
 
+        // Admin Management Routes
+        Route::resource('admin-management',AdminManagementController::class)->middleware('superAdmin');
+
         // Settings Routes
         Route::group([
             'prefix' => 'setting',
@@ -242,4 +247,6 @@ Route::group([
             Route::put('razorpay-settings-update', 'razorpaySettingUpdate')->name('razorpay.settings.update');
         });
     });
+
+
 });

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 interface HomeRepositoryInterface
 {
     public function index();
-    public function allProducts();
+    public function allProducts(Request $request);
     public function showProduct(string $slug);
     public function loadProductModal($productId);
     public function productReviewStore(Request $request);

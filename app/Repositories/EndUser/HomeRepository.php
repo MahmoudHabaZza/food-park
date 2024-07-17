@@ -83,14 +83,30 @@ class HomeRepository implements HomeRepositoryInterface
         return SectionTitle::whereIn('key', $keys)->pluck('value', 'key');
     }
 
-    public function allProducts()
+    public function allProducts(Request $request)
     {
-        $products = Product::with('category')->where('status',1)
-            ->withAvg('productRatings','rating')
+        $categories = Category::where('status',1)->get();
+        $products = Product::with('category')->where('status',1);
+
+
+        if($request->has('search') && $request->filled('search'))
+        {
+            $products->where(function($query)use ($request){
+                $query->where('name','LIKE','%'.$request->search.'%')
+                    ->orWhere('long_description','LIKE','%'.$request->search.'%');
+            });
+
+        }
+        if($request->has('category') && $request->filled('category'))
+        {
+            $products->whereHas('category',function($query)use ($request){
+                $query->where('slug',$request->category);
+            });
+        }
+        $products = $products->withAvg('productRatings','rating')
             ->withCount('productRatings')
             ->orderByDesc('created_at')
             ->paginate(9);
-        $categories = Category::where('status',1)->get();
         return view('EndUser.Pages.products',compact('products','categories'));
     }
 

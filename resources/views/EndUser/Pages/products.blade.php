@@ -1,6 +1,6 @@
 @extends('EndUser.layouts.master')
 @section('title')
-    Blogs
+    Products
 @endsection
 @section('content')
     <!--=============================
@@ -40,7 +40,7 @@
     </div>
     <section class="fp__blog_page fp__blog2 mt_120 xs_mt_65 mb_100 xs_mb_70">
         <div class="container">
-            <form class="fp__search_menu_form mb-4" method="GET" action="{{ route('blogs.index') }}">
+            <form class="fp__search_menu_form mb-4" method="GET" action="{{ route('product.index') }}">
                 <div class="row">
                     <div class="col-xl-6 col-md-5">
                         <input type="text" placeholder="Search..." name="search" value="{{ @request()->search }}">

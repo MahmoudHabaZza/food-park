@@ -23,9 +23,9 @@ class HomeController extends Controller
         return $this->homeRepository->index();
     }
 
-    public function allProducts()
+    public function allProducts(Request $request)
     {
-        return $this->homeRepository->allProducts();
+        return $this->homeRepository->allProducts($request);
     }
 
     public function showProduct(string $slug)

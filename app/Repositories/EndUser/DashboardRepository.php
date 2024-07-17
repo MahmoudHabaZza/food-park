@@ -8,6 +8,7 @@ use App\Models\DeliveryArea;
 use App\Models\Order;
 use App\Models\ProductRating;
 use App\Models\Reservation;
+use App\Models\WishList;
 use Illuminate\View\View;
 
 class DashboardRepository implements DashboardRepositoryInterface {
@@ -18,6 +19,7 @@ class DashboardRepository implements DashboardRepositoryInterface {
         $orders = Order::where('user_id',auth()->user()->id)->get();
         $reservations = Reservation::with('reservationTime')->where('user_id',auth()->user()->id)->get();
         $reviews = ProductRating::with('user')->where('user_id',auth()->user()->id)->get();
-        return view('EndUser.Dashboard.index',compact('supportedAreas','userAddresses','orders','reservations','reviews'));
+        $wishlist = WishList::with('product')->where('user_id',auth()->user()->id)->get();
+        return view('EndUser.Dashboard.index',compact('supportedAreas','userAddresses','orders','reservations','reviews', 'wishlist'));
     }
 }

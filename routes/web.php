@@ -13,6 +13,7 @@ use App\Http\Controllers\EndUser\DashboardController as EndUserDashboardControll
 use App\Http\Controllers\EndUser\HomeController;
 use App\Http\Controllers\EndUser\PaymentController;
 use App\Http\Controllers\EndUser\ProfileController as EndUserProfileController;
+use App\Http\Controllers\EndUser\WishListController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Order;
 use Illuminate\Support\Facades\Route;
@@ -82,14 +83,13 @@ Route::controller(HomeController::class)->group(function () {
     // Subscribe News Letter
     Route::post('subscribe-news-letter','subscribeNewsLetter')->name('subscribe-news-letter');
 
-
-
-    // Custom Page Routes
-    Route::get('page/{slug}',CustomPageController::class)->name('custom-page');
-
-
 });
 
+// WishList Routes
+Route::get('wishlist/{productId}',[WishListController::class,'store'])->name('wishlist.store');
+
+// Custom Page Routes
+Route::get('page/{slug}',CustomPageController::class)->name('custom-page');
 
 // Cart Routes
 Route::group([

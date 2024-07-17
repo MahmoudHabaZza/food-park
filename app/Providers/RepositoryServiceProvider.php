@@ -41,6 +41,7 @@ use App\Interfaces\EndUser\DashboardRepositoryInterface;
 use App\Interfaces\EndUser\HomeRepositoryInterface;
 use App\Interfaces\EndUser\PaymentRepositoryInterface;
 use App\Interfaces\EndUser\ProfileRepositoryInterface as EndUserProfileRepositoryInterface;
+use App\Interfaces\EndUser\WithListRepositoryInterface;
 use App\Repositories\Admin\AboutRepository;
 use App\Repositories\Admin\BannerSliderRepository;
 use App\Repositories\Admin\BlogCategoryRepository;
@@ -80,6 +81,7 @@ use App\Repositories\EndUser\DashboardRepository;
 use App\Repositories\EndUser\HomeRepository;
 use App\Repositories\EndUser\PaymentRepository;
 use App\Repositories\EndUser\ProfileRepository as EndUserProfileRepository;
+use App\Repositories\EndUser\WithListRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -129,6 +131,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(FooterInfoRepositoryInterface::class, FooterInfoRepository::class);
         $this->app->bind(PageBuilderRepositoryInterface::class, PageBuilderRepository::class);
         $this->app->bind(ProductRatingRepositoryInterface::class, ProductRatingRepository::class);
+        $this->app->bind(WithListRepositoryInterface::class, WithListRepository::class);
     }
 
     /**

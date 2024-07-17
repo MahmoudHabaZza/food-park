@@ -1033,3 +1033,24 @@ namespace App\Models{
 	class WhyChooseUs extends \Eloquent {}
 }
 
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property int $product_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|WishList newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|WishList newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|WishList query()
+ * @method static \Illuminate\Database\Eloquent\Builder|WishList whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|WishList whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|WishList whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|WishList whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|WishList whereUserId($value)
+ */
+	class WishList extends \Eloquent {}
+}
+

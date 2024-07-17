@@ -135,4 +135,33 @@
             }
         })
     }
+
+
+    // Add To Wish List
+        // Load Modal of Any Product
+    function addToWishList(productId) {
+        $.ajax({
+            method: 'GET',
+            url: '{{ route("wishlist.store", ":productIdPlaceholder") }}'.replace(":productIdPlaceholder",
+                productId),
+            beforeSend: function() {
+                showLoader()
+            },
+            // :productIdPlaceholder is not the variable it is a placeholder and it is replaced by function replace()
+            success: function(response) {
+                toastr.success(response.message);
+                hideLoader();
+            },
+            error: function(xhr, status, error) {
+                let errors = xhr.responseJSON.errors;
+                $.each(errors,function(index,value){
+                    toastr.error(value);
+                })
+                hideLoader()
+            },
+            complete: function() {
+                hideLoader()
+            }
+        })
+    }
 </script>

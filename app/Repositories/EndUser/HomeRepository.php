@@ -89,8 +89,8 @@ class HomeRepository implements HomeRepositoryInterface
         $relatedProducts = Product::where('category_id', $product->category_id)
             ->where('id', '!=', $product->id)->take(8)->latest()->get();
 
-
-        return view('EndUser.Pages.produc-view', compact('product', 'relatedProducts'));
+        $product_reviews = ProductRating::with('user')->where(['product_id' => $product->id , 'status' => 1])->orderBy('created_at','desc')->paginate(15);
+        return view('EndUser.Pages.produc-view', compact('product', 'relatedProducts','product_reviews'));
     }
     public function loadProductModal($productId)
     {

@@ -101,7 +101,10 @@
                         $('.submit-btn').prop('disabled', false)
                     },
                     error: function(xhr, status, error) {
-                        console.error(error);
+                        let errors = xhr.responseJSON.errors;
+                        $.each(errors, function(key, value) {
+                            toastr.error(value);
+                        });
                     }
                 });
             });

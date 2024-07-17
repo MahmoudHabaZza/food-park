@@ -122,7 +122,7 @@ Route::group([
             Route::get('declined', 'declinedOrderIndex')->name('declined');
             Route::get('/{id}', 'show')->name('show');
             Route::put('/{id}/update-status', 'updateOrderStatus')->name('status.update');
-            Route::put('/status/{id}', 'getOrderStatus')->name('status.get');
+            Route::get('/status/{id}', 'getOrderStatus')->name('status.get');
             Route::delete('/{id}', 'destroy')->name('destroy');
         });
 

@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\PaymentGatewaySettingController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductGalleryController;
 use App\Http\Controllers\Admin\ProductOptionController;
+use App\Http\Controllers\Admin\ProductRatingController;
 use App\Http\Controllers\Admin\ProductSizeController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ReservationController;
@@ -200,6 +201,12 @@ Route::group([
 
         // Reservation
         Route::group(['controller' => ReservationController::class, 'prefix' => 'reservation', 'as' => 'reservation.'], function () {
+            Route::get('/', 'index')->name('index');
+            Route::put('/status', 'updateStatus')->name('updateStatus');
+            Route::delete('/{id}', 'destroy')->name('destroy');
+        });
+        // Product Reviews
+        Route::group(['controller' => ProductRatingController::class, 'prefix' => 'product-rating', 'as' => 'product-rating.'], function () {
             Route::get('/', 'index')->name('index');
             Route::put('/status', 'updateStatus')->name('updateStatus');
             Route::delete('/{id}', 'destroy')->name('destroy');

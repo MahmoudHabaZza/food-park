@@ -22,6 +22,7 @@ use App\Interfaces\Admin\PageBuilderRepositoryInterface;
 use App\Interfaces\Admin\PaymentGatewaySettingRepositoryInterface;
 use App\Interfaces\Admin\ProductGalleryRepositoryInterface;
 use App\Interfaces\Admin\ProductOptionRepositoryInterface;
+use App\Interfaces\Admin\ProductRatingRepositoryInterface;
 use App\Interfaces\Admin\ProductRepositoryInterface;
 use App\Interfaces\Admin\ProductSizeRepositoryInterface;
 use App\Interfaces\Admin\ProfileRepositoryInterface;
@@ -60,6 +61,7 @@ use App\Repositories\Admin\PageBuilderRepository;
 use App\Repositories\Admin\PaymentGatewaySettingRepository;
 use App\Repositories\Admin\ProductGalleryRepository;
 use App\Repositories\Admin\ProductOptionRepository;
+use App\Repositories\Admin\ProductRatingRepository;
 use App\Repositories\Admin\ProductRepository;
 use App\Repositories\Admin\ProductSizeRepository;
 use App\Repositories\Admin\ProfileRepository;
@@ -126,6 +128,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(SocialLinkRepositoryInterface::class, SocialLinkRepository::class);
         $this->app->bind(FooterInfoRepositoryInterface::class, FooterInfoRepository::class);
         $this->app->bind(PageBuilderRepositoryInterface::class, PageBuilderRepository::class);
+        $this->app->bind(ProductRatingRepositoryInterface::class, ProductRatingRepository::class);
     }
 
     /**

@@ -46,6 +46,7 @@
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ route('admin.category.index') }}">Category</a></li>
                     <li><a class="nav-link" href="{{ route('admin.product.index') }}">Product</a></li>
+                    <li><a class="nav-link" href="{{ route('admin.product-rating.index') }}">Product Reviews</a></li>
                 </ul>
             </li>
             <li class="dropdown">

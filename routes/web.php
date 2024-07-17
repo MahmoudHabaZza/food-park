@@ -45,6 +45,7 @@ Route::controller(HomeController::class)->group(function () {
 
     // Product routes
     Route::prefix('product')->as('product.')->group(function () {
+        Route::get('/','allProducts')->name('index');
         Route::get('{slug}', 'showProduct')->name('show');
         Route::get('load-modal/{productId}', 'loadProductModal')->name('load-modal');
         // Product Review

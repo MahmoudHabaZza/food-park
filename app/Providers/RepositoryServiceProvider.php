@@ -15,6 +15,7 @@ use App\Interfaces\Admin\ContactRepositoryInterface;
 use App\Interfaces\Admin\CounterRepositoryInterface;
 use App\Interfaces\Admin\CouponRepositoryInterface;
 use App\Interfaces\Admin\DailyOfferRepositoryInterface;
+use App\Interfaces\Admin\DashboardRepositoryInterface as AdminDashboardRepositoryInterface;
 use App\Interfaces\Admin\DeliveryAreaRepositoryInterface;
 use App\Interfaces\Admin\FooterInfoRepositoryInterface;
 use App\Interfaces\Admin\NewsLetterRepositoryInterface;
@@ -56,6 +57,7 @@ use App\Repositories\Admin\ContactRepository;
 use App\Repositories\Admin\CounterRepository;
 use App\Repositories\Admin\CouponRepository;
 use App\Repositories\Admin\DailyOfferRepository;
+use App\Repositories\Admin\DashboardRepository as AdminDashboardRepository;
 use App\Repositories\Admin\DeliveryAreaRepository;
 use App\Repositories\Admin\FooterInfoRepository;
 use App\Repositories\Admin\NewsLetterRepository;
@@ -135,6 +137,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(ProductRatingRepositoryInterface::class, ProductRatingRepository::class);
         $this->app->bind(WithListRepositoryInterface::class, WithListRepository::class);
         $this->app->bind(AdminManagementRepositoryInterface::class, AdminManagementRepository::class);
+        $this->app->bind(AdminDashboardRepositoryInterface::class, AdminDashboardRepository::class);
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Interfaces\Admin\DashboardRepositoryInterface;
 use App\Models\OrderPlacedNotification;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
@@ -10,20 +11,19 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index() : View
+    private $dashboardRepository;
+    public function __construct(DashboardRepositoryInterface $dashboardRepository)
     {
-        
-        return view('Admin.Dashboard.index');
+        $this->dashboardRepository = $dashboardRepository;
+    }
+    public function index()
+    {
+
+        return $this->dashboardRepository->index();
     }
 
-    public function clearNotification(){
-        try {
-            OrderPlacedNotification::query()->update(['seen' => 1]);
-            toastr()->success('Notification Cleared Successfully!');
-            return redirect()->back();
-        }catch(\Exception $e){
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
-        }
-
+    public function clearNotification()
+    {
+        return $this->dashboardRepository->clearNotification();
     }
 }

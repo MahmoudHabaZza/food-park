@@ -9,24 +9,24 @@
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
             <li class="dropdown active">
-            <li class=active><a class="nav-link" href="index-0.html"><i class="fas fa-fire"></i>General Dashboard</a>
+            <li class=active><a class="nav-link" href="{{ route('admin.dashboard') }}"><i
+                        class="fas fa-fire"></i>Dashboard</a>
             </li>
             </li>
             <li class="menu-header">Starter</li>
-            <li><a class="nav-link" href="{{ route('admin.Slider.index') }}"><i class="far fa-square"></i>
-                    <span>Slider</span></a></li>
-            <li><a class="nav-link" href="{{ route('admin.daily-offer.index') }}"><i class="far fa-square"></i>
-                    <span>Daily Offer</span></a></li>
-
             <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
-                    <span>Sections</span></a>
+                    <span>Home Page Sections</span></a>
                 <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="{{ route('admin.Slider.index') }}">Slider</a></li>
                     <li><a class="nav-link" href="{{ route('admin.why-choose-us.index') }}">Why Choose Us</a></li>
+                    <li><a class="nav-link" href="{{ route('admin.daily-offer.index') }}">Daily Offer</a></li>
                     <li><a class="nav-link" href="{{ route('admin.banner-slider.index') }}">Banner Slider</a></li>
                     <li><a class="nav-link" href="{{ route('admin.chef.index') }}">Chefs</a></li>
                     <li><a class="nav-link" href="{{ route('admin.testimonial.index') }}">Testimonials</a></li>
                     <li><a class="nav-link" href="{{ route('admin.counter.index') }}">Counter</a></li>
+                    <li><a class="nav-link" href="{{ route('admin.footer-info.index') }}">Footer Info</a></li>
+                    <li><a class="nav-link" href="{{ route('admin.social-links.index') }}">Social Links</a></li>
                 </ul>
             </li>
             <li class="dropdown">
@@ -59,18 +59,16 @@
                     </li>
                 </ul>
             </li>
-            <li><a class="nav-link" href="{{ route('admin.news-letter.index') }}"><i class="far fa-square"></i>
-                    <span>News Letter</span></a></li>
-            <li><a class="nav-link" href="{{ route('admin.social-links.index') }}"><i class="far fa-square"></i>
-                    <span>Social Links</span></a></li>
-            <li><a class="nav-link" href="{{ route('admin.footer-info.index') }}"><i class="far fa-square"></i>
-                    <span>Footer Info</span></a></li>
-            <li><a class="nav-link" href="{{ route('admin.setting.index') }}"><i class="far fa-square"></i>
-                    <span>Settings</span></a></li>
-            @if (auth()->user()->id == 1)
-                <li><a class="nav-link" href="{{ route('admin.chat.index') }}"><i class="far fa-square"></i>
-                        <span>Messages</span></a></li>
-            @endif
+            <li class="dropdown">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
+                    <span>Manage Reservations</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="{{ route('admin.reservation-times.index') }}">Reservation Times</a>
+                    </li>
+                    <li><a class="nav-link" href="{{ route('admin.reservation.index') }}">Reservations</a>
+                    </li>
+                </ul>
+            </li>
             <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
                     <span>Blog</span></a>
@@ -80,7 +78,7 @@
                     <li><a class="nav-link" href="{{ route('admin.blog-comments.index') }}">Comments</a></li>
                 </ul>
             </li>
-            <li class="dropdown">
+                        <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                         class="fas fa-columns"></i>
                     <span>Pages</span></a>
@@ -90,15 +88,21 @@
                     <li><a class="nav-link" href="{{ route('admin.contact.index') }}">Contact</a></li>
                 </ul>
             </li>
-            <li class="dropdown">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
-                        class="fas fa-columns"></i>
-                    <span>Manage Reservations</span></a>
-                <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="{{ route('admin.reservation-times.index') }}">Reservation Times</a>
-                    </li>
-                </ul>
-            </li>
+            <li><a class="nav-link" href="{{ route('admin.news-letter.index') }}"><i class="far fa-square"></i>
+                    <span>News Letter</span></a></li>
+            @if (auth()->user()->id == 1)
+                <li><a class="nav-link" href="{{ route('admin.chat.index') }}"><i class="far fa-square"></i>
+                        <span>Messages</span></a></li>
+            @endif
+
+            <li><a class="nav-link" href="{{ route('admin.menu-builder.index') }}"><i class="far fa-square"></i>
+                    <span>Menu Builder</span></a></li>
+            <li><a class="nav-link" href="{{ route('admin.admin-management.index') }}"><i class="far fa-square"></i>
+                    <span>Admin Management</span></a></li>
+            <li><a class="nav-link" href="{{ route('admin.clear-database.index') }}"><i class="far fa-square"></i>
+                    <span>Clear Database</span></a></li>
+            <li><a class="nav-link" href="{{ route('admin.setting.index') }}"><i class="far fa-square"></i>
+                    <span>Settings</span></a></li>
             {{-- <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
                     <span>Layout</span></a>

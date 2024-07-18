@@ -45,7 +45,6 @@
             </div>
         </div>
     </div>
-    </div>
     <div class="section">
         <div class="section-header">
             <h1>Daily Offers</h1>

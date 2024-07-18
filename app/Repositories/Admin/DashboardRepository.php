@@ -3,8 +3,11 @@
 namespace App\Repositories\Admin;
 
 use App\Interfaces\Admin\DashboardRepositoryInterface;
+use App\Models\Blog;
 use App\Models\Order;
 use App\Models\OrderPlacedNotification;
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\View\View;
 
 class DashboardRepository implements DashboardRepositoryInterface
@@ -20,13 +23,28 @@ class DashboardRepository implements DashboardRepositoryInterface
 
         $thisYearOrders = Order::whereYear('created_at', now()->year)->count();
         $thisYearEarnings = Order::whereYear('created_at', now()->year)->where('order_status', 'delivered')->sum('final_total');
+
+        $totalOrders = Order::count();
+        $totalEarnings = Order::where('order_status','delivered')->sum('final_total');
+
+        $totalUsers = User::where('role','user')->count();
+        $totalAdmins = User::where('role','admin')->count();
+
+        $totalProducts = Product::count();
+        $totalBlogs = Blog::count();
         return view('Admin.Dashboard.index', compact(
             'todaysOrders',
             'todaysEarnings',
             'thisMonthOrders',
             'thisMonthEarnings',
             'thisYearOrders',
-            'thisYearEarnings'
+            'thisYearEarnings',
+            'totalOrders',
+            'totalEarnings',
+            'totalUsers',
+            'totalAdmins',
+            'totalProducts',
+            'totalBlogs',
         ));
     }
 

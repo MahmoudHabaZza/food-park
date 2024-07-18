@@ -1,5 +1,6 @@
 @php
     $main_menu = Menu::getByName('main_menu');
+
 @endphp
 <nav class="navbar navbar-expand-lg main_menu">
     <div class="container">

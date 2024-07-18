@@ -118,4 +118,21 @@ class SettingRepository implements SettingRepositoryInterface
         toastr()->success('Mail Settings Updated Successfully');
         return redirect()->back();
     }
+    public function updateAppearanceSettings(Request $request)
+    {
+        $request->validate([
+            'color' => ['required','max:10'],
+        ]);
+
+        Setting::updateOrCreate(
+            ['key' => 'color'],
+            ['value' => $request->color],
+        );
+
+        $settingsService = app(SettingsService::class);
+        $settingsService->clearCachedSettings();
+
+        toastr()->success('Appearance Updated Successfully');
+        return redirect()->back();
+    }
 }

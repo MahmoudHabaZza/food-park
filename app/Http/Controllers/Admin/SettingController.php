@@ -31,4 +31,8 @@ class SettingController extends Controller
     public function updateMailSettings(Request $request){
         return $this->settingRepository->updateMailSettings($request);
     }
+    public function updateAppearanceSettings(Request $request)
+    {
+        return $this->settingRepository->updateAppearanceSettings($request);
+    }
 }

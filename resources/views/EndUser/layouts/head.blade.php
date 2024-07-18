@@ -26,6 +26,12 @@
     <link rel="stylesheet" href="{{ asset('assets/EndUser') }}/css/responsive.css">
     <link rel="stylesheet" href="{{ asset('assets/EndUser') }}/css/toastr.min.css">
     <!-- <link rel="stylesheet" href="{{ asset('assets/EndUser') }}/css/rtl.css"> -->
+
+    <style>
+        :root{
+            --colorPrimary: {{ @config('settings.color') }}
+        }
+    </style>
     @yield('css')
     <script>
         // formated time function in real time chating

@@ -34,6 +34,13 @@
 <script src="{{ asset('assets/Admin') }}/js/sweetalert2.min.js"></script>
 {{-- Bootstrap Icon Picker --}}
 <script src="{{ asset('assets/Admin') }}/js/bootstrap-iconpicker.bundle.min.js"></script>
+<script src="{{ asset('assets/Admin/modules/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js') }}"></script>
+<script>
+    $(".colorpickerinput").colorpicker({
+        format: 'hex',
+        component: '.input-group-append',
+    });
+</script>
 
 <!-- Template JS File -->
 <script src="{{ asset('assets/Admin') }}/js/scripts.js"></script>
@@ -99,10 +106,10 @@
     @endif
 
     $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 </script>
 
 

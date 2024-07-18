@@ -2,6 +2,8 @@
 @section('title')
     Settings
 @endsection
+@section('css')
+@endsection
 @section('content')
     <div class="section">
         <div class="section-header">
@@ -20,8 +22,12 @@
                                     role="tab" aria-controls="home" aria-selected="true">General Settings</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="logo-tab4" data-toggle="tab" href="#logo-settings"
-                                    role="tab" aria-controls="profile" aria-selected="false">Logo Settings</a>
+                                <a class="nav-link" id="logo-tab4" data-toggle="tab" href="#logo-settings" role="tab"
+                                    aria-controls="profile" aria-selected="false">Logo Settings</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="appearance-tab4" data-toggle="tab" href="#appearance-settings"
+                                    role="tab" aria-controls="profile" aria-selected="false">Appearance Settings</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="profile-tab4" data-toggle="tab" href="#pusher-settings"
@@ -36,6 +42,7 @@
                     <div class="col-12 col-sm-12 col-md-10">
                         <div class="tab-content no-padding" id="myTab2Content">
                             @include('Admin.Setting.sections.general-settings')
+                            @include('Admin.Setting.sections.appearance-setting')
                             @include('Admin.Setting.sections.logo-settings')
                             @include('Admin.Setting.sections.pusher-settings')
                             @include('Admin.Setting.sections.mail-settings')

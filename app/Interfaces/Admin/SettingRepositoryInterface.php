@@ -11,4 +11,7 @@ interface SettingRepositoryInterface
     public function updatePusherSettings(Request $request);
     public function updateLogoSettings(Request $request);
     public function updateMailSettings(Request $request);
+    public function updateAppearanceSettings(Request $request);
+
+
 }

@@ -237,6 +237,7 @@ Route::group([
             Route::put('/general-settings', 'updateGeneralSettings')->name('general-settings.update');
             Route::put('/pusher-settings', 'updatePusherSettings')->name('pusher-settings.update');
             Route::put('/mail-settings', 'updateMailSettings')->name('mail-settings.update');
+            Route::put('/logo-settings', 'updateLogoSettings')->name('logo-settings.update');
         });
 
         // Payment Gateways Setting Routes

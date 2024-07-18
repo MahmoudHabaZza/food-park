@@ -4,7 +4,7 @@
             <h5>Update Logo Settings</h5>
         </div>
         <div class="card-body">
-            <form action="{{ route('admin.setting.pusher-settings.update') }}" method="POST">
+            <form action="{{ route('admin.setting.logo-settings.update') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="row">
@@ -88,6 +88,27 @@
         no_label: false, // Default: false
         success_callback: null // Default: null
     });
+    $(document).ready(function(){
+        $('#image-preview-1').css({
+            'background-image': 'url({{ asset(@config("settings.logo")) }})',
+            'background-position':'center center',
+            'background-size':'cover',
+        })
+        $('#image-preview-2').css({
+            'background-image': 'url({{ asset(@config("settings.favicon")) }})',
+            'background-position':'center center',
+            'background-size':'cover',
+        })
+        $('#image-preview-3').css({
+            'background-image': 'url({{ asset(@config("settings.breadcrumb")) }})',
+            'background-position':'center center',
+            'background-size':'cover',
+        })
+        $('#image-preview-4').css({
+            'background-image': 'url({{ asset(@config("settings.footer_logo")) }})',
+            'background-position':'center center',
+            'background-size':'cover',
+        })
+    })
     </script>
-
 @endsection

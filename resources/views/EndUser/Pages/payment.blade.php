@@ -1,12 +1,12 @@
 @extends('EndUser.layouts.master')
 @section('title')
-{{ @config('settings.site_name') }} | Payment Page
+    {{ @config('settings.site_name') }} | Payment Page
 @endsection
 @section('content')
     <!--=============================
-        BREADCRUMB START
-    ==============================-->
-    <section class="fp__breadcrumb" style="background: url({{ asset('assets/EndUser/images/counter_bg.jpg') }});">
+            BREADCRUMB START
+        ==============================-->
+    <section class="fp__breadcrumb" style="background: url({{ asset(@config('settings.breadcrumb')) }});">
         <div class="fp__breadcrumb_overlay">
             <div class="container">
                 <div class="fp__breadcrumb_text">
@@ -20,13 +20,13 @@
         </div>
     </section>
     <!--=============================
-        BREADCRUMB END
-    ==============================-->
+            BREADCRUMB END
+        ==============================-->
 
 
     <!--============================
-        PAYMENT PAGE START
-    ==============================-->
+            PAYMENT PAGE START
+        ==============================-->
     <section class="fp__payment_page mt_100 xs_mt_70 mb_100 xs_mb_70">
         <div class="container">
             <div class="row">
@@ -35,29 +35,29 @@
                         <div class="row">
                             <h2>Choose Payment Gateway</h2>
                             @if (config('gatewaySettings.paypal_status'))
-                            <div class="col-lg-3 col-6 col-sm-6 col-md-6 wow fadeInUp" data-wow-duration="1s">
-                                <a class="fp__single_payment payment-card" data-name="paypal"
-                                    href="#">
-                                    <img src="{{ asset(config('gatewaySettings.paypal_logo')) }}" alt="payment method" class="img-fluid w-100">
-                                </a>
-                            </div>
+                                <div class="col-lg-3 col-6 col-sm-6 col-md-6 wow fadeInUp" data-wow-duration="1s">
+                                    <a class="fp__single_payment payment-card" data-name="paypal" href="#">
+                                        <img src="{{ asset(config('gatewaySettings.paypal_logo')) }}" alt="payment method"
+                                            class="img-fluid w-100">
+                                    </a>
+                                </div>
                             @endif
                             @if (config('gatewaySettings.stripe_status'))
-                            <div class="col-lg-3 col-6 col-sm-6 col-md-6 wow fadeInUp" data-wow-duration="1s">
-                                <a class="fp__single_payment payment-card" data-name="stripe"
-                                    href="#">
-                                    <img src="{{ asset(config('gatewaySettings.stripe_logo')) }}" alt="payment method" class="img-fluid w-100">
-                                </a>
-                            </div>
+                                <div class="col-lg-3 col-6 col-sm-6 col-md-6 wow fadeInUp" data-wow-duration="1s">
+                                    <a class="fp__single_payment payment-card" data-name="stripe" href="#">
+                                        <img src="{{ asset(config('gatewaySettings.stripe_logo')) }}" alt="payment method"
+                                            class="img-fluid w-100">
+                                    </a>
+                                </div>
                             @endif
                             @if (config('gatewaySettings.razorpay_status'))
-                            <div class="col-lg-3 col-6 col-sm-6 col-md-6 wow fadeInUp" data-wow-duration="1s">
-                                <a class="fp__single_payment payment-card" data-name="razorpay"
-                                    href="#">
-                                    <img src="{{ asset(config('gatewaySettings.razorpay_logo')) }}" alt="payment method" class="img-fluid w-100">
-                                </a>
+                                <div class="col-lg-3 col-6 col-sm-6 col-md-6 wow fadeInUp" data-wow-duration="1s">
+                                    <a class="fp__single_payment payment-card" data-name="razorpay" href="#">
+                                        <img src="{{ asset(config('gatewaySettings.razorpay_logo')) }}" alt="payment method"
+                                            class="img-fluid w-100">
+                                    </a>
 
-                            </div>
+                                </div>
                             @endif
                         </div>
                     </div>
@@ -113,40 +113,39 @@
         </div>
     </div>
     <!--============================
-        PAYMENT PAGE END
-    ==============================-->
-
+            PAYMENT PAGE END
+        ==============================-->
 @endsection
 @push('js')
-        <script>
-            $(document).ready(function(){
-                $('.payment-card').on('click',function(e){
-                    let paymentGateway = $(this).data("name");
-                    e.preventDefault();
-                    $.ajax({
-                        method:'POST',
-                        url:'{{ route("payment.make") }}',
-                        data:{
-                            payment_gateway:paymentGateway,
-                            _token:'{{ csrf_token() }}'
-                        },
-                        beforeSend:function(){
-                            showLoader();
-                        },
-                        success:function(response){
-                            window.location.href = response.redirect_url;
-                        },
-                        error:function(xhr,status,error){
-                            let errors = xhr.responseJSON.errors;
-                            $.each(errors,function(index,value){
-                                toastr.error(value);
-                            })
-                        },
-                        complete:function(){
-                            // hideLoader();
-                        }
-                    })
+    <script>
+        $(document).ready(function() {
+            $('.payment-card').on('click', function(e) {
+                let paymentGateway = $(this).data("name");
+                e.preventDefault();
+                $.ajax({
+                    method: 'POST',
+                    url: '{{ route('payment.make') }}',
+                    data: {
+                        payment_gateway: paymentGateway,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    beforeSend: function() {
+                        showLoader();
+                    },
+                    success: function(response) {
+                        window.location.href = response.redirect_url;
+                    },
+                    error: function(xhr, status, error) {
+                        let errors = xhr.responseJSON.errors;
+                        $.each(errors, function(index, value) {
+                            toastr.error(value);
+                        })
+                    },
+                    complete: function() {
+                        // hideLoader();
+                    }
                 })
             })
-        </script>
+        })
+    </script>
 @endpush

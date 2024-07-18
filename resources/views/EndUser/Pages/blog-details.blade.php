@@ -13,9 +13,9 @@
 @endsection
 @section('content')
     <!--=============================
-            BREADCRUMB START
-        ==============================-->
-    <section class="fp__breadcrumb" style="background: url({{ asset('assets/EndUser/images/counter_bg.jpg') }});">
+                BREADCRUMB START
+            ==============================-->
+    <section class="fp__breadcrumb" style="background: url({{ asset(@config('settings.breadcrumb')) }});">
         <div class="fp__breadcrumb_overlay">
             <div class="container">
                 <div class="fp__breadcrumb_text">
@@ -29,13 +29,13 @@
         </div>
     </section>
     <!--=============================
-            BREADCRUMB END
-        ==============================-->
+                BREADCRUMB END
+            ==============================-->
 
 
     <!--=========================
-            BLOG DETAILS START
-        ==========================-->
+                BLOG DETAILS START
+            ==========================-->
     <section class="fp__blog_details mt_120 xs_mt_90 mb_100 xs_mb_70">
         <div class="container">
             <div class="row">
@@ -48,7 +48,8 @@
                             <ul class="details_bloger d-flex flex-wrap">
                                 <li><i class="far fa-user"></i> By {{ $blog->user->name }}</li>
                                 <li><i class="far fa-comment-alt-lines"></i> 12 Comments</li>
-                                <li><i class="far fa-calendar-alt"></i>{{ date('d F Y', strtotime($blog->created_at)) }}</li>
+                                <li><i class="far fa-calendar-alt"></i>{{ date('d F Y', strtotime($blog->created_at)) }}
+                                </li>
                             </ul>
                             <h2>{!! $blog->title !!}</h2>
                             <p>
@@ -103,34 +104,34 @@
                         @endif
                     </ul>
                     @if (count($comments) > 0)
-                    <div class="fp__comment mt_100 xs_mt_70 wow fadeInUp" data-wow-duration="1s">
-                        <h4>{{ count($comments) }} Comments</h4>
-                        @foreach ($comments as $comment)
-                            <div class="fp__single_comment m-0 border-0">
-                                <img src="{{ asset($comment->user->avatar) }}" alt="review" class="img-fluid">
-                                <div class="fp__single_comm_text">
-                                    <h3>{{ $comment->user->name }}<span>
-                                            {{ date('d F Y', strtotime($comment->created_at)) }}
-                                        </span></h3>
-                                    <p>{!! $comment->comment !!}</p>
-                                </div>
-                            </div>
-                        @endforeach
-                        @if ($comments->hasPages())
-                            <div class="fp__pagination mt_60">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <nav aria-label="...">
-                                            <ul class="pagination">
-                                                {{ $comments->links() }}
-                                            </ul>
-                                        </nav>
+                        <div class="fp__comment mt_100 xs_mt_70 wow fadeInUp" data-wow-duration="1s">
+                            <h4>{{ count($comments) }} Comments</h4>
+                            @foreach ($comments as $comment)
+                                <div class="fp__single_comment m-0 border-0">
+                                    <img src="{{ asset($comment->user->avatar) }}" alt="review" class="img-fluid">
+                                    <div class="fp__single_comm_text">
+                                        <h3>{{ $comment->user->name }}<span>
+                                                {{ date('d F Y', strtotime($comment->created_at)) }}
+                                            </span></h3>
+                                        <p>{!! $comment->comment !!}</p>
                                     </div>
                                 </div>
-                            </div>
-                        @endif
+                            @endforeach
+                            @if ($comments->hasPages())
+                                <div class="fp__pagination mt_60">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <nav aria-label="...">
+                                                <ul class="pagination">
+                                                    {{ $comments->links() }}
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
 
-                    </div>
+                        </div>
                     @endif
                     @if (\Auth::check())
                         <div class="comment_input mt_100 xs_mt_70 wow fadeInUp" data-wow-duration="1s">
@@ -186,7 +187,7 @@
                             <ul>
                                 @foreach ($categories as $category)
                                     <li><a
-                                            href="{{ route('blogs.index',['category'=>$category->slug]) }}">{{ $category->name }}<span>{{ $category->blogs_count }}</span></a>
+                                            href="{{ route('blogs.index', ['category' => $category->slug]) }}">{{ $category->name }}<span>{{ $category->blogs_count }}</span></a>
                                     </li>
                                 @endforeach
                             </ul>
@@ -197,6 +198,6 @@
         </div>
     </section>
     <!--=========================
-            BLOG DETAILS END
-        ==========================-->
+                BLOG DETAILS END
+            ==========================-->
 @endsection

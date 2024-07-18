@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     @yield('og_meta_tags')
     <title>@yield('title', 'Food Park')</title>
-    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="icon" type="image/png" href="{{ asset(@config('settings.favicon')) }}">
     <link rel="stylesheet" href="{{ asset('assets/EndUser') }}/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('assets/EndUser') }}/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset('assets/EndUser') }}/css/spacing.css">

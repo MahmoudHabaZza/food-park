@@ -24,6 +24,10 @@ class SettingController extends Controller
     public function updatePusherSettings(Request $request){
         return $this->settingRepository->updatePusherSettings($request);
     }
+    public function updateLogoSettings(Request $request)
+    {
+        return $this->settingRepository->updateLogoSettings($request);
+    }
     public function updateMailSettings(Request $request){
         return $this->settingRepository->updateMailSettings($request);
     }

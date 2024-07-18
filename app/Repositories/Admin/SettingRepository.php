@@ -6,12 +6,14 @@ use App\Interfaces\Admin\SettingRepositoryInterface;
 use App\Models\Setting;
 use App\Services\SettingsService;
 use Cache;
+use App\Traits\UploadFileTrait;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class SettingRepository implements SettingRepositoryInterface
 {
+    use UploadFileTrait;
     public function index(): View
     {
         return view('Admin.Setting.index');
@@ -59,6 +61,35 @@ class SettingRepository implements SettingRepositoryInterface
 
         toastr()->success('Pusher Settings Uptaded Successfully');
         return redirect()->back();
+    }
+    public function updateLogoSettings(Request $request)
+    {
+        $validatedData = $request->validate([
+            'logo' => ['nullable','image','max:3000'],
+            'favicon' => ['nullable','image','max:3000'],
+            'breadcrumb' => ['nullable','image','max:3000'],
+            'footer_logo' => ['nullable','image','max:3000'],
+        ]);
+
+        foreach($validatedData as $key => $value)
+        {
+            $imagePath = $this->uploadImage($request,$key);
+            if(!empty($imagePath)){
+                $oldPath = config('settings.'.$key);
+                $this->removeImage($oldPath);
+                Setting::updateOrCreate(
+                    ['key' => $key],
+                    ['value' => $imagePath],
+                );
+            }
+        }
+
+        $settingsService = app(SettingsService::class);
+        $settingsService->clearCachedSettings();
+
+        toastr()->success('Logo Settings Updated Successfully');
+        return redirect()->back();
+
     }
     public function updateMailSettings(Request $request)
     {

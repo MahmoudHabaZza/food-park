@@ -4,9 +4,9 @@
 @endsection
 @section('content')
     <!--=============================
-                                BREADCRUMB START
-                            ==============================-->
-    <section class="fp__breadcrumb" style="background: url('{{ asset('assets/EndUser/images/counter_bg.jpg') }}');">
+                                    BREADCRUMB START
+                                ==============================-->
+    <section class="fp__breadcrumb" style="background: url('{{ asset(@config('settings.breadcrumb')) }}');">
         <div class="fp__breadcrumb_overlay">
             <div class="container">
                 <div class="fp__breadcrumb_text">
@@ -20,13 +20,13 @@
         </div>
     </section>
     <!--=============================
-                                BREADCRUMB END
-                            ==============================-->
+                                    BREADCRUMB END
+                                ==============================-->
 
 
     <!--=============================
-                                TEAM PAGE START
-                            ==============================-->
+                                    TEAM PAGE START
+                                ==============================-->
     <section class="fp__team_page pt_95 xs_pt_65 pb_100 xs_pb_70">
         <div class="container">
             <div class="row">
@@ -72,6 +72,6 @@
         </div>
     </section>
     <!--=============================
-                                TEAM PAGE END
-                            ==============================-->
+                                    TEAM PAGE END
+                                ==============================-->
 @endsection

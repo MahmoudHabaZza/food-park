@@ -1,12 +1,12 @@
 @extends('EndUser.layouts.master')
 @section('title')
-Contact Us
+    Contact Us
 @endsection
 @section('content')
     <!--=============================
-        BREADCRUMB START
-    ==============================-->
-    <section class="fp__breadcrumb" style="background: url({{ asset('assets/EndUser/images/counter_bg.jpg') }});">
+            BREADCRUMB START
+        ==============================-->
+    <section class="fp__breadcrumb" style="background: url({{ asset(@config('settings.breadcrumb')) }});">
         <div class="fp__breadcrumb_overlay">
             <div class="container">
                 <div class="fp__breadcrumb_text">
@@ -20,13 +20,13 @@ Contact Us
         </div>
     </section>
     <!--=============================
-        BREADCRUMB END
-    ==============================-->
+            BREADCRUMB END
+        ==============================-->
 
 
     <!--=============================
-        CONTACT PAGE START
-    ==============================-->
+            CONTACT PAGE START
+        ==============================-->
     <section class="fp__contact mt_100 xs_mt_70 mb_100 xs_mb_70">
         <div class="container">
             <div class="row">
@@ -99,9 +99,7 @@ Contact Us
                 <div class="row mt_100 xs_mt_70">
                     <div class="col-xl-12 wow fadeInUp" data-wow-duration="1s">
                         <div class="fp__contact_map">
-                            <iframe
-                                src="{!! @$contact->map_link !!}"
-                                style="border:0;" allowfullscreen="" loading="lazy"
+                            <iframe src="{!! @$contact->map_link !!}" style="border:0;" allowfullscreen="" loading="lazy"
                                 referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
@@ -110,37 +108,38 @@ Contact Us
         </div>
     </section>
     <!--=============================
-        CONTACT PAGE END
-    ==============================-->
+            CONTACT PAGE END
+        ==============================-->
 @endsection
 @push('js')
     <script>
-        $(document).ready(function(){
-            $('.fp__contact_form').on('submit',function(e){
+        $(document).ready(function() {
+            $('.fp__contact_form').on('submit', function(e) {
                 e.preventDefault();
                 let formData = $(this).serialize();
                 $.ajax({
-                    method:'POST',
-                    url:'{{ route("contact.sendMessage") }}',
-                    data:formData,
-                    beforeSend:function(){
-                        $('.submit_btn').attr('disabled',true);
-                        $('.submit_btn').html(`<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>Sending...`);
+                    method: 'POST',
+                    url: '{{ route('contact.sendMessage') }}',
+                    data: formData,
+                    beforeSend: function() {
+                        $('.submit_btn').attr('disabled', true);
+                        $('.submit_btn').html(
+                            `<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>Sending...`
+                            );
 
                     },
-                    success:function(response){
+                    success: function(response) {
                         toastr.success(response.message);
-                        $('.submit_btn').attr('disabled',false);
+                        $('.submit_btn').attr('disabled', false);
                         $('.submit_btn').html(`Send Message`);
                         $('.fp__contact_form').trigger('reset');
                     },
-                    error:function(xhr,status,erorr)
-                    {
+                    error: function(xhr, status, erorr) {
                         let errors = xhr.responseJSON.errors;
-                        $.each(errors,function(index,value){
+                        $.each(errors, function(index, value) {
                             toastr.error(value);
                         })
-                        $('.submit_btn').attr('disabled',false);
+                        $('.submit_btn').attr('disabled', false);
                         $('.submit_btn').html(`Send Message`);
                     }
                 })

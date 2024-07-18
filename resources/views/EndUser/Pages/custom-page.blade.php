@@ -1,12 +1,12 @@
 @extends('EndUser.layouts.master')
 @section('title')
-{{ $page->name }}
+    {{ $page->name }}
 @endsection
 @section('content')
     <!--=============================
-        BREADCRUMB START
-    ==============================-->
-    <section class="fp__breadcrumb" style="background: url({{ asset('assets/EndUser/images/counter_bg.jpg') }});">
+            BREADCRUMB START
+        ==============================-->
+    <section class="fp__breadcrumb" style="background: url({{ asset(@config('settings.breadcrumb')) }});">
         <div class="fp__breadcrumb_overlay">
             <div class="container">
                 <div class="fp__breadcrumb_text">
@@ -19,15 +19,13 @@
         </div>
     </section>
     <!--=============================
-        BREADCRUMB END
-    ==============================-->
+            BREADCRUMB END
+        ==============================-->
     <section class="mt_100 xs_mt_70 mb_100 xs_mb_70">
         <div class="container">
             <div class="row">
                 {!! $page->content !!}
             </div>
         </div>
-</section>
-
+    </section>
 @endsection
-

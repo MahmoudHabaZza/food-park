@@ -4,9 +4,9 @@
 @endsection
 @section('content')
     <!--=============================
-                BREADCRUMB START
-            ==============================-->
-    <section class="fp__breadcrumb" style="background: url({{ asset('assets/EndUser/images/counter_bg.jpg') }});">
+                    BREADCRUMB START
+                ==============================-->
+    <section class="fp__breadcrumb" style="background: url({{ asset(@config('settings.breadcrumb')) }});">
         <div class="fp__breadcrumb_overlay">
             <div class="container">
                 <div class="fp__breadcrumb_text">
@@ -20,13 +20,13 @@
         </div>
     </section>
     <!--=============================
-                BREADCRUMB END
-            ==============================-->
+                    BREADCRUMB END
+                ==============================-->
 
 
     <!--=============================
-                BLOG PAGE START
-            ==============================-->
+                    BLOG PAGE START
+                ==============================-->
     <div class="fp__cart_popup">
         <div class="modal fade" id="cartModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -91,8 +91,10 @@
                                 <ul class="d-flex flex-wrap justify-content-center">
                                     <li><a href="javascript:;" onclick="loadProductModal('{{ $product->id }}')"><i
                                                 class="fas fa-shopping-basket"></i></a></li>
-                                    <li><a href="javascript:;" onclick="addToWishList('{{ $product->id }}')"><i class="fal fa-heart"></i></a></li>
-                                    <li><a href="{{ route('product.show', $product->slug) }}"><i class="far fa-eye"></i></a>
+                                    <li><a href="javascript:;" onclick="addToWishList('{{ $product->id }}')"><i
+                                                class="fal fa-heart"></i></a></li>
+                                    <li><a href="{{ route('product.show', $product->slug) }}"><i
+                                                class="far fa-eye"></i></a>
                                     </li>
                                 </ul>
                             </div>
@@ -116,11 +118,11 @@
         </div>
     </section>
     <!--=============================
-                BLOG PAGE END
-            ==============================-->
+                    BLOG PAGE END
+                ==============================-->
 
 
     <!--=============================
-                FOOTER START
-            ==============================-->
+                    FOOTER START
+                ==============================-->
 @endsection

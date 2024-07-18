@@ -1,12 +1,12 @@
 @extends('EndUser.layouts.master')
 @section('title')
-{{ @config('settings.site_name') }} | Cart Page
+    {{ @config('settings.site_name') }} | Cart Page
 @endsection
 @section('content')
     <!--=============================
-                BREADCRUMB START
-            ==============================-->
-    <section class="fp__breadcrumb" style="background: url('{{ asset('assets/EndUser/images/counter_bg.jpg') }}');">
+                    BREADCRUMB START
+                ==============================-->
+    <section class="fp__breadcrumb" style="background: url('{{ asset(@config('settings.breadcrumb')) }}');">
         <div class="fp__breadcrumb_overlay">
             <div class="container">
                 <div class="fp__breadcrumb_text">
@@ -20,13 +20,13 @@
         </div>
     </section>
     <!--=============================
-                BREADCRUMB END
-            ==============================-->
+                    BREADCRUMB END
+                ==============================-->
 
 
     <!--============================
-                CART VIEW START
-            ==============================-->
+                    CART VIEW START
+                ==============================-->
     <section class="fp__cart_view mt_125 xs_mt_95 mb_100 xs_mb_70">
         <div class="container">
             <div class="row">
@@ -126,30 +126,29 @@
                         <p>subtotal: <span id="subtotal">{{ currencyPosition(cartTotal()) }}</span></p>
                         <p>delivery: <span>{{ currencyPosition(0) }}</span></p>
                         <p>discount: <span id="discount">
-                            @if (session()->has('coupon'))
-                                @if (Cart::content()->count() > 0)
-                                {{ currencyPosition(session()->get('coupon')['discount']) }}
+                                @if (session()->has('coupon'))
+                                    @if (Cart::content()->count() > 0)
+                                        {{ currencyPosition(session()->get('coupon')['discount']) }}
+                                    @else
+                                        {{ session()->forget('coupon') }}
+                                        {{ currencyPosition(0) }}
+                                    @endif
                                 @else
-                                    {{ session()->forget('coupon') }}
                                     {{ currencyPosition(0) }}
-
                                 @endif
-                            @else
-                                {{ currencyPosition(0) }}
-                            @endif
-                        </span></p>
+                            </span></p>
                         <p class="total"><span>total:</span> <span id="final_total">
-                            @if (session()->has('coupon'))
-                                @if (Cart::content()->count() > 0)
-                                {{ currencyPosition( cartTotal() - session()->get('coupon')['discount']) }}
+                                @if (session()->has('coupon'))
+                                    @if (Cart::content()->count() > 0)
+                                        {{ currencyPosition(cartTotal() - session()->get('coupon')['discount']) }}
+                                    @else
+                                        {{ session()->forget('coupon') }}
+                                        {{ currencyPosition(0) }}
+                                    @endif
                                 @else
-                                {{ session()->forget('coupon') }}
-                                {{ currencyPosition(0) }}
+                                    {{ currencyPosition(cartTotal()) }}
                                 @endif
-                            @else
-                                {{ currencyPosition(cartTotal()) }}
-                            @endif
-                        </span></p>
+                            </span></p>
                         <form id="coupon_form">
                             <input type="text" name="code" id="coupon_code" placeholder="Coupon Code">
                             <button type="submit">apply</button>
@@ -158,12 +157,12 @@
                         <div class="coupon_card">
 
                             @if (session()->has('coupon'))
-                            <div class="card mt-3">
-                                <div class="m-2">
-                                    <span><b>Applid Coupon : {{ session()->get('coupon')['code'] }}</b></span>
-                                    <span><button><i class="far fa-times"  id="remove_coupon"></i></button></span>
+                                <div class="card mt-3">
+                                    <div class="m-2">
+                                        <span><b>Applid Coupon : {{ session()->get('coupon')['code'] }}</b></span>
+                                        <span><button><i class="far fa-times" id="remove_coupon"></i></button></span>
+                                    </div>
                                 </div>
-                            </div>
                             @endif
                         </div>
                         <a class="common_btn" href="{{ route('checkout.index') }}">checkout</a>
@@ -173,8 +172,8 @@
         </div>
     </section>
     <!--============================
-                CART VIEW END
-            ==============================-->
+                    CART VIEW END
+                ==============================-->
 @endsection
 
 @push('js')
@@ -198,8 +197,10 @@
                                 productTotal));
                         cartTotal = response.cartSubTotal
                         cartFinalTotal = response.cartFinalTotal
-                        $("#subtotal").text("{{ currencyPosition(':subtotal') }}".replace(':subtotal',cartTotal))
-                        $("#final_total").text("{{ currencyPosition(':finaltotal') }}".replace(':finaltotal',cartFinalTotal))
+                        $("#subtotal").text("{{ currencyPosition(':subtotal') }}".replace(
+                            ':subtotal', cartTotal))
+                        $("#final_total").text("{{ currencyPosition(':finaltotal') }}".replace(
+                            ':finaltotal', cartFinalTotal))
                     } else if (response.status === 'error') {
                         inputField.val(response.qty)
                         toastr.error('Quantity is not Avaialable')
@@ -222,10 +223,12 @@
                                 "{{ currencyPosition(':productTotal') }}".replace(
                                     ':productTotal',
                                     productTotal));
-                                    cartTotal = response.cartSubTotal
-                                    cartFinalTotal = response.cartFinalTotal
-                            $("#subtotal").text("{{ currencyPosition(':subtotal') }}".replace(':subtotal',cartTotal))
-                            $("#final_total").text("{{ currencyPosition(':finaltotal') }}".replace(':finaltotal',cartFinalTotal))
+                            cartTotal = response.cartSubTotal
+                            cartFinalTotal = response.cartFinalTotal
+                            $("#subtotal").text("{{ currencyPosition(':subtotal') }}".replace(
+                                ':subtotal', cartTotal))
+                            $("#final_total").text("{{ currencyPosition(':finaltotal') }}".replace(
+                                ':finaltotal', cartFinalTotal))
 
                         } else if (response.status === 'error') {
                             inputField.val(response.qty)
@@ -242,7 +245,7 @@
                 let rowId = $(this).data("id");
                 $.ajax({
                     method: "GET",
-                    url: '{{ route("cart.removeCartItem", ":rowId") }}'.replace(":rowId", rowId),
+                    url: '{{ route('cart.removeCartItem', ':rowId') }}'.replace(":rowId", rowId),
                     beforeSend: function() {
                         showLoader()
                     },
@@ -252,8 +255,12 @@
                                 hideLoader()
                                 cartTotal = response.cartSubTotal
                                 cartFinalTotal = response.finalTotal
-                                $("#subtotal").text("{{ currencyPosition(':subtotal') }}".replace(':subtotal',cartTotal))
-                                $("#final_total").text("{{ currencyPosition(':finalTotal') }}".replace(':finalTotal',cartFinalTotal))
+                                $("#subtotal").text(
+                                    "{{ currencyPosition(':subtotal') }}".replace(
+                                        ':subtotal', cartTotal))
+                                $("#final_total").text(
+                                    "{{ currencyPosition(':finalTotal') }}"
+                                    .replace(':finalTotal', cartFinalTotal))
                                 toastr.success('Item Removed Successfully')
 
                             })
@@ -271,7 +278,7 @@
 
                 $.ajax({
                     method: "POST",
-                    url: '{{ route("cart.updateCartQty") }}',
+                    url: '{{ route('cart.updateCartQty') }}',
                     data: {
                         'rowId': rowId,
                         'qty': qty,
@@ -296,32 +303,34 @@
                 })
             }
 
-            $("#coupon_form").on('submit',function(e){
+            $("#coupon_form").on('submit', function(e) {
                 e.preventDefault()
                 let code = $("#coupon_code").val()
                 let subtotal = cartTotal
-                applyCoupon(code,subtotal)
+                applyCoupon(code, subtotal)
             })
 
 
 
 
-            function applyCoupon(code , subtotal) {
+            function applyCoupon(code, subtotal) {
                 $.ajax({
                     method: 'POST',
-                    url: '{{ route("apply-coupon") }}',
+                    url: '{{ route('apply-coupon') }}',
                     data: {
                         code: code,
-                        subtotal:subtotal,
-                        _token:"{{ csrf_token() }}"
+                        subtotal: subtotal,
+                        _token: "{{ csrf_token() }}"
                     },
-                    beforeSend:function(){
+                    beforeSend: function() {
                         showLoader()
                     },
-                    success:function(response){
+                    success: function(response) {
                         $("#coupon_code").val("")
-                        $("#discount").text('{{ currencyPosition(":discount") }}'.replace(":discount",response.discount))
-                        $("#final_total").text('{{ currencyPosition(":final_total") }}'.replace(":final_total",response.finalTotal))
+                        $("#discount").text('{{ currencyPosition(':discount') }}'.replace(":discount",
+                            response.discount))
+                        $("#final_total").text('{{ currencyPosition(':final_total') }}'.replace(
+                            ":final_total", response.finalTotal))
                         couponCartHtml = `<div class="card mt-3">
                                 <div class="m-2">
                                     <span><b>Applid Coupon : ${response.coupon_code}</b></span>
@@ -331,11 +340,11 @@
                         $('.coupon_card').html(couponCartHtml)
                         toastr.success(response.message)
                     },
-                    error:function(xhr,status,error){
+                    error: function(xhr, status, error) {
                         hideLoader()
                         toastr.error(xhr.responseJSON.message)
                     },
-                    complete:function(){
+                    complete: function() {
                         hideLoader()
                     }
                 })
@@ -345,28 +354,30 @@
                 removeCoupon();
             });
 
-    function removeCoupon() {
-        $.ajax({
-            method: 'GET',
-            url: '{{ route("remove-coupon") }}',
-            beforeSend: function() {
-                showLoader();
-            },
-            success: function(response) {
-                $("#discount").text("{{ currencyPosition(':discount') }}".replace(':discount', response.discount));
-                $("#final_total").text("{{ currencyPosition(':final_total') }}".replace(':final_total', response.total));
-                $(".coupon_card").html("");
-                toastr.success(response.message);
-            },
-            error: function(xhr, status, error) {
-                // Handle error
-                console.log(error)
-            },
-            complete: function() {
-                hideLoader();
+            function removeCoupon() {
+                $.ajax({
+                    method: 'GET',
+                    url: '{{ route('remove-coupon') }}',
+                    beforeSend: function() {
+                        showLoader();
+                    },
+                    success: function(response) {
+                        $("#discount").text("{{ currencyPosition(':discount') }}".replace(':discount',
+                            response.discount));
+                        $("#final_total").text("{{ currencyPosition(':final_total') }}".replace(
+                            ':final_total', response.total));
+                        $(".coupon_card").html("");
+                        toastr.success(response.message);
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle error
+                        console.log(error)
+                    },
+                    complete: function() {
+                        hideLoader();
+                    }
+                });
             }
-        });
-    }
 
 
         })

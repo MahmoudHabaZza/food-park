@@ -1,13 +1,13 @@
 @extends('EndUser.layouts.master')
 @section('title')
-{{ @config('settings.site_name') }} | Checkout
+    {{ @config('settings.site_name') }} | Checkout
 @endsection
 @section('content')
 
     <!--=============================
-        BREADCRUMB START
-    ==============================-->
-    <section class="fp__breadcrumb" style="background: url({{ asset('assets/EndUser/images/counter_bg.jpg') }});">
+            BREADCRUMB START
+        ==============================-->
+    <section class="fp__breadcrumb" style="background: url({{ asset(@config('settings.breadcrumb')) }});">
         <div class="fp__breadcrumb_overlay">
             <div class="container">
                 <div class="fp__breadcrumb_text">
@@ -21,13 +21,13 @@
         </div>
     </section>
     <!--=============================
-        BREADCRUMB END
-    ==============================-->
+            BREADCRUMB END
+        ==============================-->
 
 
     <!--============================
-        CHECK OUT PAGE START
-    ==============================-->
+            CHECK OUT PAGE START
+        ==============================-->
     <section class="fp__cart_view mt_125 xs_mt_95 mb_100 xs_mb_70">
         <div class="container">
             <div class="row">
@@ -57,9 +57,11 @@
                                                             <div class="col-md-12 col-lg-12 col-xl-12">
                                                                 <div class="fp__check_single_form">
                                                                     <select id="select_js3" name="delivery_area_id">
-                                                                        <option  selected disabled value="">select country</option>
+                                                                        <option selected disabled value="">select
+                                                                            country</option>
                                                                         @foreach ($supportedAreas as $Area)
-                                                                        <option value="{{ $Area->id }}">{{ $Area->area_name }}</option>
+                                                                            <option value="{{ $Area->id }}">
+                                                                                {{ $Area->area_name }}</option>
                                                                         @endforeach
 
                                                                     </select>
@@ -67,24 +69,28 @@
                                                             </div>
                                                             <div class="col-md-6 col-lg-6 col-xl-6">
                                                                 <div class="fp__check_single_form">
-                                                                    <input type="text" placeholder="First Name" name="first_name">
+                                                                    <input type="text" placeholder="First Name"
+                                                                        name="first_name">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6 col-lg-6 col-xl-6">
                                                                 <div class="fp__check_single_form">
-                                                                    <input type="text" placeholder="Last Name" name="last_name">
+                                                                    <input type="text" placeholder="Last Name"
+                                                                        name="last_name">
                                                                 </div>
                                                             </div>
 
 
                                                             <div class="col-md-6 col-lg-6 col-xl-6">
                                                                 <div class="fp__check_single_form">
-                                                                    <input type="email" placeholder="Email" name="email">
+                                                                    <input type="email" placeholder="Email"
+                                                                        name="email">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6 col-lg-6 col-xl-6">
                                                                 <div class="fp__check_single_form">
-                                                                    <input type="text" placeholder="Phone" name="phone">
+                                                                    <input type="text" placeholder="Phone"
+                                                                        name="phone">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12 col-lg-12 col-xl-12">
@@ -96,7 +102,8 @@
                                                                 <div class="fp__check_single_form check_area">
                                                                     <div class="form-check">
                                                                         <input class="form-check-input" type="radio"
-                                                                            name="type" id="flexRadioDefault1" value="home">
+                                                                            name="type" id="flexRadioDefault1"
+                                                                            value="home">
                                                                         <label class="form-check-label"
                                                                             for="flexRadioDefault1">
                                                                             home
@@ -104,7 +111,8 @@
                                                                     </div>
                                                                     <div class="form-check">
                                                                         <input class="form-check-input" type="radio"
-                                                                            name="type" id="flexRadioDefault2" value="office">
+                                                                            name="type" id="flexRadioDefault2"
+                                                                            value="office">
                                                                         <label class="form-check-label"
                                                                             for="flexRadioDefault2">
                                                                             office
@@ -128,24 +136,26 @@
 
                             <div class="row">
                                 @foreach ($userAddresses as $address)
-                                <div class="col-md-6">
-                                    <div class="fp__checkout_single_address">
-                                        <div class="form-check">
-                                            <input class="form-check-input v_address" value="{{ $address->id }}" type="radio" name="flexRadioDefault"
-                                                id="{{ $address->id }}">
-                                            <label class="form-check-label" for="{{ $address->id }}">
-                                                <span class="icon">
-                                                    @if ($address->type === 'home')
-                                                    <i class="fas fa-home"></i>
-                                                    @else
-                                                    <i class="far fa-car-building"></i>
-                                                    @endif
-                                                     {{ $address->type }}</span>
-                                                <span class="address">{{ $address->address }},{{ $address?->deliveryArea->area_name }}</span>
-                                            </label>
+                                    <div class="col-md-6">
+                                        <div class="fp__checkout_single_address">
+                                            <div class="form-check">
+                                                <input class="form-check-input v_address" value="{{ $address->id }}"
+                                                    type="radio" name="flexRadioDefault" id="{{ $address->id }}">
+                                                <label class="form-check-label" for="{{ $address->id }}">
+                                                    <span class="icon">
+                                                        @if ($address->type === 'home')
+                                                            <i class="fas fa-home"></i>
+                                                        @else
+                                                            <i class="far fa-car-building"></i>
+                                                        @endif
+                                                        {{ $address->type }}
+                                                    </span>
+                                                    <span
+                                                        class="address">{{ $address->address }},{{ $address?->deliveryArea->area_name }}</span>
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
                                 @endforeach
 
                             </div>
@@ -160,30 +170,29 @@
                         <p>subtotal: <span id="subtotal">{{ currencyPosition(cartTotal()) }}</span></p>
                         <p>delivery: <span id="delivery_fee">{{ currencyPosition(0) }}</span></p>
                         <p>discount: <span id="discount">
-                            @if (session()->has('coupon'))
-                                @if (Cart::content()->count() > 0)
-                                {{ currencyPosition(session()->get('coupon')['discount']) }}
+                                @if (session()->has('coupon'))
+                                    @if (Cart::content()->count() > 0)
+                                        {{ currencyPosition(session()->get('coupon')['discount']) }}
+                                    @else
+                                        {{ session()->forget('coupon') }}
+                                        {{ currencyPosition(0) }}
+                                    @endif
                                 @else
-                                    {{ session()->forget('coupon') }}
                                     {{ currencyPosition(0) }}
-
                                 @endif
-                            @else
-                                {{ currencyPosition(0) }}
-                            @endif
-                        </span></p>
+                            </span></p>
                         <p class="total"><span>total:</span> <span id="final_total">
-                            @if (session()->has('coupon'))
-                                @if (Cart::content()->count() > 0)
-                                {{ currencyPosition( cartTotal() - session()->get('coupon')['discount']) }}
+                                @if (session()->has('coupon'))
+                                    @if (Cart::content()->count() > 0)
+                                        {{ currencyPosition(cartTotal() - session()->get('coupon')['discount']) }}
+                                    @else
+                                        {{ session()->forget('coupon') }}
+                                        {{ currencyPosition(0) }}
+                                    @endif
                                 @else
-                                {{ session()->forget('coupon') }}
-                                {{ currencyPosition(0) }}
+                                    {{ currencyPosition(cartTotal()) }}
                                 @endif
-                            @else
-                                {{ currencyPosition(cartTotal()) }}
-                            @endif
-                        </span></p>
+                            </span></p>
                         <a class="common_btn" id="checkout_to_payment" href="">checkout</a>
                     </div>
                 </div>
@@ -191,76 +200,76 @@
         </div>
     </section>
     <!--============================
-        CHECK OUT PAGE END
-    ==============================-->
+            CHECK OUT PAGE END
+        ==============================-->
 
 @endsection
 @push('js')
+    <script>
+        $(document).ready(function() {
+            $('.v_address').prop('checked', false)
+            $('.v_address').on('click', function() {
+                let addressId = $(this).val();
+                $.ajax({
+                    method: "POST",
+                    url: "{{ route('checkout.delivery-calculation') }}",
+                    data: {
+                        addressId: addressId,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    beforeSend: function() {
+                        showLoader()
+                    },
+                    success: function(response) {
+                        $('#delivery_fee').text("{{ currencyPosition(':deliveryFee') }}"
+                            .replace(':deliveryFee', response.deliveryFee))
+                        $('#final_total').text("{{ currencyPosition(':finalTotal') }}".replace(
+                            ':finalTotal', response.finalTotal))
+                    },
+                    error: function(xhr, status, error) {
+                        let errorMessage = xhr.resopnseJSON.message
+                        toastr.error(errorMessage)
+                        console.log(errorMessage)
 
-<script>
-    $(document).ready(function(){
-        $('.v_address').prop('checked',false)
-        $('.v_address').on('click',function(){
-            let addressId = $(this).val();
-            $.ajax({
-                method:"POST",
-                url:"{{ route('checkout.delivery-calculation') }}",
-                data:{
-                    addressId:addressId,
-                    _token:"{{ csrf_token() }}"
-                },
-                beforeSend:function(){
-                    showLoader()
-                },
-                success:function(response){
-                    $('#delivery_fee').text("{{ currencyPosition(':deliveryFee') }}".replace(':deliveryFee',response.deliveryFee))
-                    $('#final_total').text("{{ currencyPosition(':finalTotal') }}".replace(':finalTotal',response.finalTotal))
-                },
-                error:function(xhr,status,error){
-                    let errorMessage = xhr.resopnseJSON.message
-                    toastr.error(errorMessage)
-                    console.log(errorMessage)
+                    },
+                    complete: function() {
+                        hideLoader()
+                    }
 
-                },
-                complete:function(){
-                    hideLoader()
+                })
+            })
+            $('#checkout_to_payment').on('click', function(e) {
+                e.preventDefault()
+                let address = $('.v_address:checked')
+                if (address.length === 0) {
+                    toastr.error("Please Select An Address!")
+                    return;
                 }
+                let addressId = address.val()
+                $.ajax({
+                    method: "POST",
+                    url: "{{ route('checkout.redirect') }}",
+                    data: {
+                        address: addressId,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    beforeSend: function() {
+                        showLoader()
+                    },
+                    success: function(response) {
+                        window.location.href = response.redirect_url
+                    },
+                    error: function(xhr, status, error) {
+                        let errorMessage = xhr.resopnseJSON.message
+                        toastr.error(errorMessage)
+                        console.log(errorMessage)
 
+                    },
+                    complete: function() {
+                        hideLoader()
+                    }
+                })
             })
         })
-        $('#checkout_to_payment').on('click',function(e){
-            e.preventDefault()
-            let address = $('.v_address:checked')
-            if(address.length === 0){
-                toastr.error("Please Select An Address!")
-                return;
-            }
-            let addressId = address.val()
-            $.ajax({
-                method:"POST",
-                url:"{{ route('checkout.redirect') }}",
-                data:{
-                    address:addressId,
-                    _token:"{{ csrf_token() }}"
-                },
-                beforeSend:function(){
-                    showLoader()
-                },
-                success:function(response){
-                    window.location.href = response.redirect_url
-                },
-                error:function(xhr,status,error){
-                    let errorMessage = xhr.resopnseJSON.message
-                    toastr.error(errorMessage)
-                    console.log(errorMessage)
-
-                },
-                complete:function(){
-                    hideLoader()
-                }
-            })
-        })
-    })
-</script>
-
+    </script>
 @endpush

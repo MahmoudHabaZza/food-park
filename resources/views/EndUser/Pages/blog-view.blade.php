@@ -4,9 +4,9 @@
 @endsection
 @section('content')
     <!--=============================
-            BREADCRUMB START
-        ==============================-->
-    <section class="fp__breadcrumb" style="background: url({{ asset('assets/EndUser/images/counter_bg.jpg') }});">
+                BREADCRUMB START
+            ==============================-->
+    <section class="fp__breadcrumb" style="background: url({{ asset(@config('settings.breadcrumb')) }});">
         <div class="fp__breadcrumb_overlay">
             <div class="container">
                 <div class="fp__breadcrumb_text">
@@ -20,13 +20,13 @@
         </div>
     </section>
     <!--=============================
-            BREADCRUMB END
-        ==============================-->
+                BREADCRUMB END
+            ==============================-->
 
 
     <!--=============================
-            BLOG PAGE START
-        ==============================-->
+                BLOG PAGE START
+            ==============================-->
     <section class="fp__blog_page fp__blog2 mt_120 xs_mt_65 mb_100 xs_mb_70">
         <div class="container">
             <form class="fp__search_menu_form mb-4" method="GET" action="{{ route('blogs.index') }}">
@@ -38,7 +38,8 @@
                         <select class="nice_select" name="category">
                             <option value="">All</option>
                             @foreach ($categories as $category)
-                            <option @selected(@request()->category == $category->slug) value="{{ $category->slug }}">{{ $category->name }}</option>
+                                <option @selected(@request()->category == $category->slug) value="{{ $category->slug }}">{{ $category->name }}
+                                </option>
                             @endforeach
 
                         </select>
@@ -52,18 +53,20 @@
                 @foreach ($blogs as $blog)
                     <div class="col-xl-4 col-sm-6 col-lg-4 wow fadeInUp" data-wow-duration="1s">
                         <div class="fp__single_blog">
-                            <a href="{{ route('blogs.details',$blog->slug) }}" class="fp__single_blog_img">
+                            <a href="{{ route('blogs.details', $blog->slug) }}" class="fp__single_blog_img">
                                 <img src="{{ asset($blog->image) }}" alt="blog" class="img-fluid w-100">
                             </a>
                             <div class="fp__single_blog_text">
                                 <a class="category" href="#">{{ $blog->blogCategory->name }}</a>
                                 <ul class="d-flex flex-wrap mt_15">
                                     <li><i class="fas fa-user"></i>{{ $blog->user->name }}</li>
-                                    <li><i class="fas fa-calendar-alt"></i>{{ date('d F Y', strtotime($blog->created_at)) }}
+                                    <li><i
+                                            class="fas fa-calendar-alt"></i>{{ date('d F Y', strtotime($blog->created_at)) }}
                                     </li>
                                     <li><i class="fas fa-comments"></i> {{ $blog->comments_count }} comment</li>
                                 </ul>
-                                <a class="title" href="{{ route('blogs.details',$blog->slug) }}">{{ truncate($blog->title)}}</a>
+                                <a class="title"
+                                    href="{{ route('blogs.details', $blog->slug) }}">{{ truncate($blog->title) }}</a>
                             </div>
                         </div>
                     </div>
@@ -83,11 +86,11 @@
         </div>
     </section>
     <!--=============================
-            BLOG PAGE END
-        ==============================-->
+                BLOG PAGE END
+            ==============================-->
 
 
     <!--=============================
-            FOOTER START
-        ==============================-->
+                FOOTER START
+            ==============================-->
 @endsection

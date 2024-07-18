@@ -15,7 +15,7 @@
             </li>
             <li class="menu-header">Starter</li>
             <li class="dropdown">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-home"></i>
                     <span>Home Page Sections</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ route('admin.Slider.index') }}">Slider</a></li>
@@ -30,7 +30,7 @@
                 </ul>
             </li>
             <li class="dropdown">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-box"></i>
                     <span>Orders</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ route('admin.order.index') }}">All Orders</a></li>
@@ -41,7 +41,7 @@
                 </ul>
             </li>
             <li class="dropdown">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-shopping-cart"></i>
                     <span>Manage Restaurant</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ route('admin.category.index') }}">Category</a></li>
@@ -50,7 +50,7 @@
                 </ul>
             </li>
             <li class="dropdown">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-store"></i>
                     <span>Manage Ecommerce</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ route('admin.coupon.index') }}">Coupon</a></li>
@@ -60,7 +60,7 @@
                 </ul>
             </li>
             <li class="dropdown">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-chair"></i>
                     <span>Manage Reservations</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ route('admin.reservation-times.index') }}">Reservation Times</a>
@@ -70,7 +70,7 @@
                 </ul>
             </li>
             <li class="dropdown">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-rss"></i>
                     <span>Blog</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ route('admin.blog-categories.index') }}">Categories</a></li>
@@ -80,7 +80,7 @@
             </li>
                         <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
-                        class="fas fa-columns"></i>
+                        class="fas fa-file-alt"></i>
                     <span>Pages</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ route('admin.page-builder.index') }}">Custom Page</a></li>
@@ -88,20 +88,20 @@
                     <li><a class="nav-link" href="{{ route('admin.contact.index') }}">Contact</a></li>
                 </ul>
             </li>
-            <li><a class="nav-link" href="{{ route('admin.news-letter.index') }}"><i class="far fa-square"></i>
+            <li><a class="nav-link" href="{{ route('admin.news-letter.index') }}"><i class="fas fa-newspaper"></i>
                     <span>News Letter</span></a></li>
             @if (auth()->user()->id == 1)
-                <li><a class="nav-link" href="{{ route('admin.chat.index') }}"><i class="far fa-square"></i>
+                <li><a class="nav-link" href="{{ route('admin.chat.index') }}"><i class="far fa-comment-dots"></i>
                         <span>Messages</span></a></li>
             @endif
 
-            <li><a class="nav-link" href="{{ route('admin.menu-builder.index') }}"><i class="far fa-square"></i>
+            <li><a class="nav-link" href="{{ route('admin.menu-builder.index') }}"><i class="far fa-list-alt"></i>
                     <span>Menu Builder</span></a></li>
-            <li><a class="nav-link" href="{{ route('admin.admin-management.index') }}"><i class="far fa-square"></i>
+            <li><a class="nav-link" href="{{ route('admin.admin-management.index') }}"><i class="fas fa-user-shield"></i>
                     <span>Admin Management</span></a></li>
-            <li><a class="nav-link" href="{{ route('admin.clear-database.index') }}"><i class="far fa-square"></i>
+            <li><a class="nav-link" href="{{ route('admin.clear-database.index') }}"><i class="fas fa-exclamation-triangle"></i>
                     <span>Clear Database</span></a></li>
-            <li><a class="nav-link" href="{{ route('admin.setting.index') }}"><i class="far fa-square"></i>
+            <li><a class="nav-link" href="{{ route('admin.setting.index') }}"><i class="fas fa-cogs"></i>
                     <span>Settings</span></a></li>
             {{-- <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>

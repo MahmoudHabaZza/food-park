@@ -2,17 +2,19 @@
 
 namespace App\Repositories\Admin;
 
+use App\DataTables\TodaysOrderDataTable;
 use App\Interfaces\Admin\DashboardRepositoryInterface;
 use App\Models\Blog;
 use App\Models\Order;
 use App\Models\OrderPlacedNotification;
 use App\Models\Product;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
 
 class DashboardRepository implements DashboardRepositoryInterface
 {
-    public function index(): View
+    public function index(TodaysOrderDataTable $dataTable): View|JsonResponse
     {
 
         $todaysOrders = Order::whereDay('created_at', now()->day)->count();
@@ -32,7 +34,7 @@ class DashboardRepository implements DashboardRepositoryInterface
 
         $totalProducts = Product::count();
         $totalBlogs = Blog::count();
-        return view('Admin.Dashboard.index', compact(
+        return $dataTable->render('Admin.Dashboard.index', compact(
             'todaysOrders',
             'todaysEarnings',
             'thisMonthOrders',

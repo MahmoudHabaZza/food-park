@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\TodaysOrderDataTable;
 use App\Http\Controllers\Controller;
 use App\Interfaces\Admin\DashboardRepositoryInterface;
 use App\Models\OrderPlacedNotification;
@@ -16,10 +17,10 @@ class DashboardController extends Controller
     {
         $this->dashboardRepository = $dashboardRepository;
     }
-    public function index()
+    public function index(TodaysOrderDataTable $dataTable)
     {
 
-        return $this->dashboardRepository->index();
+        return $this->dashboardRepository->index($dataTable);
     }
 
     public function clearNotification()

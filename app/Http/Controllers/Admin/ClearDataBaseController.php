@@ -7,7 +7,11 @@ use Illuminate\Http\Request;
 
 class ClearDataBaseController extends Controller
 {
-    function index() {
+    public function index() {
         return view('Admin.Clear-DataBase.index');
     }
+    public function clearDatabase() {
+        dd('working');
+    }
+
 }

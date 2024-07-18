@@ -255,5 +255,6 @@ Route::group([
 
     // Clear Database Routes
     Route::get('clear-database',[ClearDataBaseController::class,'index'])->name('clear-database.index');
+    Route::post('clear-database',[ClearDataBaseController::class,'clearDatabase'])->name('clear-database.destroy');
 
 });

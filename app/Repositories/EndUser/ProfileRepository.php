@@ -39,7 +39,7 @@ public function updatePassword(ProfileUpdatePasswordRequest $request) : Redirect
 public function updateAvatar(Request $request)
 {
     try{
-        $image_path =   $this->uploadImage($request , 'avatar' , 'uploads/EndUser/ProfileImages');
+        $image_path =   $this->uploadImage($request , 'avatar' , 'uploads');
         $user = Auth::user();
         $user->update([
             'avatar' => $image_path,

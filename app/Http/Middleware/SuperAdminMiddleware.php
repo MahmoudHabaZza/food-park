@@ -15,7 +15,7 @@ class SuperAdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->user()->id == 1 && auth()->user()->email == 'admin@gmail.com')
+        if(auth()->user()->id == 1 && auth()->user()->email == 'superadmin@foodpark.com')
         {
             return $next($request);
         }

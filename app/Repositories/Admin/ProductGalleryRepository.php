@@ -26,7 +26,7 @@ class ProductGalleryRepository implements ProductGalleryRepositoryInterface
             'product_id' => ['required', 'integer']
         ]);
 
-        $image_path =  $this->uploadImage($request, 'image', 'uploads/Admin/ProductImages');
+        $image_path =  $this->uploadImage($request, 'image', 'uploads');
         ProductGallery::create([
             'image' => $image_path,
             'product_id' => $request->product_id

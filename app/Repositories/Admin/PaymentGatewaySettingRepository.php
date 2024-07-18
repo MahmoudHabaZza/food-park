@@ -76,7 +76,7 @@ class PaymentGatewaySettingRepository implements PaymentGatewaySettingRepository
                 'stripe_logo' => ['nullable', 'image']
             ]);
 
-            $imagePath = $this->uploadImage($request, 'stripe_logo','uploads/Admin/Payment-Gateway-Logos');
+            $imagePath = $this->uploadImage($request, 'stripe_logo','uploads');
             PaymentGatewaySetting::updateOrCreate(
                 ['key' => 'stripe_logo'],
                 ['value' => $imagePath]
@@ -115,7 +115,7 @@ class PaymentGatewaySettingRepository implements PaymentGatewaySettingRepository
                 'razorpay_logo' => ['nullable', 'image']
             ]);
 
-            $imagePath = $this->uploadImage($request, 'razorpay_logo','uploads/Admin/Payment-Gateway-Logos');
+            $imagePath = $this->uploadImage($request, 'razorpay_logo','uploads');
             PaymentGatewaySetting::updateOrCreate(
                 ['key' => 'razorpay_logo'],
                 ['value' => $imagePath]

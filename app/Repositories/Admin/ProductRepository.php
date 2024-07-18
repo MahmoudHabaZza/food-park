@@ -61,7 +61,7 @@ class ProductRepository implements ProductRepositoryInterface
     public function update(ProductUpdateRequest $request, string $id): RedirectResponse
     {
         $product = Product::findOrFail($id);
-        $image_path = $this->uploadImage($request, 'thumb_image', 'uploads/Admin/ProductImages', $product->thumb_image);
+        $image_path = $this->uploadImage($request, 'thumb_image', 'uploads', $product->thumb_image);
 
         $product->update([
             'thumb_image' => !(empty($image_path)) ? $image_path : $product->thumb_image,

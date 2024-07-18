@@ -14,19 +14,19 @@
                             <img src="{{ asset(@config('settings.footer_logo')) }}" alt="FoodPark"
                                 class="img-fluid w-100">
                         </a>
-                        @if ($footer_info->short_description)
+                        @if (@$footer_info->short_description)
                             <span>{{ @$footer_info->short_description }}</span>
                         @endif
-                        @if ($footer_info->address)
+                        @if (@$footer_info->address)
                             <p class="info"><i class="far fa-map-marker-alt">
 
                                 </i> {{ @$footer_info->address }}</p>
                         @endif
-                        @if ($footer_info->phone)
+                        @if (@$footer_info->phone)
                             <a class="info" href="callto:{{ @$footer_info->phone }}"><i class="fas fa-phone-alt"></i>
                                 {{ @$footer_info->phone }}</a>
                         @endif
-                        @if ($footer_info->email)
+                        @if (@$footer_info->email)
                             <a class="info" href="mailto:{{ @$footer_info->email }}"><i
                                     class="fas fa-envelope"></i>{{ @$footer_info->email }}</a>
                         @endif

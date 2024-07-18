@@ -16,13 +16,15 @@ class UserSeeder extends Seeder
         //
         User::insert([
             [
-                'name' => 'Admin',
-                'email' => 'admin@gmail.com',
+                'name' => 'Super Admin',
+                'email' => 'superadmin@foodpark.com',
+                'avatar' => asset('assets/Admin/img/avatar/avatar-1.png'),
                 'role' => 'admin',
                 'password' => bcrypt('password')
             ],
             [
                 'name' => 'User',
+                'avatar' => asset('assets/Admin/img/avatar/avatar-1.png'),
                 'email' => 'user@gmail.com',
                 'role' => 'user',
                 'password' => bcrypt('password')

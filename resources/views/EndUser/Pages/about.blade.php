@@ -6,7 +6,7 @@ About Us
     <!--=============================
         BREADCRUMB START
     ==============================-->
-    <section class="fp__breadcrumb" style="background: url(images/counter_bg.jpg);">
+    <section class="fp__breadcrumb" style="background: url({{ @config('settings.breadcrumb') }});">
         <div class="fp__breadcrumb_overlay">
             <div class="container">
                 <div class="fp__breadcrumb_text">
@@ -32,19 +32,19 @@ About Us
             <div class="row">
                 <div class="col-xl-6 col-lg-5 wow fadeInUp" data-wow-duration="1s">
                     <div class="fp__about_us_img">
-                        <img src="{{ asset($about->image) }}" alt="about us" class="img-fluid w-100">
+                        <img src="{{ asset(@$about->image) }}" alt="about us" class="img-fluid w-100">
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-7 wow fadeInUp" data-wow-duration="1s">
                     <div class="fp__section_heading mb_40">
-                        <h4>{{ $about->main_title }}</h4>
-                        <h2>{{ $about->title }}</h2>
+                        <h4>{{ @$about->main_title }}</h4>
+                        <h2>{{ @$about->title }}</h2>
                         <span>
                             <img src="images/heading_shapes.png" alt="shapes" class="img-fluid w-100">
                         </span>
                     </div>
                     <div class="fp__about_us_text">
-                       {!! $about->description !!}
+                       {!! @$about->description !!}
                     </div>
                 </div>
             </div>
@@ -62,7 +62,7 @@ About Us
                             <div class="fp__about_video_text">
                                 <p>Watch Videos</p>
                                 <a class="play_btn venobox" data-autoplay="true" data-vbtype="video"
-                                    href="{!! $about->video_link !!}">
+                                    href="{!! @$about->video_link !!}">
                                     <i class=" fas fa-play"></i>
                                 </a>
                             </div>

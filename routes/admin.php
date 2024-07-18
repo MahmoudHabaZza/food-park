@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ChatController;
 use App\Http\Controllers\Admin\ChefController;
+use App\Http\Controllers\Admin\ClearDataBaseController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\CounterController;
@@ -251,5 +252,8 @@ Route::group([
         });
     });
 
+
+    // Clear Database Routes
+    Route::get('clear-database',[ClearDataBaseController::class,'index'])->name('clear-database.index');
 
 });

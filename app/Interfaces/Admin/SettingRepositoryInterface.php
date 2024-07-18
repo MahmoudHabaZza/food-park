@@ -12,6 +12,7 @@ interface SettingRepositoryInterface
     public function updateLogoSettings(Request $request);
     public function updateMailSettings(Request $request);
     public function updateAppearanceSettings(Request $request);
+    public function updateSeoSettings(Request $request);
 
 
 }

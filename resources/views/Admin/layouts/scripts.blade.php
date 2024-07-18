@@ -35,11 +35,13 @@
 {{-- Bootstrap Icon Picker --}}
 <script src="{{ asset('assets/Admin') }}/js/bootstrap-iconpicker.bundle.min.js"></script>
 <script src="{{ asset('assets/Admin/modules/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js') }}"></script>
+<script src="{{ asset('assets/Admin/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
 <script>
     $(".colorpickerinput").colorpicker({
         format: 'hex',
         component: '.input-group-append',
     });
+    $('.inputtags').tagsinput('items');
 </script>
 
 <!-- Template JS File -->

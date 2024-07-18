@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{{ asset('assets/Admin') }}/modules/select2/dist/css/select2.min.css">
     <link rel="stylesheet" href="{{ asset('assets/Admin') }}/modules/summernote/summernote-bs4.css">
     <link rel="stylesheet" href="{{ asset('assets/Admin/modules/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets\Admin\modules\bootstrap-tagsinput\dist\bootstrap-tagsinput.css') }}">
 
 
 

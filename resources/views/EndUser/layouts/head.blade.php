@@ -6,6 +6,9 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="title" content="{{ @config('settings.seo_title') }}" />
+    <meta name="description" content="{{ @config('settings.seo_description') }}" />
+    <meta name="keywords" content="{{ @config('settings.seo_keywords') }}" />
     @yield('og_meta_tags')
     <title>@yield('title', 'Food Park')</title>
     <link rel="icon" type="image/png" href="{{ asset(@config('settings.favicon')) }}">

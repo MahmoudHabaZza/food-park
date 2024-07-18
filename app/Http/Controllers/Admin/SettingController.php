@@ -35,4 +35,10 @@ class SettingController extends Controller
     {
         return $this->settingRepository->updateAppearanceSettings($request);
     }
+
+    public function updateSeoSettings(Request $request)
+    {
+        return $this->settingRepository->updateSeoSettings($request);
+    }
+
 }

@@ -135,4 +135,25 @@ class SettingRepository implements SettingRepositoryInterface
         toastr()->success('Appearance Updated Successfully');
         return redirect()->back();
     }
+    public function updateSeoSettings(Request $request)
+    {
+        $validatedData = $request->validate([
+            'seo_title' => ['required','max:255'],
+            'seo_description' => ['nullable','max:500'],
+            'seo_keywords' => ['nullable']
+        ]);
+
+        foreach ($validatedData as $key => $value) {
+            Setting::updateOrCreate(
+                ['key' => $key],
+                ['value' => $value],
+            );
+        }
+
+        $settingsService = app(SettingsService::class);
+        $settingsService->clearCachedSettings();
+
+        toastr()->success('SEO Settings updated Successfully');
+        return redirect()->back();
+    }
 }

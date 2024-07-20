@@ -129,30 +129,30 @@ class SettingSeeder extends Seeder
             array(
                 "id" => 23,
                 "key" => "logo",
-                "value" => asset('assets/EndUser/images/logo.png'),
+                "value" => "uploads/Default/669b3a5b8ab66.png",
                 "created_at" => "2024-07-18 03:00:27",
-                "updated_at" => "2024-07-18 03:18:15",
+                "updated_at" => "2024-07-20 04:17:31",
             ),
             array(
                 "id" => 24,
                 "key" => "favicon",
-                "value" => asset('assets/EndUser/images/favicon.png'),
+                "value" => "uploads/Default/669b3a7e0846b.png",
                 "created_at" => "2024-07-18 03:00:27",
-                "updated_at" => "2024-07-18 03:18:15",
+                "updated_at" => "2024-07-20 04:18:06",
             ),
             array(
                 "id" => 25,
                 "key" => "footer_logo",
-                "value" => asset('assets/EndUser/images/footer_logo.png'),
+                "value" => "uploads/Default/669b3a7e0bb88.png",
                 "created_at" => "2024-07-18 03:00:27",
-                "updated_at" => "2024-07-18 03:18:15",
+                "updated_at" => "2024-07-20 04:18:06",
             ),
             array(
                 "id" => 26,
                 "key" => "breadcrumb",
-                "value" => asset('assets/EndUser/images/counter_bg.jpg'),
+                "value" => "uploads/Default/669b3a7e0a5ad.jpg",
                 "created_at" => "2024-07-18 03:05:49",
-                "updated_at" => "2024-07-18 03:18:15",
+                "updated_at" => "2024-07-20 04:18:06",
             ),
             array(
                 "id" => 27,
@@ -183,6 +183,8 @@ class SettingSeeder extends Seeder
                 "updated_at" => "2024-07-18 19:55:05",
             ),
         );
+
+
 
         DB::table('settings')->insert($settings);
     }

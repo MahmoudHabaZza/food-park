@@ -29,16 +29,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', [HomeController::class, 'index'])->name('home');
-// Route::get('product/{slug}', [HomeController::class, 'showProduct'])->name('product.show');
-// Route::get('product/load-modal/{productId}', [HomeController::class, 'loadProductModal'])->name('product.load-modal');
-// // Chef Page Routes
-// Route::get('/chefs',[HomeController::class,'chef'])->name('chef.index');
-// Route::get('/testimonials',[HomeController::class,'testimonials'])->name('testimonial.index');
-// // Blog
-// Route::get('/blogs',[HomeController::class,'blogs'])->name('blogs.index');
-// Route::get('/blog/{slug}',[HomeController::class,'blogDetails'])->name('blogDetails');
-// Route::post('/blog/comment/{blogId}',[HomeController::class,'blogCommentStore'])->name('blog.comment.store');
 
 Route::controller(HomeController::class)->group(function () {
     // Home routes

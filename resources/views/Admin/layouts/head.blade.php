@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>@yield('title', 'Default Title')</title>
+    <title>@yield('title', @config('settings.site_name'))</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ asset('assets/Admin') }}/modules/bootstrap/css/bootstrap.min.css">
@@ -20,9 +20,6 @@
     <link rel="stylesheet" href="{{ asset('assets/Admin') }}/modules/summernote/summernote-bs4.css">
     <link rel="stylesheet" href="{{ asset('assets/Admin/modules/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets\Admin\modules\bootstrap-tagsinput\dist\bootstrap-tagsinput.css') }}">
-
-
-
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('assets/Admin') }}/css/style.css">
     <link rel="stylesheet" href="{{ asset('assets/Admin') }}/css/components.css">
@@ -32,7 +29,7 @@
     <link rel="stylesheet" href="{{ asset('assets/EndUser') }}/css/toastr.min.css">
 
     {{-- Yajra Datatable  --}}
-    <link rel="stylesheet" href="{{ asset('assets/Admin') }}/css/datatables.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/Admin/css/dataTables.bootstrap4.min.css') }}">
     {{-- Sweet Alert --}}
     <link rel="stylesheet" href="{{ asset('assets/Admin') }}/css/sweetalert2.min.css">
     {{-- Icon Picker --}}

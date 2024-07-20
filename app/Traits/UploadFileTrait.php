@@ -11,7 +11,7 @@ trait UploadFileTrait
     {
         if ($request->hasFile($inputName)) {
             $image = $request->file($inputName);
-            $file_name = uniqid() . '_' . $image->getClientOriginalExtension();
+            $file_name = uniqid() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path($path), $file_name);
 
             //  Delete Previous Image

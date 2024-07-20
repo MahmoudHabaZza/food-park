@@ -30,7 +30,7 @@ class ProductRepository implements ProductRepositoryInterface
     }
     public function store(ProductCreateRequest $request): RedirectResponse
     {
-        $image_path = $this->uploadImage($request, 'thumb_image', 'uploads/Admin/ProductImages');
+        $image_path = $this->uploadImage($request, 'thumb_image', 'uploads');
         Product::create([
             'thumb_image' => $image_path,
             'name' => $request->name,

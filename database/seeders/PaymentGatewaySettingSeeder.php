@@ -73,23 +73,23 @@ class PaymentGatewaySettingSeeder extends Seeder
             array(
                 "id" => 9,
                 "key" => "paypal_image",
-                "value" => asset('assets/Admin/img/paypal.png'),
+                "value" => "http://food-park.test/assets/Admin/img/paypal.png",
                 "created_at" => "2024-06-18 17:59:05",
                 "updated_at" => "2024-06-18 17:59:05",
             ),
             array(
                 "id" => 10,
                 "key" => "paypal_logo",
-                "value" => asset('assets/Admin/img/paypal.png'),
+                "value" => "uploads/Default/669b399eaefbc.jpg",
                 "created_at" => "2024-06-18 20:27:47",
-                "updated_at" => "2024-06-18 22:51:09",
+                "updated_at" => "2024-07-20 04:14:22",
             ),
             array(
                 "id" => 11,
                 "key" => "stripe_logo",
-                "value" => asset('assets/EndUser/images/stripe.jpeg'),
+                "value" => "uploads/Default/669b37bd2117c.jpeg",
                 "created_at" => "2024-06-18 21:05:56",
-                "updated_at" => "2024-06-18 22:50:23",
+                "updated_at" => "2024-07-20 04:06:21",
             ),
             array(
                 "id" => 12,
@@ -136,9 +136,9 @@ class PaymentGatewaySettingSeeder extends Seeder
             array(
                 "id" => 18,
                 "key" => "razorpay_logo",
-                "value" => asset('assets/EndUser/images/razorpay.jpeg'),
+                "value" => "uploads/Default/669b37c708710.jpeg",
                 "created_at" => "2024-06-20 00:20:43",
-                "updated_at" => "2024-06-20 00:20:43",
+                "updated_at" => "2024-07-20 04:06:31",
             ),
             array(
                 "id" => 19,
@@ -183,6 +183,7 @@ class PaymentGatewaySettingSeeder extends Seeder
                 "updated_at" => "2024-06-20 02:48:33",
             ),
         );
+
 
         DB::table('payment_gateway_settings')->insert($payment_gateway_settings);
     }

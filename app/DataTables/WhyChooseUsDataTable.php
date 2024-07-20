@@ -28,7 +28,7 @@ class WhyChooseUsDataTable extends DataTable
                 return $edit . $delete;
             })
             ->addColumn('icon', function ($query) {
-                $icon = '<i  style="font-size:50px" class="fas' . $query->icon . '" ></i>';
+                $icon = '<i  style="font-size:30px" class="'. $query->icon . '" ></i>';
                 return $icon;
             })
             ->addColumn('status',function ($query){

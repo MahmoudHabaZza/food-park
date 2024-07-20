@@ -1,4 +1,4 @@
-<section class="fp__banner" style="background: url(images/banner_bg.jpg);">
+<section class="fp__banner" style="background: url({{ asset('assets/EndUser/images/banner_bg.jpg') }});">
     <div class="fp__banner_overlay">
         <div class="row banner_slider">
             @foreach ($sliders as $slider)
@@ -12,7 +12,7 @@
                                             <img src="{{ asset($slider->image) }}" alt="food item"
                                                 class="img-fluid w-100">
                                             @if ($slider->offer)
-                                                <span>{{ $slider->offer }}</span>
+                                                <span>{{ $slider->offer }}%</span>
                                             @endif
                                         </div>
                                     </div>

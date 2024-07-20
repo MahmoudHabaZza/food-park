@@ -21,7 +21,7 @@ class ProfileRepository implements ProfileRepositoryInterface {
     public function updateProfile(ProfileUpdateRequest $request) : RedirectResponse {
 
         $user = Auth::user();
-        $imagePath = $this->uploadImage($request,'avatar','uploads/Admin/ProfileImages');
+        $imagePath = $this->uploadImage($request,'avatar','uploads');
 
         $user->update([
             'avatar' => isset($imagePath) ? $imagePath : $user->avatar,

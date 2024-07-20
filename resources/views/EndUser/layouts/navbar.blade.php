@@ -54,7 +54,7 @@
                     ])->count();
                 @endphp
                 <li>
-                    <a href="javascript:;" class="message_icon">
+                    <a href="{{ route('dashboard') }}" class="message_icon">
                         <i class="fas fa-comment-alt-dots"></i>
                         <span class="unseen_messages_count">{{ $unseenMessages > 0 ? 1 : 0 }}</span>
                     </a>

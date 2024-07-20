@@ -23,11 +23,14 @@
 <!-- Page Specific JS File -->
 <script src="{{ asset('assets/Admin') }}/js/page/index-0.js"></script>
 
+{{-- Datatable --}}
 
+<script src="{{ asset('assets/Admin/js/datatables.min.js') }}"></script>
+<script src="{{ asset('assets/Admin/js/dataTables.bootstrap4.min.js') }}"></script>
 {{-- Toastr --}}
 <script src="{{ asset('assets/EndUser') }}/js/toastr.min.js"></script>
 {{-- Yajra Datatable --}}
-<script src="{{ asset('assets/Admin') }}/js/datatables.min.js"></script>
+{{-- <script src="{{ asset('assets/Admin') }}/js/datatables.min.js"></script> --}}
 {{-- Upload Image Preview --}}
 <script src="{{ asset('assets/Admin') }}/modules/upload-preview/assets/js/jquery.uploadPreview.min.js"></script>
 {{-- Sweet Alert --}}
@@ -63,6 +66,7 @@
 
 
     $(document).ready(function() {
+        
 
         $('body').on('click', '.delete-item', function(e) {
             e.preventDefault();
@@ -112,6 +116,8 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+
+
 </script>
 
 

@@ -28,7 +28,7 @@ class SliderRepository implements SliderRepositoryInterface
     }
     public function store(SliderCreateRequest $request): RedirectResponse
     {
-        $image_path = $this->uploadImage($request, 'image', 'uploads/Admin/Sliders');
+        $image_path = $this->uploadImage($request, 'image', 'uploads');
 
         Slider::create([
             'image' => $image_path,
@@ -52,7 +52,7 @@ class SliderRepository implements SliderRepositoryInterface
     {
         $slider = Slider::findOrFail($id);
 
-        $image_path = $this->uploadImage($request, 'image', 'uploads/Admin/Sliders', $slider->image);
+        $image_path = $this->uploadImage($request, 'image', 'uploads', $slider->image);
 
         $slider->update([
             'image' => !empty($image_path) ? $image_path : $slider->image,

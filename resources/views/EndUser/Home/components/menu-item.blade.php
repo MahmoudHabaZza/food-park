@@ -18,9 +18,8 @@
         <div class="row wow fadeInUp" data-wow-duration="1s">
             <div class="col-12">
                 <div class="menu_filter d-flex flex-wrap justify-content-center">
-                    <button class=" active" data-filter="*">all menu</button>
                     @foreach ($categories as $category)
-                        <button data-filter=".{{ $category->slug }}">{{ $category->name }}</button>
+                        <button class="{{ $loop->index == 0 ? 'active category_click_btn' : '' }}" data-filter=".{{ $category->slug }}">{{ $category->name }}</button>
                     @endforeach
 
 
@@ -38,14 +37,14 @@
                         'category_id' => $category->id,
                     ])
                         ->orderBy('id', 'DESC')
-                        ->take(8) // Fetch Only 8 Elements
+                        ->take(15) // Fetch Only 8 Elements
                         ->withAvg('productRatings','rating')
                         ->withCount('productRatings')
                         ->get();
                 @endphp
 
                 @foreach ($products as $product)
-                    <div class="col-xl-3 col-sm-6 col-lg-4 wow fadeInUp" data-wow-duration="1s">
+                    <div class="col-xl-3 col-sm-6 col-lg-4 {{ $category->slug }}"">
                         <div class="fp__menu_item">
                             <div class="fp__menu_item_img">
                                 <img src="{{ asset($product->thumb_image) }}" alt="{{ $product->name }}"

@@ -35,7 +35,7 @@ class ProductDataTable extends DataTable
           </div>';
                 return $edit . $delete . $more;
             })->addColumn('thumb_image', function ($query) {
-                return "<img src='" . asset($query->thumb_image) . "'  style='width:80px;height:80px;' />";
+                return "<img src='" . asset($query->thumb_image) . "'  style='width:60px;height:60px;object-fit:cover;' />";
             })
             ->addColumn('price', function ($query) {
                 return currencyPosition(round($query->price, 2));
@@ -49,6 +49,9 @@ class ProductDataTable extends DataTable
                 } else {
                     return '<div class="badge badge-danger">Inactive</div>';
                 }
+            })
+            ->addColumn('category',function($query){
+                return $query->category->name;
             })
             ->addColumn('show_at_home', function ($query) {
                 if ($query->show_at_home === 1) {
@@ -101,8 +104,10 @@ class ProductDataTable extends DataTable
             Column::make('id'),
             Column::make('thumb_image'),
             Column::make('name'),
+            Column::make('category'),
             Column::make('price'),
             Column::make('offer_price'),
+            Column::make('quantity'),
             Column::make('status'),
             Column::make('show_at_home'),
             Column::computed('action')

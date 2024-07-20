@@ -14,12 +14,15 @@ class DatabaseSeeder extends Seeder
     {
 
         $this->call([
-            UserSeeder::class,
             SliderSeeder::class,
-            WhyChooseUsSeeder::class,
+            BannerSliderSeeder::class,
+            ChefSeeder::class,
             CategorySeeder::class,
-            ProductSeeder::class,
-            CouponSeeder::class,
+            CounterSeeder::class,
+            FooterInfoSeeder::class,
+            SocialLinkSeeder::class,
+            TestimonialSeeder::class,
+            CustomPageSeeder::class
 
         ]);
     }

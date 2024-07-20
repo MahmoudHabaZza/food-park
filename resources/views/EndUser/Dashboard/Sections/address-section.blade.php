@@ -47,7 +47,7 @@
                         <div class="col-md-12 col-lg-12 col-xl-12">
                             <div class="fp__check_single_form">
                                 <select id="select_js3" name="delivery_area_id">
-                                    <option selected disabled value="">select country</option>
+                                    <option selected disabled value="">select area</option>
                                     @foreach ($supportedAreas as $Area)
                                         <option value="{{ $Area->id }}">{{ $Area->area_name }}</option>
                                     @endforeach

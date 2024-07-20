@@ -27,7 +27,7 @@ class SliderDataTable extends DataTable
                 $delete = '<a href="' . route('admin.Slider.destroy', $query->id) . '" class="btn btn-danger delete-item fas fa-trash "></a>';
                 return $edit . $delete;
             })->addColumn('image', function ($query) {
-                return '<img width="100px" height="70px" src="' . asset($query->image) . '">';
+                return '<img width="100px" height="60px" style="object-fit:cover" src="' . asset($query->image) . '">';
             })->addColumn('status',function ($query){
                 if($query->status === 1) {
                     return '<div class="badge badge-success">Active</div>';
@@ -78,6 +78,7 @@ class SliderDataTable extends DataTable
             Column::make('id')->width(60),
             Column::make('image')->width(100)->height(50),
             Column::make('title')->width(300),
+            Column::make('sub_title')->width(300),
             Column::make('status'),
             Column::computed('action')
                 ->exportable(false)

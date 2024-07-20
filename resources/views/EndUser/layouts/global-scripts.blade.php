@@ -2,6 +2,7 @@
 
     // show sweet alert
     $(document).ready(function(){
+        $('.category_click_btn').click();
         $('body').on('click', '.delete-item', function(e) {
             e.preventDefault();
             let url = $(this).attr('href')

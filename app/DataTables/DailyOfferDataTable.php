@@ -27,7 +27,7 @@ class DailyOfferDataTable extends DataTable
                 $delete = '<a href="' . route('admin.daily-offer.destroy', $query->id) . '" class="btn btn-danger delete-item fas fa-trash "></a>';
                 return $edit . $delete;
             })->addColumn('image', function ($query) {
-                return '<img width="70px" height="70px" style="border-radius:50%;object-fit:cover;" src="' . asset($query->product->thumb_image) . '">';
+                return '<img width="70px" height="60px" style="object-fit:cover;" src="' . asset($query->product->thumb_image) . '">';
             })->addColumn('status', function ($query) {
                 if ($query->status == 1) {
                     return '<div class="badge badge-success">Active</div>';

@@ -15,5 +15,5 @@ laravel 10.10
 # Run The Project
 
 https:127.0.0.1:8000/admin/login  
-['email'] - superadmin@foodpark.com  
-['password'] - password   
+[email] - superadmin@foodpark.com  
+[password] - password   

@@ -14,6 +14,10 @@ class DatabaseSeeder extends Seeder
     {
 
         $this->call([
+            MenuBuilderSeeder::class,
+            PaymentGatewaySettingSeeder::class,
+            SectionTitleSeeder::class,
+            UserSeeder::class,
             SliderSeeder::class,
             BannerSliderSeeder::class,
             ChefSeeder::class,

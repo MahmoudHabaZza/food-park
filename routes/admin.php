@@ -37,7 +37,6 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SocialLinkController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\WhyChooseUsController;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 
 Route::group([
@@ -47,14 +46,14 @@ Route::group([
 
 
     // Admin Login Routes
-    Route::middleware('guest')->group(function () {
-        Route::get('login', [AdminAuthController::class, 'create'])->name('login');
-        Route::post('login', [AdminAuthController::class, 'store'])->name('login');
+    Route::middleware('guest')->controller(AdminAuthController::class)->group(function () {
+        Route::get('login', 'create')->name('login');
+        Route::post('login', 'store')->name('login');
     });
 
-    Route::middleware(['auth', 'role:admin'])->group(function () {
-        Route::post('logout', [AdminAuthController::class, 'destroy'])->name('logout');
+    Route::middleware(['auth', 'role:admin,super_admin'])->group(function () {
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::post('logout', [AdminAuthController::class, 'destroy'])->name('logout');
 
         // Profile Routes
         Route::get('profile', [ProfileController::class, 'index'])->name('profile');
@@ -133,17 +132,7 @@ Route::group([
         // Notification Routes
         Route::get('clear-notification', [DashboardController::class, 'clearNotification'])->name('clear-notification');
 
-        // Chat Routes
-        Route::group([
-            'controller' => ChatController::class,
-            'prefix' => 'chat',
-            'as' => 'chat.',
-            'middleware' => 'superAdmin'
-        ], function () {
-            Route::get('/', 'index')->name('index');
-            Route::get('get/{senderId}', 'getChat')->name('get-chat');
-            Route::post('send-message', 'sendMessage')->name('send-message');
-        });
+
 
         // Daily Offer Routes
         Route::get('daily-offer/search-product', [DailyOfferController::class, 'searchProduct'])->name('daily-offer.search');
@@ -194,10 +183,10 @@ Route::group([
 
 
         // Menu Builder Controller
-        Route::get('menu-builder',[MenuBuilderController::class,'index'])->name('menu-builder.index');
+        Route::get('menu-builder', [MenuBuilderController::class, 'index'])->name('menu-builder.index');
 
         // Page Builder Routes
-        Route::resource('page-builder',PageBuilderController::class);
+        Route::resource('page-builder', PageBuilderController::class);
 
         // Reservation Time Routes
         Route::resource('reservation-times', ReservationTimeController::class);
@@ -223,10 +212,9 @@ Route::group([
         });
 
         // social links
-        Route::resource('social-links',SocialLinkController::class);
+        Route::resource('social-links', SocialLinkController::class);
 
-        // Admin Management Routes
-        Route::resource('admin-management',AdminManagementController::class)->middleware('superAdmin');
+
 
         // Settings Routes
         Route::group([
@@ -250,13 +238,27 @@ Route::group([
             Route::put('stripe-settings-update', 'stripeSettingUpdate')->name('stripe.settings.update');
             Route::put('razorpay-settings-update', 'razorpaySettingUpdate')->name('razorpay.settings.update');
         });
-        // Clear Database Routes
-        Route::controller(ClearDataBaseController::class)->group(function(){
-            Route::get('clear-database','index')->name('clear-database.index');
-            Route::post('clear-database','clearDatabase')->name('clear-database.destroy');
-        });
     });
 
+    Route::middleware('auth', 'role:super_admin')->group(function () {
+        // Chat Routes
+        Route::group([
+            'controller' => ChatController::class,
+            'prefix' => 'chat',
+            'as' => 'chat.',
+        ], function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('get/{senderId}', 'getChat')->name('get-chat');
+            Route::post('send-message', 'sendMessage')->name('send-message');
+        });
 
+        // Admin Management Routes
+        Route::resource('admin-management', AdminManagementController::class);
 
+        // Clear Database Routes
+        Route::controller(ClearDataBaseController::class)->group(function () {
+            Route::get('clear-database', 'index')->name('clear-database.index');
+            Route::post('clear-database', 'clearDatabase')->name('clear-database.destroy');
+        });
+    });
 });

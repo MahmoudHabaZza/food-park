@@ -36,11 +36,11 @@ Route::controller(HomeController::class)->group(function () {
 
     // Product routes
     Route::prefix('product')->as('product.')->group(function () {
-        Route::get('/','allProducts')->name('index');
+        Route::get('/', 'allProducts')->name('index');
         Route::get('{slug}', 'showProduct')->name('show');
         Route::get('load-modal/{productId}', 'loadProductModal')->name('load-modal');
         // Product Review
-        Route::post('product-review','productReviewStore')->name('product-review.store');
+        Route::post('product-review', 'productReviewStore')->name('product-review.store');
     });
 
     // Cart Coupon Routes
@@ -68,32 +68,33 @@ Route::controller(HomeController::class)->group(function () {
     Route::post('/contact', 'sendMessage')->name('contact.sendMessage');
 
     // Reservation
-    Route::post('reservation','reservation')->name('reservation.store');
+    Route::post('reservation', 'reservation')->name('reservation.store');
 
     // Subscribe News Letter
-    Route::post('subscribe-news-letter','subscribeNewsLetter')->name('subscribe-news-letter');
-
+    Route::post('subscribe-news-letter', 'subscribeNewsLetter')->name('subscribe-news-letter');
 });
 
 // WishList Routes
-Route::get('wishlist/{productId}',[WishListController::class,'store'])->name('wishlist.store');
-Route::delete('wishList/{id}',[WishListController::class,'destroy'])->name('wishlist.destroy');
+Route::controller(WishListController::class)->group(function () {
+    Route::get('wishlist/{productId}', 'store')->name('wishlist.store');
+    Route::delete('wishList/{id}', 'destroy')->name('wishlist.destroy');
+});
 
-// Custom Page Routes
-Route::get('page/{slug}',CustomPageController::class)->name('custom-page');
+// Custom Page Route
+Route::get('page/{slug}', CustomPageController::class)->name('custom-page');
 
 // Cart Routes
 Route::group([
     'controller' => CartController::class,
     'prefix' => 'cart',
     'as' => 'cart.'
-],function(){
-    Route::get('/','index')->name('index');
-    Route::post('add-to-cart','addToCart')->name('addToCart');
-    Route::get('cart-products','getCartProducts')->name('getCartProducts');
-    Route::get('remove-item/{rowId}','removeCartItem')->name('removeCartItem');
+], function () {
+    Route::get('/', 'index')->name('index');
+    Route::post('add-to-cart', 'addToCart')->name('addToCart');
+    Route::get('cart-products', 'getCartProducts')->name('getCartProducts');
+    Route::get('remove-item/{rowId}', 'removeCartItem')->name('removeCartItem');
     Route::post('qty-update', 'updateCartQty')->name('updateCartQty');
-    Route::get('destroy','cartDestroy')->name('destroy');
+    Route::get('destroy', 'cartDestroy')->name('destroy');
 });
 
 
@@ -153,14 +154,16 @@ Route::group(['middleware' => 'auth'], function () {
         });
 
         // Razorpay Routes
-        Route::get('razorpay/redirect', 'razorpayRedirect')->name('razorpay.redirect');
-        Route::post('razorpay/payment', 'payWithRazorpay')->name('razorpay.payment');
+        Route::group(['prefix' => 'razorpay','as' => 'razorpay.'], function () {
+            Route::get('redirect', 'razorpayRedirect')->name('redirect');
+            Route::post('payment', 'payWithRazorpay')->name('payment');
+
+        });
     });
 
     // Chat Routes
-    Route::post('chat/send-message',[ChatController::class,'sendMessage'])->name('send-message');
+    Route::post('chat/send-message', [ChatController::class, 'sendMessage'])->name('send-message');
     Route::get('chat/get/{receiverId}', [ChatController::class, 'getChat'])->name('chat.get-chat');
-
 });
 
 

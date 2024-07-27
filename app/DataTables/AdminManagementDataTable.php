@@ -28,7 +28,7 @@ class AdminManagementDataTable extends DataTable
                 return $edit . $delete;
             })
             ->addColumn('created_at',function($query){
-                return $query->created_at->diffForHumans();
+                return $query->created_at ? $query->created_at->diffForHumans() : 'Not Determined';
             })
             ->rawColumns(['action'])
             ->setRowId('id');
@@ -39,7 +39,7 @@ class AdminManagementDataTable extends DataTable
      */
     public function query(User $model): QueryBuilder
     {
-        return $model->newQuery()->where('role','admin')->whereNot('id' , 1);
+        return $model->where('role','admin')->newQuery();
     }
 
     /**

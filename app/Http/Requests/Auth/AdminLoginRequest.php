@@ -48,7 +48,8 @@ class AdminLoginRequest extends FormRequest
                 'email' => trans('auth.failed'),
             ]);
         }
-        if ( Auth::user()->role !== 'admin') {
+        $user = Auth::user();
+        if (!$user->role == 'super_admin' || !$user->role == 'admin') {
             Auth::logout(); // Log out the user if role is not admin
             throw ValidationException::withMessages([
                 'email' => trans('auth.failed'),

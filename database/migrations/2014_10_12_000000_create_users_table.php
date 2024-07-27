@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->enum('role',['user','admin'])->default('user');
+            $table->enum('role',['user','admin','super_admin'])->default('user');
             $table->string('avatar')->default('uploads/avatar.png');
             $table->string('name');
             $table->string('email')->unique();

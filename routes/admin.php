@@ -250,11 +250,13 @@ Route::group([
             Route::put('stripe-settings-update', 'stripeSettingUpdate')->name('stripe.settings.update');
             Route::put('razorpay-settings-update', 'razorpaySettingUpdate')->name('razorpay.settings.update');
         });
+        // Clear Database Routes
+        Route::controller(ClearDataBaseController::class)->group(function(){
+            Route::get('clear-database','index')->name('clear-database.index');
+            Route::post('clear-database','clearDatabase')->name('clear-database.destroy');
+        });
     });
 
 
-    // Clear Database Routes
-    Route::get('clear-database',[ClearDataBaseController::class,'index'])->name('clear-database.index');
-    Route::post('clear-database',[ClearDataBaseController::class,'clearDatabase'])->name('clear-database.destroy');
 
 });

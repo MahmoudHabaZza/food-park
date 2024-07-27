@@ -98,7 +98,7 @@
                         $('.chat-content').empty();
 
                         $.each(response,function(index,message){
-                            let avatar = "{{ asset(':avatar') }}".replace(':avatar',message.sender.avatar);
+                            let avatar = message.sender.avatar;
                             let formattedTime = formatDate(new Date(message.created_at));
                             let html = `<div class="chat-item ${message.sender_id == userId ? 'chat-right' : 'chat-left'}" style=""><img src="${avatar}" style="width:50px;height:50px;object-fit:cover;">
                                 <div class="chat-details">

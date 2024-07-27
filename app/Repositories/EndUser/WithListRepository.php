@@ -26,4 +26,20 @@ class WithListRepository implements WithListRepositoryInterface
 
         return response(['status'=> 'success','message' => 'product Added To wishlist successfully']);
     }
+
+    public function destroy(string $id)
+    {
+        try
+        {
+            $wishList = WishList::findOrFail($id);
+            if($wishList && $wishList->user_id === auth()->user()->id){
+                $wishList->delete();
+                return response(['status'=> 'success','message' => 'product deleted from wishlist successfully']);
+            }
+        }
+        catch(\Exception $e)
+        {
+            return response(['status'=> 'error','message' => $e->getMessage()]);
+        }
+    }
 }

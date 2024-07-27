@@ -18,8 +18,8 @@ class DashboardController extends Controller
         $this->dashboardRepository = $dashboardRepository;
     }
     //
-    public function index(){
-        return $this->dashboardRepository->index();
+    public function index(Request $request){
+        return $this->dashboardRepository->index($request);
 
     }
 

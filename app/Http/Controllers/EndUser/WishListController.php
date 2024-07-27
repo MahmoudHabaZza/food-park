@@ -17,4 +17,8 @@ class WishListController extends Controller
     {
         return $this->wishListRepository->store($productId);
     }
+    public function destroy(string $id)
+    {
+        return $this->wishListRepository->destroy($id);
+    }
 }

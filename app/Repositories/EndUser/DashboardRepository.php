@@ -9,11 +9,12 @@ use App\Models\Order;
 use App\Models\ProductRating;
 use App\Models\Reservation;
 use App\Models\WishList;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class DashboardRepository implements DashboardRepositoryInterface
 {
-    public function index()
+    public function index(Request $request)
     {
         $supportedAreas = DeliveryArea::where('status', 1)->get();
         $userAddresses = Address::where('user_id', auth()->user()->id)->get();
@@ -24,6 +25,13 @@ class DashboardRepository implements DashboardRepositoryInterface
         $totalOrders = Order::where('user_id', auth()->user()->id)->count();
         $completedOrders = Order::where('user_id', auth()->user()->id)->where('order_status', 'delivered')->count();
         $canceledOrders = Order::where('user_id', auth()->user()->id)->where('order_status', 'declined')->count();
+
+        if ($request->ajax()) {
+            if ($request->section == 'wishlist') {
+                $view = view('EndUser.Dashboard.Sections.wishlist-section', compact('wishlist'))->render();
+                return response()->json(['html' => $view]);
+            }
+        }
 
         return view('EndUser.Dashboard.index', compact(
             'supportedAreas',

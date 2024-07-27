@@ -77,6 +77,7 @@ Route::controller(HomeController::class)->group(function () {
 
 // WishList Routes
 Route::get('wishlist/{productId}',[WishListController::class,'store'])->name('wishlist.store');
+Route::delete('wishList/{id}',[WishListController::class,'destroy'])->name('wishlist.destroy');
 
 // Custom Page Routes
 Route::get('page/{slug}',CustomPageController::class)->name('custom-page');

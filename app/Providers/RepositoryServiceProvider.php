@@ -36,12 +36,15 @@ use App\Interfaces\Admin\SocialLinkRepositoryInterface;
 use App\Interfaces\Admin\TestimonialRepositoryInterface;
 use App\Interfaces\Admin\WhyChooseUsRepositoryInterface;
 use App\Interfaces\EndUser\AddressRepositoryInterface;
+use App\Interfaces\EndUser\BlogRepositoryInterface as EndUserBlogRepositoryInterface;
 use App\Interfaces\EndUser\CartRepositoryInterface;
 use App\Interfaces\EndUser\ChatRepositoryInterface as EndUserChatRepositoryInterface;
 use App\Interfaces\EndUser\CheckoutRepositoryInterface;
+use App\Interfaces\EndUser\CouponRepositoryInterface as EndUserCouponRepositoryInterface;
 use App\Interfaces\EndUser\DashboardRepositoryInterface;
 use App\Interfaces\EndUser\HomeRepositoryInterface;
 use App\Interfaces\EndUser\PaymentRepositoryInterface;
+use App\Interfaces\EndUser\ProductRepositoryInterface as EndUserProductRepositoryInterface;
 use App\Interfaces\EndUser\ProfileRepositoryInterface as EndUserProfileRepositoryInterface;
 use App\Interfaces\EndUser\WithListRepositoryInterface;
 use App\Repositories\Admin\AboutRepository;
@@ -49,6 +52,7 @@ use App\Repositories\Admin\AdminManagementRepository;
 use App\Repositories\Admin\BannerSliderRepository;
 use App\Repositories\Admin\BlogCategoryRepository;
 use App\Repositories\Admin\BlogRepository;
+use App\Repositories\EndUser\BlogRepository as EndUserBlogRepository;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\ChatRepository;
 use App\Repositories\Admin\ChefRepository;
@@ -81,9 +85,11 @@ use App\Repositories\EndUser\AddressRepository;
 use App\Repositories\EndUser\CartRepository;
 use App\Repositories\EndUser\ChatRepository as EndUserChatRepository;
 use App\Repositories\EndUser\CheckoutRepository;
+use App\Repositories\EndUser\CouponRepository as EndUserCouponRepository;
 use App\Repositories\EndUser\DashboardRepository;
 use App\Repositories\EndUser\HomeRepository;
 use App\Repositories\EndUser\PaymentRepository;
+use App\Repositories\EndUser\ProductRepository as EndUserProductRepository;
 use App\Repositories\EndUser\ProfileRepository as EndUserProfileRepository;
 use App\Repositories\EndUser\WithListRepository;
 use Illuminate\Support\ServiceProvider;
@@ -138,6 +144,9 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(WithListRepositoryInterface::class, WithListRepository::class);
         $this->app->bind(AdminManagementRepositoryInterface::class, AdminManagementRepository::class);
         $this->app->bind(AdminDashboardRepositoryInterface::class, AdminDashboardRepository::class);
+        $this->app->bind(EndUserProductRepositoryInterface::class, EndUserProductRepository::class);
+        $this->app->bind(EndUserCouponRepositoryInterface::class, EndUserCouponRepository::class);
+        $this->app->bind(EndUserBlogRepositoryInterface::class, EndUserBlogRepository::class);
     }
 
     /**

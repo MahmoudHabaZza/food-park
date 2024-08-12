@@ -154,13 +154,13 @@
                             <button type="submit">apply</button>
                         </form>
 
-                        <div class="coupon_card">
+                        <div class="coupon_card" id="coupon_card">
 
                             @if (session()->has('coupon'))
                                 <div class="card mt-3">
                                     <div class="m-2">
                                         <span><b>Applid Coupon : {{ session()->get('coupon')['code'] }}</b></span>
-                                        <span><button><i class="far fa-times" id="remove_coupon"></i></button></span>
+                                        <span id="remove_coupon"><button><i class="far fa-times"></i></button></span>
                                     </div>
                                 </div>
                             @endif
@@ -245,7 +245,7 @@
                 let rowId = $(this).data("id");
                 $.ajax({
                     method: "GET",
-                    url: '{{ route('cart.removeCartItem', ':rowId') }}'.replace(":rowId", rowId),
+                    url: '{{ route("cart.removeCartItem", ":rowId") }}'.replace(":rowId", rowId),
                     beforeSend: function() {
                         showLoader()
                     },
@@ -278,7 +278,7 @@
 
                 $.ajax({
                     method: "POST",
-                    url: '{{ route('cart.updateCartQty') }}',
+                    url: '{{ route("cart.updateCartQty") }}',
                     data: {
                         'rowId': rowId,
                         'qty': qty,
@@ -316,7 +316,7 @@
             function applyCoupon(code, subtotal) {
                 $.ajax({
                     method: 'POST',
-                    url: '{{ route('apply-coupon') }}',
+                    url: '{{ route("apply-coupon") }}',
                     data: {
                         code: code,
                         subtotal: subtotal,
@@ -350,14 +350,17 @@
                 })
             }
 
-            $('.coupon_card').on('click', '#remove_coupon', function() {
+            $('.container').on('click', '#remove_coupon', function() {
                 removeCoupon();
             });
 
             function removeCoupon() {
                 $.ajax({
-                    method: 'GET',
-                    url: '{{ route('remove-coupon') }}',
+                    method: 'DELETE',
+                    url: '{{ route("remove-coupon") }}',
+                    data: {
+                        _token : "{{ csrf_token() }}"
+                    },
                     beforeSend: function() {
                         showLoader();
                     },

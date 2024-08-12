@@ -3,7 +3,6 @@
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminManagementController;
-use App\Http\Controllers\Admin\BannderSliderController;
 use App\Http\Controllers\Admin\BannerSliderController;
 use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\BlogController;

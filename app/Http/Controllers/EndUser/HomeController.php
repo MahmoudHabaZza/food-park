@@ -22,33 +22,6 @@ class HomeController extends Controller
     {
         return $this->homeRepository->index();
     }
-
-    public function allProducts(Request $request)
-    {
-        return $this->homeRepository->allProducts($request);
-    }
-
-    public function showProduct(string $slug)
-    {
-        return $this->homeRepository->showProduct($slug);
-    }
-
-    public function loadProductModal($productId)
-    {
-        return $this->homeRepository->loadProductModal($productId);
-    }
-
-    public function productReviewStore(Request $request)
-    {
-        return $this->homeRepository->productReviewStore($request);
-    }
-
-    public function applyCoupon(Request $request) {
-        return $this->homeRepository->applyCoupon($request);
-    }
-    public function removeCoupon(){
-        return $this->homeRepository->removeCoupon();
-    }
     public function chef(){
         return $this->homeRepository->chef();
     }
@@ -76,15 +49,5 @@ class HomeController extends Controller
     public function subscribeNewsLetter(Request $request)
     {
         return $this->homeRepository->subscribeNewsLetter($request);
-    }
-    public function blogs(Request $request){
-        return $this->homeRepository->blogs($request);
-    }
-    public function blogDetails($slug){
-        return $this->homeRepository->blogDetails($slug);
-    }
-    public function blogCommentStore(Request $request , string $blogId)
-    {
-        return $this->homeRepository->blogCommentStore($request, $blogId);
     }
 }

@@ -19,6 +19,13 @@ class UserSeeder extends Seeder
                 'name' => 'Super Admin',
                 'email' => 'superadmin@foodpark.com',
                 'avatar' => asset('assets/Admin/img/avatar/avatar-1.png'),
+                'role' => 'super_admin',
+                'password' => bcrypt('password')
+            ],
+            [
+                'name' => 'Admin',
+                'email' => 'admin@foodpark.com',
+                'avatar' => asset('assets/Admin/img/avatar/avatar-1.png'),
                 'role' => 'admin',
                 'password' => bcrypt('password')
             ],

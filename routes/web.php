@@ -1,21 +1,18 @@
 <?php
 
-use App\Events\RTOrderPlacedNotificationEvent;
-use App\Http\Controllers\Admin\AdminAuthController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\EndUser\AddressController;
+use App\Http\Controllers\EndUser\BlogController;
 use App\Http\Controllers\EndUser\CartController;
 use App\Http\Controllers\EndUser\ChatController;
 use App\Http\Controllers\EndUser\CheckoutController;
+use App\Http\Controllers\EndUser\CouponController;
 use App\Http\Controllers\EndUser\CustomPageController;
 use App\Http\Controllers\EndUser\DashboardController as EndUserDashboardController;
 use App\Http\Controllers\EndUser\HomeController;
 use App\Http\Controllers\EndUser\PaymentController;
+use App\Http\Controllers\EndUser\ProductController;
 use App\Http\Controllers\EndUser\ProfileController as EndUserProfileController;
 use App\Http\Controllers\EndUser\WishListController;
-use App\Http\Controllers\ProfileController;
-use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,31 +31,11 @@ Route::controller(HomeController::class)->group(function () {
     // Home routes
     Route::get('/', 'index')->name('home');
 
-    // Product routes
-    Route::prefix('product')->as('product.')->group(function () {
-        Route::get('/', 'allProducts')->name('index');
-        Route::get('{slug}', 'showProduct')->name('show');
-        Route::get('load-modal/{productId}', 'loadProductModal')->name('load-modal');
-        // Product Review
-        Route::post('product-review', 'productReviewStore')->name('product-review.store');
-    });
-
-    // Cart Coupon Routes
-    Route::post('/apply-coupon', 'applyCoupon')->name('apply-coupon');
-    Route::delete('/remove-coupon', 'removeCoupon')->name('remove-coupon');
-
     // Chef routes
     Route::get('/chefs', 'chef')->name('chef.index');
 
     // Testimonial routes
     Route::get('/testimonials', 'testimonials')->name('testimonial.index');
-
-    // Blog routes
-    Route::prefix('blogs')->as('blogs.')->group(function () {
-        Route::get('/', 'blogs')->name('index');
-        Route::get('/{slug}', 'blogDetails')->name('details');
-        Route::post('/comment/{blogId}', 'blogCommentStore')->name('comment.store');
-    });
 
     // About
     Route::get('/about', 'about')->name('about');
@@ -73,6 +50,27 @@ Route::controller(HomeController::class)->group(function () {
     // Subscribe News Letter
     Route::post('subscribe-news-letter', 'subscribeNewsLetter')->name('subscribe-news-letter');
 });
+// Product routes
+Route::prefix('product')->as('product.')->controller(ProductController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('{slug}', 'showProduct')->name('show');
+    Route::get('load-modal/{productId}', 'loadProductModal')->name('load-modal');
+    // Product Review
+    Route::post('product-review', 'productReviewStore')->name('product-review.store');
+});
+// Cart Coupon Routes
+Route::controller(CouponController::class)->group(function(){
+    Route::post('/apply-coupon', 'applyCoupon')->name('apply-coupon');
+    Route::delete('/remove-coupon', 'removeCoupon')->name('remove-coupon');
+});
+// Blog routes
+Route::prefix('blogs')->as('blogs.')->controller(BlogController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/{slug}', 'blogDetails')->name('details');
+    Route::post('/comment/{blogId}', 'blogCommentStore')->name('comment.store');
+});
+
+
 
 // WishList Routes
 Route::controller(WishListController::class)->group(function () {
